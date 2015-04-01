@@ -1,0 +1,2385 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#   * hr
+#   * hr_contract
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.saas~5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-29 05:55+0000\n"
+"PO-Revision-Date: 2014-10-29 05:55+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_payroll
+#: code:addons/hr_payroll/hr_payroll.py:89
+#, python-format
+msgid "%s (copy)"
+msgstr "%s (cópia)"
+
+#. module: hr_payroll
+#: help:hr.payslip,state:0
+msgid "* When the payslip is created the status is 'Draft'.            \n"
+"* If the payslip is under verification, the status is 'Waiting'.             \n"
+"* If the payslip is confirmed then status is set to 'Done'.            \n"
+"* When user cancel payslip the status is 'Rejected'."
+msgstr "* Quando o holerite é criado o estado é 'Provisório'.\n"
+"* Se o holerite está sob verificação, a situação 'Aguardando'.\n"
+"* Se o holerite é confirmado em seguida a situação é definida como 'Concluído'.\n"
+"* Quando o usuário cancelar o holerite a situação é 'Rejeitado'."
+
+#. module: hr_payroll
+#: model:ir.actions.act_window,help:hr_payroll.action_contribution_register_form
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"                Click to add a new contribution register.\n"
+"              </p><p>\n"
+"                A contribution register is a third party involved in the salary\n"
+"                payment of the employees. It can be the social security, the\n"
+"                estate or anyone that collect or inject money on payslips.\n"
+"              </p>\n"
+"            "
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"                Clique para adicionar um novo registo de contribuição.\n"
+"              </p><p>\n"
+"               Um registo de contribuição é um terceiro envolvido no pagamento do\n"
+"               salário dos funcionários. Ela pode ser a INSSl, o\n"
+"               Governo ou qualquer pessoa que coletar ou injetar dinheiro no holerites.\n"
+"              </p>\n"
+"            "
+
+#. module: hr_payroll
+#: view:hr.payslip:0
+msgid "Accounting"
+msgstr "Contabilidade"
+
+#. module: hr_payroll
+#: view:hr.payslip:0
+msgid "Accounting Information"
+msgstr "Informação Contábil"
+
+#. module: hr_payroll
+#: field:hr.payslip.line,active:0
+#: field:hr.salary.rule,active:0
+msgid "Active"
+msgstr "Ativo"
+
+#. module: hr_payroll
+#: view:False:0
+msgid "Address"
+msgstr "Endereço"
+
+#. module: hr_payroll
+#: model:ir.actions.act_window,name:hr_payroll.act_children_salary_rules
+msgid "All Children Rules"
+msgstr "Todas as Regras Subordinadas"
+
+#. module: hr_payroll
+#: selection:hr.payslip.line,condition_select:0
+#: selection:hr.salary.rule,condition_select:0
+msgid "Always True"
+msgstr "Sempre Verdadeiro"
+
+#. module: hr_payroll
+#: view:False:0
+#: field:hr.payslip.input,amount:0
+#: field:hr.payslip.line,amount:0
+msgid "Amount"
+msgstr "Valor"
+
+#. module: hr_payroll
+#: view:hr.payslip.line:0
+#: field:hr.payslip.line,amount_select:0
+#: field:hr.salary.rule,amount_select:0
+msgid "Amount Type"
+msgstr "Tipo de Montante"
+
+#. module: hr_payroll
+#: selection:hr.contract,schedule_pay:0
+msgid "Annually"
+msgstr "Anual"
+
+#. module: hr_payroll
+#: field:hr.payslip.line,appears_on_payslip:0
+#: field:hr.salary.rule,appears_on_payslip:0
+msgid "Appears on Payslip"
+msgstr "Aparece em Holerite"
+
+#. module: hr_payroll
+#: help:hr.payslip.line,condition_python:0
+#: help:hr.salary.rule,condition_python:0
+msgid "Applied this rule for calculation if condition is true. You can specify condition like basic > 1000."
+msgstr "Aplicada esta regra para o cálculo se a condição é verdadeira. Você pode especificar como condição básica> 1000."
+
+#. module: hr_payroll
+#: view:False:0
+msgid "Authorized signature"
+msgstr "Assinatura Funcionário"
+
+#. module: hr_payroll
+#: view:False:0
+msgid "Bank Account"
+msgstr "Conta Bancária"
+
+#. module: hr_payroll
+#: selection:hr.contract,schedule_pay:0
+msgid "Bi-monthly"
+msgstr "Bimestral"
+
+#. module: hr_payroll
+#: selection:hr.contract,schedule_pay:0
+msgid "Bi-weekly"
+msgstr "Quinzenal"
+
+#. module: hr_payroll
+#: view:hr.payslip.line:0
+msgid "Calculations"
+msgstr "Cálculos"
+
+#. module: hr_payroll
+#: view:payslip.lines.contribution.register:0
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: hr_payroll
+#: view:hr.payslip:0
+msgid "Cancel Payslip"
+msgstr "Cancelar Holerite"
+
+#. module: hr_payroll
+#: field:hr.payslip.line,category_id:0
+#: view:hr.salary.rule:0
+#: field:hr.salary.rule,category_id:0
+msgid "Category"
+msgstr "Categoria"
+
+#. module: hr_payroll
+#: view:hr.salary.rule:0
+msgid "Child Rules"
+msgstr "Regras Subordinadas"
+
+#. module: hr_payroll
+#: field:hr.payslip.line,child_ids:0
+#: field:hr.salary.rule,child_ids:0
+msgid "Child Salary Rule"
+msgstr "Regra de Salário Subordinado"
+
+#. module: hr_payroll
+#: field:hr.payroll.structure,children_ids:0
+#: field:hr.salary.rule.category,children_ids:0
+msgid "Children"
+msgstr "Filhos"
+
+#. module: hr_payroll
+#: view:hr.salary.rule:0
+msgid "Children Definition"
+msgstr "Definição do subdiretório"
+
+#. module: hr_payroll
+#: view:hr.payslip.run:0
+#: selection:hr.payslip.run,state:0
+msgid "Close"
+msgstr "Fechar"
+
+#. module: hr_payroll
+#: view:False:0
+#: field:hr.payslip.input,code:0
+#: field:hr.payslip.line,code:0
+#: field:hr.payslip.worked_days,code:0
+#: field:hr.rule.input,code:0
+#: field:hr.salary.rule,code:0
+#: field:hr.salary.rule.category,code:0
+msgid "Code"
+msgstr "Código"
+
+#. module: hr_payroll
+#: view:hr.payslip:0
+msgid "Companies"
+msgstr "Empresas"
+
+#. module: hr_payroll
+#: field:hr.contribution.register,company_id:0
+#: field:hr.payroll.structure,company_id:0
+#: field:hr.payslip,company_id:0
+#: field:hr.payslip.line,company_id:0
+#: field:hr.salary.rule,company_id:0
+#: field:hr.salary.rule.category,company_id:0
+msgid "Company"
+msgstr "Empresa"
+
+#. module: hr_payroll
+#: view:hr.salary.rule:0
+msgid "Company Contribution"
+msgstr "Contribuição da Empresa"
+
+#. module: hr_payroll
+#: view:hr.salary.rule:0
+msgid "Computation"
+msgstr "Calcular"
+
+#. module: hr_payroll
+#: view:hr.payslip:0
+msgid "Compute Sheet"
+msgstr "Computar Folha"
+
+#. module: hr_payroll
+#: field:hr.payslip.line,condition_select:0
+#: field:hr.salary.rule,condition_select:0
+msgid "Condition Based on"
+msgstr "Com base na condição"
+
+#. module: hr_payroll
+#: view:hr.salary.rule:0
+msgid "Conditions"
+msgstr "Condições"
+
+#. module: hr_payroll
+#: view:hr.payslip:0
+msgid "Confirm"
+msgstr "Confirmar"
+
+#. module: hr_payroll
+#: field:hr.payslip,contract_id:0
+#: field:hr.payslip.input,contract_id:0
+#: field:hr.payslip.line,contract_id:0
+#: field:hr.payslip.worked_days,contract_id:0
+#: model:ir.model,name:hr_payroll.model_hr_contract
+msgid "Contract"
+msgstr "Contrato"
+
+#. module: hr_payroll
+#: view:hr.contribution.register:0
+msgid "Contribution"
+msgstr "Contribuição"
+
+#. module: hr_payroll
+#: view:hr.payslip.line:0
+#: field:hr.payslip.line,register_id:0
+#: field:hr.salary.rule,register_id:0
+#: model:ir.model,name:hr_payroll.model_hr_contribution_register
+msgid "Contribution Register"
+msgstr "Contribuição do Registro"
+
+#. module: hr_payroll
+#: view:payslip.lines.contribution.register:0
+msgid "Contribution Register's Payslip Lines"
+msgstr "Contribuição para Registrar linhas dos Holerites"
+
+#. module: hr_payroll
+#: view:hr.contribution.register:0
+#: model:ir.actions.act_window,name:hr_payroll.action_contribution_register_form
+#: model:ir.ui.menu,name:hr_payroll.menu_action_hr_contribution_register_form
+msgid "Contribution Registers"
+msgstr "Registro de Contribuição"
+
+#. module: hr_payroll
+#: help:hr.config.settings,module_hr_payroll_account:0
+msgid "Create journal entries from payslips"
+msgstr "Criar lançamentos de diário a partir de holetires"
+
+#. module: hr_payroll
+#: field:hr.payslip,credit_note:0
+#: field:hr.payslip.run,credit_note:0
+msgid "Credit Note"
+msgstr "Anotação de crédito"
+
+#. module: hr_payroll
+#: view:False:0
+#: field:hr.payslip,date_from:0
+#: field:hr.payslip.run,date_start:0
+#: field:payslip.lines.contribution.register,date_from:0
+msgid "Date From"
+msgstr "Do dia"
+
+#. module: hr_payroll
+#: view:False:0
+msgid "Date From:"
+msgstr "Data de:"
+
+#. module: hr_payroll
+#: view:False:0
+#: field:hr.payslip,date_to:0
+#: field:hr.payslip.run,date_end:0
+#: field:payslip.lines.contribution.register,date_to:0
+msgid "Date To"
+msgstr "Data até"
+
+#. module: hr_payroll
+#: view:False:0
+msgid "Date To:"
+msgstr "Data até:"
+
+#. module: hr_payroll
+#: help:hr.payslip,struct_id:0
+msgid "Defines the rules that have to be applied to this payslip, accordingly to the contract chosen. If you let empty the field contract, this field isn't mandatory anymore and thus the rules applied will be all the rules set on the structure of all contracts of the employee valid for the chosen period"
+msgstr "Define as regras que têm de ser aplicadas a este holerite, de acordo com o contrato escolhido. Se você deixar em branco o campo contrato, este campo não é obrigatório e, portanto, as regras aplicadas serão as regras definidas na estrutura de todos os contratos do funcionário válida para o período escolhido"
+
+#. module: hr_payroll
+#: view:hr.contribution.register:0
+#: field:hr.contribution.register,note:0
+#: field:hr.payroll.structure,note:0
+#: field:hr.payslip.input,name:0
+#: field:hr.payslip.line,note:0
+#: field:hr.payslip.worked_days,name:0
+#: field:hr.rule.input,name:0
+#: view:hr.salary.rule:0
+#: field:hr.salary.rule,note:0
+#: field:hr.salary.rule.category,note:0
+msgid "Description"
+msgstr "Descrição"
+
+#. module: hr_payroll
+#: view:False:0
+msgid "Designation"
+msgstr "Cargo"
+
+#. module: hr_payroll
+#: view:hr.payslip:0
+msgid "Details By Salary Rule Category"
+msgstr "Detalhes por Categoria de Regra de Salário"
+
+#. module: hr_payroll
+#: view:False:0
+#: field:hr.payslip,details_by_salary_rule_category:0
+msgid "Details by Salary Rule Category"
+msgstr "Detalhes por Categoria de Regras de Salário"
+
+#. module: hr_payroll
+#: view:hr.payslip:0
+#: selection:hr.payslip,state:0
+#: view:hr.payslip.run:0
+msgid "Done"
+msgstr "Concluído"
+
+#. module: hr_payroll
+#: view:hr.payslip.run:0
+msgid "Done Payslip Batches"
+msgstr "Lotes de Holerites Concluídos"
+
+#. module: hr_payroll
+#: view:hr.payslip:0
+msgid "Done Slip"
+msgstr "Holerite Concluído"
+
+#. module: hr_payroll
+#: view:hr.payslip:0
+#: selection:hr.payslip,state:0
+#: view:hr.payslip.run:0
+#: selection:hr.payslip.run,state:0
+msgid "Draft"
+msgstr "Rascunho"
+
+#. module: hr_payroll
+#: view:hr.payslip.run:0
+msgid "Draft Payslip Batches"
+msgstr "Lotes de Holerites Temporários"
+
+#. module: hr_payroll
+#: view:hr.payslip:0
+msgid "Draft Slip"
+msgstr "Holerites Provisórios"
+
+#. module: hr_payroll
+#: view:False:0
+msgid "Email"
+msgstr "Email"
+
+#. module: hr_payroll
+#: field:hr.payslip,employee_id:0
+#: field:hr.payslip.line,employee_id:0
+#: model:ir.model,name:hr_payroll.model_hr_employee
+msgid "Employee"
+msgstr "Funcionário"
+
+#. module: hr_payroll
+#: view:hr.payroll.structure:0
+msgid "Employee Function"
+msgstr "Função do Funcionário"
+
+#. module: hr_payroll
+#: model:ir.actions.act_window,name:hr_payroll.action_view_hr_payslip_form
+#: model:ir.ui.menu,name:hr_payroll.menu_department_tree
+msgid "Employee Payslips"
+msgstr "Holerites do Funcionário"
+
+#. module: hr_payroll
+#: view:hr.payslip:0
+#: view:hr.payslip.employees:0
+#: field:hr.payslip.employees,employee_ids:0
+#: view:hr.payslip.line:0
+msgid "Employees"
+msgstr "Funcionários"
+
+#. module: hr_payroll
+#: constraint:hr.payroll.structure:0
+msgid "Error ! You cannot create a recursive Salary Structure."
+msgstr "Erro! Não pode criar uma estrutura recursiva."
+
+#. module: hr_payroll
+#: code:addons/hr_payroll/hr_payroll.py:869
+#: code:addons/hr_payroll/hr_payroll.py:874
+#: code:addons/hr_payroll/hr_payroll.py:880
+#: code:addons/hr_payroll/hr_payroll.py:897
+#: code:addons/hr_payroll/hr_payroll.py:903
+#, python-format
+msgid "Error!"
+msgstr "Erro!"
+
+#. module: hr_payroll
+#: help:hr.payslip.line,register_id:0
+#: help:hr.salary.rule,register_id:0
+msgid "Eventual third party involved in the salary payment of the employees."
+msgstr "Eventuais terceiros envolvidos no pagamento de salário dos funcionários."
+
+#. module: hr_payroll
+#: field:hr.payslip.line,amount_fix:0
+#: selection:hr.payslip.line,amount_select:0
+#: field:hr.salary.rule,amount_fix:0
+#: selection:hr.salary.rule,amount_select:0
+msgid "Fixed Amount"
+msgstr "Quantidade Fixa"
+
+#. module: hr_payroll
+#: help:hr.payslip.line,amount_percentage:0
+#: help:hr.salary.rule,amount_percentage:0
+msgid "For example, enter 50.0 to apply a percentage of 50%"
+msgstr "Por exemplo, digite 50.0 para aplicar um percentual de 50%"
+
+#. module: hr_payroll
+#: view:hr.salary.rule:0
+msgid "General"
+msgstr "Geral"
+
+#. module: hr_payroll
+#: view:hr.payslip.employees:0
+msgid "Generate"
+msgstr "Gerar"
+
+#. module: hr_payroll
+#: view:hr.payslip.run:0
+#: model:ir.actions.act_window,name:hr_payroll.action_hr_payslip_by_employees
+msgid "Generate Payslips"
+msgstr "Gerar Holerites"
+
+#. module: hr_payroll
+#: model:ir.model,name:hr_payroll.model_hr_payslip_employees
+msgid "Generate payslips for all selected employees"
+msgstr "Gerar holerites para todos os funcionários selecionados"
+
+#. module: hr_payroll
+#: view:hr.payslip:0
+#: view:hr.payslip.line:0
+#: view:hr.salary.rule:0
+msgid "Group By..."
+msgstr "Agrupar Por..."
+
+#. module: hr_payroll
+#: view:False:0
+msgid "Identification No"
+msgstr "Função"
+
+#. module: hr_payroll
+#: help:hr.payslip.run,credit_note:0
+msgid "If its checked, indicates that all payslips generated from here are refund payslips."
+msgstr "Se a sua marcada, indica que todos os recibos gerados a partir daqui são recibos de reembolso."
+
+#. module: hr_payroll
+#: help:hr.payslip.line,active:0
+#: help:hr.salary.rule,active:0
+msgid "If the active field is set to false, it will allow you to hide the salary rule without removing it."
+msgstr "Se o campo ativo é definido com falso, ela permitirá que você esconda a regra de salário sem removê-lo."
+
+#. module: hr_payroll
+#: help:hr.payslip,credit_note:0
+msgid "Indicates this payslip has a refund of another"
+msgstr "Indica que este holerite tem um reembolso de outro"
+
+#. module: hr_payroll
+#: view:hr.payslip:0
+#: view:hr.salary.rule:0
+msgid "Input Data"
+msgstr "Dados de Entrada"
+
+#. module: hr_payroll
+#: field:hr.payslip.line,input_ids:0
+#: view:hr.salary.rule:0
+#: field:hr.salary.rule,input_ids:0
+msgid "Inputs"
+msgstr "Entradas"
+
+#. module: hr_payroll
+#: field:hr.payslip,note:0
+msgid "Internal Note"
+msgstr "Nota Interna"
+
+#. module: hr_payroll
+#: help:hr.salary.rule,quantity:0
+msgid "It is used in computation for percentage and fixed amount.For e.g. A rule for Meal Voucher having fixed amount of 1€ per worked day can have its quantity defined in expression like worked_days.WORK100.number_of_days."
+msgstr "Ele é usado no cálculo da percentagem e, por uma porcentagem de valor fixo . Por exemplo A regra vale-refeição para ter valor fixo de R$ 10 por dia de trabalho pode ter sua quantidade definida na expressão como worked_days.WORK100.number_of_days."
+
+#. module: hr_payroll
+#: help:hr.payslip.input,amount:0
+msgid "It is used in computation. For e.g. A rule for sales having 1% commission of basic salary for per product can defined in expression like result = inputs.SALEURO.amount * contract.wage*0.01."
+msgstr "É utilizado no cálculo. Para por exemplo, A regra para as vendas com comissão de 1% do salário base por produto podem definido na expressão como resultado = inputs.SALEURO.amount * contract.wage * 0,01."
+
+#. module: hr_payroll
+#: field:hr.config.settings,module_hr_payroll_account:0
+msgid "Link your payroll to accounting system"
+msgstr "Associar a folha de pagamento a contabilidade"
+
+#. module: hr_payroll
+#: help:hr.salary.rule.category,parent_id:0
+msgid "Linking a salary category to its parent is used only for the reporting purpose."
+msgstr "Ligando uma categoria de salário para seu diretório é usado apenas para fins de relatórios."
+
+#. module: hr_payroll
+#: field:hr.payslip,paid:0
+msgid "Made Payment Order ? "
+msgstr "Ordem de pagamento feita? "
+
+#. module: hr_payroll
+#: field:hr.payslip.line,condition_range_max:0
+#: field:hr.salary.rule,condition_range_max:0
+msgid "Maximum Range"
+msgstr "Faixa Máxima"
+
+#. module: hr_payroll
+#: field:hr.payslip.line,condition_range_min:0
+#: field:hr.salary.rule,condition_range_min:0
+msgid "Minimum Range"
+msgstr "Faixa Mínima"
+
+#. module: hr_payroll
+#: view:hr.payslip:0
+msgid "Miscellaneous"
+msgstr "Diversos"
+
+#. module: hr_payroll
+#: selection:hr.contract,schedule_pay:0
+msgid "Monthly"
+msgstr "Mensal"
+
+#. module: hr_payroll
+#: view:False:0
+#: field:hr.contribution.register,name:0
+#: field:hr.payroll.structure,name:0
+#: field:hr.payslip.line,name:0
+#: field:hr.payslip.run,name:0
+#: field:hr.salary.rule,name:0
+#: field:hr.salary.rule.category,name:0
+msgid "Name"
+msgstr "Nome"
+
+#. module: hr_payroll
+#: code:addons/hr_payroll/hr_payroll.py:432
+#, python-format
+msgid "Normal Working Days paid at 100%"
+msgstr "Dias normais trabalhados pagos 100%"
+
+#. module: hr_payroll
+#: view:hr.salary.rule.category:0
+msgid "Notes"
+msgstr "Anotações"
+
+#. module: hr_payroll
+#: field:hr.payslip.worked_days,number_of_days:0
+msgid "Number of Days"
+msgstr "Número de Dias"
+
+#. module: hr_payroll
+#: field:hr.payslip.worked_days,number_of_hours:0
+msgid "Number of Hours"
+msgstr "Número de Horas"
+
+#. module: hr_payroll
+#: view:hr.payslip:0
+msgid "Other Inputs"
+msgstr "Outras Entradas"
+
+#. module: hr_payroll
+#: field:hr.payroll.structure,parent_id:0
+#: field:hr.salary.rule.category,parent_id:0
+msgid "Parent"
+msgstr "Superior (Conta-pai)"
+
+#. module: hr_payroll
+#: field:hr.payslip.line,parent_rule_id:0
+#: field:hr.salary.rule,parent_rule_id:0
+msgid "Parent Salary Rule"
+msgstr "Regra de Salário Principal"
+
+#. module: hr_payroll
+#: field:hr.contribution.register,partner_id:0
+msgid "Partner"
+msgstr "Parceiro"
+
+#. module: hr_payroll
+#: view:False:0
+#: field:hr.payslip.input,payslip_id:0
+#: field:hr.payslip.line,slip_id:0
+#: field:hr.payslip.worked_days,payslip_id:0
+#: model:ir.model,name:hr_payroll.model_hr_payslip
+msgid "Pay Slip"
+msgstr "Holerite"
+
+#. module: hr_payroll
+#: view:hr.payslip:0
+msgid "PaySlip Batch"
+msgstr "Lote de Holerites"
+
+#. module: hr_payroll
+#: model:ir.actions.report.xml,name:hr_payroll.payslip_details_report
+msgid "PaySlip Details"
+msgstr "Detalhes do Holerite"
+
+#. module: hr_payroll
+#: model:ir.actions.act_window,name:hr_payroll.action_payslip_lines_contribution_register
+msgid "PaySlip Lines"
+msgstr "Linhas do Holerite"
+
+#. module: hr_payroll
+#: model:ir.actions.report.xml,name:hr_payroll.action_contribution_register
+msgid "PaySlip Lines By Conribution Register"
+msgstr "PaySlip Lines By Conribution Register"
+
+#. module: hr_payroll
+#: view:False:0
+msgid "PaySlip Lines by Contribution Register"
+msgstr "Linhas de Holerite por Registo de Contribuição"
+
+#. module: hr_payroll
+#: model:ir.model,name:hr_payroll.model_payslip_lines_contribution_register
+msgid "PaySlip Lines by Contribution Registers"
+msgstr "Linhas de Holerite por Registo de Contribuições"
+
+#. module: hr_payroll
+#: view:False:0
+msgid "PaySlip Name"
+msgstr "Nome da Holerite"
+
+#. module: hr_payroll
+#: model:ir.ui.menu,name:hr_payroll.menu_hr_payroll_reporting
+#: model:ir.ui.menu,name:hr_payroll.menu_hr_root_payroll
+#: model:ir.ui.menu,name:hr_payroll.payroll_configure
+msgid "Payroll"
+msgstr "Folha de Pagamento"
+
+#. module: hr_payroll
+#: view:hr.payroll.structure:0
+msgid "Payroll Structures"
+msgstr "Estruturas de folha de pagamento"
+
+#. module: hr_payroll
+#: view:hr.payslip:0
+#: model:ir.actions.report.xml,name:hr_payroll.action_report_payslip
+msgid "Payslip"
+msgstr "Holerite"
+
+#. module: hr_payroll
+#: constraint:hr.payslip:0
+msgid "Payslip 'Date From' must be before 'Date To'."
+msgstr "'Data de' contra cheque deve ser antes de 'Data até'"
+
+#. module: hr_payroll
+#: field:hr.payslip,payslip_run_id:0
+#: view:hr.payslip.run:0
+#: model:ir.model,name:hr_payroll.model_hr_payslip_run
+msgid "Payslip Batches"
+msgstr "Lotes de Holerite"
+
+#. module: hr_payroll
+#: view:hr.payslip:0
+#: field:hr.payslip,payslip_count:0
+#: model:ir.actions.act_window,name:hr_payroll.act_payslip_lines
+msgid "Payslip Computation Details"
+msgstr "Detalhes do Cálculo de Holerite"
+
+#. module: hr_payroll
+#: model:ir.model,name:hr_payroll.model_hr_payslip_input
+msgid "Payslip Input"
+msgstr "Entrada de Holerite"
+
+#. module: hr_payroll
+#: field:hr.payslip,input_line_ids:0
+msgid "Payslip Inputs"
+msgstr "Entradas de Holerites"
+
+#. module: hr_payroll
+#: view:hr.payslip:0
+#: view:hr.payslip.line:0
+#: model:ir.model,name:hr_payroll.model_hr_payslip_line
+msgid "Payslip Line"
+msgstr "Linha de Holerite"
+
+#. module: hr_payroll
+#: view:hr.payslip:0
+#: field:hr.payslip,line_ids:0
+#: view:hr.payslip.line:0
+#: model:ir.actions.act_window,name:hr_payroll.act_contribution_reg_payslip_lines
+msgid "Payslip Lines"
+msgstr "Linhas do Holerite"
+
+#. module: hr_payroll
+#: view:False:0
+msgid "Payslip Lines by Contribution Register"
+msgstr "Linhas de Holerite por Registo de Contribuição"
+
+#. module: hr_payroll
+#: field:hr.payslip,name:0
+msgid "Payslip Name"
+msgstr "Nome do Holerite"
+
+#. module: hr_payroll
+#: field:hr.payslip,worked_days_line_ids:0
+#: model:ir.model,name:hr_payroll.model_hr_payslip_worked_days
+msgid "Payslip Worked Days"
+msgstr "Holerites de Dias Trabalhados"
+
+#. module: hr_payroll
+#: view:hr.employee:0
+#: field:hr.employee,payslip_count:0
+#: field:hr.employee,slip_ids:0
+#: view:hr.payslip:0
+#: view:hr.payslip.run:0
+#: field:hr.payslip.run,slip_ids:0
+#: model:ir.actions.act_window,name:hr_payroll.act_hr_employee_payslip_list
+msgid "Payslips"
+msgstr "Holerites"
+
+#. module: hr_payroll
+#: view:hr.payslip.run:0
+#: model:ir.actions.act_window,name:hr_payroll.action_hr_payslip_run_tree
+#: model:ir.ui.menu,name:hr_payroll.menu_hr_payslip_run
+msgid "Payslips Batches"
+msgstr "Lote de Holerites"
+
+#. module: hr_payroll
+#: view:hr.payslip.employees:0
+msgid "Payslips by Employees"
+msgstr "Holerites por Funcionários"
+
+#. module: hr_payroll
+#: field:hr.payslip.line,amount_percentage:0
+#: selection:hr.payslip.line,amount_select:0
+#: field:hr.salary.rule,amount_percentage:0
+#: selection:hr.salary.rule,amount_select:0
+msgid "Percentage (%)"
+msgstr "Porcentagem (%)"
+
+#. module: hr_payroll
+#: field:hr.payslip.line,amount_percentage_base:0
+#: field:hr.salary.rule,amount_percentage_base:0
+msgid "Percentage based on"
+msgstr "Porcentagem baseada na"
+
+#. module: hr_payroll
+#: view:hr.payslip:0
+#: view:hr.payslip.run:0
+msgid "Period"
+msgstr "Período"
+
+#. module: hr_payroll
+#: view:payslip.lines.contribution.register:0
+msgid "Print"
+msgstr "Imprimir"
+
+#. module: hr_payroll
+#: field:hr.payslip.line,amount_python_compute:0
+#: selection:hr.payslip.line,amount_select:0
+#: field:hr.salary.rule,amount_python_compute:0
+#: selection:hr.salary.rule,amount_select:0
+msgid "Python Code"
+msgstr "Código Python"
+
+#. module: hr_payroll
+#: field:hr.payslip.line,condition_python:0
+#: field:hr.salary.rule,condition_python:0
+msgid "Python Condition"
+msgstr "Condição Python"
+
+#. module: hr_payroll
+#: selection:hr.payslip.line,condition_select:0
+#: selection:hr.salary.rule,condition_select:0
+msgid "Python Expression"
+msgstr "Expressão Python"
+
+#. module: hr_payroll
+#: field:hr.payslip.line,quantity:0
+#: field:hr.salary.rule,quantity:0
+msgid "Quantity"
+msgstr "Quantidade"
+
+#. module: hr_payroll
+#: view:False:0
+msgid "Quantity/Rate"
+msgstr "Quantidade/Taxa"
+
+#. module: hr_payroll
+#: view:False:0
+msgid "Quantity/rate"
+msgstr "Quantidade/Taxa"
+
+#. module: hr_payroll
+#: selection:hr.contract,schedule_pay:0
+msgid "Quarterly"
+msgstr "Trimestralmente"
+
+#. module: hr_payroll
+#: selection:hr.payslip.line,condition_select:0
+#: selection:hr.salary.rule,condition_select:0
+msgid "Range"
+msgstr "Intervalo"
+
+#. module: hr_payroll
+#: field:hr.payslip.line,condition_range:0
+#: field:hr.salary.rule,condition_range:0
+msgid "Range Based on"
+msgstr "Com base na Faixa de"
+
+#. module: hr_payroll
+#: field:hr.payslip.line,rate:0
+msgid "Rate (%)"
+msgstr "Taxa (%)"
+
+#. module: hr_payroll
+#: view:False:0
+#: field:hr.payroll.structure,code:0
+#: field:hr.payslip,number:0
+msgid "Reference"
+msgstr "Referência"
+
+#. module: hr_payroll
+#: view:hr.payslip:0
+msgid "Refund"
+msgstr "Reembolso"
+
+#. module: hr_payroll
+#: code:addons/hr_payroll/hr_payroll.py:351
+#, python-format
+msgid "Refund Payslip"
+msgstr "Holerites de Reembolso"
+
+#. module: hr_payroll
+#: code:addons/hr_payroll/hr_payroll.py:341
+#, python-format
+msgid "Refund: "
+msgstr "Reembolso: "
+
+#. module: hr_payroll
+#: field:hr.contribution.register,register_line_ids:0
+msgid "Register Line"
+msgstr "Registrar Linha"
+
+#. module: hr_payroll
+#: view:False:0
+msgid "Register Name:"
+msgstr "Nome de Registo:"
+
+#. module: hr_payroll
+#: selection:hr.payslip,state:0
+msgid "Rejected"
+msgstr "Rejeitado"
+
+#. module: hr_payroll
+#: field:hr.payslip.line,salary_rule_id:0
+msgid "Rule"
+msgstr "Regra"
+
+#. module: hr_payroll
+#: view:hr.salary.rule.category:0
+msgid "Salary Categories"
+msgstr "Categorias de Salário"
+
+#. module: hr_payroll
+#: view:hr.payslip:0
+msgid "Salary Computation"
+msgstr "Cálculo do Salário"
+
+#. module: hr_payroll
+#: view:hr.salary.rule.category:0
+#: model:ir.actions.act_window,name:hr_payroll.action_hr_salary_rule_category
+#: model:ir.ui.menu,name:hr_payroll.menu_hr_salary_rule_category
+msgid "Salary Rule Categories"
+msgstr "Categoria de Regras de Salário"
+
+#. module: hr_payroll
+#: model:ir.actions.act_window,name:hr_payroll.action_hr_salary_rule_category_tree_view
+#: model:ir.ui.menu,name:hr_payroll.menu_hr_salary_rule_category_tree_view
+msgid "Salary Rule Categories Hierarchy"
+msgstr "Hierarquia da Regra de Salário"
+
+#. module: hr_payroll
+#: view:False:0
+#: view:hr.payslip.line:0
+#: model:ir.model,name:hr_payroll.model_hr_salary_rule_category
+msgid "Salary Rule Category"
+msgstr "Categoria de Regras de Salário"
+
+#. module: hr_payroll
+#: field:hr.rule.input,input_id:0
+#: model:ir.model,name:hr_payroll.model_hr_rule_input
+msgid "Salary Rule Input"
+msgstr "Regra de Entrada de Salário"
+
+#. module: hr_payroll
+#: view:hr.payroll.structure:0
+#: field:hr.payroll.structure,rule_ids:0
+#: view:hr.salary.rule:0
+#: model:ir.actions.act_window,name:hr_payroll.action_salary_rule_form
+#: model:ir.ui.menu,name:hr_payroll.menu_action_hr_salary_rule_form
+msgid "Salary Rules"
+msgstr "Regras de Salários"
+
+#. module: hr_payroll
+#: code:addons/hr_payroll/hr_payroll.py:675
+#, python-format
+msgid "Salary Slip of %s for %s"
+msgstr "Folha de Pagamento de %s para %s"
+
+#. module: hr_payroll
+#: field:hr.contract,struct_id:0
+#: view:hr.payroll.structure:0
+#: view:hr.payslip:0
+#: view:hr.payslip.line:0
+#: model:ir.model,name:hr_payroll.model_hr_payroll_structure
+msgid "Salary Structure"
+msgstr "Estrutura do Salário"
+
+#. module: hr_payroll
+#: model:ir.actions.act_window,name:hr_payroll.action_view_hr_payroll_structure_list_form
+#: model:ir.ui.menu,name:hr_payroll.menu_hr_payroll_structure_view
+msgid "Salary Structures"
+msgstr "Estrutura de Salários"
+
+#. module: hr_payroll
+#: model:ir.actions.act_window,name:hr_payroll.action_view_hr_payroll_structure_tree
+#: model:ir.ui.menu,name:hr_payroll.menu_hr_payroll_structure_tree
+msgid "Salary Structures Hierarchy"
+msgstr "Hierarquia da Estrutura de Salários"
+
+#. module: hr_payroll
+#: field:hr.contract,schedule_pay:0
+msgid "Scheduled Pay"
+msgstr "Pagamento Agendado"
+
+#. module: hr_payroll
+#: view:hr.payslip.run:0
+msgid "Search Payslip Batches"
+msgstr "Procurar Lote de Holerites"
+
+#. module: hr_payroll
+#: view:hr.payslip.line:0
+msgid "Search Payslip Lines"
+msgstr "Linhas de Pesquisa do Holerite"
+
+#. module: hr_payroll
+#: view:hr.payslip:0
+msgid "Search Payslips"
+msgstr "Procurar Holerites"
+
+#. module: hr_payroll
+#: view:hr.salary.rule:0
+msgid "Search Salary Rule"
+msgstr "Pesquisa de Regra de Salário"
+
+#. module: hr_payroll
+#: selection:hr.contract,schedule_pay:0
+msgid "Semi-annually"
+msgstr "Semestralmente"
+
+#. module: hr_payroll
+#: field:hr.payslip.input,sequence:0
+#: field:hr.payslip.line,sequence:0
+#: field:hr.payslip.worked_days,sequence:0
+#: field:hr.salary.rule,sequence:0
+msgid "Sequence"
+msgstr "Sequência"
+
+#. module: hr_payroll
+#: view:hr.payslip:0
+#: view:hr.payslip.run:0
+msgid "Set to Draft"
+msgstr "Definir como Provisório"
+
+#. module: hr_payroll
+#: view:hr.payslip:0
+msgid "States"
+msgstr "Status"
+
+#. module: hr_payroll
+#: field:hr.payslip,state:0
+#: field:hr.payslip.run,state:0
+msgid "Status"
+msgstr "Situação"
+
+#. module: hr_payroll
+#: field:hr.payslip,struct_id:0
+msgid "Structure"
+msgstr "Estrutura"
+
+#. module: hr_payroll
+#: help:hr.employee,total_wage:0
+msgid "Sum of all current contract's wage of employee."
+msgstr "Soma de todos os salários do contrato atual do empregado."
+
+#. module: hr_payroll
+#: help:hr.payslip.line,code:0
+#: help:hr.salary.rule,code:0
+msgid "The code of salary rules can be used as reference in computation of other rules. In that case, it is case sensitive."
+msgstr "O código de regras salariais podem ser usados como referência no cálculo de outras regras. Nesse caso, ele diferencia maiúsculas de minúsculas."
+
+#. module: hr_payroll
+#: help:hr.payslip.input,code:0
+#: help:hr.payslip.worked_days,code:0
+#: help:hr.rule.input,code:0
+msgid "The code that can be used in the salary rules"
+msgstr "O código que pode ser usado nas regras de salários"
+
+#. module: hr_payroll
+#: help:hr.payslip.line,amount_select:0
+#: help:hr.salary.rule,amount_select:0
+msgid "The computation method for the rule amount."
+msgstr "O método de cálculo para a quantidade de regras."
+
+#. module: hr_payroll
+#: help:hr.payslip.input,contract_id:0
+#: help:hr.payslip.worked_days,contract_id:0
+msgid "The contract for which applied this input"
+msgstr "O contrato a que se aplica esta entrada"
+
+#. module: hr_payroll
+#: help:hr.payslip.line,condition_range_max:0
+#: help:hr.salary.rule,condition_range_max:0
+msgid "The maximum amount, applied for this rule."
+msgstr "A quantidade máxima, aplicada para esta regra."
+
+#. module: hr_payroll
+#: help:hr.payslip.line,condition_range_min:0
+#: help:hr.salary.rule,condition_range_min:0
+msgid "The minimum amount, applied for this rule."
+msgstr "A quantidade mínima, aplicada para esta regra"
+
+#. module: hr_payroll
+#: help:hr.payslip.line,condition_range:0
+#: help:hr.salary.rule,condition_range:0
+msgid "This will be used to compute the % fields values; in general it is on basic, but you can also use categories code fields in lowercase as a variable names (hra, ma, lta, etc.) and the variable basic."
+msgstr "Isso será usado para calcular os valores de campos %  em geral é básico, mas você também pode usar os campos de código de categorias em letras minúsculas como um nomes de variáveis ​​(HRA, ma, lta, etc) e básicos variável."
+
+#. module: hr_payroll
+#: view:hr.payslip.employees:0
+msgid "This wizard will generate payslips for all selected employee(s) based on the dates and credit note specified on Payslips Run."
+msgstr "este assistente irá gerar folhas de pagamentos para todos os funcionários selecionado(s), com base nas datas e nota de crédito especificado em Executar Holerites."
+
+#. module: hr_payroll
+#: view:False:0
+#: field:hr.payslip.line,total:0
+msgid "Total"
+msgstr "Total"
+
+#. module: hr_payroll
+#: field:hr.employee,total_wage:0
+msgid "Total Basic Salary"
+msgstr "Total do Salário Básico"
+
+#. module: hr_payroll
+#: view:hr.payslip:0
+msgid "Total Working Days"
+msgstr "Total de Dias de Trabalhados"
+
+#. module: hr_payroll
+#: help:hr.payslip.line,sequence:0
+#: help:hr.salary.rule,sequence:0
+msgid "Use to arrange calculation sequence"
+msgstr "Usar para organizar sequência de cálculo"
+
+#. module: hr_payroll
+#: help:hr.payslip.line,appears_on_payslip:0
+#: help:hr.salary.rule,appears_on_payslip:0
+msgid "Used to display the salary rule on payslip."
+msgstr "Usado para mostrar a regra do salário no holerite."
+
+#. module: hr_payroll
+#: selection:hr.payslip,state:0
+msgid "Waiting"
+msgstr "Em espera"
+
+#. module: hr_payroll
+#: code:addons/hr_payroll/hr_payroll.py:370
+#: code:addons/hr_payroll/wizard/hr_payroll_payslips_by_employees.py:52
+#, python-format
+msgid "Warning!"
+msgstr "Aviso!"
+
+#. module: hr_payroll
+#: selection:hr.contract,schedule_pay:0
+msgid "Weekly"
+msgstr "Semanalmente"
+
+#. module: hr_payroll
+#: view:hr.payslip:0
+msgid "Worked Day"
+msgstr "Dia Trabalhado"
+
+#. module: hr_payroll
+#: view:hr.payslip:0
+msgid "Worked Days"
+msgstr "Balanço de Dias Trabalhados:"
+
+#. module: hr_payroll
+#: view:hr.payslip:0
+msgid "Worked Days & Inputs"
+msgstr "Assiduidade e Outras"
+
+#. module: hr_payroll
+#: code:addons/hr_payroll/hr_payroll.py:874
+#, python-format
+msgid "Wrong percentage base or quantity defined for salary rule %s (%s)."
+msgstr "Percentual base errada ou quantidade definida para a regra salário %s (%s)."
+
+#. module: hr_payroll
+#: code:addons/hr_payroll/hr_payroll.py:880
+#, python-format
+msgid "Wrong python code defined for salary rule %s (%s)."
+msgstr "Código Python errado definido para a regra de salário %s (%s)."
+
+#. module: hr_payroll
+#: code:addons/hr_payroll/hr_payroll.py:903
+#, python-format
+msgid "Wrong python condition defined for salary rule %s (%s)."
+msgstr "Condição python errada definida para a regra de salário %s (%s)."
+
+#. module: hr_payroll
+#: code:addons/hr_payroll/hr_payroll.py:869
+#, python-format
+msgid "Wrong quantity defined for salary rule %s (%s)."
+msgstr "Quantidade errada definida para a regra de salário %s (%s)."
+
+#. module: hr_payroll
+#: code:addons/hr_payroll/hr_payroll.py:897
+#, python-format
+msgid "Wrong range condition defined for salary rule %s (%s)."
+msgstr "Condição de intervalo errada definido para a regra de salário %s (%s)."
+
+#. module: hr_payroll
+#: code:addons/hr_payroll/hr_payroll.py:370
+#, python-format
+msgid "You cannot delete a payslip which is not draft or cancelled!"
+msgstr "Você não pode excluir um holerite que não está como provisório ou cancelado!"
+
+#. module: hr_payroll
+#: code:addons/hr_payroll/wizard/hr_payroll_payslips_by_employees.py:52
+#, python-format
+msgid "You must select employee(s) to generate payslip(s)."
+msgstr "Você precisa selecionar o funcionário para gerar o holerite."
+
+#. module: hr_payroll
+#: model:ir.model,name:hr_payroll.model_hr_config_settings
+msgid "hr.config.settings"
+msgstr "hr.config.settings"
+
+#. module: hr_payroll
+#: model:ir.model,name:hr_payroll.model_hr_salary_rule
+msgid "hr.salary.rule"
+msgstr "hr.salary.rule"
+
+#. module: hr_payroll
+#: view:payslip.lines.contribution.register:0
+msgid "or"
+msgstr "or"
+
+#. module: hr_payroll
+#: model:ir.model,name:hr_payroll.model_report_hr_payroll_report_contributionregister
+msgid "report.hr_payroll.report_contributionregister"
+msgstr "report.hr_payroll.report_contributionregister"
+
+#. module: hr_payroll
+#: model:ir.model,name:hr_payroll.model_report_hr_payroll_report_payslip
+msgid "report.hr_payroll.report_payslip"
+msgstr "report.hr_payroll.report_payslip"
+
+#. module: hr_payroll
+#: model:ir.model,name:hr_payroll.model_report_hr_payroll_report_payslipdetails
+msgid "report.hr_payroll.report_payslipdetails"
+msgstr "report.hr_payroll.report_payslipdetails"
+
+#. module: hr_payroll
+#: help:hr.payslip.line,amount_percentage_base:0
+#: help:hr.salary.rule,amount_percentage_base:0
+msgid "result will be affected to a variable"
+msgstr "resultado irá afetar uma variável"
+
+#. module: hr
+#: view:hr.employee:0
+msgid "$('.oe_employee_picture').load(function() { if($(this).width() > $(this).height()) { $(this).addClass('oe_employee_picture_wide') } });"
+msgstr "$('.oe_employee_picture').load(function() { if($(this).width() > $(this).height()) { $(this).addClass('oe_employee_picture_wide') } });"
+
+#. module: hr
+#: code:addons/hr/hr.py:161
+#, python-format
+msgid "%s (copy)"
+msgstr "%s (copy)"
+
+#. module: hr
+#: model:ir.actions.act_window,help:hr.open_view_employee_list_my
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"                Click to add a new employee.\n"
+"              </p><p>\n"
+"                With just a quick glance on the OpenERP employee screen, you\n"
+"                can easily find all the information you need for each person;\n"
+"                contact data, job position, availability, etc.\n"
+"              </p>\n"
+"            "
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"                Clique para adicionar um novo funcionário.\n"
+"              </p><p>\n"
+"Com apenas uma rápida olhada na tela de funcionário, você pode facilmente\n"
+"encontrar todas as informações que você precisa para cada pessoa;\n"
+"                 dados de contato, cargo que ocupa, disponibilidade, etc\n"
+"              </p>\n"
+"            "
+
+#. module: hr
+#: model:ir.actions.act_window,help:hr.open_module_tree_department
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"                Click to create a department.\n"
+"              </p><p>\n"
+"                OpenERP's department structure is used to manage all documents\n"
+"                related to employees by departments: expenses, timesheets,\n"
+"                leaves and holidays, recruitments, etc.\n"
+"              </p>\n"
+"            "
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"                Clique para criar um departamento.\n"
+"              </p><p>\n"
+"A estrutura de departamento é usado para gerenciar todos os documentos\n"
+"                 relacionados aos funcionários pelos departamentos: despesas, planilhas,\n"
+"                 folgas e férias, recrutamentos, etc\n"
+"              </p>\n"
+"            "
+
+#. module: hr
+#: model:ir.actions.act_window,help:hr.view_department_form_installer
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"                Click to define a new department.\n"
+"              </p><p>\n"
+"                Your departments structure is used to manage all documents\n"
+"                related to employees by departments: expenses and timesheets,\n"
+"                leaves and holidays, recruitments, etc.\n"
+"              </p>\n"
+"            "
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"                Clique para definir um novo departamento.\n"
+"              </p><p>\n"
+"           A estrutura de departamento é usado para gerenciar todos os documentos\n"
+"                 relacionados aos funcionários pelos departamentos: despesas, planilhas,\n"
+"                 folgas e férias, recrutamentos, etc\n"
+"              </p>\n"
+"            "
+
+#. module: hr
+#: model:ir.actions.act_window,help:hr.action_hr_job
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"                Click to define a new job position.\n"
+"              </p><p>\n"
+"                Job Positions are used to define jobs and their requirements.\n"
+"                You can keep track of the number of employees you have per job\n"
+"                position and follow the evolution according to what you planned\n"
+"                for the future.\n"
+"              </p><p>\n"
+"                You can attach a survey to a job position. It will be used in\n"
+"                the recruitment process to evaluate the applicants for this job\n"
+"                position.\n"
+"              </p>\n"
+"            "
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"                Clique para definir um novo cargo\n"
+"              </p><p>\n"
+"Cargos são usados ​​para definir os trabalhos e os seus requisitos.\n"
+"                 Você pode manter o controle do número de funcionários que você tem por cargo\n"
+"                 posicionar e acompanhar a evolução de acordo com o que foi planejado\n"
+"                 para o futuro.\n"
+"              </p><p>\n"
+"Você pode anexar uma pesquisa para um cargo. Será usado no processo de\n"
+"seleção para avaliar os candidatos para esta posição de trabalho.\n"
+"              </p>\n"
+"            "
+
+#. module: hr_contract
+#: model:ir.model,name:hr_contract.model_base_action_rule
+msgid "Action Rules"
+msgstr "Regras da Ação"
+
+#. module: hr
+#: view:hr.employee:0
+msgid "Active"
+msgstr "Ativo"
+
+#. module: hr
+#: view:hr.config.settings:0
+msgid "Additional Features"
+msgstr "Características Adicionais"
+
+#. module: hr_contract
+#: view:hr.contract:0
+msgid "Advantages..."
+msgstr "Benifícios..."
+
+#. module: hr
+#: field:hr.config.settings,module_account_analytic_analysis:0
+msgid "Allow invoicing based on timesheets (the sale application will be installed)"
+msgstr "Permite o faturamento baseado em planilha de horas (a aplicação de vendas será instalada)"
+
+#. module: hr
+#: field:hr.config.settings,module_hr_timesheet_sheet:0
+msgid "Allow timesheets validation by managers"
+msgstr "Permite validação da planilha de horas por gerentes"
+
+#. module: hr
+#: view:hr.config.settings:0
+msgid "Apply"
+msgstr "Aplicar"
+
+#. module: hr
+#: field:hr.employee,bank_account_id:0
+msgid "Bank Account Number"
+msgstr "Número da Conta Bancária"
+
+#. module: hr_contract
+#: field:hr.contract,advantages:0
+msgid "Benefícios"
+msgstr "Benefícios"
+
+#. module: hr
+#: view:hr.employee:0
+msgid "Birth"
+msgstr "Nascimento"
+
+#. module: hr
+#: help:hr.job,state:0
+msgid "By default 'Closed', set it to 'In Recruitment' if recruitment process is going on for this job position."
+msgstr "Por omição 'Fechado', configure para 'Em Recrutamento' se processo de recrutamento vai continuar para este cargo."
+
+#. module: hr
+#: view:hr.config.settings:0
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. modules: hr, hr_contract
+#: field:hr.employee,job_id:0
+#: field:hr.contract,job_id:0
+msgid "Cargo"
+msgstr "Cargo"
+
+#. module: hr
+#: field:hr.employee.category,child_ids:0
+msgid "Child Categories"
+msgstr "Categorias Filha (Subordinadas)"
+
+#. module: hr
+#: field:hr.department,child_ids:0
+msgid "Child Departments"
+msgstr "Departamentos Filho (Subordinados)"
+
+#. module: hr
+#: view:hr.employee:0
+msgid "Citizenship & Other Info"
+msgstr "Cidadania & Outras Informações"
+
+#. module: hr
+#: field:hr.employee,city:0
+msgid "City"
+msgstr "Cidade"
+
+#. module: hr
+#: view:hr.employee:0
+#: field:hr.employee,coach_id:0
+msgid "Coach"
+msgstr "Treinador"
+
+#. module: hr
+#: field:hr.employee,color:0
+msgid "Color Index"
+msgstr "Índice de Cores"
+
+#. module: hr
+#: view:hr.department:0
+msgid "Companies"
+msgstr "Empresas"
+
+#. module: hr
+#: field:hr.department,company_id:0
+#: view:hr.employee:0
+#: view:hr.job:0
+#: field:hr.job,company_id:0
+msgid "Company"
+msgstr "Empresa"
+
+#. module: hr_contract
+#: field:hr.employee,vehicle:0
+msgid "Company Vehicle"
+msgstr "Veículo da Empresa"
+
+#. module: hr
+#: model:ir.ui.menu,name:hr.menu_hr_configuration
+msgid "Configuration"
+msgstr "Configuração"
+
+#. module: hr
+#: view:hr.config.settings:0
+#: model:ir.actions.act_window,name:hr.action_human_resources_configuration
+msgid "Configure Human Resources"
+msgstr "Configurar Recursos Humanos"
+
+#. module: hr
+#: view:hr.employee:0
+msgid "Contact Information"
+msgstr "Informações do contato"
+
+#. module: hr_contract
+#: view:hr.contract:0
+#: view:hr.employee:0
+#: field:hr.employee,contract_id:0
+#: model:ir.model,name:hr_contract.model_hr_contract
+#: model:ir.ui.menu,name:hr_contract.next_id_56
+msgid "Contract"
+msgstr "Contrato"
+
+#. module: hr_contract
+#: view:hr.contract:0
+#: field:hr.contract,name:0
+msgid "Contract Reference"
+msgstr "Contrato Referência"
+
+#. module: hr_contract
+#: view:hr.contract:0
+#: field:hr.contract,type_id:0
+#: view:hr.contract.type:0
+#: field:hr.contract.type,name:0
+#: model:ir.model,name:hr_contract.model_hr_contract_type
+msgid "Contract Type"
+msgstr "Tipo de contrato"
+
+#. module: hr_contract
+#: model:ir.actions.act_window,name:hr_contract.action_hr_contract_type
+#: model:ir.ui.menu,name:hr_contract.hr_menu_contract_type
+msgid "Contract Types"
+msgstr "Tipos de Contrato"
+
+#. modules: hr, hr_contract
+#: view:hr.config.settings:0
+#: view:hr.contract:0
+#: view:hr.employee:0
+#: field:hr.employee,contract_ids:0
+#: field:hr.employee,contracts_count:0
+#: model:ir.actions.act_window,name:hr_contract.act_hr_employee_2_hr_contract
+#: model:ir.actions.act_window,name:hr_contract.action_hr_contract
+#: model:ir.ui.menu,name:hr_contract.hr_menu_contract
+msgid "Contracts"
+msgstr "Contratos"
+
+#. module: hr
+#: model:ir.actions.act_window,name:hr.view_department_form_installer
+msgid "Create Your Departments"
+msgstr "Crie Seus Departamentos"
+
+#. module: hr
+#: field:hr.job,no_of_employee:0
+msgid "Current Number of Employees"
+msgstr "Número de Funcionários Atuais"
+
+#. module: hr
+#: field:hr.employee,birthday:0
+msgid "Date of Birth"
+msgstr "Data de Nascimento"
+
+#. module: hr
+#: help:hr.employee,message_last_post:0
+#: help:hr.job,message_last_post:0
+msgid "Date of the last message posted on the record."
+msgstr "Data da última mensagem postada no registo."
+
+#. modules: hr, hr_contract
+#: view:hr.department:0
+#: view:hr.employee:0
+#: field:hr.employee,department_id:0
+#: view:hr.job:0
+#: field:hr.job,department_id:0
+#: field:hr.contract,department_id:0
+msgid "Department"
+msgstr "Departamento"
+
+#. module: hr
+#: field:hr.department,name:0
+msgid "Department Name"
+msgstr "Nome do Departamento"
+
+#. module: hr
+#: view:hr.department:0
+#: model:ir.actions.act_window,name:hr.open_module_tree_department
+#: model:ir.ui.menu,name:hr.menu_hr_department_tree
+msgid "Departments"
+msgstr "Departamentos"
+
+#. module: hr
+#: field:res.users,display_employees_suggestions:0
+msgid "Display Employees Suggestions"
+msgstr "Mostrar Suggestões de Funcionários"
+
+#. module: hr
+#: selection:hr.employee,marital:0
+msgid "Divorced"
+msgstr "Divorciado(a)"
+
+#. module: hr
+#: field:hr.config.settings,module_hr_gamification:0
+msgid "Drive engagement with challenges and badges"
+msgstr "Insentive o envolvimento através de desafios e prémios"
+
+#. module: hr_contract
+#: view:hr.contract:0
+msgid "Duration"
+msgstr "Duração"
+
+#. modules: hr, hr_contract
+#: view:hr.employee:0
+#: model:ir.model,name:hr.model_hr_employee
+#: view:hr.contract:0
+#: field:hr.contract,employee_id:0
+#: model:ir.model,name:hr_contract.model_hr_employee
+msgid "Employee"
+msgstr "Funcionário"
+
+#. module: hr
+#: view:hr.employee.category:0
+#: model:ir.model,name:hr.model_hr_employee_category
+msgid "Employee Category"
+msgstr "Categoria de Funcionários"
+
+#. module: hr
+#: field:hr.employee.category,name:0
+msgid "Employee Tag"
+msgstr "Marcadores de Funcionário"
+
+#. module: hr
+#: model:ir.actions.act_window,name:hr.open_view_categ_form
+#: model:ir.ui.menu,name:hr.menu_view_employee_category_form
+msgid "Employee Tags"
+msgstr "Marcadores de Funcionário"
+
+#. module: hr
+#: help:hr.employee,bank_account_id:0
+msgid "Employee bank salary account"
+msgstr "Conta Bancária para Salário do Funcionário"
+
+#. module: hr
+#: view:hr.employee:0
+#: field:hr.employee.category,employee_ids:0
+#: field:hr.job,employee_ids:0
+#: model:ir.actions.act_window,name:hr.hr_employee_normal_action_tree
+#: model:ir.actions.act_window,name:hr.open_view_employee_list
+#: model:ir.actions.act_window,name:hr.open_view_employee_list_my
+#: model:ir.ui.menu,name:hr.menu_open_view_employee_list_my
+msgid "Employees"
+msgstr "Funcionários"
+
+#. module: hr
+#: view:hr.employee.category:0
+msgid "Employees Categories"
+msgstr "Categorias de Funcionários"
+
+#. module: hr
+#: model:ir.actions.act_window,name:hr.open_view_employee_tree
+msgid "Employees Structure"
+msgstr "Estrutura de Funcionários"
+
+#. module: hr_contract
+#: field:hr.contract,date_end:0
+msgid "End Date"
+msgstr "Data de Término"
+
+#. module: hr_contract
+#: constraint:hr.contract:0
+msgid "Error! Contract start-date must be less than contract end-date."
+msgstr "Erro! A data de início do contrato deve ser anterior a data de término."
+
+#. module: hr
+#: constraint:hr.employee.category:0
+msgid "Error! You cannot create recursive Categories."
+msgstr "Erro! Você não pode criar categorias recursivas"
+
+#. module: hr
+#: constraint:hr.department:0
+msgid "Error! You cannot create recursive departments."
+msgstr "Erro! Você não pode criar departamentos recursivos."
+
+#. module: hr
+#: constraint:hr.employee:0
+msgid "Error! You cannot create recursive hierarchy of Employee(s)."
+msgstr "Erro! Você não pode criar hierarquias recursivas para Funcionários"
+
+#. module: hr
+#: field:hr.job,no_of_recruitment:0
+msgid "Expected New Employees"
+msgstr "Novos Funcionários Esperados"
+
+#. module: hr
+#: help:hr.job,expected_employees:0
+msgid "Expected number of employees for this job position after new recruitment."
+msgstr "Número de empregados para esta posição após o novo processo de contratação."
+
+#. module: hr
+#: selection:hr.employee,gender:0
+msgid "Female"
+msgstr "Feminino"
+
+#. module: hr
+#. openerp-web
+#: code:addons/hr/static/src/xml/suggestions.xml:29
+#: view:hr.employee:0
+#, python-format
+msgid "Follow"
+msgstr "Seguir"
+
+#. module: hr
+#: field:hr.employee,message_follower_ids:0
+#: field:hr.job,message_follower_ids:0
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: hr
+#: view:hr.employee:0
+msgid "Following"
+msgstr "Seguindo"
+
+#. module: hr
+#: field:hr.employee,gender:0
+msgid "Gender"
+msgstr "Sexo"
+
+#. modules: hr, hr_contract
+#: view:hr.employee:0
+#: view:hr.job:0
+#: view:hr.contract:0
+msgid "Group By..."
+msgstr "Agrupar Por..."
+
+#. module: hr
+#: view:hr.employee:0
+msgid "HR Settings"
+msgstr "Configurações de RH"
+
+#. module: hr
+#: field:hr.job,no_of_hired_employee:0
+msgid "Hired Employees"
+msgstr "Funcionários Contratados"
+
+#. module: hr
+#: help:hr.employee,message_summary:0
+#: help:hr.job,message_summary:0
+msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+msgstr "Contém o resumo da conversação (número de mensagens, ...). Este resumo é gerado diretamente em formato HTML para que possa ser inserido nas visões kanban."
+
+#. module: hr
+#: field:hr.employee,address_home_id:0
+msgid "Home Address"
+msgstr "Endereço Residencial"
+
+#. module: hr_contract
+#: field:hr.employee,vehicle_distance:0
+msgid "Home-Work Dist."
+msgstr "Distância do Trabalho"
+
+#. module: hr
+#: model:ir.ui.menu,name:hr.menu_hr_main
+#: model:ir.ui.menu,name:hr.menu_hr_reporting
+#: model:ir.ui.menu,name:hr.menu_hr_root
+#: model:ir.ui.menu,name:hr.menu_human_resources_configuration
+msgid "Human Resources"
+msgstr "Recursos Humanos"
+
+#. module: hr
+#: view:hr.config.settings:0
+msgid "Human Resources Management"
+msgstr "Gestão de Recursos Humanos"
+
+#. module: hr
+#: field:hr.employee,identification_id:0
+msgid "Identification No"
+msgstr "Nº de Identificação"
+
+#. module: hr
+#: help:hr.employee,message_unread:0
+#: help:hr.job,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr "Se marcado novas mensagens solicitarão sua atenção."
+
+#. module: hr
+#: view:hr.job:0
+msgid "In Position"
+msgstr "Em Posição"
+
+#. module: hr
+#: view:hr.job:0
+msgid "In Recruitment"
+msgstr "Em Recrutamento"
+
+#. module: hr_contract
+#: help:hr.employee,vehicle_distance:0
+msgid "In kilometers"
+msgstr "Em Quilometros"
+
+#. module: hr_contract
+#: view:hr.contract:0
+msgid "Information"
+msgstr "Informação"
+
+#. module: hr
+#: field:hr.config.settings,module_hr_attendance:0
+msgid "Install attendances feature"
+msgstr "Instalar o recurso atendimentos"
+
+#. module: hr
+#: view:hr.config.settings:0
+msgid "Install your country's payroll"
+msgstr "Instala o modelo de salário do seu país"
+
+#. module: hr
+#: field:hr.employee,message_is_follower:0
+#: field:hr.job,message_is_follower:0
+msgid "Is a Follower"
+msgstr "É um Seguidor"
+
+#. module: hr_contract
+#: field:hr.employee,manager:0
+msgid "Is a Manager"
+msgstr "É um Gerente"
+
+#. modules: hr, hr_contract
+#: view:hr.employee:0
+#: view:hr.job:0
+#: view:hr.contract:0
+msgid "Job"
+msgstr "Função"
+
+#. module: hr
+#: field:hr.job,description:0
+msgid "Job Description"
+msgstr "Descrição do cargo"
+
+#. module: hr
+#: field:hr.job,name:0
+msgid "Job Name"
+msgstr "Nome do Cargo"
+
+#. module: hr
+#: model:ir.model,name:hr.model_hr_job
+msgid "Job Position"
+msgstr "Cargo"
+
+#. module: hr
+#: model:ir.actions.act_window,name:hr.action_hr_job
+#: model:ir.ui.menu,name:hr.menu_hr_job_position
+msgid "Job Positions"
+msgstr "Cargos"
+
+#. module: hr
+#: field:hr.department,jobs_ids:0
+#: view:hr.job:0
+msgid "Jobs"
+msgstr "Cargos"
+
+#. module: hr
+#: field:hr.employee,message_last_post:0
+#: field:hr.job,message_last_post:0
+msgid "Last Message Date"
+msgstr "Data da Última Mensagem"
+
+#. module: hr
+#: field:hr.employee,last_login:0
+msgid "Latest Connection"
+msgstr "Conexão Mais Recente"
+
+#. module: hr_contract
+#: help:hr.employee,contract_id:0
+msgid "Latest contract of the employee"
+msgstr "Último contrato do empregado"
+
+#. module: hr
+#: view:hr.job:0
+msgid "Launch Recruitment"
+msgstr "Abrir Recrutamento"
+
+#. module: hr
+#: model:ir.ui.menu,name:hr.menu_open_view_attendance_reason_config
+msgid "Leaves"
+msgstr "Folgas"
+
+#. module: hr
+#: field:hr.employee,login:0
+msgid "Login"
+msgstr "Nome de acesso"
+
+#. module: hr
+#: selection:hr.employee,gender:0
+msgid "Male"
+msgstr "Masculino"
+
+#. module: hr
+#: field:hr.config.settings,module_hr_expense:0
+msgid "Manage employees expenses"
+msgstr "Gestão de despesas de funcionários"
+
+#. module: hr
+#: field:hr.config.settings,module_hr_holidays:0
+msgid "Manage holidays, leaves and allocation requests"
+msgstr "Gestão de Folgas, Férias e Pedidos de Alocação"
+
+#. module: hr
+#: field:hr.config.settings,module_hr_payroll:0
+msgid "Manage payroll"
+msgstr "Gerenciar Holerites de Funcionário"
+
+#. module: hr
+#: field:hr.config.settings,module_hr_recruitment:0
+msgid "Manage the recruitment process"
+msgstr "Gestão do processo de seleção"
+
+#. module: hr
+#: field:hr.config.settings,module_hr_timesheet:0
+msgid "Manage timesheets"
+msgstr "Gerenciar Planilha de Horas"
+
+#. module: hr
+#: field:hr.department,manager_id:0
+#: view:hr.employee:0
+#: field:hr.employee,parent_id:0
+msgid "Manager"
+msgstr "Gerente"
+
+#. module: hr
+#: field:hr.employee,marital:0
+msgid "Marital Status"
+msgstr "Estado Civil"
+
+#. module: hr
+#: selection:hr.employee,marital:0
+msgid "Married"
+msgstr "Casado(a)"
+
+#. module: hr_contract
+#: view:hr.employee:0
+msgid "Medical Exam"
+msgstr "Exame Médico"
+
+#. module: hr_contract
+#: field:hr.employee,medic_exam:0
+msgid "Medical Examination Date"
+msgstr "Data do Exame Médico"
+
+#. module: hr
+#: field:hr.employee,image_medium:0
+msgid "Medium-sized photo"
+msgstr "Foto de tamanho médio"
+
+#. module: hr
+#: help:hr.employee,image_medium:0
+msgid "Medium-sized photo of the employee. It is automatically resized as a 128x128px image, with aspect ratio preserved. Use this field in form views or some kanban views."
+msgstr "Foto média do funcionário. Será automaticamente redimensionado para 128x128 px, mantendo o aspecto. Use este campo em visões de formulário ou kanban."
+
+#. module: hr
+#: field:hr.department,member_ids:0
+msgid "Members"
+msgstr "Membros"
+
+#. module: hr
+#: field:hr.employee,message_ids:0
+#: field:hr.job,message_ids:0
+msgid "Messages"
+msgstr "Mensagens"
+
+#. module: hr
+#: help:hr.employee,message_ids:0
+#: help:hr.job,message_ids:0
+msgid "Messages and communication history"
+msgstr "Histórico de mensagens e comunicação"
+
+#. module: hr
+#: field:hr.department,complete_name:0
+#: field:hr.employee,name_related:0
+#: field:hr.employee.category,complete_name:0
+msgid "Name"
+msgstr "Nome"
+
+#. module: hr
+#: field:hr.employee,country_id:0
+msgid "Nationality"
+msgstr "Nacionalidade"
+
+#. module: hr
+#: field:hr.department,note:0
+msgid "Note"
+msgstr "Observação"
+
+#. modules: hr, hr_contract
+#: field:hr.employee,notes:0
+#: view:hr.contract:0
+#: field:hr.contract,notes:0
+msgid "Notes"
+msgstr "Observações"
+
+#. module: hr_contract
+#: field:hr.employee,children:0
+msgid "Number of Children"
+msgstr "Número de Filhos"
+
+#. module: hr
+#: help:hr.job,no_of_employee:0
+msgid "Number of employees currently occupying this job position."
+msgstr "Número de empregados atualmente ocupando esta posição"
+
+#. module: hr
+#: sql_constraint:hr.job:0
+msgid "Number of hired employee must be less than expected number of employee in recruitment."
+msgstr "Número de Funcionários contratados deve ser menor que o número de Funcionários esperados no recrutamento."
+
+#. module: hr
+#: help:hr.job,no_of_hired_employee:0
+msgid "Number of hired employees for this job position during recruitment phase."
+msgstr "Número de Funcionários contratados para este Cargo durante a fase de recrutamento."
+
+#. module: hr
+#: help:hr.job,no_of_recruitment:0
+msgid "Number of new employees you expect to recruit."
+msgstr "Número de novos funcionários a serem contratados."
+
+#. module: hr
+#: field:hr.employee,work_location:0
+msgid "Office Location"
+msgstr "Localização do escritório"
+
+#. module: hr
+#: model:ir.actions.client,name:hr.action_client_hr_menu
+msgid "Open HR Menu"
+msgstr "Abrir Menu RH"
+
+#. module: hr
+#: field:hr.config.settings,module_hr_evaluation:0
+msgid "Organize employees periodic evaluation"
+msgstr "Organizar avaliação periódica dos funcionários"
+
+#. module: hr
+#: field:hr.employee,otherid:0
+msgid "Other Id"
+msgstr "Outro ID"
+
+#. module: hr
+#: view:hr.employee:0
+msgid "Other Information ..."
+msgstr "Outra Informação ..."
+
+#. module: hr
+#: field:hr.department,parent_id:0
+msgid "Parent Department"
+msgstr "Departamento Pai"
+
+#. module: hr
+#: field:hr.employee.category,parent_id:0
+msgid "Parent Employee Tag"
+msgstr "Marcador de Funcionário Pai"
+
+#. module: hr
+#: field:hr.employee,passport_id:0
+msgid "Passport No"
+msgstr "Nº do Passaporte"
+
+#. module: hr
+#: model:ir.actions.act_window,name:hr.open_payroll_modules
+msgid "Payroll"
+msgstr "Holerite"
+
+#. module: hr
+#: view:hr.employee:0
+msgid "Personal Information"
+msgstr "Informações Pessoais"
+
+#. module: hr
+#: field:hr.employee,image:0
+msgid "Photo"
+msgstr "Foto"
+
+#. module: hr_contract
+#: field:hr.employee,place_of_birth:0
+msgid "Place of Birth"
+msgstr "Naturalidade"
+
+#. module: hr
+#: view:hr.employee:0
+msgid "Position"
+msgstr "Posição"
+
+#. module: hr
+#: view:hr.employee:0
+msgid "Public Information"
+msgstr "Informação Pública"
+
+#. module: hr
+#: field:hr.config.settings,module_hr_contract:0
+msgid "Record contracts per employee"
+msgstr "Registra contratos por funcionários"
+
+#. module: hr
+#: selection:hr.job,state:0
+msgid "Recruitment Closed"
+msgstr "Recrutamento Fechado"
+
+#. module: hr
+#: selection:hr.job,state:0
+msgid "Recruitment in Progress"
+msgstr "Recrutamento a Decorrer"
+
+#. module: hr
+#: view:hr.employee:0
+msgid "Related User"
+msgstr "Usuário Relacionado"
+
+#. module: hr
+#: field:res.users,employee_ids:0
+msgid "Related employees"
+msgstr "Funcionários Relacionados"
+
+#. module: hr
+#: model:ir.ui.menu,name:hr.menu_hr_reporting_timesheet
+msgid "Reports"
+msgstr "Relatórios"
+
+#. module: hr
+#: field:hr.job,requirements:0
+msgid "Requirements"
+msgstr "Pré-requisitos"
+
+#. module: hr
+#: field:hr.employee,resource_id:0
+msgid "Resource"
+msgstr "Recurso"
+
+#. module: hr
+#: field:hr.employee,sinid:0
+msgid "SIN No"
+msgstr "Nº SIN"
+
+#. module: hr
+#: field:hr.employee,ssnid:0
+msgid "SSN No"
+msgstr "Nº SSN"
+
+#. module: hr_contract
+#: view:hr.contract:0
+msgid "Salary and Advantages"
+msgstr "Salário e Benefícios"
+
+#. module: hr_contract
+#: field:hr.contract,wage:0
+msgid "Salário"
+msgstr "Salário"
+
+#. module: hr_contract
+#: view:hr.contract:0
+msgid "Search Contract"
+msgstr "Procurar Contrato"
+
+#. module: hr_contract
+#: view:hr.contract.type:0
+msgid "Search Contract Type"
+msgstr "Pesquisar Tipo de Contrato"
+
+#. module: hr
+#: selection:hr.employee,marital:0
+msgid "Single"
+msgstr "Solteiro(a)"
+
+#. module: hr
+#: field:hr.employee,image_small:0
+msgid "Small-sized photo"
+msgstr "Foto de tamanho pequeno"
+
+#. module: hr
+#: help:hr.employee,image_small:0
+msgid "Small-sized photo of the employee. It is automatically resized as a 64x64px image, with aspect ratio preserved. Use this field anywhere a small image is required."
+msgstr "Foto pequena do funcionário. Será automaticamente redimensionada para 64x64 px mantendo o aspecto. Use este campo em qualquer lugar que uma imagem miniatura for necessária."
+
+#. module: hr
+#: help:hr.employee,sinid:0
+msgid "Social Insurance Number"
+msgstr "Número do Seguro Social"
+
+#. module: hr
+#: help:hr.employee,ssnid:0
+msgid "Social Security Number"
+msgstr "Número da Segurança Social"
+
+#. module: hr_contract
+#: field:hr.contract,date_start:0
+msgid "Start Date"
+msgstr "Data de Início"
+
+#. module: hr
+#: view:hr.employee:0
+#: view:hr.job:0
+#: field:hr.job,state:0
+msgid "Status"
+msgstr "Situação"
+
+#. module: hr
+#: view:hr.job:0
+msgid "Stop Recruitment"
+msgstr "Parar Recrutamento"
+
+#. module: hr
+#: model:ir.actions.act_window,name:hr.action2
+msgid "Subordinate Hierarchy"
+msgstr "Subordinação Hierárquica"
+
+#. module: hr
+#: field:hr.employee,child_ids:0
+msgid "Subordinates"
+msgstr "Subordinados"
+
+#. module: hr
+#. openerp-web
+#: code:addons/hr/static/src/xml/suggestions.xml:15
+#, python-format
+msgid "Suggested Employees"
+msgstr "Funcionários Sugeridos"
+
+#. module: hr
+#: field:hr.employee,message_summary:0
+#: field:hr.job,message_summary:0
+msgid "Summary"
+msgstr "Resumo"
+
+#. module: hr
+#: field:hr.employee,category_ids:0
+msgid "Tags"
+msgstr "Marcadores"
+
+#. module: hr
+#: view:hr.config.settings:0
+msgid "Talent Management"
+msgstr "Gestão de Talentos"
+
+#. module: hr
+#: sql_constraint:hr.job:0
+msgid "The name of the job position must be unique per department in company!"
+msgstr "O nome do Cargo deve ser único por departamento na empresa!"
+
+#. module: hr
+#: help:hr.employee,image:0
+msgid "This field holds the image used as photo for the employee, limited to 1024x1024px."
+msgstr "Este campo guarda a imagem usada como foto do funcionário, limitada para 1024x1024px."
+
+#. module: hr
+#: help:hr.config.settings,module_account_analytic_analysis:0
+msgid "This installs the module account_analytic_analysis, which will install sales management too."
+msgstr "Isto instala o módulo account_analytic_analysis, que irá instalar também a gestão de vendas."
+
+#. module: hr
+#: help:hr.config.settings,module_hr_attendance:0
+msgid "This installs the module hr_attendance."
+msgstr "Isto instala o módulo hr_attendance."
+
+#. module: hr
+#: help:hr.config.settings,module_hr_contract:0
+msgid "This installs the module hr_contract."
+msgstr "Isto instala o módulo hr_contract."
+
+#. module: hr
+#: help:hr.config.settings,module_hr_evaluation:0
+msgid "This installs the module hr_evaluation."
+msgstr "Isto instala o módulo hr_evaluation."
+
+#. module: hr
+#: help:hr.config.settings,module_hr_expense:0
+msgid "This installs the module hr_expense."
+msgstr "Isto instala o módulo hr_expense"
+
+#. module: hr
+#: help:hr.config.settings,module_hr_gamification:0
+msgid "This installs the module hr_gamification."
+msgstr "This installs the module hr_gamification."
+
+#. module: hr
+#: help:hr.config.settings,module_hr_holidays:0
+msgid "This installs the module hr_holidays."
+msgstr "Isto instala o módulo hr_holidays"
+
+#. module: hr
+#: help:hr.config.settings,module_hr_payroll:0
+msgid "This installs the module hr_payroll."
+msgstr "Isto instala o módulo hr_payroll."
+
+#. module: hr
+#: help:hr.config.settings,module_hr_recruitment:0
+msgid "This installs the module hr_recruitment."
+msgstr "Isto instala o módulo hr_recruitment."
+
+#. module: hr
+#: help:hr.config.settings,module_hr_timesheet:0
+msgid "This installs the module hr_timesheet."
+msgstr "Isto instala o módulo hr_timesheet."
+
+#. module: hr
+#: help:hr.config.settings,module_hr_timesheet_sheet:0
+msgid "This installs the module hr_timesheet_sheet."
+msgstr "Isto instala o módulo hr_timesheet_sheet."
+
+#. module: hr
+#: view:hr.config.settings:0
+msgid "Time Tracking"
+msgstr "Apontamento de Tempo"
+
+#. module: hr
+#: field:hr.job,expected_employees:0
+msgid "Total Forecasted Employees"
+msgstr "Total de Funcionários Previstos"
+
+#. module: hr_contract
+#: field:hr.contract,trial_date_end:0
+msgid "Trial End Date"
+msgstr "Fim do Período de Experiência"
+
+#. module: hr_contract
+#: view:hr.contract:0
+msgid "Trial Period Duration"
+msgstr "Período de Experiência"
+
+#. module: hr_contract
+#: field:hr.contract,trial_date_start:0
+msgid "Trial Start Date"
+msgstr "Data de Início do Período de Experiência"
+
+#. module: hr
+#: view:hr.employee:0
+msgid "Unfollow"
+msgstr "Parar de Seguir"
+
+#. module: hr
+#: field:hr.employee,message_unread:0
+#: field:hr.job,message_unread:0
+msgid "Unread Messages"
+msgstr "Mensagens não lidas"
+
+#. module: hr
+#: field:hr.job,write_date:0
+msgid "Update Date"
+msgstr "Data de Atualização"
+
+#. module: hr_contract
+#: field:base.action.rule,trg_date_resource_field_id:0
+msgid "Use employee work schedule"
+msgstr "Use o horário de trabalho do funcionário"
+
+#. module: hr_contract
+#: help:base.action.rule,trg_date_resource_field_id:0
+msgid "Use the user's working schedule."
+msgstr "Use o horário de trabalho do usuário."
+
+#. module: hr
+#: model:ir.model,name:hr.model_res_users
+msgid "Users"
+msgstr "Usuários"
+
+#. module: hr_contract
+#: field:hr.contract,visa_expire:0
+msgid "Visa Expire Date"
+msgstr "Visto expira em"
+
+#. module: hr_contract
+#: field:hr.contract,visa_no:0
+msgid "Visa No"
+msgstr "Nº do Visto"
+
+#. module: hr
+#: code:addons/hr/hr.py:282
+#, python-format
+msgid "Welcome to %s! Please help him/her take the first steps with OpenERP!"
+msgstr "Welcome to %s! Please help him/her take the first steps with OpenERP!"
+
+#. module: hr
+#: selection:hr.employee,marital:0
+msgid "Widower"
+msgstr "Viúvo"
+
+#. module: hr
+#: field:hr.employee,work_email:0
+msgid "Work Email"
+msgstr "E-mail profissional"
+
+#. module: hr
+#: field:hr.employee,mobile_phone:0
+msgid "Work Mobile"
+msgstr "Celular Comercial"
+
+#. module: hr_contract
+#: view:hr.contract:0
+msgid "Work Permit"
+msgstr "Permissão de Trabalho"
+
+#. module: hr_contract
+#: field:hr.contract,permit_no:0
+msgid "Work Permit No"
+msgstr "Permissão de Trabalho nº"
+
+#. module: hr
+#: field:hr.employee,work_phone:0
+msgid "Work Phone"
+msgstr "Telefone comercial"
+
+#. module: hr
+#: field:hr.employee,address_id:0
+msgid "Working Address"
+msgstr "Endereço comercial"
+
+#. module: hr_contract
+#: view:hr.contract:0
+#: field:hr.contract,working_hours:0
+msgid "Working Schedule"
+msgstr "Horário de Trabalho"
+
+#. module: hr
+#: view:hr.department:0
+msgid "department"
+msgstr "departamento"
+
+#. module: hr
+#: view:hr.employee:0
+msgid "e.g. Part Time"
+msgstr "ex: Meio Tempo"
+
+#. module: hr
+#: model:ir.model,name:hr.model_hr_config_settings
+msgid "hr.config.settings"
+msgstr "hr.config.settings"
+
+#. module: hr
+#: model:ir.model,name:hr.model_hr_department
+msgid "hr.department"
+msgstr "hr.department"
+
+#. module: hr
+#: view:hr.job:0
+msgid "new employee(s) expected"
+msgstr "novo(s) funcionário(s) esperado(s)"
+
+#. module: hr
+#: view:hr.job:0
+msgid "no_of_recruitment"
+msgstr "no_of_recruitment"
+
+#. module: hr
+#: view:hr.config.settings:0
+msgid "or"
+msgstr "ou"

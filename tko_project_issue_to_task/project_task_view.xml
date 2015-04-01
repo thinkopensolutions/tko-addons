@@ -1,0 +1,16 @@
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="task_form_view_inherit">
+            <field name="name">Task</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2" />
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="issue_id" />
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

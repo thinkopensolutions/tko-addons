@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="l10n_br_report_invoice" inherit_id="account.report_invoice_document">
+            <xpath expr="//span[@t-field='o.partner_id.vat']"
+                position="after">
+                <table>
+                    <tr t-if="o.partner_id.is_company == True">
+                        <td>CNPJ: </td>
+                        <td>
+                            <span t-field="o.partner_id.cnpj_cpf" />
+                        </td>
+                    </tr>
+                    <tr t-if="o.partner_id.is_company == False">
+                        <td>CPF: </td>
+                        <td>
+                            <span t-field="o.partner_id.cnpj_cpf" />
+                        </td>
+                    </tr>
+                    <tr t-if="o.partner_id.inscr_est">
+                        <td>IE: </td>
+                        <td>
+                            <span t-field="o.partner_id.inscr_est" />
+                        </td>
+                    </tr>
+                    <tr t-if="o.partner_id.phone">
+                        <td>Telefone: </td>
+                        <td>
+                            <span t-field="o.partner_id.phone" />
+                        </td>
+                    </tr>
+                </table>
+            </xpath>
+        </template>
+    </data>
+</openerp>

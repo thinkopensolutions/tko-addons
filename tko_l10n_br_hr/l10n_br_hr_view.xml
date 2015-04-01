@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Employee Form View -->
+        <record model="ir.ui.view" id="view_tko_hr_employee_form">
+            <field name="name">tko_tko_hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form" />
+            <field name="arch" type="xml">
+                <field name="passport_id" position="replace" />
+                <field name="identification_id" position="replace" />
+                <field name="job_id" position="replace" />
+                <field name="address_id" position="after">
+                    <field name="endereco_lotacao" />
+                </field>
+                <xpath
+                    expr="//page[@string='Personal Information']/group/group[@string='Contact Information']"
+                    position="replace" />
+                <page string="Personal Information" position="after">
+                    <page string="Documentos" groups="base.group_hr_user">
+                        <group col="5">
+                            <separator string="Previdênciários" />
+                            <newline />
+                            <field name="ctps" groups="base.group_hr_user"
+                                placeholder="número" />
+                            <field name="ctps_serie" groups="base.group_hr_user"
+                                nolabel="1" placeholder="série" />
+                            <newline />
+                            <field name="pis_pasep" groups="base.group_hr_user"
+                                placeholder="número" />
+                            <newline />
+                            <separator string="Identificação" />
+                            <newline />
+                            <field name="cpf" groups="base.group_hr_user"
+                                placeholder="número" />
+                            <field name="cpf_orgao_expedidor_id"
+                                groups="base.group_hr_user" nolabel="1"
+                                placeholder="órgão expedidor" />
+                            <newline />
+                            <field name="rg" groups="base.group_hr_user"
+                                placeholder="número" />
+                            <field name="rg_digito" groups="base.group_hr_user"
+                                nolabel="1" placeholder="dg" />
+                            <field name="rg_orgao_expedidor_id"
+                                groups="base.group_hr_user" nolabel="1"
+                                placeholder="órgão expedidor" />
+                            <newline />
+                            <field name="rge" groups="base.group_hr_user"
+                                placeholder="número" />
+                            <field name="rge_digito" groups="base.group_hr_user"
+                                nolabel="1" placeholder="dg" />
+                            <field name="rge_orgao_expedidor_id"
+                                groups="base.group_hr_user" nolabel="1"
+                                placeholder="órgão expedidor" />
+                            <newline />
+                            <field name="rg_militar" groups="base.group_hr_user"
+                                placeholder="número" />
+                            <field name="rg_militar_digito"
+                                groups="base.group_hr_user" nolabel="1"
+                                placeholder="dg" />
+                            <field name="rg_militar_orgao_expedidor_id"
+                                groups="base.group_hr_user" nolabel="1"
+                                placeholder="órgão expedidor" />
+                            <newline />
+                            <field name="eleitor" groups="base.group_hr_user"
+                                placeholder="número" />
+                            <newline />
+                            <field name="habilitacao" groups="base.group_hr_user"
+                                placeholder="número" />
+                            <field name="habilitacao_categoria_id"
+                                groups="base.group_hr_user" nolabel="1"
+                                placeholder="categoria" />
+                            <field name="habilitacao_validade"
+                                groups="base.group_hr_user" nolabel="1"
+                                placeholder="validade" />
+                            <newline />
+                            <field name="passport_id" string="Passaporte Nº"
+                                groups="base.group_hr_user" placeholder="número" />
+                            <field name="passaporte_orgao_expedidor_id"
+                                groups="base.group_hr_user" nolabel="1"
+                                placeholder="órgão expedidor" />
+                            <field name="passaporte_validade"
+                                groups="base.group_hr_user" nolabel="1"
+                                placeholder="validade" />
+                            <newline />
+                            <separator string="Interno" />
+                            <newline />
+                            <field name="livro" groups="base.group_hr_user"
+                                placeholder="livro" />
+                            <field name="folha" groups="base.group_hr_user"
+                                nolabel="1" placeholder="folha" />
+                            <field name="caixa" groups="base.group_hr_user"
+                                nolabel="1" placeholder="caixa" />
+                            <newline />
+                            <separator string="Qualificação" />
+                            <newline />
+                            <field name="conselho_regional_id"
+                                groups="base.group_hr_user" placeholder="conselho regional" />
+                            <field name="conselho_regional_estado_id"
+                                groups="base.group_hr_user" nolabel="1"
+                                placeholder="estado federal" />
+                            <field name="conselho_regional_numero"
+                                groups="base.group_hr_user" nolabel="1"
+                                placeholder="número" />
+                            <field name="conselho_regional_validade"
+                                groups="base.group_hr_user" nolabel="1"
+                                placeholder="validade" />
+                            <field name="oab_numero" groups="base.group_hr_user"
+                                placeholder="número" />
+                            <field name="oab_estado_id" groups="base.group_hr_user"
+                                nolabel="1" placeholder="estado federal" />
+                            <field name="oab_validade" groups="base.group_hr_user"
+                                nolabel="1" placeholder="validade" />
+                        </group>
+                    </page>
+                    <page string="Formação Académica" groups="base.group_hr_user">
+                        <separator string="Escolaridade" />
+                        <field name="escolaridade_ids" context="{'employee_id': active_id}"
+                            string="Escolaridade">
+                            <tree editable="top">
+                                <field name="grau_instrucao" />
+                                <field name="instituicao" />
+                                <field name="curso" />
+                                <field name="status" />
+                                <field name="date_start" />
+                                <field name="date_end" />
+                                <field name="observations" />
+                            </tree>
+                        </field>
+                        <separator string="Cursos e Certificações" />
+                        <field name="cursos_certificacoes_ids"
+                            context="{'employee_id': active_id}" string="Cursos e Certificações">
+                            <tree editable="top">
+                                <field name="tipo_evento" />
+                                <field name="instituicao" />
+                                <field name="curso" />
+                                <field name="status" />
+                                <field name="date_start" />
+                                <field name="date_end" />
+                                <field name="observations" />
+                            </tree>
+                        </field>
+                        <separator string="Idiomas" />
+                        <field name="idiomas_ids" context="{'employee_id': active_id}"
+                            string="Idiomas">
+                            <tree editable="top">
+                                <field name="idioma" />
+                                <field name="instituicao" />
+                                <field name="curso" />
+                                <field name="status" />
+                                <field name="date_start" />
+                                <field name="date_end" />
+                                <field name="observations" />
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Exame Médico" groups="base.group_hr_user">
+                        <separator string="Exames Médicos" />
+                        <field name="exame_medico_ids" context="{'employee_id': active_id}"
+                            string="Exames Médicos">
+                            <tree editable="top">
+                                <field name="data" />
+                                <field name="tipo_exame" />
+                                <field name="clinica" />
+                                <field name="medico" />
+                                <field name="local" />
+                                <field name="os" />
+                                <field name="status" />
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Dependentes" groups="base.group_hr_user">
+                        <separator string="Dependentes" />
+                        <field name="dependentes_ids" context="{'employee_id': active_id}"
+                            string="Dependentes">
+                            <tree editable="top">
+                                <field name="name" />
+                                <field name="sexo" />
+                                <field name="birth_date" />
+                                <field name="parentesco" />
+                                <field name="grau_instrucao" />
+                                <field name="is_handicapped" />
+                                <field name="handicap_description" />
+                                <field name="mora_com" />
+                                <field name="age" />
+                            </tree>
+                        </field>
+                    </page>
+                </page>
+                <field name="marital" position="after">
+                    <field name="mariage_date" string="Data de Casamento" />
+                    <field name="religion_id" string="Religião" />
+                </field>
+                <field name="otherid" position="after">
+                    <field name="is_handicapped" string="PCD - Pessoa Com Deficiência?" />
+                    <field name="handicap_description" string="Descrever a deficiência"
+                        attrs="{'invisible': [('is_handicapped','=', False)]}" />
+                </field>
+                <group string="Birth" position="after">
+                    <group string="Contract">
+                        <field name="spec" />
+                        <field name="health_insurance" />
+                        <field name="health_insurance_value"
+                            string="Seguro de Saúde" />
+                    </group>
+                    <group string="Contact Information">
+                        <field name="address_home_id"
+                            context="{'show_address': 1, 'default_customer': False}"
+                            options='{"always_reload": True, "highlight_first_line": True}' />
+                        <field name="transportation_cost" />
+                        <field name="meal_voucher" />
+                        <field name="cartao_transp_ids" domain="{'employee_id': employee_id}">
+                            <tree editable="bottom">
+                                <field name="employee_id"
+                                    invisible="1" />
+                                <field name="name" />
+                                <field name="tipo_cartao_id" />
+                                <field name="valor_cartao_transp" />
+                            </tree>
+                        </field>
+                    </group>
+                </group>
+                <field name="birthday" position="after">
+                    <field name="father_name" />
+                    <field name="mother_name" />
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

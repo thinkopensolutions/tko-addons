@@ -1,0 +1,17 @@
+<openerp>
+    <data>
+        
+        <record id="account_voucher_form" model="ir.ui.view">
+            <field name="name">Account Voucher</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id"
+                ref="account_voucher.view_vendor_receipt_dialog_form" />
+            <field name="arch" type="xml">
+                <field name="reference" position="attributes">
+                    <attribute name="string">Reference</attribute>
+                </field>
+            </field>
+        </record>
+        
+    </data>
+</openerp>

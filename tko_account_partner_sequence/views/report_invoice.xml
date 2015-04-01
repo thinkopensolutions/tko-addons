@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+        <template id="report_invoice_document"
+            inherit_id="account.report_invoice_document">
+            <xpath expr="//address[@t-field='o.partner_id']"
+                position="before">
+                <table>
+                    <tr t-if="o.partner_id.partner_sequence">
+                        <td>Client Number: </td>
+                        <td>
+                            <span t-field="o.partner_id.partner_sequence" />
+                        </td>
+                    </tr>
+                </table>
+            </xpath>
+        </template>
+        
+    </data>
+</openerp>
