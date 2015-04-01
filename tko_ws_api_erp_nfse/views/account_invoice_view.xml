@@ -1,0 +1,45 @@
+<openerp>
+    <data>
+        <record id="invoice_form" model="ir.ui.view">
+            <field name="name">account.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form" />
+            <field name="arch" type="xml">
+                <xpath expr="/form/header/button[5]" position="attributes">
+                        <attribute name="string">Criar NFSe</attribute>
+                </xpath>
+                <xpath expr="/form/header/button[6]" position="attributes">
+                        <attribute name="string">Criar NFSe</attribute>
+                </xpath>
+                <xpath expr="/form/header/button[6]" position="after">
+                    <button name="check_create_nfse" states="create_validation" string="Verifica Criação NFSe" groups="base.group_user"/>
+                    <button name="check_cancel_nfse" states="cancel_validation" string="Verifica Cancelamento NFSe" groups="base.group_no_one"/>
+                </xpath>
+                <xpath expr="//field[@name='state']" position="attributes">
+                    <attribute name="statusbar_visible">draft,validation,open,paid</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_invoice']" position="after">
+                    <field name="nfse_number"/>
+                    <field name="nfse_city"/>
+                </xpath>
+                <xpath expr="//button[@name='action_cancel_draft']" position="replace"/>
+                <xpath expr="//page[@string='Payments']" position="after">
+                    <page string="Comunicação com Prefeitura" groups="base.group_user">
+                        <group col="4">
+                            <field name="date_create_validation" readonly="1"/>
+                            <field name="date_create" readonly="1"/>
+                            <field name="date_cancel_validation" readonly="1"/>
+                            <field name="date_cancel" readonly="1"/>
+                        </group>
+                        <field name="nfse_log_ids">
+                            <tree>
+                                <field name="date"/>
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
