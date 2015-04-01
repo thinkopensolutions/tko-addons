@@ -8,7 +8,6 @@ __pycache__/
 # Bazaar
 .bzr
 
-
 # Distribution / packaging
 .Python
 env/
