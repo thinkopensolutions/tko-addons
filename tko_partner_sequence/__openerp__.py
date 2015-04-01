@@ -26,7 +26,7 @@
     'name': 'Partner Sequence Unique Number',
     'version': '0.001',
     'category': 'Localisation',
-    'sequence': 38,
+    'sequence': 2,
     'complexity': 'normal',
     'description': '''This module adds an automatic sequencial number to every partner.''',
     'author': 'ThinkOpen Solutions Brasil',

@@ -26,7 +26,7 @@
     'name': 'Partner Sequence Number in Invoice',
     'version': '0.001',
     'category': 'Localisation',
-    'sequence': 38,
+    'sequence': 3,
     'complexity': 'normal',
     'description': '''This module adds the automatic sequencial number to invoice.''',
     'author': 'ThinkOpen Solutions Brasil',

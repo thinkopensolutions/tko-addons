@@ -26,7 +26,7 @@
     'name': 'Add filter internal reference to product',
     'version': '0.006',
     'category': 'Customization',
-    'sequence': 38,
+    'sequence': 10,
     'complexity': 'normal',
     'description': '''Add internal reference filter in product search view''',
     'author': 'ThinkOpen Solutions Brasil',

@@ -26,7 +26,7 @@
     'name': 'Payment wizard gets invoice number to reference',
     'version': '0.001',
     'category': 'Account',
-    'sequence': 38,
+    'sequence': 5,
     'complexity': 'normal',
     'description': '''The client invoice payment wizard fill the reference from invoice number.\n
 This will help to identify movements in payments.''',
