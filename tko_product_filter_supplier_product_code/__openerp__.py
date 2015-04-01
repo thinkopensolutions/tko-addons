@@ -26,7 +26,7 @@
     'name': 'Add filter supplier code to product',
     'version': '0.006',
     'category': 'Customization',
-    'sequence': 38,
+    'sequence': 11,
     'complexity': 'simple',
     'description': '''This module adds supplier's product code to product search view and adds product code in supplier tree view''',
     'author': 'ThinkOpen Solutions Brasil',

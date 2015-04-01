@@ -26,7 +26,7 @@
     'name': 'Convert an issue to a task',
     'version': '0.004',
     'category': 'Customizations',
-    'sequence': 38,
+    'sequence': 12,
     'complexity': 'medium',
     'description': '''This module adds a button in issue to converts it to a task and marks issue done.''',
     'author': 'ThinkOpen Solutions Brasil',

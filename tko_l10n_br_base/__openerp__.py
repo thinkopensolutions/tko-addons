@@ -26,9 +26,9 @@
     'name': 'Customização da Localização Brasileira',
     'version': '0.001',
     'category': 'Localisation',
-    'sequence': 38,
+    'sequence': 4,
     'complexity': 'normal',
-    'description': '''== CUSTOMIZAÇÂO DA LOCALIZAÇÃO BRASILEIRA ==\n\n
+    'description': '''== CUSTOMIZAÇÃO DA LOCALIZAÇÃO BRASILEIRA ==\n\n
 Este módulo melhora a legibilidade da tela de parceiro.\n
 Também adiciona novos campos específicos, de cadastro de empresa:\n
  - Informação de negócio;\n

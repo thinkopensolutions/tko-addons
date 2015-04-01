@@ -30,6 +30,7 @@
     'license': 'AGPL-3',
     'website': 'http://tkobr.com',
     'version': '1.001',
+    'sequence': 8,
     'depends': [
                 'account',
                 'account_chart',

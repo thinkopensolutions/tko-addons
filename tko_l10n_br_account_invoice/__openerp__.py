@@ -26,7 +26,7 @@
     'name': 'Layout Brasileiro da fatura com CNPJ/CPF',
     'version': '0.001',
     'category': 'Localisation',
-    'sequence': 38,
+    'sequence': 7,
     'complexity': 'normal',
     'description': '''Este módulo adiciona o CNPJ/CPF, IE e telefone no relatório da fatura.''',
     'author': 'ThinkOpen Solutions Brasil',

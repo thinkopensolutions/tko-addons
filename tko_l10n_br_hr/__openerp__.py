@@ -26,7 +26,7 @@
     'name': 'Localização Brasileira para Recursos Humanos',
     'version': '0.042',
     'category': 'l10n_br',
-    'sequence': 38,
+    'sequence': 9,
     'complexity': 'normal',
     'description': '''=== Localização Brasileira Recursos Humanos ===\n\n
 Este módulo adiciona campos de cadastro gerais aos empregados.\n
