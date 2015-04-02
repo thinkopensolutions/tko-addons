@@ -23,7 +23,7 @@
 ##############################################################################
 
 {
-    'name': 'Add filter internal reference to product',
+    'name': 'Add internal filter reference to product',
     'version': '0.006',
     'category': 'Customization',
     'sequence': 10,

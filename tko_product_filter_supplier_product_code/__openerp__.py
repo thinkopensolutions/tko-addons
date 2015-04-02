@@ -23,7 +23,7 @@
 ##############################################################################
 
 {
-    'name': 'Add filter supplier code to product',
+    'name': 'Add supplier code filter to product',
     'version': '0.006',
     'category': 'Customization',
     'sequence': 11,
