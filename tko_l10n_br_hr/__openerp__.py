@@ -56,8 +56,12 @@ Entre outros adiciona:\n
              'l10n_br_hr_view.xml',
              'l10n_br_extra_views.xml',
              ],
-    'demo_xml': [],
+    'init': [],
+    'demo': [],
+    'update': [],
+    'test': [],  # YAML files with tests
     'installable': True,
     'application': False,
+    'auto_install': False,  # If it's True, the modules will be auto-installed when all dependencies are installed
     'certificate': '',
 }
