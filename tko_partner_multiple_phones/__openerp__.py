@@ -23,7 +23,7 @@
 ##############################################################################
 
 {
-    'name': 'Partner Multiple Phones',
+    'name': 'Partner multiple phones',
     'version': '0.023',
     'category': 'Customizations',
     'sequence': 16,
