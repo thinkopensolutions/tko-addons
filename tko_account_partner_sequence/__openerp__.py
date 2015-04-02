@@ -39,7 +39,12 @@
     'data': [
             'views/report_invoice.xml'
              ],
+    'init': [],
+    'demo': [],
+    'update': [],
+    'test': [],  # YAML files with tests
     'installable': True,
     'application': False,
-    'auto_install':True,
+    'auto_install': True,  # If it's True, the modules will be auto-installed when all dependencies are installed
+    'certificate': '',
 }

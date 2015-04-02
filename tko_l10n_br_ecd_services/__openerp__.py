@@ -39,6 +39,13 @@
              'data/account.account.template.csv',
              'data/account_chart_template.xml',
              ],
-    'installable': True,
+    'init': [],
+    'demo': [],
+    'update': [],
+    'test': [],  # YAML files with tests
+    'installable': False,
+    'application': False,
+    'auto_install': False,  # If it's True, the modules will be auto-installed when all dependencies are installed
+    'certificate': '',
 }
 

@@ -38,7 +38,6 @@
     'data': [
              'base.xml',
              ],
-    'qweb' : [],
     'init': [],
     'demo': [],
     'update': [],

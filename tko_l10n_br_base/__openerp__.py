@@ -54,7 +54,12 @@ Também adiciona novos campos específicos, de cadastro de empresa:\n
              'extra_views.xml',
              'menu_view.xml',
              ],
+    'init': [],
+    'demo': [],
+    'update': [],
+    'test': [],  # YAML files with tests
     'installable': True,
     'application': False,
+    'auto_install': False,  # If it's True, the modules will be auto-installed when all dependencies are installed
     'certificate': '',
 }
