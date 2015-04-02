@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data noupdate="1">
+
+        <record model="res.partner.phone.type" id="phone_type1">
+            <field name="name">Celular</field>
+            <field name="code">cel</field>
+        </record>
+
+        <record model="res.partner.phone.type" id="phone_type2">
+            <field name="name">Telefone</field>
+            <field name="code">phone</field>
+        </record>
+
+    </data>
+</openerp>
