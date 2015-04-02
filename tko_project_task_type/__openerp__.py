@@ -29,7 +29,7 @@
     'sequence': 14,
     'complexity': 'medium',
     'description': '''== This module adds a task type field ==\n
-Each type will have a colour. This makes easy to identify the tasks types in kanban.''',
+Each type will have a colour. This makes easy to identify the tasks types in kanban through their colours.''',
     'author': 'ThinkOpen Solutions Brasil',
     'website': 'http://www.tkobr.com',
     'depends': [
