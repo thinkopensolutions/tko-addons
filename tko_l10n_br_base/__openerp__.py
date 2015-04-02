@@ -40,7 +40,6 @@ Também adiciona novos campos específicos, de cadastro de empresa:\n
     'depends': [
                 'base',
                 'l10n_br_base',
-                'tko_partner_configuration_menus',
                 ],
     'data': [
              'security/ir.model.access.csv',

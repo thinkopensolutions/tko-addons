@@ -39,7 +39,6 @@ Entre outros adiciona:\n
     'website': 'http://www.tkobr.com',
     'depends': [
                 'base',
-                'tko_l10n_br_base',
                 'hr',
                 ],
     'data': [
