@@ -23,7 +23,7 @@
 ##############################################################################
 
 {
-    'name': 'Partner Multiple Emails',
+    'name': 'Partner multiple emails',
     'version': '0.008',
     'category': 'Customizations',
     'sequence': 15,
