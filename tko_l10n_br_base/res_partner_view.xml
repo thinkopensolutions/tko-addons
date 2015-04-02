@@ -58,7 +58,6 @@
                 <field name="zip" position="replace" />
                 <field name="state_id" position="replace" />
                 <field name="country_id" position="replace" />
-                <field name="l10n_br_city_id" position="replace" />
                 <field name="street" position="attributes">
                     <attribute name="placeholder">street</attribute>
                 </field>
@@ -92,9 +91,7 @@
                         on_change="onchange_is_company_selection(is_company_selection)" />
                 </field>
                 <page string="Contacts" position="attributes">
-                    <attribute name="attrs">{'invisible' :
-                        [('is_company_selection','=','f')] }
-                    </attribute>
+                    <attribute name="attrs">{'invisible': [('is_company_selection','=','f')]}</attribute>
                 </page>
                 <xpath expr="//group" position="before">
                     <field name="is_company" invisible="1" />

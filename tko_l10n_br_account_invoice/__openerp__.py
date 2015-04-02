@@ -35,7 +35,6 @@
     'depends': [
                 'base',
                 'account',
-                'l10n_br_base',
                 ],
     'data': [
              'views/report_invoice.xml',
