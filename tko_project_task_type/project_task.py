@@ -32,6 +32,7 @@ class task_type(models.Model):
     color = fields.Integer('Color Index', size=1)
     task_id = fields.Many2one('project.task', string='Task')
     
+    
 class project_task(models.Model):
     _inherit = 'project.task'
     
