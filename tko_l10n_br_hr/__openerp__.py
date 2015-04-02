@@ -24,7 +24,7 @@
 
 {
     'name': 'Localização Brasileira para Recursos Humanos',
-    'version': '0.042',
+    'version': '0.001',
     'category': 'l10n_br',
     'sequence': 9,
     'complexity': 'normal',
