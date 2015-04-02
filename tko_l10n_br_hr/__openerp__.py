@@ -24,7 +24,7 @@
 
 {
     'name': 'Localização Brasileira para Recursos Humanos',
-    'version': '0.042',
+    'version': '0.001',
     'category': 'l10n_br',
     'sequence': 9,
     'complexity': 'normal',
@@ -39,7 +39,6 @@ Entre outros adiciona:\n
     'website': 'http://www.tkobr.com',
     'depends': [
                 'base',
-                'tko_l10n_br_base',
                 'hr',
                 ],
     'data': [
