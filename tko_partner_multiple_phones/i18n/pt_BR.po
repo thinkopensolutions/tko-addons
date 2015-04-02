@@ -18,7 +18,7 @@ msgstr ""
 #. module: tko_partner_multiple_phones
 #: field:res.partner.phone.type,code:0
 msgid "Code"
-msgstr "Code"
+msgstr "Código"
 
 #. module: tko_partner_multiple_phones
 #: view:res.partner:tko_partner_multiple_phones.res_partner_inherited_form
@@ -29,13 +29,13 @@ msgstr "Contatos"
 #: field:res.partner.phone,create_uid:0
 #: field:res.partner.phone.type,create_uid:0
 msgid "Created by"
-msgstr "Created by"
+msgstr "Criado por"
 
 #. module: tko_partner_multiple_phones
 #: field:res.partner.phone,create_date:0
 #: field:res.partner.phone.type,create_date:0
 msgid "Created on"
-msgstr "Created on"
+msgstr "Criado em"
 
 #. module: tko_partner_multiple_phones
 #: field:res.partner.phone,id:0
@@ -46,24 +46,24 @@ msgstr "ID"
 #. module: tko_partner_multiple_phones
 #: field:res.partner.phone,is_active:0
 msgid "Is Active"
-msgstr "Is Active"
+msgstr "Está Ativo"
 
 #. module: tko_partner_multiple_phones
 #: field:res.partner.phone,write_uid:0
 #: field:res.partner.phone.type,write_uid:0
 msgid "Last Updated by"
-msgstr "Last Updated by"
+msgstr "Última atualização por"
 
 #. module: tko_partner_multiple_phones
 #: field:res.partner.phone,write_date:0
 #: field:res.partner.phone.type,write_date:0
 msgid "Last Updated on"
-msgstr "Last Updated on"
+msgstr "Última atualização em"
 
 #. module: tko_partner_multiple_phones
 #: view:res.partner:tko_partner_multiple_phones.res_partner_inherited_form
-msgid "Main"
-msgstr "Principal"
+msgid "Make it main"
+msgstr "Tornar principal"
 
 #. module: tko_partner_multiple_phones
 #: field:res.partner.phone,phone:0
@@ -78,27 +78,27 @@ msgstr "Parceiro"
 #. module: tko_partner_multiple_phones
 #: field:res.partner.phone,res_partner_id:0
 msgid "Partner ID"
-msgstr "Partner ID"
+msgstr "Parceiro ID"
 
 #. module: tko_partner_multiple_phones
 #: view:res.partner:tko_partner_multiple_phones.partner_search_inherit
 msgid "Phone / Celular"
-msgstr "Phone / Celular"
+msgstr "Telefone / Celular"
 
 #. module: tko_partner_multiple_phones
 #: view:res.partner.phone.type:tko_partner_multiple_phones.res_partner_phone_type_form
 msgid "Phone Type"
-msgstr "Phone Type"
+msgstr "Tipo de Telefone"
 
 #. module: tko_partner_multiple_phones
 #: sql_constraint:res.partner.phone:0
 msgid "Phone number should be unique !"
-msgstr "Phone number should be unique !"
+msgstr "Número de telefone tem de ser único!"
 
 #. module: tko_partner_multiple_phones
 #: model:ir.model,name:tko_partner_multiple_phones.model_res_partner_phone_type
 msgid "Phone type"
-msgstr "Phone type"
+msgstr "Tipo de telefone"
 
 #. module: tko_partner_multiple_phones
 #: view:res.partner:tko_partner_multiple_phones.res_partner_inherited_form

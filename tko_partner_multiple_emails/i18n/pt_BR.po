@@ -18,7 +18,7 @@ msgstr ""
 #. module: tko_partner_multiple_emails
 #: field:res.partner.email,is_active:0
 msgid "Active"
-msgstr "Active"
+msgstr "Ativo"
 
 #. module: tko_partner_multiple_emails
 #: view:res.partner:tko_partner_multiple_emails.res_partner_inherited_form
@@ -28,12 +28,12 @@ msgstr "Contatos"
 #. module: tko_partner_multiple_emails
 #: field:res.partner.email,create_uid:0
 msgid "Created by"
-msgstr "Created by"
+msgstr "Criado por"
 
 #. module: tko_partner_multiple_emails
 #: field:res.partner.email,create_date:0
 msgid "Created on"
-msgstr "Created on"
+msgstr "Criado em"
 
 #. module: tko_partner_multiple_emails
 #: view:res.partner:tko_partner_multiple_emails.partner_search_inherit
@@ -46,13 +46,14 @@ msgstr "Email Principal"
 #: view:res.partner.email:tko_partner_multiple_emails.res_partner_email_tree
 #: field:res.partner.email,email:0
 msgid "Emails"
-msgstr "Email"
+msgstr "Emails"
 
 #. module: tko_partner_multiple_emails
 #: constraint:res.partner.email:0
 msgid "Error!\n"
 "Please enter a valid email address."
-msgstr "Error!Please enter a valid email address."
+msgstr "Erro!
+Por favor insira um email válido."
 
 #. module: tko_partner_multiple_emails
 #: field:res.partner.email,id:0
@@ -62,17 +63,17 @@ msgstr "ID"
 #. module: tko_partner_multiple_emails
 #: field:res.partner.email,write_uid:0
 msgid "Last Updated by"
-msgstr "Last Updated by"
+msgstr "Última atualização por"
 
 #. module: tko_partner_multiple_emails
 #: field:res.partner.email,write_date:0
 msgid "Last Updated on"
-msgstr "Last Updated on"
+msgstr "Última atualização em"
 
 #. module: tko_partner_multiple_emails
 #: view:res.partner:tko_partner_multiple_emails.res_partner_inherited_form
-msgid "Main"
-msgstr "Principal"
+msgid "Make it main"
+msgstr "Tornar principal"
 
 #. module: tko_partner_multiple_emails
 #: model:ir.model,name:tko_partner_multiple_emails.model_res_partner
@@ -82,7 +83,7 @@ msgstr "Parceiro"
 #. module: tko_partner_multiple_emails
 #: field:res.partner.email,res_partner_id:0
 msgid "Partner ID"
-msgstr "Partner ID"
+msgstr "Parceiro ID"
 
 #. module: tko_partner_multiple_emails
 #: sql_constraint:res.partner.email:0
