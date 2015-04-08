@@ -23,8 +23,8 @@
 ##############################################################################
 
 {
-    'name': 'Payment wizard gets invoice number to reference',
-    'version': '0.001',
+    'name': 'Payment wizard gets invoice number into reference',
+    'version': '0.002',
     'category': 'Account',
     'sequence': 5,
     'complexity': 'normal',
