@@ -24,7 +24,7 @@
 
 {
     'name': 'Add supplier code filter to product',
-    'version': '0.006',
+    'version': '0.001',
     'category': 'Customization',
     'sequence': 11,
     'complexity': 'simple',

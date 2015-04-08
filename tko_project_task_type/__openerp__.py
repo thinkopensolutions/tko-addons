@@ -24,7 +24,7 @@
 
 {
     'name': 'Project task type with colours',
-    'version': '0.003',
+    'version': '0.001',
     'category': 'Customizations',
     'sequence': 14,
     'complexity': 'medium',
