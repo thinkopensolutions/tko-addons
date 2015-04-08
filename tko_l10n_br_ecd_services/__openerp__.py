@@ -23,19 +23,20 @@
 ##############################################################################
 
 {
-    'name': 'Plano de Contas ECD Brasil - Empresas de Serviços',
+    'name': 'Brasil - Plano de Contas ECD para Empresas de Serviços',
     'category': 'Localization/Account Charts',
     'description': "Plano de contas ECD Brasil para empresas de serviços.",
     'author': 'ThinkOpen Solutions Brasil',
     'license': 'AGPL-3',
     'website': 'http://tkobr.com',
-    'version': '0.001',
+    'version': '1.001',
     'sequence': 8,
     'depends': [
                 'account',
                 'account_chart',
                 ],
     'data': [
+             'data/account.account.csv',
              'data/account.account.template.csv',
              'data/account_chart_template.xml',
              ],
@@ -43,7 +44,7 @@
     'demo': [],
     'update': [],
     'test': [],  # YAML files with tests
-    'installable': False,
+    'installable': True,
     'application': False,
     'auto_install': False,  # If it's True, the modules will be auto-installed when all dependencies are installed
     'certificate': '',

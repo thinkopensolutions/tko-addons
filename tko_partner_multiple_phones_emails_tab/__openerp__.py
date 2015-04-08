@@ -24,7 +24,7 @@
 
 {
     'name': 'Partner multiple phones and emails in a single tab',
-    'version': '0.001',
+    'version': '0.002',
     'category': 'Customizations',
     'sequence': 17,
     'complexity': 'normal',

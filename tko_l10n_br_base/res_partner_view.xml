@@ -47,6 +47,9 @@
             <field name="inherit_id"
                 ref="l10n_br_base.view_l10n_br_base_partner_form" />
             <field name="arch" type="xml">
+            	<field name="email" position="attributes">
+            		<attribute name="on_change">onchange_email(email)</attribute>
+            	</field>
                 <field name="fax" position="replace" />
                 <field name="mobile" position="replace" />
                 <field name="phone" position="replace" />

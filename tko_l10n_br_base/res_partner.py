@@ -22,11 +22,14 @@
 #
 ##############################################################################
 
-import time
+import time, re
 from datetime import datetime, timedelta
 from lxml import etree 
 from openerp.osv import osv, fields
-from datetime import date, datetime
+from datetime import date,datetime
+from openerp.addons.l10n_br_base.tools import fiscal 
+from openerp.exceptions import Warning
+from openerp import _
 
 
 AVAILABLE_ZONES = [
@@ -127,6 +130,25 @@ class res_partner(osv.osv):
                    }
         else:
             return True
+        
+    def onchange_mask_cnpj_cpf(self, cr, uid, ids, is_company,
+                            cnpj_cpf, context=None):
+        result = super(res_partner, self).onchange_type(
+            cr, uid, ids, is_company)
+        if cnpj_cpf:
+            if is_company:
+                if not fiscal.validate_cnpj(cnpj_cpf):
+                    raise Warning(_('CNPJ not validated'))
+            elif not fiscal.validate_cpf(cnpj_cpf):
+                    raise Warning(_('CPF not validated'))
+        return result
+    
+    
+    def onchange_email(self, cr, uid, ids, email, context=None):
+        if email:
+            if not re.match("^.+\\@(\\[?)[a-zA-Z0-9\\-\\.]+\\.([a-zA-Z]{2,3}|[0-9]{1,3})(\\]?)$", email) != None:
+                raise Warning(_('Email not validated'))
+        return {'value':{'email' : email}}
     
     _defaults = {
         'is_matriz':'f',

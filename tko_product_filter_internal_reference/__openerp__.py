@@ -24,7 +24,7 @@
 
 {
     'name': 'Add internal filter reference to product',
-    'version': '0.001',
+    'version': '0.006',
     'category': 'Customization',
     'sequence': 10,
     'complexity': 'normal',

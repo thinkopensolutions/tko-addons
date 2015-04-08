@@ -4,8 +4,8 @@
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
 #
-#    Thinkopen Brasil
-#    Copyright (C) Thinkopen Solutions Brasil (<http://www.tkobr.com>).
+#    ThinkOpen Solutions Brasil
+#    Copyright (C) Thinkopen Solutions <http://www.tkobr.com>.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -24,7 +24,7 @@
 
 {
     'name': 'Project task type with colours',
-    'version': '0.001',
+    'version': '0.003',
     'category': 'Customizations',
     'sequence': 14,
     'complexity': 'medium',
