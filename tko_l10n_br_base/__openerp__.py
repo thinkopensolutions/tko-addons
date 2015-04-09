@@ -24,7 +24,7 @@
 
 {
     'name': 'Customização da Localização Brasileira',
-    'version': '0.002',
+    'version': '0.003',
     'category': 'Localisation',
     'sequence': 4,
     'complexity': 'normal',
@@ -51,7 +51,6 @@ Também adiciona novos campos específicos, de cadastro de empresa:\n
              'data/district.csv',
              'res_partner_view.xml',
              'res_company_view.xml',
-             'extra_views.xml',
              ],
     'init': [],
     'demo': [],
