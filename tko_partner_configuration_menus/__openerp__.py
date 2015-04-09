@@ -24,7 +24,7 @@
 
 {
     'name': 'Partner Entities Menus for tko_l10n_br_base',
-    'version': '0.004',
+    'version': '0.006',
     'category': 'Customization',
     'sequence': 18,
     'complexity': 'normal',
