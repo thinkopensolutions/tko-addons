@@ -29,14 +29,13 @@
     'author': 'ThinkOpen Solutions Brasil',
     'license': 'AGPL-3',
     'website': 'http://tkobr.com',
-    'version': '1.001',
+    'version': '1.013',
     'sequence': 8,
     'depends': [
                 'account',
                 'account_chart',
                 ],
     'data': [
-             'data/account.account.csv',
              'data/account.account.template.csv',
              'data/account_chart_template.xml',
              ],
