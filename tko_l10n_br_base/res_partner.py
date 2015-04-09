@@ -26,7 +26,7 @@ import time, re
 from datetime import datetime, timedelta
 from lxml import etree 
 from openerp.osv import osv, fields
-from datetime import date,datetime
+from datetime import date, datetime
 from openerp.addons.l10n_br_base.tools import fiscal 
 from openerp.exceptions import Warning
 from openerp import _
@@ -40,18 +40,15 @@ AVAILABLE_ZONES = [
             ('o', 'Oeste')
             ]
 
-
 IS_COMPANY = [
               ('f', u'Pessoa Física'),
               ('j', u'Pessoa Jurídica'),
               ]
 
-
 IS_MATRIZ = [
              ('f', 'Filial'),
              ('m', 'Matriz'),
               ]
-
 
 GENDER = [
           ('m', 'Masculino'),
@@ -133,14 +130,14 @@ class res_partner(osv.osv):
         
     def onchange_mask_cnpj_cpf(self, cr, uid, ids, is_company,
                             cnpj_cpf, context=None):
-        result = super(res_partner, self).onchange_type(
-            cr, uid, ids, is_company)
+        result = super(res_partner, self).onchange_mask_cnpj_cpf(
+            cr, uid, ids, is_company, cnpj_cpf)
         if cnpj_cpf:
             if is_company:
                 if not fiscal.validate_cnpj(cnpj_cpf):
-                    raise Warning(_('CNPJ not validated'))
+                    raise Warning(_('CNPJ not valid'))
             elif not fiscal.validate_cpf(cnpj_cpf):
-                    raise Warning(_('CPF not validated'))
+                    raise Warning(_('CPF not valid'))
         return result
     
     
