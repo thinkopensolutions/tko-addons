@@ -23,13 +23,13 @@
 ##############################################################################
 
 {
-    'name': 'Brasil - Plano de Contas ECD para Empresas de Serviços',
+    'name': 'Brasil - Plano Oficial de Contas (ECD)',
     'category': 'Localization/Account Charts',
-    'description': "Plano de contas ECD Brasil para empresas de serviços.",
+    'description': "Plano de contas ECD Brasil.",
     'author': 'ThinkOpen Solutions Brasil',
     'license': 'AGPL-3',
     'website': 'http://tkobr.com',
-    'version': '1.013',
+    'version': '1.015',
     'sequence': 8,
     'depends': [
                 'account',
