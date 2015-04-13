@@ -24,7 +24,7 @@
 
 {
     'name': 'Customização da Localização Brasileira',
-    'version': '0.003',
+    'version': '0.023',
     'category': 'Localisation',
     'sequence': 4,
     'complexity': 'normal',

@@ -47,9 +47,10 @@
             <field name="inherit_id"
                 ref="l10n_br_base.view_l10n_br_base_partner_form" />
             <field name="arch" type="xml">
-            	<field name="email" position="attributes">
-            		<attribute name="on_change">onchange_email(email)</attribute>
-            	</field>
+                <field name="email" position="attributes">
+                    <attribute name="on_change">onchange_email(email)
+                    </attribute>
+                </field>
                 <field name="fax" position="replace" />
                 <field name="mobile" position="replace" />
                 <field name="phone" position="replace" />
@@ -61,29 +62,21 @@
                 <field name="zip" position="replace" />
                 <field name="state_id" position="replace" />
                 <field name="country_id" position="replace" />
+                <field name="street2" position="replace" />
                 <field name="street" position="attributes">
                     <attribute name="placeholder">street</attribute>
                 </field>
                 <field name="number" position="attributes">
                     <attribute name="placeholder">number</attribute>
                 </field>
-                <field name="district" position="attributes">
-                    <attribute name="placeholder">district</attribute>
-                </field>
-                <field name="street2" position="replace">
+                <field name="district" position="replace">
                     <field name="street2" placeholder="complement" />
-                </field>
-                <field name="street2" position="after">
+                    <field name="district" placeholder="district" />
                     <field name="zip" placeholder="zip" />
                     <field name="country_id" placeholder="country" />
                     <field name="state_id" placeholder="state" />
-                    <field name="l10n_br_city_id" placeholder="city" />
                 </field>
-                <xpath expr="//div/div" position="replace">
-                    <div class="oe_edit_only">
-                        <label for="name" />
-                    </div>
-                </xpath>
+                <xpath expr="//div/div" position="replace" />
                 <xpath expr="//div/group" position="replace" />
                 <xpath expr="//page[@string='Contacts']" position="attributes">
                     <attribute name="attrs"></attribute>
@@ -94,7 +87,7 @@
                         on_change="onchange_is_company_selection(is_company_selection)" />
                 </field>
                 <page string="Contacts" position="attributes">
-                    <attribute name="attrs">{'invisible': [('is_company_selection','=','f')]}</attribute>
+                    <attribute name="attrs">{'invisible':[('is_company_selection','=','f')]}</attribute>
                 </page>
                 <xpath expr="//group" position="before">
                     <field name="is_company" invisible="1" />
@@ -106,7 +99,7 @@
                                     style="width: 20%%" widget="selection"
                                     options='{"no_open": True}' domain="[('is_juridica','=',True)]" />
                                 <field name="legal_name" nolabel="1"
-                                    style="width: 80%%" placeholder="legal name" />
+                                    style="width: 80%%" placeholder="legal name" domain="[('is_company','=',True)]" />
                             </div>
                             <div>
                                 <field name="gender" nolabel="1"
@@ -119,7 +112,7 @@
                             <field name="parent_id" nolabel="1"
                                 colspan="3" placeholder="company"
                                 domain="[('is_company', '=', True),('id','!=',active_id)]"
-                                context="{'default_is_company': True, 'default_supplier': supplier, 'default_customer': customer}"
+                                context="{'default_is_company': True, 'default_is_company_selection': 'j', 'default_supplier': supplier, 'default_customer': customer}"
                                 on_change="onchange_address(use_parent_address, parent_id)" />
                         </div>
                     </group>
