@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12">
+            <h2 class="oe_slogan">SMTP Server Per User</h2><br />
+            <h3 class="oe_slogan">Configure Odoo to use specific incoming and outgoing email server by user.</h3><br />
+        </div>
+        <div class="oe_span6">
+            <div class="oe_row_img oe_centered">
+                <img class="oe_picture oe_screenshot" src="smtp_server_owner.png">
+                <div class="oe_demo_footer oe_centeralign">Owner of SMTP Server</div>
+            </div>
+        </div>
+        <div class="oe_span6">
+            <p class="oe_mt32">
+                Create a outgoing SMTP server and set the owner.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span6">
+            <div class="oe_row_img oe_centered">
+                <img class="oe_picture oe_screenshot" src="user_smtp_server.png">
+                <div class="oe_demo_footer oe_centeralign">User SMTP Server</div>
+            </div>
+        </div>
+        <div class="oe_span6">
+            <p class="oe_mt32">
+                Create a regular user, don't forget to set email alias equal to email server.
+            </p>
+        </div>
+        <div class="oe_span12">
+            <p class="oe_mt32">
+                <strong>Configuration:</strong>
+                <ol>
+                    <li>Go to "Settings --> Technical --> General Settings" and set your domain in "Alias Domain" (ex: mydomain.com).</li>
+                    <li>Go to "Settings --> Technical --> Parameters --> System Parameters" and check if you have:
+                        <ol>
+                            <li>Parameter key "mail.catchall.domain" must be same domain you give above (ex: mydomain.com).</li>
+                            <li>Parameter key "mail.catchall.alias" this is the catchall alias email (ex: catchall).</li>
+                            <li>Parameter key "mail.bounce.alias" this is the bounce alias email (ex: bounce). The default bounce address is used to set the envelop address if no envelop address is provided in the message. It is formed by properly joining the parameters "mail.catchall.alias" and "mail.catchall.domain". If "mail.catchall.alias" is not set it defaults to "postmaster-odoo". <strong>NOTE:</strong> use with care, some relay servers will not forward emails with no bounce email account configured and Odoo does this dynamically (ex: bounce-16-res_partner34@yourdomain.com).</li>
+                            <li>Catchall and bounce parameters can be the equal.</li>
+                        </ol>
+                    </li>
+                    <li>Go to "Settings -->  Technical --> Email --> Incoming Mail Servers", create catchall mail server (ex: catchall@mydomain.com)</li>
+                    <li>If you have bounce parameter, go to "Settings -->  Technical --> Email --> Incoming Mail Servers", create bounce mail server (ex: bounce@mydomain.com)</li>
+                    <li>Go to "Settings -->  Technical --> Email --> Incoming Mail Servers", create user mail server (ex: newuser@mydomain.com)</li>
+                    <li>Go to "Settings -->  Technical --> Email --> Outgoing Mail Servers", create outgoing SMTP server (ex: newuser@mydomain.com). Select the user you previously created as owner.</li>
+                    <li>CONGRATULATION, you can now login as your new user and send emails, they will reach destination with the from and reply to as newuser@mydomain.com. And on reply you will get them in same entity from where you've sent it.</li>
+                    <li>You should create an income and outgoing email server for each user.</li>
+                    <li>You can <strong>still use Odoo in the standard way</strong>, and only some users having specific SMTP email server. It will only set the emails sent by users with specific email server.</li>
+                </ol> 
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12">
+            <h3 class="oe_slogan" style="font-size: 20px;">Developed for Odoo by <a href="http://www.tkobr.com">Thinkopen Solutions Brasil</a></h3>
+            <h3 class="oe_slogan" style="font-size: 18px;"><strong>You Can't Even Imagine...</strong></h3>
+            <p>
+                <h3 class="oe_slogan" style="font-size: 15px;">support at <a href="emailto:sac@tkobr.com?subject=tko_web_sessions_management">sac@tkobr.com</a></h3>
+            </p>
+        </div>
+    </div>
+</section>
