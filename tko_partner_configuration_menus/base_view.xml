@@ -5,7 +5,7 @@
         <!-- Activity Branch -->
         <record id="activity_branch_tree" model="ir.ui.view">
             <field name="name"> Activity Branch</field>
-            <field name="model">tko_l10n_br_base.activity_branch</field>
+            <field name="model">activity_branch</field>
             <field name="arch" type="xml">
                 <tree string="Activity Branch" version="7.0">
                     <field name="name" />
@@ -15,7 +15,7 @@
 
         <record id="activity_branch_form" model="ir.ui.view">
             <field name="name"> Activity Branch</field>
-            <field name="model">tko_l10n_br_base.activity_branch</field>
+            <field name="model">activity_branch</field>
             <field name="arch" type="xml">
                 <form string="Activity Branch" version="7.0">
                     <group>
@@ -27,7 +27,7 @@
 
         <record id="activity_branch_action" model="ir.actions.act_window">
             <field name="name"> Activity Branch</field>
-            <field name="res_model">tko_l10n_br_base.activity_branch</field>
+            <field name="res_model">activity_branch</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
@@ -35,7 +35,7 @@
         <!-- Business Size -->
         <record id="business_size_tree" model="ir.ui.view">
             <field name="name"> Business Size</field>
-            <field name="model">tko_l10n_br_base.business_size</field>
+            <field name="model">business_size</field>
             <field name="arch" type="xml">
                 <tree string="Business Size" version="7.0">
                     <field name="name" />
@@ -45,7 +45,7 @@
 
         <record id="business_size_form" model="ir.ui.view">
             <field name="name"> Business Size</field>
-            <field name="model">tko_l10n_br_base.business_size</field>
+            <field name="model">business_size</field>
             <field name="arch" type="xml">
                 <form string="Business Size" version="7.0">
                     <group>
@@ -57,7 +57,7 @@
 
         <record id="business_size_action" model="ir.actions.act_window">
             <field name="name">Business Size</field>
-            <field name="res_model">tko_l10n_br_base.business_size</field>
+            <field name="res_model">business_size</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
@@ -65,7 +65,7 @@
         <!-- Annual Income -->
         <record id="annual_income_tree" model="ir.ui.view">
             <field name="name"> Annual Income</field>
-            <field name="model">tko_l10n_br_base.annual_income</field>
+            <field name="model">annual_income</field>
             <field name="arch" type="xml">
                 <tree string="Business Size" version="7.0">
                     <field name="name" />
@@ -75,7 +75,7 @@
 
         <record id="annual_income_form" model="ir.ui.view">
             <field name="name">Annual Income</field>
-            <field name="model">tko_l10n_br_base.annual_income</field>
+            <field name="model">annual_income</field>
             <field name="arch" type="xml">
                 <form string="Business Size" version="7.0">
                     <group>
@@ -87,7 +87,7 @@
 
         <record id="annual_income_action" model="ir.actions.act_window">
             <field name="name">Annual Income</field>
-            <field name="res_model">tko_l10n_br_base.annual_income</field>
+            <field name="res_model">annual_income</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
@@ -95,7 +95,7 @@
         <!-- Economic Sector -->
         <record id="economic_sector_tree" model="ir.ui.view">
             <field name="name">Economic Sector</field>
-            <field name="model">tko_l10n_br_base.economic_sector</field>
+            <field name="model">economic_sector</field>
             <field name="arch" type="xml">
                 <tree string="Economic Sector" version="7.0">
                     <field name="name" />
@@ -105,7 +105,7 @@
 
         <record id="economic_sector_form" model="ir.ui.view">
             <field name="name">Economic Sector</field>
-            <field name="model">tko_l10n_br_base.economic_sector</field>
+            <field name="model">economic_sector</field>
             <field name="arch" type="xml">
                 <form string="Economic Sector" version="7.0">
                     <group>
@@ -117,7 +117,7 @@
 
         <record id="economic_sector_action" model="ir.actions.act_window">
             <field name="name">Economic Sector</field>
-            <field name="res_model">tko_l10n_br_base.economic_sector</field>
+            <field name="res_model">economic_sector</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
@@ -125,7 +125,7 @@
         <!-- Business Nationality -->
         <record id="business_nationality_tree" model="ir.ui.view">
             <field name="name">Business Nationality</field>
-            <field name="model">tko_l10n_br_base.business_nationality</field>
+            <field name="model">business_nationality</field>
             <field name="arch" type="xml">
                 <tree string="Business Nationality" version="7.0">
                     <field name="name" />
@@ -135,7 +135,7 @@
 
         <record id="business_nationality_form" model="ir.ui.view">
             <field name="name">Business Nationality</field>
-            <field name="model">tko_l10n_br_base.business_nationality</field>
+            <field name="model">business_nationality</field>
             <field name="arch" type="xml">
                 <form string="Business Nationality" version="7.0">
                     <group>
@@ -147,7 +147,7 @@
 
         <record id="business_nationality_action" model="ir.actions.act_window">
             <field name="name">Business Nationality</field>
-            <field name="res_model">tko_l10n_br_base.business_nationality</field>
+            <field name="res_model">business_nationality</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
