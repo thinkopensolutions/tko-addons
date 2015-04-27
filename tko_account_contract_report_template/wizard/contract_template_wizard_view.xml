@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Issue Wizard -->
+        <record id="contract_template_form" model="ir.ui.view">
+            <field name="name">Contract Wizard</field>
+            <field name="model">contract.template.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Contract Template">
+                    <group>
+                        <field name="contract_template_id" />
+                    </group>
+                    <group col="4">
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="partner_phone"/>
+                            <field name="partner_mobile"/>
+                            <field name="partner_email"/>
+                            <field name="partner_country_id"/>
+                            <field name="partner_state_id"/>
+                            <field name="partner_city"/>
+                            <field name="partner_street"/>
+                            <field name="partner_street2"/>
+                            <field name="partner_zip"/>
+                        </group>
+                        <group>
+                            <field name="manager_id" 
+                            context="{'default_groups_ref': ['base.group_user', 'base.group_partner_manager', 'account.group_account_manager']}"/>
+                            <field name="manager_phone"/>
+                            <field name="manager_mobile"/>
+                            <field name="manager_email"/>
+                            <field name="manager_country_id"/>
+                            <field name="manager_state_id"/>
+                            <field name="manager_city"/>
+                            <field name="manager_street"/>
+                            <field name="manager_street2"/>
+                            <field name="manager_zip"/>
+                            <field name="manager_function"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="signature" widget="image"
+                            class="oe_avatar" />
+                    </group>
+                    <footer>
+                        <button name="print_contract" string="Print/Save"
+                            type="object" class="oe_highlight" />
+                        or
+                        <button string="Cancel/Close" class="oe_link"
+                            special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="contract_template_action" model="ir.actions.act_window">
+            <field name="name">contract.template.wizard</field>
+            <field name="res_model">contract.template.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

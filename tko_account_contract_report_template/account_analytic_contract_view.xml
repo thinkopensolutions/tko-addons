@@ -1,0 +1,117 @@
+<openerp>
+    <data>
+
+        <!--Contract Tree View -->
+        <record id="account_analytic_contract_tree_inherit" model="ir.ui.view">
+            <field name="name">account.analytic.account</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="account.view_account_analytic_account_list" />
+            <field name="arch" type="xml">
+                <field name="state" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </field>
+            </field>
+        </record>
+
+        <!--form view -->
+        <record id="account_analytic_contract_report_form" model="ir.ui.view">
+            <field name="name">account.analytic.account.contract.report.body</field>
+            <field name="model">account.analytic.account.contract.report.body</field>
+            <field name="arch" type="xml">
+                <form string="Account Analytic Contract Report" version="7.0">
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                            <field name="signature" widget="image" class="oe_avatar" />
+                        </group>
+                        <group col="4">
+                            <div class="oe_grey oe_edit_only">
+                                You can add keywords in text to be replaced:<br/>
+                                Customer:<ul>
+                                    <li>Name: $(partner_id.name)s</li>
+                                    <li>Email: $(partner_id.email)s</li>
+                                </ul>
+                                Account Manager:<ul>
+                                    <li>Street: $(manager_id.street)s</li>
+                                    <li>Country: $(manager_id.country)s</li>
+                                    <li>Function: $(manager_id.function)s</li>
+                                </ul>
+                            </div>
+                            <div class="oe_grey oe_edit_only">
+                                <br/>
+                                Company:<ul>
+                                    <li>Name: $(company_id.name)s</li>
+                                    <li>Phone: $(company_id.phone)s</li>
+                                    <li>Signature: $(contract_template_body_id.signature)s</li>
+                                </ul>
+                                NOTE: You can use any field that is related to the contract. Example: $(partner_id.property_payment_term.name)s<br />
+                                For images you can set width and height as $(ImageField,width,height)s. Example: $(partner_id.image,160,160)s
+                            </div>
+                        </group>
+                        <field name="contract_body" widget="html" />
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="account_analytic_contract_report_tree" model="ir.ui.view">
+            <field name="name">account.analytic.account.contract.report.body</field>
+            <field name="model">account.analytic.account.contract.report.body</field>
+            <field name="arch" type="xml">
+                <tree string="Account Analytic Contract Report" version="7.0">
+                    <field name="name" />
+                    <field name="signature" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="account_analytic_account_form_form" model="ir.ui.view">
+            <field name="name">account.analytic.account.invoice.form
+            </field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id"
+                ref="hr_timesheet_invoice.account_analytic_account_form_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='set_open']" position="attributes">
+                    <attribute name="states">pending,close,cancelled,draft,sent
+                    </attribute>
+                </xpath>
+                <xpath expr="//button[@name='set_cancel']"
+                    position="attributes">
+                    <attribute name="states">open,pending,sent
+                    </attribute>
+                </xpath>
+                <button name="set_pending" position="before">
+                    <button name="%(contract_template_action)d"
+                        type="action" string="Generate Contract" />
+                    <button name="action_contract_sent" type="object"
+                        string="Send by Email" class="oe_highlight"
+                        states="draft,sent,open,pending" />
+                </button>
+            </field>
+        </record>
+
+        <record id="contract_inherit" model="ir.ui.view">
+            <field name="name">contract</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id"
+                ref="analytic.view_account_analytic_account_form" />
+            <field name="arch" type="xml">
+                <page string="Contract Information" position="after">
+                    <page string="Contract">
+                        <group>
+                            <field name="contract_template_body_id" />
+                            <field name="date_contract_sent"
+                                readonly="1" />
+                        </group>
+                    </page>
+                </page>
+            </field>
+        </record>
+
+    </data>
+</openerp>

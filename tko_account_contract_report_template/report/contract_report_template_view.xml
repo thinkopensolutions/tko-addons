@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="tko_report_css" inherit_id="report.minimal_layout">
+            <xpath expr="//head" position="inside">
+                <link
+                    href="/tko_account_contract_report_template/static/src/css/contract_style.css"
+                    rel="stylesheet" />
+            </xpath>
+        </template>
+
+        <template id="tko_contract_report">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <div class="row">
+                            <span t-raw="compute_template_variables(o, o.contract_template_body_id.contract_body)" />
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+        <!-- <template id="report_contract"> <t t-call="report.html_container"> 
+            <t t-foreach="doc_ids" t-as="doc_id"> <t t-raw="translate_doc(doc_id, doc_model, 
+            'partner_id.lang', 'tko_account_contract_report_template.tko_contract_report')"/> 
+            </t> </t> </template> -->
+
+    </data>
+</openerp>
