@@ -4,8 +4,8 @@
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
 #
-#    Thinkopen - Portugal & Brasil
-#    Copyright (C) Thinkopen Solutions (<http://www.thinkopensolutions.com>).
+#    ThinkOpen Solutions Brasil
+#    Copyright (C) Thinkopen Solutions <http://www.tkobr.com>.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -23,12 +23,12 @@
 ##############################################################################
 
 {
-    'name': 'Account Contract Report',
-    'version': '0.030.1',
+    'name': 'Account Contract Report Template',
+    'version': '0.031',
     'category': 'Account',
     'sequence': 38,
     'complexity': 'normal',
-    'description': ''' Account Contract Report.''',
+    'description': '''Account Contract Report.''',
     'author': 'ThinkOpen Solutions',
     'website': 'http://www.thinkopensolution.com',
     'images': ['images/oerp61.jpeg',],
