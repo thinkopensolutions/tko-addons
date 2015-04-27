@@ -24,7 +24,7 @@
 
 {
     'name': 'Account Contract Report',
-    'version': '0.028.1',
+    'version': '0.029.1',
     'category': 'Account',
     'sequence': 38,
     'complexity': 'normal',

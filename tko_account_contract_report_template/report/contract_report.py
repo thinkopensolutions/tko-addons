@@ -53,8 +53,8 @@ class tko_contract_report(report_sxw.rml_parse):
                         type = value._fields[field].type
                         value = value[field]
                     except Exception, err:
-                        value = ("field %s doesn't exist  in %s") % (err, value)
-                        _logger.error(("field %s doesn't exist  in %s") % (err, value))
+                        value = ('<font color="red"><strong>[ERROR: Field %s doesn\'t exist  in %s]<strong></font>') % (err, value)
+                        _logger.error(("Field %s doesn't exist  in %s") % (err, value))
                 if value:
                     if type != 'binary':
                         text = text.replace('$(' + match + ')s' , str(value))
@@ -65,9 +65,11 @@ class tko_contract_report(report_sxw.rml_parse):
                                 width = ' width="%spx"' % block[1]
                             if block[2]:
                                 height = ' height="%spx"' % block[2]
+                            text = text.replace('$(' + match + ')s' , '<img src="data:image/jpeg;base64,' + str(value) + '"%s%s/>' % (width, height))
                         except Exception, err:
-                            raise Warning(_(u'Wrong image size indication.\nExamples:\n $(partner_id.image,160,160)s\n $(partner_id.image,,160)s\n $(partner_id.image,160,)s\n $(partner_id.image,,)s'))
-                        text = text.replace('$(' + match + ')s' , '<img src="data:image/jpeg;base64,' + str(value) + '"%s%s/>' % (width, height))
+                            value = _(u'<font color="red"><strong>[ERROR: Wrong image size indication in "$(%s)s". Examples: $(partner_id.image,160,160)s or $(partner_id.image,,160)s or $(partner_id.image,160,)s or $(partner_id.image,,)s]<strong></font>' % match)
+                            _logger.error(_(u'Wrong image size indication in "$(%s)s". Examples: $(partner_id.image,160,160)s or $(partner_id.image,,160)s or $(partner_id.image,160,)s or $(partner_id.image,,)s' % match))
+                            text = text.replace('$(' + match + ')s' , str(value))
                     
                 if not value:
                     text = text.replace('$(' + match + ')s' , '')
