@@ -24,8 +24,8 @@
 
 {
     'name': 'Show only products of selected PO supplier',
-    'version': '0.003',
-    'category': 'Customizations',
+    'version': '0.004',
+    'category': 'Purchases',
     'sequence': 38,
     'complexity': 'normal',
     'description': '''Show only products which are related to selected PO supplier''',
