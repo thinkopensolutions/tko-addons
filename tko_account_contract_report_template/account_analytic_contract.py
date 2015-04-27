@@ -36,13 +36,17 @@ class account_analytic_account(models.Model):
     state = fields.Selection([('template', 'Template'),
                                ('draft', 'New'),
                                ('sent', 'Contract Sent'),
-                               ('open', 'In Progress'),
+                               ('open', 'In Progress / Signed'),
                                ('pending', 'To Renew'),
                                ('close', 'Closed'),
                                ('cancelled', 'Cancelled'),
                                ],
                               'Status', required=True,
                               track_visibility='onchange', copy=False)
+
+    _defaults = {
+        'state': 'draft',
+    }
     
     def generate_contract(self, cr, uid, ids, context=None):
         if context is None:

@@ -42,11 +42,12 @@
                                 Company, for example:<ul>
                                     <li>Name: $(company_id.name)s</li>
                                     <li>Phone: $(company_id.phone)s</li>
-                                    <li>Signature: $(contract_template_body_id.signature)s</li>
+                                    <li><strong>Signature:</strong> $(contract_template_body_id.signature)s</li>
                                 </ul>
-                                <strong>NOTE:</strong> You can use <strong>any field that is related to the contract</strong>.<br/>
+                                You can use <strong>any field that is related to the contract</strong>.<br/>
                                 <strong>Example:</strong> $(partner_id.property_payment_term.name)s<br />
-                                For images you can set width and height as $(ImageField,width,height)s. Example: $(partner_id.image,160,160)s
+                                For images <strong>you can set width and height</strong> as $(ImageField,width,height)s. Example: $(partner_id.image,160,160)s
+                                You can also add a style type="text/css" to add CSS style rules to the document.
                             </div>
                         </group>
                         <field name="contract_body" widget="html" />
@@ -103,7 +104,7 @@
                 ref="analytic.view_account_analytic_account_form" />
             <field name="arch" type="xml">
                 <page string="Contract Information" position="after">
-                    <page string="Contract">
+                    <page string="Contract Template">
                         <group>
                             <field name="contract_template_body_id" />
                             <field name="date_contract_sent"
