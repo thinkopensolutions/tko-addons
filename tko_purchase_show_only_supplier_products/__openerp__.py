@@ -24,7 +24,7 @@
 
 {
     'name': 'Show only products of selected PO supplier',
-    'version': '0.004',
+    'version': '0.006',
     'category': 'Purchases',
     'sequence': 38,
     'complexity': 'normal',

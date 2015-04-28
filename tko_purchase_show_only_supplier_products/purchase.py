@@ -36,13 +36,19 @@ class purcahse_order_line(models.Model):
         onchange handler of product_id.
         """
         supplier_obj = self.pool.get('product.supplierinfo')
+        product_obj = self.pool.get('product.product')
         res = super(purcahse_order_line, self).onchange_product_id( cr, uid, ids, pricelist_id, product_id, qty, uom_id,
             partner_id, date_order=date_order, fiscal_position_id=fiscal_position_id, date_planned=date_planned,
             name=name, price_unit=price_unit, state=state, context=context)
         product_ids = []
         if partner_id:
+            #search all rows in supplierinfo with current partner
             supplier_ids  =supplier_obj.search(cr, uid, [('name' ,'=',partner_id)])
-            product_ids = [supplier.product_tmpl_id.id for supplier in supplier_obj.browse(cr, uid, supplier_ids)]
+            #get product_template_id
+            template_ids = [supplier.product_tmpl_id.id for supplier in supplier_obj.browse(cr, uid, supplier_ids)]
+            #get product_ids 
+            product_ids = product_obj.search(cr, uid, [('product_tmpl_id', 'in', template_ids)])
+	    print "product_ids..........",product_ids
+	    print "template_ids.........",template_ids
         res.update({'domain' : {'product_id' : [('id' , 'in', product_ids)] }})
         return res
-    
