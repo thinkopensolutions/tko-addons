@@ -29,7 +29,7 @@
     'author': 'ThinkOpen Solutions Brasil',
     'license': 'AGPL-3',
     'website': 'http://tkobr.com',
-    'version': '0.003',
+    'version': '0.004',
     'sequence': 10,
     'depends': [
                 'base',
