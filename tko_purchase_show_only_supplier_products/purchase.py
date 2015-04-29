@@ -48,7 +48,5 @@ class purcahse_order_line(models.Model):
             template_ids = [supplier.product_tmpl_id.id for supplier in supplier_obj.browse(cr, uid, supplier_ids)]
             #get product_ids 
             product_ids = product_obj.search(cr, uid, [('product_tmpl_id', 'in', template_ids)])
-	    print "product_ids..........",product_ids
-	    print "template_ids.........",template_ids
         res.update({'domain' : {'product_id' : [('id' , 'in', product_ids)] }})
         return res
