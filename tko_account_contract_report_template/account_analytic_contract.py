@@ -106,66 +106,14 @@ class account_analytic_account(models.Model):
             # CHECK PARTNER, COMPANY FIELDS
             if not record.company_id:
                 raise osv.except_osv(_('Error'), _('Company not defined'))
-            if not record.company_id.phone:
-                raise osv.except_osv(_('Error'), _("Company's phone not defined"))
-            if not record.company_id.country_id:
-                raise osv.except_osv(_('Error'), _("Company's country not defined"))
-            if not record.company_id.state_id:
-                raise osv.except_osv(_('Error'), _("Company's state not defined"))
-            if not record.company_id.city:
-                raise osv.except_osv(_('Error'), _("Company's city not defined"))
-            if not record.company_id.street:
-                raise osv.except_osv(_('Error'), _("Company's street not defined"))
-            if not record.company_id.street2:
-                raise osv.except_osv(_('Error'), _("Company's complement not defined"))
-            if not record.company_id.zip:
-                raise osv.except_osv(_('Error'), _("Company's zip not defined"))
             
             # CHECK PARTNER, CLIENT FIELDS
             if not record.partner_id:
                 raise osv.except_osv(_('Error'), _('Customer not defined'))
-            if not record.partner_id.phone:
-                raise osv.except_osv(_('Error'), _("Customer's phone not defined"))
-            if not record.partner_id.mobile:
-                raise osv.except_osv(_('Error'), _("Customer's mobile not defined"))
-            if not record.partner_id.email:
-                raise osv.except_osv(_('Error'), _("Customer's email not defined"))
-            if not record.partner_id.country_id:
-                raise osv.except_osv(_('Error'), _("Customer's country not defined"))
-            if not record.partner_id.state_id:
-                raise osv.except_osv(_('Error'), _("Customer's state not defined"))
-            if not record.partner_id.city:
-                raise osv.except_osv(_('Error'), _("Customer's city not defined"))
-            if not record.partner_id.street:
-                raise osv.except_osv(_('Error'), _("Customer's street not defined"))
-            if not record.partner_id.street2:
-                raise osv.except_osv(_('Error'), _("Customer's complement not defined"))
-            if not record.partner_id.zip:
-                raise osv.except_osv(_('Error'), _("Customer's zip not defined"))
             
             # CHECK PARTNER, ACCOUNT MANAGER FIELDS
             if not record.manager_id:
                 raise osv.except_osv(_('Error'), _('Account Manager not defined'))
-            if not record.manager_id.phone:
-                raise osv.except_osv(_('Error'), _("Account Manager's phone not defined"))
-            if not record.manager_id.mobile:
-                raise osv.except_osv(_('Error'), _("Account Manager's mobile not defined"))
-            if not record.manager_id.email:
-                raise osv.except_osv(_('Error'), _("Account Manager's email not defined"))
-            if not record.manager_id.country_id:
-                raise osv.except_osv(_('Error'), _("Account Manager's country not defined"))
-            if not record.manager_id.state_id:
-                raise osv.except_osv(_('Error'), _("Account Manager's state not defined"))
-            if not record.manager_id.city:
-                raise osv.except_osv(_('Error'), _("Account Manager's city not defined"))
-            if not record.manager_id.street:
-                raise osv.except_osv(_('Error'), _("Account Manager's street not defined"))
-            if not record.manager_id.street2:
-                raise osv.except_osv(_('Error'), _("Account Manager's complement not defined"))
-            if not record.manager_id.zip:
-                raise osv.except_osv(_('Error'), _("Account Manager's zip not defined"))
-            if not record.manager_id.function:
-                raise osv.except_osv(_('Error'), _("Account Manager's function not defined"))
             return True
     
     
