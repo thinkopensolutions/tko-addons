@@ -24,12 +24,12 @@
 
 {
     'name': 'Account Contract Report Template',
-    'version': '0.031',
+    'version': '0.032',
     'category': 'Account',
     'sequence': 38,
     'complexity': 'normal',
     'description': '''Account Contract Report.''',
-    'author': 'ThinkOpen Solutions',
+    'author': 'ThinkOpen Solutions Brasil',
     'website': 'http://www.thinkopensolution.com',
     'images': ['images/oerp61.jpeg',],
     'depends': [
