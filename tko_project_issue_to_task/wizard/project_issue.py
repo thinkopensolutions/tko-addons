@@ -31,8 +31,8 @@ class issue_to_task(osv.osv_memory):
     
     _columns = {
             'name':fields.char('Task Name', required=True),
-            'planned_hours': fields.float('Initially Planned Hours', help='Estimated time to do the task, usually set by the project manager when the task is in draft state.'),
-            'deadline':fields.datetime('Deadline')
+            'planned_hours': fields.float('Initially Planned Hours', help='Estimated time to do the task, usually set by the project manager when the task is in draft state.', required=True),
+            'deadline':fields.datetime('Deadline', required=True)
                     }
     
     def default_get(self, cr, uid, fields_list, context=None):

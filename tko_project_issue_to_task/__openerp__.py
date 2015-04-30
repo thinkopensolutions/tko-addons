@@ -24,7 +24,7 @@
 
 {
     'name': 'Convert an issue to a task',
-    'version': '0.004',
+    'version': '0.002',
     'category': 'Customizations',
     'sequence': 12,
     'complexity': 'medium',
