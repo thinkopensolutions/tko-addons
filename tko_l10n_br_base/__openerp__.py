@@ -54,7 +54,7 @@ Também adiciona novos campos específicos, de cadastro de empresa:\n
              'res_partner_view.xml',
              'res_company_view.xml',
              'extra_views.xml',
-             'menu_view.xml',
+#             'menu_view.xml',
              ],
     'init': [],
     'demo': [],
