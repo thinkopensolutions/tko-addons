@@ -1,0 +1,42 @@
+<openerp>
+	<data>
+		<record id="pos_discount_cards_form" model="ir.ui.view">
+			<field name="name">Discount Cards</field>
+			<field name="model">pos.discount.cards</field>
+			<field name="arch" type="xml">
+				<form string="Language Skill" version="7.0">
+					<group>
+						<field name="pos_config_id"/>
+						<field name="name"/>
+						<field name="type"/>
+						<field name="value"/>
+					</group>
+					
+				</form>
+			</field>
+		</record>
+		<record id="pos_discount_cards_tree" model="ir.ui.view">
+			<field name="name">Discount Cards</field>
+			<field name="model">pos.discount.cards</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="pos_config_id"/>
+					<field name="name"/>
+					<field name="type"/>
+					<field name="value"/>
+					
+				</tree>
+			</field>
+		</record>
+		
+		<record id="pos_discount_cards_action" model="ir.actions.act_window">
+			<field name="name">Discount Cards</field>
+			<field name="res_model">pos.discount.cards</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_type">form</field>
+			<field name="view_id" ref="pos_discount_cards_tree"/>
+		</record>
+		
+		<menuitem id="pos_disc_card_menu" name="Discount Cards" action="pos_discount_cards_action" parent="point_of_sale.menu_point_config_product" sequence="40"/>
+	</data>
+</openerp>
