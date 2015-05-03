@@ -10,7 +10,7 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
             var self = this;
             this._super(parent,options);
             
-        };
+        },
         
         discount_card_change: function(name){
             globalDiscount = name;
@@ -23,14 +23,9 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
             } else{
                 $('.gotopay-button').attr('disabled', 'disabled');
             }
-        };
+        },
         
-        
-        get_discount_card: function(config_id){
-            var self = this;
-            var discount_card_list = [];
-            
-            get_cur_pos_config_id: function(){
+        get_cur_pos_config_id: function(){
 		    var self = this;
 		    var config = self.pos.get('pos_config');
 		    var config_id = null;
@@ -42,6 +37,12 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
 		    }        
 		    return '';    
 		},
+        
+        get_discount_card: function(config_id){
+            var self = this;
+            var discount_card_list = [];
+            
+           
 
 
             var loaded = self.fetch('pos.discount.cards',['name'],[['pos_config_id','=', config_id], ['active', '=','true']])
@@ -74,8 +75,8 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
 
 
 	fetch: function(model, fields, domain, ctx){
-            return new instance.web.Model(model).query(fields).filter(domain).context(ctx).all()
-        }
+            return new instance.web.Model(model).query(fields).filter(domain).context(ctx).all();
+        },
         
         
         renderElement: function() {
@@ -87,7 +88,7 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
                 self.discount_card_change(name);
             });
             
-        };
+        },
         
         
         build_widgets: function() {
@@ -96,7 +97,7 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
             this.discount_card_widget = new module.OrderWidget(this, {});
             this.discount_card_widget.replace($('#placeholder-PaymentScreenDiscountWidget'));
             
-            };
+            },
 
        
        
@@ -105,4 +106,4 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
 	  	      
 
 
-}; //end of code
+} //end of code
