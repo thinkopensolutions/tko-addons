@@ -24,7 +24,7 @@
 
 {
     'name': 'tko_point_of_sale_discount_cards',
-    'version': '0.001',
+    'version': '0.002',
     'description': 'This module applies selected discount on total',
     'category': 'Customizations',
     'sequence': 150,
@@ -39,7 +39,7 @@
                 
     'data': [
              'point_of_sale_view.xml',
-            # 'static/src/xml/pos.xml',
+             'static/src/xml/pos.xml',
              ],
     'init': [],
     'demo': [],

@@ -1,5 +1,21 @@
 <openerp>
 	<data>
+		
+		<record id="pos_config_form" model="ir.ui.view">
+			<field name="name">Discount Cards</field>
+			<field name="model">pos.config</field>
+			<field name="inherit_id" ref="point_of_sale.view_pos_config_form"/>
+			<field name="arch" type="xml">
+				<group string="Features" position="before">
+					<group string="Discound Cards">
+						<field name="pos_discount_card_ids" nolabel="1"/>
+					</group>
+				</group>
+			</field>
+		</record>
+		
+		
+		
 		<record id="pos_discount_cards_form" model="ir.ui.view">
 			<field name="name">Discount Cards</field>
 			<field name="model">pos.discount.cards</field>

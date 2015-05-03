@@ -1,8 +1,9 @@
-openerp.tko_point_of_sale_show_only_leaf_products = function(instance){
+openerp.tko_point_of_sale_discount_cards = function(instance){
 
     var module = instance.point_of_sale;
-
-    tko_pos_widgets(instance,module);
+    
+    pos_discount_cards_model(instance,module);
+    pos_discount_cards_widgets(instance, module);
 
     
 
