@@ -42,14 +42,15 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
 			    line.set_discount(value)
 			})
 		    });
-	    else{
+	    
+		    
+            }
+            else{
 	    	$.each(order.get('orderLines').models, function (k, line){
 			    line.set_discount(0)
 			})
 	    
 	    }
-		    
-            }
            
             
            
