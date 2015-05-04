@@ -30,29 +30,13 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
             var order = this.pos.get('selectedOrder');
             var content = self.$('#discount-card-select').html();
             $('#discount-card-select').val(name);
-            console.log("discount id...................",name);
-            if (name)
-            	{
-		    var discont_line = self.fetch('pos.discount.cards',['type', 'value'],[['id','=', name]])
-		    .then(function(discount)
-		    {
-		    	var type =  discount[0].type;
-		    	var value = discount[0].value;
-		    	$.each(order.get('orderLines').models, function (k, line){
-			    line.set_discount(value)
-			})
-		    });
-	    
-		    
-            }
-            else{
-	    	$.each(order.get('orderLines').models, function (k, line){
+            
+            //apply zero discount on each line
+            // using to call update_summary method of Order, directly it is giving issue
+            $.each(order.get('orderLines').models, function (k, line){
 			    line.set_discount(0)
 			})
-	    
-	    }
            
-            
            
         },
         
@@ -135,6 +119,52 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
             },
     
     });
+    
+    
+    // compute discount of 
+    
+    module.OrderWidget = module.OrderWidget.extend({
+update_summary: function(){
+    this._super();
+    var order = this.pos.get('selectedOrder');
+    var total     = order ? order.getTotalTaxIncluded() : 0;
+    var taxes     = order ? total - order.getTotalTaxExcluded() : 0;
+    var discount_id = self.$('#discount-card-select').val();
+    var discount_promise;
+    
+    if (discount_id) {
+        var discount_card = new module.PaymentScreenDiscountWidget(this, {});
+        
+        discount_promise = discount_card
+        .fetch('pos.discount.cards',['type', 'value'],[['id','=', discount_id]])
+        .then(function(discount)
+        {
+            var type =  discount[0].type;
+            var value = discount[0].value;
+            if (type === 'fi'){
+                discount  = value;    
+            }
+            else{
+                discount  = (total * value) / 100;
+            }
+            return discount;
+        });
+    }
+    else
+    {
+        discount_promise = Promise.resolve(0);
+    }
+    
+    discount_promise
+    .then(function (discount)
+    {
+        this.el.querySelector('.summary .total > .value').textContent = this.format_currency(total - discount);
+        this.el.querySelector('.summary .total .subentry .value').textContent = this.format_currency(taxes);
+        this.el.querySelector('.summary .total .discount .value').textContent = this.format_currency(-discount);
+    }.bind(this));
+},
+
+});
 	  	      
 
 
