@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<templates id="template" xml:space="preserve">
+	<!-- Create Discount Widget-->
+   <t t-name="PaymentScreenDiscountWidget">
+   		<div id="discount-card">
+                <div id="discount-card-title">
+                    Select Discount Card :            
+                </div>
+                <div id="discount-card-frame">
+                    <t t-esc="widget.get_discount_cards(widget.get_cur_pos_config_id())" />
+                    <select id="discount-card-select"></select>   
+                </div>      
+                <div id="AlertNoCashier"></div>     
+        </div>
+   			
+   	 </t>
+    	
+    <!-- Add Category Shortcut Widget on ProductScreen-->
+    
+     <t t-extend="PaymentScreenWidget">
+	    <t t-jquery="div.pos-payment-container" t-operation="append">
+	    	
+               <span class="placeholder-PaymentScreenDiscountWidget" />
+              
+	    </t>
+	</t>
+
+<!-- Category shortcut End-->
+    
+</templates>
+   	 

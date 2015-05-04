@@ -24,7 +24,7 @@
 
 {
     'name': 'tko_point_of_sale_discount_cards',
-    'version': '0.004',
+    'version': '0.005',
     'description': 'This module applies selected discount on total',
     'category': 'Customizations',
     'sequence': 150,
@@ -41,6 +41,7 @@
              'point_of_sale_view.xml',
              'static/src/xml/pos.xml',
              ],
+    'qweb' : ['static/src/xml/discount.xml',],
     'init': [],
     'demo': [],
     'update': [],

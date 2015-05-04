@@ -25,21 +25,39 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
         },
         
         discount_card_change: function(name){
+            self = this;
             globalDiscount = name;
-
-            $('#pay-screen-cashier-name').html(name);
-            //console.log('discount_card_change : ' + name);
-            
-            if(name != ''){
-                $('.gotopay-button').removeAttr('disabled');                 
-            } else{
-                $('.gotopay-button').attr('disabled', 'disabled');
+            var order = this.pos.get('selectedOrder');
+            var content = self.$('#discount-card-select').html();
+            $('#discount-card-select').val(name);
+            console.log("discount id...................",name);
+            if (name)
+            	{
+		    var discont_line = self.fetch('pos.discount.cards',['type', 'value'],[['id','=', name]])
+		    .then(function(discount)
+		    {
+		    	var type =  discount[0].type;
+		    	var value = discount[0].value;
+		    	$.each(order.get('orderLines').models, function (k, line){
+			    line.set_discount(value)
+			})
+		    });
+	    else{
+	    	$.each(order.get('orderLines').models, function (k, line){
+			    line.set_discount(0)
+			})
+	    
+	    }
+		    
             }
+           
+            
+           
         },
         
         get_cur_pos_config_id: function(){
 		    var self = this;
-		    var config = self.pos.get('pos_config');
+		    var config = this.pos.config;
 		    var config_id = null;
 		             
 		    if(config){
@@ -50,38 +68,31 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
 		    return '';    
 		},
         
-        get_discount_card: function(config_id){
+        get_discount_cards: function(config_id){
             var self = this;
             var discount_card_list = [];
             
            
-
-
-            var loaded = self.fetch('pos.discount.cards',['name'],[['pos_config_id','=', config_id], ['active', '=','true']])
-                .then(function(discounts_cards){
+		
+            //FIX ME : apply domain in next line
+            var loaded = self.fetch('pos.discount.cards',['id', 'name'],[['pos_config_id','=', config_id], ['active', '=','true']])
+            .then(function(discounts_cards){
                      for(var i = 0, len = discounts_cards.length; i < len; i++){
                         discount_card_list.push(discounts_cards[i].name);
                      }
-
+		      
                     if(discount_card_list.length > 0){
-                        
+                        self.$('#discount-card-select').html('<option value=""></option>')
                         for(var i = 0, len = discount_card_list.length; i < len; i++){
+                            
                             var content = self.$('#discount-card-select').html();
-                            var new_option = '<option value="' + discount_card_list[i] + '">' + discount_card_list[i] + '</option>\n';
+                            var new_option = '<option value="' + discounts_cards[i].id + '">' + discount_card_list[i] + '</option>\n';
                             self.$('#discount-card-select').html(content + new_option);
                             }
 
-                        self.$('#AlertNoCashier').css('display', 'none');
-                        self.$('#discount-card-select').selectedIndex = 0;
-                        globalDiscount = discount_card_list[0];
-                        self.discount_card_change(globalDiscount);
+                       
 
-                    } else{
-
-                        // if there are no cashier
-                        self.$('#AlertNoCashier').css('display', 'block');
-                        self.$('.gotopay-button').attr('disabled', 'disabled');
-                    }
+                    } 
                 });
         }, 
         
@@ -112,12 +123,13 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
         
     });
     
+    
     module.PosWidget = module.PosWidget.extend({
     	build_widgets: function() {
             var self = this;
             this._super();
             this.discount_card_widget = new module.PaymentScreenDiscountWidget(this, {});
-            this.discount_card_widget.replace($('#placeholder-PaymentScreenDiscountWidget'));
+            this.discount_card_widget.replace($('.placeholder-PaymentScreenDiscountWidget'));
             
             },
     
