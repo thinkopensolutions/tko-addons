@@ -128,6 +128,39 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
    
 
 module.Order = module.Order.extend({
+	
+	
+	getDiscountCard : function(){
+		var discount_val = self.$('#discount-card-select').val();
+        console.log("selected.......tax........",discount_val);
+        var subtotal = (this.get('orderLines')).reduce((function(sum, orderLine) {
+            return sum + orderLine.get_price_with_tax();
+        }), 0);
+        var discount = 0.0;
+        var total = 0.0
+        if (discount_val)
+            {
+                discount_data = discount_val.split(':')
+                discount_value = discount_data[1]
+                discount_type = discount_data[2]
+                if (discount_type === 'fi')
+                    {
+                        discount = discount_value;
+
+                    }
+                else
+                    {
+                         discount = (subtotal * discount_value)/100;
+                    }
+            }
+        return discount;
+
+
+		
+	},
+	
+	
+	
 
     getTotalTaxIncluded: function() {
           
@@ -154,11 +187,37 @@ module.Order = module.Order.extend({
                         }
                 }
             total = subtotal - discount;
-            console.log("getTotalTaxIncluded.................",total)
             return total;
             
         }
 });
+
+
+
+module.OrderWidget = module.OrderWidget.extend({
+	
+	update_summary: function(){
+		this._super();
+		
+		var order = this.pos.get('selectedOrder');
+		var total     = order ? order.getTotalTaxIncluded() : 0;
+		var discount     = order ? order.getDiscountCard() : 0;
+		var taxes     = order ? order.getTotalTaxExcluded(): 0;
+		final_tax = Number(total) + Number(discount) - Number(taxes) 
+		
+	    this.el.querySelector('.summary .total .subentry .value').textContent = this.format_currency(final_tax );
+	    this.el.querySelector('.summary .total .discount .value').textContent = this.format_currency(-discount);
+
+    },
+	});
+
+
+
+
+
+
+
+
 
 
 } //end of code
