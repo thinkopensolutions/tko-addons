@@ -36,7 +36,8 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
             $.each(order.get('orderLines').models, function (k, line){
 			    line.set_discount(0)
 			})
-           
+           var PaymentScreenWidget = new module.PaymentScreenWidget(this, {});
+	   PaymentScreenWidget.update_payment_summary();
            
         },
         
@@ -60,7 +61,7 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
            
 		
             //FIX ME : apply domain in next line
-            var loaded = self.fetch('pos.discount.cards',['id', 'name'],[['pos_config_id','=', config_id], ['active', '=','true']])
+            var loaded = self.fetch('pos.discount.cards',['id', 'name','value' , 'type'],[['pos_config_id','=', config_id], ['active', '=','true']])
             .then(function(discounts_cards){
                      for(var i = 0, len = discounts_cards.length; i < len; i++){
                         discount_card_list.push(discounts_cards[i].name);
@@ -71,7 +72,7 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
                         for(var i = 0, len = discount_card_list.length; i < len; i++){
                             
                             var content = self.$('#discount-card-select').html();
-                            var new_option = '<option value="' + discounts_cards[i].id + '">' + discount_card_list[i] + '</option>\n';
+                            var new_option = '<option value="' + discounts_cards[i].id + ':'+ discounts_cards[i].value +':' + discounts_cards[i].type +'">' + discount_card_list[i] + '</option>\n';
                             self.$('#discount-card-select').html(content + new_option);
                             }
 
@@ -129,12 +130,12 @@ update_summary: function(){
     var order = this.pos.get('selectedOrder');
     var total     = order ? order.getTotalTaxIncluded() : 0;
     var taxes     = order ? total - order.getTotalTaxExcluded() : 0;
-    var discount_id = self.$('#discount-card-select').val();
+    var discount_val = self.$('#discount-card-select').val();
     var discount_promise;
     
-    if (discount_id) {
+    if (discount_val) {
         var discount_card = new module.PaymentScreenDiscountWidget(this, {});
-        
+        discount_id = discount_val.split(':')[0]
         discount_promise = discount_card
         .fetch('pos.discount.cards',['type', 'value'],[['id','=', discount_id]])
         .then(function(discount)
@@ -165,7 +166,55 @@ update_summary: function(){
 },
 
 });
-	  	      
+
+
+
+
+module.PaymentScreenWidget = module.PaymentScreenWidget.extend({
+
+    update_payment_summary: function() {
+            var currentOrder = this.pos.get('selectedOrder');
+            var discount_val = self.$('#discount-card-select').val();
+            console.log("selected.......update........",discount_val);
+
+            var paidTotal = currentOrder.getPaidTotal();
+            var dueTotal = currentOrder.getTotalTaxIncluded();
+            var remaining = dueTotal > paidTotal ? dueTotal - paidTotal : 0;
+            var change = paidTotal > dueTotal ? paidTotal - dueTotal : 0;
+            var discount = 0.0;
+            if (discount_val)
+                {
+                    discount_data = discount_val.split(':')
+                    discount_value = discount_data[1]
+                    discount_type = discount_data[2]
+                    if (discount_type === 'fi')
+                        {
+                            discount = discount_value;
+
+                        }
+                    else
+                        {
+                             discount = (dueTotal * discount_value)/100;
+                        }
+                }
+            dueTotal = dueTotal - discount
+            console.log("update discount_value............",discount, dueTotal)
+            this.$('.payment-due-total').html(this.format_currency(dueTotal));
+            this.$('.payment-paid-total').html(this.format_currency(paidTotal));
+            this.$('.payment-remaining').html(this.format_currency(remaining - discount));
+            this.$('.payment-change').html(this.format_currency(change));
+            if(currentOrder.selected_orderline === undefined){
+                remaining = 1;  // What is this ? 
+            }
+                
+            if(this.pos_widget.action_bar){
+                this.pos_widget.action_bar.set_button_disabled('validation', !this.is_paid());
+                this.pos_widget.action_bar.set_button_disabled('invoice', !this.is_paid());
+            }
+        },
+
+});
+
 
 
 } //end of code
