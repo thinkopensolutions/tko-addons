@@ -1,3 +1,4 @@
+
 function pos_discount_cards_widgets(instance, module){ //module is instance.point_of_sale
         var QWeb = instance.web.qweb;
 	var _t = instance.web._t;
@@ -10,7 +11,7 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
             var self = this;
             this._super(parent,options);
             
-           
+             
            
         },
 
@@ -26,6 +27,7 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
         
         discount_card_change: function(name){
             self = this;
+
             globalDiscount = name;
             var order = this.pos.get('selectedOrder');
             var content = self.$('#discount-card-select').html();
@@ -36,9 +38,8 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
             $.each(order.get('orderLines').models, function (k, line){
 			    line.set_discount(0)
 			})
-           var PaymentScreenWidget = new module.PaymentScreenWidget(this, {});
-	   PaymentScreenWidget.update_payment_summary();
-           
+            //var PaymentScreenWidget = new module.PaymentScreenWidget(this, {});
+           //PaymentScreenWidget.update_payment_summary();
         },
         
         get_cur_pos_config_id: function(){
@@ -124,64 +125,19 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
     
     // compute discount of 
     
-    module.OrderWidget = module.OrderWidget.extend({
-update_summary: function(){
-    this._super();
-    var order = this.pos.get('selectedOrder');
-    var total     = order ? order.getTotalTaxIncluded() : 0;
-    var taxes     = order ? total - order.getTotalTaxExcluded() : 0;
-    var discount_val = self.$('#discount-card-select').val();
-    var discount_promise;
-    
-    if (discount_val) {
-        var discount_card = new module.PaymentScreenDiscountWidget(this, {});
-        discount_id = discount_val.split(':')[0]
-        discount_promise = discount_card
-        .fetch('pos.discount.cards',['type', 'value'],[['id','=', discount_id]])
-        .then(function(discount)
-        {
-            var type =  discount[0].type;
-            var value = discount[0].value;
-            if (type === 'fi'){
-                discount  = value;    
-            }
-            else{
-                discount  = (total * value) / 100;
-            }
-            return discount;
-        });
-    }
-    else
-    {
-        discount_promise = Promise.resolve(0);
-    }
-    
-    discount_promise
-    .then(function (discount)
-    {
-        this.el.querySelector('.summary .total > .value').textContent = this.format_currency(total - discount);
-        this.el.querySelector('.summary .total .subentry .value').textContent = this.format_currency(taxes);
-        this.el.querySelector('.summary .total .discount .value').textContent = this.format_currency(-discount);
-    }.bind(this));
-},
+   
 
-});
+module.Order = module.Order.extend({
 
-
-
-
-module.PaymentScreenWidget = module.PaymentScreenWidget.extend({
-
-    update_payment_summary: function() {
-            var currentOrder = this.pos.get('selectedOrder');
+    getTotalTaxIncluded: function() {
+          
             var discount_val = self.$('#discount-card-select').val();
-            console.log("selected.......update........",discount_val);
-
-            var paidTotal = currentOrder.getPaidTotal();
-            var dueTotal = currentOrder.getTotalTaxIncluded();
-            var remaining = dueTotal > paidTotal ? dueTotal - paidTotal : 0;
-            var change = paidTotal > dueTotal ? paidTotal - dueTotal : 0;
+            console.log("selected.......tax........",discount_val);
+            var subtotal = (this.get('orderLines')).reduce((function(sum, orderLine) {
+                return sum + orderLine.get_price_with_tax();
+            }), 0);
             var discount = 0.0;
+            var total = 0.0
             if (discount_val)
                 {
                     discount_data = discount_val.split(':')
@@ -194,27 +150,15 @@ module.PaymentScreenWidget = module.PaymentScreenWidget.extend({
                         }
                     else
                         {
-                             discount = (dueTotal * discount_value)/100;
+                             discount = (subtotal * discount_value)/100;
                         }
                 }
-            dueTotal = dueTotal - discount
-            console.log("update discount_value............",discount, dueTotal)
-            this.$('.payment-due-total').html(this.format_currency(dueTotal));
-            this.$('.payment-paid-total').html(this.format_currency(paidTotal));
-            this.$('.payment-remaining').html(this.format_currency(remaining - discount));
-            this.$('.payment-change').html(this.format_currency(change));
-            if(currentOrder.selected_orderline === undefined){
-                remaining = 1;  // What is this ? 
-            }
-                
-            if(this.pos_widget.action_bar){
-                this.pos_widget.action_bar.set_button_disabled('validation', !this.is_paid());
-                this.pos_widget.action_bar.set_button_disabled('invoice', !this.is_paid());
-            }
-        },
-
+            total = subtotal - discount;
+            console.log("getTotalTaxIncluded.................",total)
+            return total;
+            
+        }
 });
-
 
 
 } //end of code
