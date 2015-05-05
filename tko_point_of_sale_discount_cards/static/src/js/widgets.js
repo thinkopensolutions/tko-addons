@@ -126,13 +126,25 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
     // compute discount of 
     
    
-
+var OrderSuper = module.Order;
 module.Order = module.Order.extend({
 	
 	
+	//send discount_card_id to write in database
+	export_as_JSON: function() {
+		var res = OrderSuper.prototype.export_as_JSON.call(this);
+		var discount_card = self.$('#discount-card-select').val();
+		if (discount_card){
+			res.discount_card_id = discount_card.split(':')[0];
+		}
+	    
+	    return res;
+	},
+	
+	
+	//this method returns discount given by discount card
 	getDiscountCard : function(){
 		var discount_val = self.$('#discount-card-select').val();
-        console.log("selected.......tax........",discount_val);
         var subtotal = (this.get('orderLines')).reduce((function(sum, orderLine) {
             return sum + orderLine.get_price_with_tax();
         }), 0);
@@ -192,6 +204,8 @@ module.Order = module.Order.extend({
         }
 });
 
+//PaymentScreenWidget
+
 
 
 module.OrderWidget = module.OrderWidget.extend({
@@ -207,7 +221,8 @@ module.OrderWidget = module.OrderWidget.extend({
 		
 	    this.el.querySelector('.summary .total .subentry .value').textContent = this.format_currency(final_tax );
 	    this.el.querySelector('.summary .total .discount .value').textContent = this.format_currency(-discount);
-
+	    
+	    this.pos_widget.payment_screen.update_payment_summary();
     },
 	});
 
