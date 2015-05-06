@@ -21,4 +21,4 @@ class pos_session(models.Model):
     _inherit = 'pos.session'
     
     
-    pos_discount_card_ids = fields.One2many('pos.discount.cards', realated='config_id.pos_discount_card_ids', readonly=True, string='Available Discount Cards'),
+    pos_discount_card_ids = fields.One2many('pos.discount.cards', realated='config_id.pos_discount_card_ids', readonly=True, string='Available Discount Cards')
