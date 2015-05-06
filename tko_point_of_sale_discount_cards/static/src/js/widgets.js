@@ -11,9 +11,11 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
             var self = this;
             this._super(parent,options);
             
-             
+            this.renderElement();
            
         },
+        
+        
 
         
         start: function(options){
@@ -24,6 +26,7 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
             
            
         },
+        
         
         discount_card_change: function(name){
             self = this;
@@ -38,8 +41,7 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
             $.each(order.get('orderLines').models, function (k, line){
 			    line.set_discount(0)
 			})
-            //var PaymentScreenWidget = new module.PaymentScreenWidget(this, {});
-           //PaymentScreenWidget.update_payment_summary();
+            
         },
         
         get_cur_pos_config_id: function(){
@@ -91,16 +93,16 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
         },
         
         
-        renderElement: function() {
-            var self = this;
-            this._super();
-		
-	    self.$('#discount-card-select').change(function(){
-                var name = this.value;
-                self.discount_card_change(name);
-            });
-            
-        },
+    renderElement: function() {
+        var self = this;
+        this._super();
+	
+    self.$('#discount-card-select').change(function(){
+            var name = this.value;
+            self.discount_card_change(name);
+        });
+        
+    },
         
         
         
@@ -204,7 +206,7 @@ module.Order = module.Order.extend({
         }
 });
 
-//PaymentScreenWidget
+
 
 
 
