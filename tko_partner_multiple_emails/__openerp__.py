@@ -24,7 +24,7 @@
 
 {
     'name': 'Partner multiple emails',
-    'version': '0.008',
+    'version': '0.003',
     'category': 'Customizations',
     'sequence': 15,
     'complexity': 'normal',

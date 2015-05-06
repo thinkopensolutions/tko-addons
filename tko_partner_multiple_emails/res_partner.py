@@ -42,6 +42,8 @@ class res_partner(osv.osv):
     
     def write(self, cr, uid, ids, vals, context=None):
         res = super(res_partner, self).write(cr, uid, ids, vals, context=context)
+        if isinstance(ids, int):
+            ids = [ids]
         mail_obj = self.pool.get('res.partner.email')
         email_ids = mail_obj.search(cr, uid, [('res_partner_id', '=', ids[0])])       
         if len(email_ids) == 1:
