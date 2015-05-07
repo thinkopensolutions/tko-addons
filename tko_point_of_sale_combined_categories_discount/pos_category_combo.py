@@ -1,9 +1,6 @@
 from openerp import fields, models, api, _
 
-class pos_order_line(osv.osv):
-    _inherit = 'pos.order.line'
-    
-    combo = fields.Boolean('Combo', default = False)
+
 
 
 class pos_category_combo(models.Model):

@@ -111,7 +111,8 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
             	//make discount on applicable line set line to be discounted
             	_.each(filter_combo_ids,function(combos){
 //            		get other pair of current product's category id and search for that in exisiting lines
-            		var disc_value = combos[3]
+            		var discount_type = combos[2];
+                    var disc_value = combos[3];
                     if (combos.indexOf(categ_id) === 0){
             			pair_index = 1
             		}
@@ -133,6 +134,13 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
                             else{
                                 line_to_discount = currentline;
                             }
+
+                            if (discount_type === 'fi'){
+                                line_total = line_to_discount.quantity * line_to_discount.price;
+                                disc_value = ((disc_value)/line_total)* 100;
+                                console.log("qty , price, discount in  %..................",line_to_discount.quantity, line_to_discount.price , disc_value)
+                            }
+
                             //set discount and mark this line to be true
                             line_to_discount.set_discount(disc_value);
                             line.discounted = true;
