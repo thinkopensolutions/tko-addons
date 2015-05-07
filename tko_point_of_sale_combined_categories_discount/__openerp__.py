@@ -24,7 +24,7 @@
 
 {
     'name': 'Point of Sale Category Combo',
-    'version': '0.003',
+    'version': '0.004',
     'description': 'This module allows to sale in combo with discount',
     'category': 'Customizations',
     'sequence': 150,
