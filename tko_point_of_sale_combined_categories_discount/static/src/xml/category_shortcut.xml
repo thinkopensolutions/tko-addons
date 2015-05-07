@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<templates id="template" xml:space="preserve">
+	<!-- Create Category Shortcut Widget-->
+    <t t-name="ProductCategoriesShortCutWidget">
+        <div>
+       
+        <t t-if="widget.subcategories.length > 0">
+            <div class="categories">
+                <div class="category-list-shortcut">
+                </div>
+            </div>
+        </t>
+        </div>
+    </t>
+    	
+    <!-- Add Category Shortcut Widget on ProductScreen-->
+    
+     <t t-extend="ProductScreenWidget">
+	    <t t-jquery="table.layout-table" t-operation="append">
+	    	<tr class="footer-row">
+                <td class="footer-cell">
+                    <span class="placeholder-ProductCategoriesShortCutWidget" />
+                </td>
+            </tr>
+	    </t>
+	</t>
+
+<!-- Category shortcut End-->
+    
+</templates>

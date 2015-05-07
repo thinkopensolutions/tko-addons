@@ -1,0 +1,57 @@
+<openerp>
+	<data>
+		
+		<record id="pos_config_form" model="ir.ui.view">
+			<field name="name">Category Combo Discount</field>
+			<field name="model">pos.config</field>
+			<field name="inherit_id" ref="point_of_sale.view_pos_config_form"/>
+			<field name="arch" type="xml">
+				<group string="Features" position="before">
+					<group string="Combo Discounts">
+						<field name="combo_ids" nolabel="1" invisible="1"/>
+					</group>
+				</group>
+			</field>
+		</record>
+		
+	
+		
+		<record id="pos_category_combo_form" model="ir.ui.view">
+			<field name="name">Category Combo Discount</field>
+			<field name="model">pos.category.combo</field>
+			<field name="arch" type="xml">
+				<form string="Language Skill" version="7.0">
+					<group>
+						<field name="main_category_id"/>
+						<field name="disc_category_id"/>
+						<field name="type"/>
+						<field name="value"/>
+					</group>
+					
+				</form>
+			</field>
+		</record>
+		<record id="pos_category_combo_tree" model="ir.ui.view">
+			<field name="name">Category Combo Discount</field>
+			<field name="model">pos.category.combo</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="main_category_id"/>
+					<field name="disc_category_id"/>
+					<field name="type"/>
+					<field name="value"/>
+				</tree>
+			</field>
+		</record>
+		
+		<record id="pos_category_combo_action" model="ir.actions.act_window">
+			<field name="name">Category Combo Discount</field>
+			<field name="res_model">pos.category.combo</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_type">form</field>
+			<field name="view_id" ref="pos_category_combo_tree"/>
+		</record>
+		
+		<menuitem id="pos_disc_card_menu" name="Category Combo Discount" action="pos_category_combo_action" parent="point_of_sale.menu_point_config_product" sequence="50"/>
+	</data>
+</openerp>
