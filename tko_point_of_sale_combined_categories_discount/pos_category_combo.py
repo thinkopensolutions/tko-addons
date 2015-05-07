@@ -11,6 +11,8 @@ class pos_category_combo(models.Model):
     type = fields.Selection([('p', 'Percentage'), ('fi', 'Fixed')], string='Type', required=True)
     value = fields.Float('Value', required=True)
     
+    _sql_constraints = [('category_combo_unique', 'unique(main_category_id, disc_category_id)', _('You already have combo with current selected categories')),]
+    
 
 #adding field becuase we need to have values of combo ids even if no internet connection   
 
