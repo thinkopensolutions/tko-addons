@@ -1,6 +1,7 @@
 <openerp>
 	<data>
 		
+        <!--
 		<record id="pos_config_form" model="ir.ui.view">
 			<field name="name">Category Combo Discount</field>
 			<field name="model">pos.config</field>
@@ -13,7 +14,7 @@
 				</group>
 			</field>
 		</record>
-		
+		-->
 	
 		
 		<record id="pos_category_combo_form" model="ir.ui.view">
