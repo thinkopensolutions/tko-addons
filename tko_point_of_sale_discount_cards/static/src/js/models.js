@@ -14,7 +14,6 @@ function pos_discount_cards_model(instance, module){ //module is instance.point_
 	            fields: ['name', 'type', 'value' , 'active' ],
 	            loaded: function(self,cards){ 
 	            	self.cards = cards;
-	            	console.log("cards loaded.............................",cards)
 	            }
 	        }
 	)
