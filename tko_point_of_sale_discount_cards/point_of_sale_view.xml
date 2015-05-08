@@ -8,7 +8,7 @@
 			<field name="arch" type="xml">
 				<group string="Features" position="before">
 					<group string="Discound Cards">
-						<field name="pos_discount_card_ids" nolabel="1"/>
+						<field name="discount_card_ids" nolabel="1"/>
 					</group>
 				</group>
 			</field>
@@ -22,7 +22,6 @@
 			<field name="arch" type="xml">
 				<form string="Language Skill" version="7.0">
 					<group>
-						<field name="pos_config_id"/>
 						<field name="name"/>
 						<field name="type"/>
 						<field name="value"/>
@@ -36,7 +35,6 @@
 			<field name="model">pos.discount.cards</field>
 			<field name="arch" type="xml">
 				<tree>
-					<field name="pos_config_id"/>
 					<field name="name"/>
 					<field name="type"/>
 					<field name="value"/>

@@ -14,5 +14,6 @@
               <script type="text/javascript" src="/tko_point_of_sale_discount_cards/static/src/js/main.js"/>
           </xpath>
         </template>
+        
 	</data>
 </openerp>

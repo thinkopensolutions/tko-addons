@@ -10,13 +10,11 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
         init: function(parent, options){
             var self = this;
             this._super(parent,options);
-            
-            this.renderElement();
-           
+            this.hidden = false;
         },
         
         
-
+ 
         
         start: function(options){
             var self = this;
@@ -27,20 +25,13 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
            
         },
         
-        
+        //actions to be taken on change of discount card
         discount_card_change: function(name){
-            self = this;
+            self = this;      
+            //update total on product and payment screen 
+            this.pos_widget.order_widget.update_summary();
+            this.pos_widget.payment_screen.update_payment_summary();
 
-            globalDiscount = name;
-            var order = this.pos.get('selectedOrder');
-            var content = self.$('#discount-card-select').html();
-            $('#discount-card-select').val(name);
-            
-            //apply zero discount on each line
-            // using to call update_summary method of Order, directly it is giving issue
-            $.each(order.get('orderLines').models, function (k, line){
-			    line.set_discount(0)
-			})
             
         },
         
@@ -62,9 +53,33 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
             var discount_card_list = [];
             
            
-		
+		    var cards = this.pos.cards;
+            var discount_cards = []
+
+            _.each(cards, function(card){
+                discount_card_list.push([card.id, card.value, card.type, card.name,  ])
+            });
+
+            
+            if(discount_card_list.length){
+                self.$('#discount-card-select').html('<option value=""></option>')
+                for(var i = 0, len = discount_card_list.length; i < len; i++){
+                    if ($('#discount-card-select').length){
+
+
+                    var content = self.$('#discount-card-select').html();
+                    var new_option = '<option value="' + discount_card_list[i][0] + ':'+ discount_card_list[i][1] +':' + discount_card_list[i][2] +'">' + discount_card_list[i][3] + '</option>\n';
+                    $('#discount-card-select').html('<option value=""></option><option value="1:20:fi">Fixed 20 %</option>');
+                    console.log("final content............",content + new_option)
+                    console.log($('[id="discount-card-select"]').length);
+                    console.log($('#discount-card-select').length);
+                    }
+                    }                
+            } 
+
             //FIX ME : apply domain in next line
-            var loaded = self.fetch('pos.discount.cards',['id', 'name','value' , 'type'],[['pos_config_id','=', config_id], ['active', '=','true']])
+            //var loaded = self.fetch('pos.discount.cards',['id', 'name','value' , 'type'],[['pos_config_id','=', config_id], ['active', '=','true']])
+            /*var loaded = self.fetch('pos.discount.cards',['id', 'name','value' , 'type'],[['active', '=','true']])
             .then(function(discounts_cards){
                      for(var i = 0, len = discounts_cards.length; i < len; i++){
                         discount_card_list.push(discounts_cards[i].name);
@@ -82,7 +97,7 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
                        
 
                     } 
-                });
+                });*/
         }, 
         
         
@@ -179,7 +194,6 @@ module.Order = module.Order.extend({
     getTotalTaxIncluded: function() {
           
             var discount_val = self.$('#discount-card-select').val();
-            console.log("selected.......tax........",discount_val);
             var subtotal = (this.get('orderLines')).reduce((function(sum, orderLine) {
                 return sum + orderLine.get_price_with_tax();
             }), 0);
@@ -224,7 +238,7 @@ module.OrderWidget = module.OrderWidget.extend({
 	    this.el.querySelector('.summary .total .subentry .value').textContent = this.format_currency(final_tax );
 	    this.el.querySelector('.summary .total .discount .value').textContent = this.format_currency(-discount);
 	    
-	    this.pos_widget.payment_screen.update_payment_summary();
+	    
     },
 	});
 

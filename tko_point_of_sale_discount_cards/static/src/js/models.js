@@ -4,9 +4,20 @@ function pos_discount_cards_model(instance, module){ //module is instance.point_
 	
 	module.PosModel.prototype.models.filter(function (m)
 	 { return m.model === 'pos.session'; }).map(function (m) {
-	  return m.fields.push('pos_discount_card_ids'), 
+	  return m.fields.push('discount_card_ids'), 
 	  m;
 	   });
+
+	module.PosModel.prototype.models.push(
+			{
+	            model:  'pos.discount.cards',
+	            fields: ['name', 'type', 'value' , 'active' ],
+	            loaded: function(self,cards){ 
+	            	self.cards = cards;
+	            	console.log("cards loaded.............................",cards)
+	            }
+	        }
+	)
 	   
 	
 	

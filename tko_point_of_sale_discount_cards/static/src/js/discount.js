@@ -53,7 +53,6 @@ module.Order = module.Order.extend({
     getTotalTaxIncluded: function() {
           
             var discount_val = self.$('#discount-card-select').val();
-            console.log("selected.......tax........",discount_val);
             var subtotal = (this.get('orderLines')).reduce((function(sum, orderLine) {
                 return sum + orderLine.get_price_with_tax();
             }), 0);
