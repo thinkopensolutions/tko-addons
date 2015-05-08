@@ -24,7 +24,7 @@
 
 {
     'name': 'Point of Sale Category Combo',
-    'version': '0.007',
+    'version': '0.008',
     'description': 'This module allows to sale in combo with discount',
     'category': 'Customizations',
     'sequence': 150,
@@ -38,6 +38,7 @@
                 ],
                 
     'data': [
+             'security/ir.model.access.csv',
              'static/src/xml/pos.xml',
              'pos_category_combo_view.xml',
              ],
