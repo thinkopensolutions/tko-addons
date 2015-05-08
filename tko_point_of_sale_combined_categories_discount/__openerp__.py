@@ -24,7 +24,7 @@
 
 {
     'name': 'Point of Sale Category Combo',
-    'version': '0.004',
+    'version': '0.005',
     'description': 'This module allows to sale in combo with discount',
     'category': 'Customizations',
     'sequence': 150,
@@ -43,6 +43,7 @@
              ],
 
     'qweb': [
+             'static/src/xml/order_view.xml',
              ],
     'init': [],
     'demo': [],

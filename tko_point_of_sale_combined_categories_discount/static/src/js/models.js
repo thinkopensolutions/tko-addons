@@ -1,6 +1,7 @@
 function pos_category_combo_discount(instance, module){ //module is instance.point_of_sale
 	var QWeb = instance.web.qweb;
 	var _t = instance.web._t;
+	var round_pr = instance.web.round_precision;
 	
 	//to load for server disconnection
 	module.PosModel.prototype.models.filter(function (m)
@@ -44,6 +45,24 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
             this.discounted = false;
             this.categ_id = options.product.pos_categ_id[0]
         },
+        
+        get_discount_type: function(){
+            return this.discount_type;
+        },
+        
+        get_base_price:    function(){
+            var rounding = this.pos.currency.rounding;
+            discount_type = this.get_discount_type();
+            if (discount_type === 'fi'){
+        		return round_pr(this.get_unit_price() * this.get_quantity() - (this.get_discount()), rounding);
+        	}
+            else
+            	{
+            	return round_pr(this.get_unit_price() * this.get_quantity() * (1 - this.get_discount()/100), rounding);
+            	}
+            	
+            },
+            
 	});
 	
 	//Extend order to apply combo disocount each time a product is added
@@ -136,8 +155,9 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
                             }
 
                             if (discount_type === 'fi'){
-                                line_total = line_to_discount.quantity * line_to_discount.price;
-                                disc_value = ((disc_value)/line_total)* 100;
+                                line_to_discount.discount_type = 'fi';
+                               
+                                line_to_discount.discountStr = 'fixed discount';
                                 console.log("qty , price, discount in  %..................",line_to_discount.quantity, line_to_discount.price , disc_value)
                             }
 
