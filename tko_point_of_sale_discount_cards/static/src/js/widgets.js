@@ -34,6 +34,7 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
             if (dueTotal< 0){
             	dueTotal = 0;
             	remaining = 0;
+            	change = 0;
             }
             this.$('.payment-due-total').html(this.format_currency(dueTotal));
             this.$('.payment-remaining').html(this.format_currency(remaining));

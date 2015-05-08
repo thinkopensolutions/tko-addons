@@ -24,7 +24,7 @@
 
 {
     'name': 'tko_point_of_sale_discount_cards',
-    'version': '0.018',
+    'version': '0.019',
     'description': 'This module applies selected discount on total',
     'category': 'Customizations',
     'sequence': 150,
