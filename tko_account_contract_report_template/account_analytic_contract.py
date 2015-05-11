@@ -124,7 +124,7 @@ class account_analytic_account_contract_report_body(models.Model):
     name = fields.Char(string='Name',
                    track_visibility='onchange', required=True)
     signature = fields.Binary(string='Signature',
-                   track_visibility='onchange', required=True)
+                   track_visibility='onchange')
     contract_body = fields.Text(string='Contract Body',
                    track_visibility='onchange', required=True,
                    translate=True)
