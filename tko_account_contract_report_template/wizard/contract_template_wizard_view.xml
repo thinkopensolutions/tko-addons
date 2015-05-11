@@ -11,7 +11,7 @@
                     <group>
                         <field name="contract_template_id" />
                     </group>
-                    <group col="4">
+                    <group col="6">
                         <group>
                             <field name="partner_id"/>
                             <field name="partner_phone"/>
@@ -38,10 +38,20 @@
                             <field name="manager_zip"/>
                             <field name="manager_function"/>
                         </group>
-                    </group>
-                    <group>
-                        <field name="signature" widget="image"
-                            class="oe_avatar" />
+                        <group>
+                            <field name="company_id"/>
+                            <field name="company_phone"/>
+                            <field name="company_mobile"/>
+                            <field name="company_email"/>
+                            <field name="company_country_id"/>
+                            <field name="company_state_id"/>
+                            <field name="company_city"/>
+                            <field name="company_street"/>
+                            <field name="company_street2"/>
+                            <field name="company_zip"/>
+                            <field name="signature" widget="image"
+                                class="oe_avatar" />
+                        </group>
                     </group>
                     <footer>
                         <button name="print_contract" string="Print/Save"

@@ -28,6 +28,16 @@ from openerp import models, api, fields, _
 class contract_template_wizard(models.TransientModel):
     _name = 'contract.template.wizard'
     
+    company_id = fields.Many2one('res.partner', string='Company', required=True)
+    company_phone = fields.Char(string='Phone')
+    company_mobile = fields.Char(string='Mobile')
+    company_email = fields.Char(string='Email')
+    company_country_id = fields.Many2one('res.country', string='Country')
+    company_state_id = fields.Many2one('res.country.state', string='State')
+    company_city = fields.Char(string='City')
+    company_street = fields.Char(string='Street')
+    company_street2 = fields.Char(string='Street2')
+    company_zip = fields.Char(string='Zip', size=24)
     partner_id = fields.Many2one('res.partner', string='Customer', required=True)
     partner_phone = fields.Char(string='Phone')
     partner_mobile = fields.Char(string='Mobile')
@@ -62,6 +72,16 @@ class contract_template_wizard(models.TransientModel):
         contract_obj = self.pool.get('account.analytic.account').browse(cr, uid, active_id)
         
         if active_id:
+            data['company_id'] = contract_obj.company_id.partner_id and contract_obj.company_id.partner_id.id or False
+            data['company_phone'] = contract_obj.company_id.partner_id.phone or False
+            data['company_mobile'] = contract_obj.company_id.partner_id.mobile or False
+            data['company_email'] = contract_obj.company_id.partner_id.email or False
+            data['company_country_id'] = contract_obj.company_id.partner_id.country_id.id or False
+            data['company_state_id'] = contract_obj.company_id.partner_id.state_id.id or False
+            data['company_city'] = contract_obj.company_id.partner_id.city or False
+            data['company_street'] = contract_obj.company_id.partner_id.street or False
+            data['company_street2'] = contract_obj.company_id.partner_id.street2 or False
+            data['company_zip'] = contract_obj.company_id.partner_id.zip or False
             data['partner_id'] = contract_obj.partner_id and contract_obj.partner_id.id or False
             data['partner_phone'] = contract_obj.partner_id.phone or False
             data['partner_mobile'] = contract_obj.partner_id.mobile or False
@@ -104,37 +124,53 @@ class contract_template_wizard(models.TransientModel):
         part_obj = self.pool.get('res.partner')
         
         # write contract fields  values to respective fields
-        contract_obj.write(cr, uid, active_ids, {'partner_id' : wizard_obj.partner_id.id,
-                                                 'manager_id' : wizard_obj.manager_id.id,
-                                                 'contract_template_body_id' : wizard_obj.contract_template_id.id, })
+        contract_obj.write(cr, uid, active_ids, {
+            'partner_id' : wizard_obj.partner_id.id,
+            'manager_id' : wizard_obj.manager_id.id,
+            'contract_template_body_id' : wizard_obj.contract_template_id.id,
+            })
+        
         #write partner field values
-        part_obj.write(cr, uid, [wizard_obj.partner_id.id],
-                       {
-                        'phone' : wizard_obj.partner_phone,
-                         'mobile' : wizard_obj.partner_mobile,
-                         'email' : wizard_obj.partner_email,
-                         'country_id' : wizard_obj.partner_country_id.id,
-                         'state_id' : wizard_obj.partner_state_id.id,
-                         'city' : wizard_obj.partner_city,
-                         'street' : wizard_obj.partner_street,
-                         'street2' : wizard_obj.partner_street2,
-                         'zip' : wizard_obj.partner_zip,
-                        })
+        part_obj.write(cr, uid, [wizard_obj.partner_id.id], {
+            'phone' : wizard_obj.partner_phone,
+            'mobile' : wizard_obj.partner_mobile,
+            'email' : wizard_obj.partner_email,
+            'country_id' : wizard_obj.partner_country_id.id,
+            'state_id' : wizard_obj.partner_state_id.id,
+            'city' : wizard_obj.partner_city,
+            'street' : wizard_obj.partner_street,
+            'street2' : wizard_obj.partner_street2,
+            'zip' : wizard_obj.partner_zip,
+            })
+        
+        #write company field values
+        part_obj.write(cr, uid, [wizard_obj.company_id.id], {
+            'phone' : wizard_obj.company_phone,
+            'mobile' : wizard_obj.company_mobile,
+            'email' : wizard_obj.company_email,
+            'country_id' : wizard_obj.company_country_id.id,
+            'state_id' : wizard_obj.company_state_id.id,
+            'city' : wizard_obj.company_city,
+            'street' : wizard_obj.company_street,
+            'street2' : wizard_obj.company_street2,
+            'zip' : wizard_obj.company_zip,
+            })
         
         #write manager related fields
-        part_obj.write(cr, uid, [wizard_obj.manager_id.partner_id.id],
-                       {
-                        'phone' : wizard_obj.manager_phone,
-                         'mobile' : wizard_obj.manager_mobile,
-                         'email' : wizard_obj.manager_email,
-                         'country_id' : wizard_obj.manager_country_id.id,
-                         'state_id': wizard_obj.manager_state_id.id,
-                         'city' : wizard_obj.manager_city,
-                         'street' : wizard_obj.manager_street,
-                         'street2' : wizard_obj.manager_street2,
-                         'zip' : wizard_obj.manager_zip,
-                         'function' : wizard_obj.manager_function,
-                        })
+        part_obj.write(cr, uid, [wizard_obj.manager_id.partner_id.id], {
+            'phone' : wizard_obj.manager_phone,
+            'mobile' : wizard_obj.manager_mobile,
+            'email' : wizard_obj.manager_email,
+            'country_id' : wizard_obj.manager_country_id.id,
+            'state_id': wizard_obj.manager_state_id.id,
+            'city' : wizard_obj.manager_city,
+            'street' : wizard_obj.manager_street,
+            'street2' : wizard_obj.manager_street2,
+            'zip' : wizard_obj.manager_zip,
+            'function' : wizard_obj.manager_function,
+            })
+        
         report_body_obj.write(cr, uid, [wizard_obj.contract_template_id.id] , { 'signature' : wizard_obj.signature})
+        
         return contract_obj.generate_contract(cr, uid, active_ids, context=context)
     
