@@ -24,7 +24,7 @@
 
 {
     'name': 'Account Contract Report Template',
-    'version': '0.035',
+    'version': '0.036',
     'category': 'Account',
     'sequence': 38,
     'complexity': 'normal',
