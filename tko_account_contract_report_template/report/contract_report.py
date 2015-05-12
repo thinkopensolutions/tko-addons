@@ -47,36 +47,38 @@ class tko_contract_report(report_sxw.rml_parse):
     def compute_template_variables(self, object, text):
         pattern = re.compile('\$\((.*?)\)s')
         matches = pattern.findall(str(text))
-        value = ''
-        if len(matches):
-            for match in matches:
-                value = object
-                block = match.split(',')
-                for field in block[0].split('.'):
-                    try:
-                        type = value._fields[field].type
-                        value = value[field]
-                    except Exception, err:
-                        value = ('<font color="red"><strong>[ERROR: Field %s doesn\'t exist  in %s]<strong></font>') % (err, value)
-                        _logger.error(("Field %s doesn't exist  in %s") % (err, value))
-                if value:
-                    if type != 'binary':
-                        text = text.replace('$(' + match + ')s' , str(value))
-                    else:
-                        width, height = '', ''
+        while len(matches):
+            value = ''
+            if len(matches):
+                for match in matches:
+                    value = object
+                    block = match.split(',')
+                    for field in block[0].split('.'):
                         try:
-                            if block[1]:
-                                width = ' width="%spx"' % block[1]
-                            if block[2]:
-                                height = ' height="%spx"' % block[2]
-                            text = text.replace('$(' + match + ')s' , '<img src="data:image/jpeg;base64,' + str(value) + '"%s%s/>' % (width, height))
+                            type = value._fields[field].type
+                            value = value[field]
                         except Exception, err:
-                            value = _(u'<font color="red"><strong>[ERROR: Wrong image size indication in "$(%s)s". Examples: $(partner_id.image,160,160)s or $(partner_id.image,,160)s or $(partner_id.image,160,)s or $(partner_id.image,,)s]<strong></font>' % match)
-                            _logger.error(_(u'Wrong image size indication in "$(%s)s". Examples: $(partner_id.image,160,160)s or $(partner_id.image,,160)s or $(partner_id.image,160,)s or $(partner_id.image,,)s' % match))
+                            value = ('<font color="red"><strong>[ERROR: Field %s doesn\'t exist  in %s]<strong></font>') % (err, value)
+                            _logger.error(("Field %s doesn't exist  in %s") % (err, value))
+                    if value:
+                        if type != 'binary':
                             text = text.replace('$(' + match + ')s' , str(value))
-                    
-                if not value:
-                    text = text.replace('$(' + match + ')s' , '')
+                        else:
+                            width, height = '', ''
+                            try:
+                                if block[1]:
+                                    width = ' width="%spx"' % block[1]
+                                if block[2]:
+                                    height = ' height="%spx"' % block[2]
+                                text = text.replace('$(' + match + ')s' , '<img src="data:image/jpeg;base64,' + str(value) + '"%s%s/>' % (width, height))
+                            except Exception, err:
+                                value = _(u'<font color="red"><strong>[ERROR: Wrong image size indication in "%s". Examples: "(partner_id.image,160,160)" or "(partner_id.image,,160)" or "(partner_id.image,160,)" or "(partner_id.image,,)"]<strong></font>' % match)
+                                _logger.error(_(u'Wrong image size indication in "$(%s)s". Examples: $(partner_id.image,160,160)s or $(partner_id.image,,160)s or $(partner_id.image,160,)s or $(partner_id.image,,)s' % match))
+                                text = text.replace('$(' + match + ')s' , str(value))
+                        
+                    if not value:
+                        text = text.replace('$(' + match + ')s' , '')
+            matches = pattern.findall(str(text))
         return text
     
     
