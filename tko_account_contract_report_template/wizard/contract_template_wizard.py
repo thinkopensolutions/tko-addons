@@ -173,7 +173,6 @@ class contract_template_wizard(models.TransientModel):
         # write company field values
         company_obj.write(cr, uid, [wizard_obj.company_id.id], {
             'phone': wizard_obj.company_phone,
-            'mobile': wizard_obj.company_mobile,
             'email': wizard_obj.company_email,
             'country_id': wizard_obj.company_country_id.id,
             'state_id': wizard_obj.company_state_id.id,
