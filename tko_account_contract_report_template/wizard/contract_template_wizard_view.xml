@@ -11,6 +11,15 @@
                     <group>
                         <field name="contract_template_id" />
                     </group>
+                    <group col="4">
+                        <group>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                        </group>
+                        <group>
+                            <field name="quantity_max"/>
+                        </group>
+                    </group>
                     <group col="6">
                         <group string="Customer">
                             <field name="partner_id"/>

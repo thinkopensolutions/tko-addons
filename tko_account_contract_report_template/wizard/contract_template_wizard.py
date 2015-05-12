@@ -62,6 +62,9 @@ class contract_template_wizard(models.TransientModel):
     signature = fields.Binary('Signature')
     contract_template_id = fields.Many2one('account.analytic.account.contract.report.body',
        string='Contract', required=True)
+    date_start = fields.Date('Start Date', required=True)
+    date_end = fields.Date('End Date')
+    quantity_max = fields.Float('Prepaid Service Units')
    
     def default_get(self, cr, uid, fields_list, context=None):
         if context is None:
@@ -106,6 +109,9 @@ class contract_template_wizard(models.TransientModel):
             if contract_obj.contract_template_body_id:
                 data['signature'] = contract_obj.contract_template_body_id.signature
                 data['contract_template_id'] = contract_obj.contract_template_body_id.id
+                data['quantity_max'] = contract_obj.quantity_max
+                data['date_start'] = contract_obj.date_start
+                data['date_end'] = contract_obj.date
         return data
     
     @api.onchange('contract_template_id')
@@ -131,6 +137,9 @@ class contract_template_wizard(models.TransientModel):
             'manager_id': wizard_obj.manager_id.id,
             'company_id': wizard_obj.company_id.id,
             'contract_template_body_id': wizard_obj.contract_template_id.id,
+            'quantity_max': wizard_obj.quantity_max,
+            'date_start': wizard_obj.date_start,
+            'date': wizard_obj.date_end,
             })
         
         # write partner field values
