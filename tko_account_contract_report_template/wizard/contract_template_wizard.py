@@ -49,7 +49,7 @@ class contract_template_wizard(models.TransientModel):
     manager_street2 = fields.Char(string='Street2')
     manager_zip = fields.Char(string='Zip', size=24)
     manager_function = fields.Char(string='Job Position')
-    company_id = fields.Many2one('res.partner', string='Company', required=True)
+    company_id = fields.Many2one('res.company', string='Company', required=True)
     company_phone = fields.Char(string='Phone')
     company_mobile = fields.Char(string='Mobile')
     company_email = fields.Char(string='Email')
@@ -90,19 +90,19 @@ class contract_template_wizard(models.TransientModel):
             data['manager_state_id'] = contract_obj.manager_id.state_id.id or False
             data['manager_city'] = contract_obj.manager_id.city or False
             data['manager_street'] = contract_obj.manager_id.street or False
-            data['manager_street2'] = contract_obj.manager_id.partner_id.street2 or False
+            data['manager_street2'] = contract_obj.manager_id.street2 or False
             data['manager_zip'] = contract_obj.manager_id.zip or False
-            data['manager_function'] = contract_obj.manager_id.function or False
-            data['company_id'] = contract_obj.company_id.partner_id and contract_obj.company_id.partner_id.id or False
-            data['company_phone'] = contract_obj.company_id.partner_id.phone or False
+            data['manager_function'] = contract_obj.manager_id.partner_id.function or False
+            data['company_id'] = contract_obj.company_id and contract_obj.company_id.id or False
+            data['company_phone'] = contract_obj.company_id.phone or False
             data['company_mobile'] = contract_obj.company_id.partner_id.mobile or False
-            data['company_email'] = contract_obj.company_id.partner_id.email or False
-            data['company_country_id'] = contract_obj.company_id.partner_id.country_id.id or False
-            data['company_state_id'] = contract_obj.company_id.partner_id.state_id.id or False
-            data['company_city'] = contract_obj.company_id.partner_id.city or False
-            data['company_street'] = contract_obj.company_id.partner_id.street or False
-            data['company_street2'] = contract_obj.company_id.partner_id.street2 or False
-            data['company_zip'] = contract_obj.company_id.partner_id.zip or False
+            data['company_email'] = contract_obj.company_id.email or False
+            data['company_country_id'] = contract_obj.company_id.country_id.id or False
+            data['company_state_id'] = contract_obj.company_id.state_id.id or False
+            data['company_city'] = contract_obj.company_id.city or False
+            data['company_street'] = contract_obj.company_id.street or False
+            data['company_street2'] = contract_obj.company_id.street2 or False
+            data['company_zip'] = contract_obj.company_id.zip or False
             if contract_obj.contract_template_body_id:
                 data['signature'] = contract_obj.contract_template_body_id.signature
                 data['contract_template_id'] = contract_obj.contract_template_body_id.id
@@ -121,7 +121,9 @@ class contract_template_wizard(models.TransientModel):
         wizard_obj = self.browse(cr, uid, ids[0])
         contract_obj = self.pool.get('account.analytic.account')
         report_body_obj = self.pool.get('account.analytic.account.contract.report.body')
-        part_obj = self.pool.get('res.partner')
+        partner_obj = self.pool.get('res.partner')
+        manager_obj = self.pool.get('res.users')
+        company_obj = self.pool.get('res.company')
         
         # write contract fields  values to respective fields
         contract_obj.write(cr, uid, active_ids, {
@@ -132,7 +134,7 @@ class contract_template_wizard(models.TransientModel):
             })
         
         # write partner field values
-        part_obj.write(cr, uid, [wizard_obj.partner_id.id], {
+        partner_obj.write(cr, uid, [wizard_obj.partner_id.id], {
             'phone': wizard_obj.partner_phone,
             'mobile': wizard_obj.partner_mobile,
             'email': wizard_obj.partner_email,
@@ -144,7 +146,7 @@ class contract_template_wizard(models.TransientModel):
             })
         
         # write manager related fields
-        part_obj.write(cr, uid, [wizard_obj.manager_id.partner_id.id], {
+        manager_obj.write(cr, uid, [wizard_obj.manager_id.id], {
             'phone': wizard_obj.manager_phone,
             'mobile': wizard_obj.manager_mobile,
             'email': wizard_obj.manager_email,
@@ -154,11 +156,13 @@ class contract_template_wizard(models.TransientModel):
             'street': wizard_obj.manager_street,
             'street2': wizard_obj.manager_street2,
             'zip': wizard_obj.manager_zip,
+            })
+        partner_obj.write(cr, uid, [wizard_obj.manager_id.partner_id.id], {
             'function': wizard_obj.manager_function,
             })
         
         # write company field values
-        part_obj.write(cr, uid, [wizard_obj.company_id.id], {
+        company_obj.write(cr, uid, [wizard_obj.company_id.id], {
             'phone': wizard_obj.company_phone,
             'mobile': wizard_obj.company_mobile,
             'email': wizard_obj.company_email,
@@ -168,6 +172,9 @@ class contract_template_wizard(models.TransientModel):
             'street': wizard_obj.company_street,
             'street2': wizard_obj.company_street2,
             'zip': wizard_obj.company_zip,
+            })
+        partner_obj.write(cr, uid, [wizard_obj.company_id.partner_id.id], {
+            'mobile': wizard_obj.company_mobile,
             })
         
         report_body_obj.write(cr, uid, [wizard_obj.contract_template_id.id], {'signature': wizard_obj.signature})
