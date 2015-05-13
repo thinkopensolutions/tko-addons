@@ -30,6 +30,7 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
 	var orderline_id = 1;
 	module.Orderline = module.Orderline.extend({
 		initialize: function(attr,options){
+			module.Orderline.__super__.initialize.call(this, attr, options);
             this.pos = options.pos;
             this.order = options.order;
             this.product = options.product;
