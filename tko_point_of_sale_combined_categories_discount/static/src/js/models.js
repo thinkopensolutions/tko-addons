@@ -83,7 +83,6 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
             attr.order = this;
             
             var line = new module.Orderline({}, {pos: this.pos, order: this, product: product});
-            console.log("add products................",product)
             if(options.quantity !== undefined){
                 line.set_quantity(options.quantity);
             }
@@ -103,7 +102,7 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
             this.selectLine(this.getLastOrderline());
             
             
-            //call and super do things here 
+            //TODO call and super do things here 
             var combo_ids = [];
             var filter_combo_ids = [];
             var categ_id = product.pos_categ_id[0];
@@ -122,13 +121,11 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
                 		combo_ids.push([combos.main_category_id[0], combos.disc_category_id[0], combos.type, combos.value ]);
                     });
             	}
-            	console.log("all combo ids................",JSON.stringify(combo_ids), categ_id);
             	//filter array based on current product category
             	filter_combo_ids = _.filter(combo_ids, function(combo){
             		
             		return combo.indexOf(categ_id) !== -1;
             	});
-            	console.log("filtered combo ids before................",JSON.stringify(filter_combo_ids));
             	//make discount on applicable line set line to be discounted
             	_.each(filter_combo_ids,function(combos){
 //            		get other pair of current product's category id and search for that in exisiting lines
@@ -147,7 +144,6 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
                         //if undiscounted but deserving lines
                         if (line.categ_id === pair_categ_id && line.discounted === false && !flag)
                         {
-                            console.log("************* line to be discounted ************", line, disc_value)
                             //check if last created or search line to be discounted
                             if (pair_index === 1){ //give discount to searched line
                                 line_to_discount = line;
@@ -160,7 +156,6 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
                                 line_to_discount.discount_type = 'fi';
                                
                                 line_to_discount.discountStr = 'fixed discount';
-                                console.log("qty , price, discount in  %..................",line_to_discount.quantity, line_to_discount.price , disc_value)
                             }
 
                             //set discount and mark this line to be true
@@ -173,7 +168,6 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
                     });
             		
 //            		check if there is any line in order with id other than current product categ_id belonging to this array
-            		console.log("eac line...........",combos, categ_id, pair_index, pair_categ_id)
             	});
             	}
             	
