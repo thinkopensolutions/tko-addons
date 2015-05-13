@@ -13,6 +13,18 @@
                 </group>
             </field>
         </record>
+        
+        <record model="ir.ui.view" id="view_pos_pos_extended_form">
+            <field name="name">pos.order.extended</field>
+            <field name="model">pos.order</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form" />
+            <field name="arch" type="xml">
+            	<field name="partner_id" position="after">
+            		<field name="discount_card_id"/>
+            	</field>
+            </field>
+       </record>
 
         <record id="pos_discount_cards_form" model="ir.ui.view">
             <field name="name">Discount Cards</field>
