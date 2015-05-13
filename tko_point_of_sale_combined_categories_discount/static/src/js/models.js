@@ -45,6 +45,7 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
             //add variable with lines to set discount
             this.discounted = false;
             this.categ_id = options.product.pos_categ_id[0]
+            this.default_code = options.product.default_code;
         },
         
         get_discount_type: function(){
