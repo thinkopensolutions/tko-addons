@@ -47,6 +47,8 @@ class res_partner(osv.osv):
     
     def write(self, cr, uid, ids, vals, context=False):
         res = super(res_partner, self).write(cr, uid, ids, vals, context=context)
+        if isinstance(ids, list):
+            ids = ids[0]
         phone_obj = self.pool.get('res.partner.phone')
         phone_type_id = self.pool.get('res.partner.phone.type').search(cr, uid, [('code', '=', 'phone')])
         mobile_type_id = self.pool.get('res.partner.phone.type').search(cr, uid, [('code', '=', 'cel')])

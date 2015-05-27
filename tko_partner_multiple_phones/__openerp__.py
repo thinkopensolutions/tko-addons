@@ -24,7 +24,7 @@
 
 {
     'name': 'Partner multiple phones',
-    'version': '0.023',
+    'version': '0.002',
     'category': 'Customizations',
     'sequence': 16,
     'complexity': 'normal',
