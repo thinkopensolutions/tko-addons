@@ -47,7 +47,6 @@ class tko_contract_report(report_sxw.rml_parse):
     def compute_template_variables(self, object, text):
         pattern = re.compile('\$\((.*?)\)s')
         matches = pattern.findall(str(text.encode('utf-8')))
-        print "matches...................",matches
         while len(matches):
             value = ''
             type = ''
