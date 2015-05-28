@@ -104,7 +104,7 @@
                 ref="analytic.view_account_analytic_account_form" />
             <field name="arch" type="xml">
                 <page string="Contract Information" position="after">
-                    <page string="Contract Template">
+                    <page string="Contract Template" attrs="{'invisible' : [('type','not in', ['contract'])]}">
                         <group>
                             <field name="contract_template_body_id" />
                             <field name="date_contract_sent"
