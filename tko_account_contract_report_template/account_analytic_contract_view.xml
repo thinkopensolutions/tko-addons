@@ -108,7 +108,8 @@
                         <group>
                             <field name="contract_template_body_id" />
                             <field name="date_contract_sent"
-                                readonly="1" />
+                                readonly="1"
+                                attrs="{'invisible' : [('type','not in', ['contract'])]}"/>
                         </group>
                     </page>
                 </page>
