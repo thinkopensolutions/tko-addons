@@ -47,8 +47,10 @@ class tko_contract_report(report_sxw.rml_parse):
     def compute_template_variables(self, object, text):
         pattern = re.compile('\$\((.*?)\)s')
         matches = pattern.findall(str(text.encode('utf-8')))
+        print "matches...................",matches
         while len(matches):
             value = ''
+            type = ''
             if len(matches):
                 for match in matches:
                     value = object
@@ -62,7 +64,7 @@ class tko_contract_report(report_sxw.rml_parse):
                             _logger.error(("Field %s doesn't exist  in %s") % (err, value))
                     if value:
                         if type != 'binary':
-                            text = text.replace('$(' + match + ')s', str(value.encode('utf-8')).decode('utf-8'))
+                            text = text.replace('$(' + match + ')s', str(unicode(value).encode('utf-8')).decode('utf-8'))
                         else:
                             width, height = '', ''
                             try:

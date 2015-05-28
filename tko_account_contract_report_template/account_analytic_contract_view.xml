@@ -89,7 +89,7 @@
                 </xpath>
                 <button name="set_pending" position="before">
                     <button name="%(contract_template_action)d"
-                        type="action" string="Generate Contract" />
+                        type="action" string="Generate Contract" attrs="{'invisible' : [('type','not in', ['contract', 'template'])]}"/>
                     <button name="action_contract_sent" type="object"
                         string="Send by Email" class="oe_highlight"
                         states="draft,sent,open,pending" />
