@@ -38,16 +38,25 @@ class pos_order(models.Model):
         table_reserved_obj = self.pool.get("table.reserverd")
         session_obj = self.pool.get('pos.session')
         shop_obj = self.pool.get('sale.shop')
+        card_obj = self.pool.get('pos.discount.cards')
         order_ids = super(pos_order,self).create_from_ui(cr, uid, orders, context = context)
         #write discount_card_id to order
         if len(order_ids) == len(orders):
             i = 0
             for tmp_order in orders:
-                
                 if 'data' in tmp_order.keys():
-                    discount_card_id = tmp_order['data'].get('discount_card_id')
+                    discount_card_id = tmp_order['data'].get('discount_card_id',False)
                     if discount_card_id:
-                        pos_obj.write(cr, uid, [order_ids[i]],{'discount_card_id' : discount_card_id})
+                        card = card_obj.browse(cr, uid, int(discount_card_id))
+                        card_value = card.value
+                        if card.type == 'p':
+                            #get total from record
+                            total = pos_obj.browse(cr, uid, order_ids[i]).amount_total
+                            card_value = ( total* card.value) / 100
+                        
+                        pos_obj.write(cr, uid, [order_ids[i]],{'discount_card_id' : discount_card_id, 'discount_on_order' : card_value})
+                    if pos_obj.test_paid(cr, uid, [order_ids[i]]):
+                        pos_obj.signal_workflow(cr, uid, [order_ids[i]], 'paid')
                     i = i + 1
         return order_ids
         

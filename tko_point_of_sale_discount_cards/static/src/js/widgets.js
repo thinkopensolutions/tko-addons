@@ -18,7 +18,6 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
         selectCard: function(e){
             this.pos_widget.order_widget.update_summary();
             this.pos_widget.payment_screen.update_payment_summary();
-            console.log("....selectCard....",this.$('.discount-card-select').val());
             },
             
             
