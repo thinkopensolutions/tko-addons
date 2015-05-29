@@ -28,6 +28,7 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
 	
 	//Extend orderline to add discounted flag
 	var orderline_id = 1;
+	var OrderlineSuper = module.Orderline;
 	module.Orderline = module.Orderline.extend({
 		initialize: function(attr,options){
 			module.Orderline.__super__.initialize.call(this, attr, options);
@@ -46,6 +47,7 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
             this.discounted = false;
             this.categ_id = options.product.pos_categ_id[0]
             this.default_code = options.product.default_code;
+            this.discount_type = 'p'
         },
         
         get_discount_type: function(){
@@ -65,10 +67,19 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
             	
             },
             
+    		//send discount card type to write in database
+    	    export_as_JSON: function() {
+    	        var res = OrderlineSuper.prototype.export_as_JSON.call(this);
+    	        res.discount_type = this.discount_type || false;
+    	        return res;
+    	    },
+            
 	});
 	
 	//Extend order to apply combo disocount each time a product is added
 	module.Order = module.Order.extend({
+		
+
 		
 		
 		fetch: function(model, fields, domain, ctx){
@@ -154,8 +165,12 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
 
                             if (discount_type === 'fi'){
                                 line_to_discount.discount_type = 'fi';
-                               
                                 line_to_discount.discountStr = 'fixed discount';
+                                //set discount type for line
+                                line.discount_type = 'fi';
+                            }
+                            else{
+                            	line.discount_type = 'p';
                             }
 
                             //set discount and mark this line to be true

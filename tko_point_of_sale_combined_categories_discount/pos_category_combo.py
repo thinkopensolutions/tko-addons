@@ -31,4 +31,23 @@ class pos_config(models.Model):
         for records in self:
             combo_ids = self.env['pos.category.combo'].search([])
             records.combo_ids = [(6 , 0 , [combo_id.id for combo_id in combo_ids])]
+
+
+class pos_order_line(models.Model):
+    _inherit = 'pos.order.line'
     
+    discount_type = fields.Selection([('f', 'Fixed'), ('p', 'Percentage')], string='Discount Type', default='p')
+    discount_value = fields.Float('Discount')
+    
+    @api.model
+    def create(self, vals):
+        discount = vals.get('discount', 0.0)
+        discount_type = vals.get('discount_type',False)
+        qty = vals.get('qty', 0.0)
+        price_unit = vals.get('price_unit', 0.0)
+        vals.update({'discount_value' : discount})
+        if discount_type and discount_type == 'fi':
+            discount = discount * 100 / (price_unit * qty)
+            vals.update({'discount' : discount, 'discount_type' : 'f'})
+        res = super(pos_order_line,self).create(vals)
+        return res
