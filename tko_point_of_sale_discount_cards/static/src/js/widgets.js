@@ -3,11 +3,6 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
     var QWeb = instance.web.qweb;
     var _t = instance.web._t;
     
-    
-    /*self.$('#discount-card-select').change(function(){
-        var name = this.value;
-        self.discount_card_change(name);
-    })*/
 
     module.PaymentScreenWidget = module.PaymentScreenWidget.extend({
         

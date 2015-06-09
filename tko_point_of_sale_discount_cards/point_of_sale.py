@@ -2,12 +2,12 @@ from openerp import fields, models, api, _
 
 import logging
 _logger = logging.getLogger(__name__)
-
+_card_type = [('p', 'Percentage'), ('fi', 'Fixed')]
 class pos_discount_cards(models.Model):
     _name = 'pos.discount.cards'
     
     name = fields.Char('Name', required=True)
-    type = fields.Selection([('p', 'Percentage'), ('fi', 'Fixed')], string='Type', required=True)
+    type = fields.Selection(_card_type, string='Type', required=True)
     value = fields.Float('Value', required=True)
     active = fields.Boolean('Active', default=True)
 
@@ -28,6 +28,9 @@ class pos_order(models.Model):
     _inherit = 'pos.order'
     
     discount_card_id = fields.Many2one('pos.discount.cards' , string='Discount Cards')
+    discount_card_name = fields.Char('Discount Card')
+    discount_card_type = fields.Selection(_card_type, string='Type')
+    discount_card_value = fields.Char('Card Value')
     
     def create_from_ui(self, cr, uid, orders, context=None):
         # Keep only new orders
@@ -48,13 +51,19 @@ class pos_order(models.Model):
                     discount_card_id = tmp_order['data'].get('discount_card_id',False)
                     if discount_card_id:
                         card = card_obj.browse(cr, uid, int(discount_card_id))
-                        card_value = card.value
+                        discount_value = card.value
                         if card.type == 'p':
                             #get total from record
                             total = pos_obj.browse(cr, uid, order_ids[i]).amount_total
-                            card_value = ( total* card.value) / 100
+                            discount_value = ( total* card.value) / 100
                         
-                        pos_obj.write(cr, uid, [order_ids[i]],{'discount_card_id' : discount_card_id, 'discount_on_order' : card_value})
+                        pos_obj.write(cr, uid, [order_ids[i]],{
+                                                               'discount_card_id' : discount_card_id,
+                                                               'discount_card_name': card.name,
+                                                               'discount_card_type' : card.type,
+                                                               'discount_card_value' : card.value,
+                                                                'discount_on_order' : discount_value,
+                                                                })
                     if pos_obj.test_paid(cr, uid, [order_ids[i]]):
                         pos_obj.signal_workflow(cr, uid, [order_ids[i]], 'paid')
                     i = i + 1
