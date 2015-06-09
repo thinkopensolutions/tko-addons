@@ -6,7 +6,10 @@
 			<field name="model">pos.order</field>
 			<field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
 			<field name="arch" type="xml">
-				<xpath expr="//field[@name='lines']/tree//field[@name='discount']" position="replace">
+				<field name="discount" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</field>
+				<xpath expr="//field[@name='lines']/tree//field[@name='discount']" position="after">
 					<field name="discount_type"/>
 					<field name="discount_value"/>
 				</xpath>

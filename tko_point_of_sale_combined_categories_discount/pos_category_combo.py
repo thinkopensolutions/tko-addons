@@ -39,6 +39,19 @@ class pos_order_line(models.Model):
     discount_type = fields.Selection([('f', 'Fixed'), ('p', 'Percentage')], string='Discount Type', default='p')
     discount_value = fields.Float('Discount')
     
+   
+    
+    @api.onchange('discount_type', 'discount_value','qty','price_unit')
+    def change_discount(self):
+        if self.discount_type and self.discount_value:
+            discount_type = self.discount_type
+            discount = self.discount_value
+            qty = self.qty
+            price_unit = self.price_unit
+            if discount_type == 'f':
+                self.discount = discount * 100 / (price_unit * qty)
+            else:
+                self.discount = discount
     @api.model
     def create(self, vals):
         discount = vals.get('discount', 0.0)
