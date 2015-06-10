@@ -69,7 +69,10 @@ class pos_order_line(models.Model):
         qty = self.qty
         price_unit = self.price_unit
         if discount_type == 'f':
-            self.discount = discount * 100 / (price_unit * qty)
+            try:
+                self.discount = discount * 100 / (price_unit * qty)
+            except:
+                discount = 0.0
         else:
             self.discount = discount
    
