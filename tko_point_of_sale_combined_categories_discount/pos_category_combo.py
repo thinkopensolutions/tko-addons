@@ -97,7 +97,7 @@ class pos_order(osv.osv):
         print "orders found.............",order_ids, len(order_ids)
         for order_id in order_ids:
             if pos_obj.test_paid(cr, uid, [order_id]):
-                    print "validating order_id..................",order
+                    print "validating order_id..................",order_id
                     pos_obj.signal_workflow(cr, uid, [order_id], 'paid')
         return True
                         
