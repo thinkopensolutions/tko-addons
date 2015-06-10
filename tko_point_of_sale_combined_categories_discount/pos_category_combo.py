@@ -80,7 +80,7 @@ class pos_order_line(models.Model):
         qty = vals.get('qty', 0.0)
         price_unit = vals.get('price_unit', 0.0)
         vals.update({'discount_value' : discount})
-        if discount_type and discount_type == 'fi':
+        if discount_type and discount_type == 'fi' and price_unit and qty:
             discount = discount * 100 / (price_unit * qty)
             vals.update({'discount' : discount, 'discount_type' : 'f'})
         res = super(pos_order_line,self).create(vals)
@@ -118,7 +118,7 @@ class pos_order_line(osv.osv):
         return res
     
     _columns ={
-               'price_subtotal_incl': fieldsv7.function(_amount_line_all, multi='pos_order_line_amount', digits_compute=dp.get_precision('Account'), string='Subtotal w/o Tax', store=True),
+               'price_subtotal_incl': fieldsv7.function(_amount_line_all, multi='pos_order_line_amount', digits_compute=dp.get_precision('Account'), string='Subtotal w/o Tax', store=False),
                }
 
 
