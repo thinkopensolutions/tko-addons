@@ -59,7 +59,7 @@ class pos_order_line(models.Model):
     _inherit = 'pos.order.line'
     
     discount_type = fields.Selection([('f', 'Fixed'), ('p', 'Percentage')], string='Discount Type', default='p')
-    discount_value = fields.Float('Discount')
+    discount_value = fields.Float('Discounted Amount')
     
    
     @api.onchange('discount_type', 'discount_value','qty','price_unit')
