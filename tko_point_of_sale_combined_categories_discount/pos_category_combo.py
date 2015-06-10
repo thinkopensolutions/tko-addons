@@ -23,6 +23,8 @@
 ##############################################################################
 from openerp import fields, models, api, _
 
+from openerp.osv import osv
+
 class pos_category_combo(models.Model):
     _name = 'pos.category.combo'
     
@@ -83,3 +85,19 @@ class pos_order_line(models.Model):
             vals.update({'discount' : discount, 'discount_type' : 'f'})
         res = super(pos_order_line,self).create(vals)
         return res
+    
+    
+## code to be removed
+class pos_order(osv.osv):
+    _inherit = 'pos.order'
+    
+    def validate_old_orders(self, cr, uid, ids, context = None):
+        pos_obj = self.pool.get('pos.order')
+        order_ids = pos_obj.search(cr ,uid, [('state','=','draft')])
+        print "orders found.............",order_ids, len(order_ids)
+        for order_id in order_ids:
+            if pos_obj.test_paid(cr, uid, [order_id]):
+                    print "validating order_id..................",order
+                    pos_obj.signal_workflow(cr, uid, [order_id], 'paid')
+        return True
+                        
