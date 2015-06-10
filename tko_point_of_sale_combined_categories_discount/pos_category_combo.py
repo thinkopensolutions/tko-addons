@@ -24,6 +24,8 @@
 from openerp import fields, models, api, _
 import openerp.addons.decimal_precision as dp
 from openerp.osv import osv, fields as fieldsv7
+import logging
+_logger = logging.getLogger(__name__)
 
 class pos_category_combo(models.Model):
     _name = 'pos.category.combo'
@@ -97,20 +99,20 @@ class pos_order_line(models.Model):
 
 
 
-
-class pos_order(osv.osv):
-    _inherit = 'pos.order'
-    
-    def validate_old_orders(self, cr, uid, ids, context = None):
-        pos_obj = self.pool.get('pos.order')
-        print "searching orders......................."
-        order_ids = pos_obj.search(cr ,uid, [('state','=','draft')])
-        print "orders found.............",order_ids, len(order_ids)
-        if len(order_ids) > 150:
-            order_ids= order_ids[0:149]
-        for order_id in order_ids:
-            if pos_obj.test_paid(cr, uid, [order_id]):
-                    print "validating order_id..................",order_id
-                    pos_obj.signal_workflow(cr, uid, [order_id], 'paid')
-        return True
-                        
+#===============================================================================
+# This code below checks orders in 'New' Stage validates them with workflow
+#===============================================================================
+# class pos_order(osv.osv):
+#     _inherit = 'pos.order'
+#     
+#     def validate_old_orders(self, cr, uid, ids, context = None):
+#         pos_obj = self.pool.get('pos.order')
+#         _logger.info("searching orders in new stage............")
+#         order_ids = pos_obj.search(cr ,uid, [('state','=','draft')])
+#         for order_id in order_ids:
+#             if pos_obj.test_paid(cr, uid, [order_id]):
+#                     _logger.info("searching orders in new stage............%s"%(order_id))
+#                     pos_obj.signal_workflow(cr, uid, [order_id], 'paid')
+#         return True
+#                         
+#===============================================================================
