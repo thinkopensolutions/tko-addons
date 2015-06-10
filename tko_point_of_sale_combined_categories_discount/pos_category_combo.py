@@ -132,13 +132,11 @@ class pos_order(osv.osv):
         print "searching orders......................."
         order_ids = pos_obj.search(cr ,uid, [('state','=','draft')])
         print "orders found.............",order_ids, len(order_ids)
-                
-        for line in pos_obj.browse(cr, uid, order_ids):
-            if line.discount_type == 'f':
-                discount = line.discount_value * 100 / (line.price_unit * line.qty)
-                pos_obj.write(cr, uid, [line.id], {'discount' : discount})
-            if pos_obj.test_paid(cr, uid, [line.id]):
-                    print "validating order..................",line.name
-                    pos_obj.signal_workflow(cr, uid, [line.id], 'paid')
+        if len(order_ids) > 500:
+            order_ids= order_ids[0:500]
+        for order_id in order_ids:
+            if pos_obj.test_paid(cr, uid, [order_id]):
+                    print "validating order_id..................",order_id
+                    pos_obj.signal_workflow(cr, uid, [order_id], 'paid')
         return True
                         
