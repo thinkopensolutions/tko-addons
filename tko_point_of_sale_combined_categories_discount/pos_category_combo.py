@@ -23,7 +23,7 @@
 ##############################################################################
 from openerp import fields, models, api, _
 
-from openerp.osv import osv
+from openerp.osv import osv, fields as fieldsv7
 
 class pos_category_combo(models.Model):
     _name = 'pos.category.combo'
@@ -88,6 +88,42 @@ class pos_order_line(models.Model):
     
     
 ## code to be removed
+#we chn remove this class we wil lnot need this its just to re compute all wrong orders
+class pos_order_line(osv.osv):
+    _inherit = 'pos.order.line'
+    
+    def _amount_line_all(self, cr, uid, ids, field_names, arg, context=None):
+        res = dict([(i, {}) for i in ids])
+        account_tax_obj = self.pool.get('account.tax')
+        cur_obj = self.pool.get('res.currency')
+        for line in self.browse(cr, uid, ids, context=context):
+            taxes_ids = [ tax for tax in line.product_id.taxes_id if tax.company_id.id == line.order_id.company_id.id ]
+            #compoute discount 
+            discount_type = line.discount_type or 'p'
+            discount = line.discount_value or 0.0
+            qty = line.qty
+            price_unit = line.price_unit
+            if discount_type == 'f':
+                discount = discount * 100 / (price_unit * qty)
+            else:
+                discount = discount
+            
+            price = line.price_unit * (1 - (discount or 0.0) / 100.0)
+            taxes = account_tax_obj.compute_all(cr, uid, taxes_ids, price, line.qty, product=line.product_id, partner=line.order_id.partner_id or False)
+
+            cur = line.order_id.pricelist_id.currency_id
+            res[line.id]['discount'] = discount
+            res[line.id]['price_subtotal'] = cur_obj.round(cr, uid, cur, taxes['total'])
+            res[line.id]['price_subtotal_incl'] = cur_obj.round(cr, uid, cur, taxes['total_included'])
+        return res
+    
+    _columns ={
+               'price_subtotal_incl': fieldsv7.function(_amount_line_all, multi='pos_order_line_amount', digits_compute=dp.get_precision('Account'), string='Subtotal w/o Tax', store=True),
+               }
+
+
+
+
 class pos_order(osv.osv):
     _inherit = 'pos.order'
     
