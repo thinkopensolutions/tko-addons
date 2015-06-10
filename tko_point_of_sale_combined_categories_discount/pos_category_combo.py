@@ -80,8 +80,11 @@ class pos_order_line(models.Model):
         qty = vals.get('qty', 0.0)
         price_unit = vals.get('price_unit', 0.0)
         vals.update({'discount_value' : discount})
-        if discount_type and discount_type == 'fi' and price_unit and qty:
-            discount = discount * 100 / (price_unit * qty)
+        if discount_type and discount_type == 'fi':
+            try:
+                discount = discount * 100 / (price_unit * qty)
+            except:
+                discount = 0.0
             vals.update({'discount' : discount, 'discount_type' : 'f'})
         res = super(pos_order_line,self).create(vals)
         return res
@@ -104,7 +107,10 @@ class pos_order_line(osv.osv):
             qty = line.qty
             price_unit = line.price_unit
             if discount_type == 'f':
-                discount = discount * 100 / (price_unit * qty)
+                try:
+                    discount = discount * 100 / (price_unit * qty)
+                except:
+                    discount = 0.0
             else:
                 discount = discount
             
@@ -132,8 +138,8 @@ class pos_order(osv.osv):
         print "searching orders......................."
         order_ids = pos_obj.search(cr ,uid, [('state','=','draft')])
         print "orders found.............",order_ids, len(order_ids)
-        if len(order_ids) > 100:
-            order_ids= order_ids[0:100]
+        if len(order_ids) > 150:
+            order_ids= order_ids[0:149]
         for order_id in order_ids:
             if pos_obj.test_paid(cr, uid, [order_id]):
                     print "validating order_id..................",order_id
