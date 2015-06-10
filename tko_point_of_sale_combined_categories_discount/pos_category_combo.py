@@ -22,7 +22,7 @@
 #
 ##############################################################################
 from openerp import fields, models, api, _
-
+import openerp.addons.decimal_precision as dp
 from openerp.osv import osv, fields as fieldsv7
 
 class pos_category_combo(models.Model):
