@@ -5,10 +5,12 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
     
 
     module.PaymentScreenWidget = module.PaymentScreenWidget.extend({
+    	
+    	el: '.discount-card',
         
-        events: {
-            "change .discount-card-select": "selectCard" 
-        },
+        events: _.extend({
+        	"change .discount-card-select": "selectCard" 
+    }, module.PaymentScreenWidget.prototype.events),
 
         selectCard: function(e){
             this.pos_widget.order_widget.update_summary();
