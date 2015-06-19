@@ -24,7 +24,7 @@
 
 {
     'name': 'tko_point_of_sale_discount_on_order',
-    'version': '0.001',
+    'version': '0.002',
     'description': 'This module allows discount on total',
     'category': 'Customizations',
     'sequence': 150,
@@ -40,6 +40,7 @@
     'data': [
              'point_of_sale_view.xml',
              'account_invoice_view.xml',
+             'wizard/pos_journal_fix_view.xml',
              ],
     'qweb' : [],
     'init': [],
