@@ -17,23 +17,22 @@ class pos_journal_fix(osv.osv):
             for line in order.statement_ids:
                 if line.amount > 1000:
                     print "amount seems not  okay %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%.........",order.name,line.amount
-                    if line.amount > 1000:
-                        statement_obj.write(cr, uid, [line.id], {'amount' : order.amount_total})
-                        for move_line in line.journal_entry_id.line_id:
-                            if move_line.credit > 0:
-                                cr.execute("update account_move_line set credit=%s where id=%s"%(order.amount_total, move_line.id) )
-                                #move_line_obj.write(cr, uid, [move_line.id], {'credit' : order.amount_total} )
-                            if move_line.debit > 0:
-                                cr.execute("update account_move_line set debit=%s where id=%s"%(order.amount_total, move_line.id) )
-                                #move_line_obj.write(cr, uid, [move_line.id], {'debit' : order.amount_total} )
-                        udpate_statement_ids = statement_obj.search(cr, uid, [('pos_statement_id','=',order.id),('id','!=',line.id)])
-                        statement_obj.write(cr, uid, udpate_statement_ids, {'amount' : 0})
-                        for statement in statement_obj.browse(cr, uid, udpate_statement_ids):
-                            if statement.journal_entry_id:
-                                for move_line in statement.journal_entry_id.line_id:
-                                    #print "move id......................",move_line.move_id.id, move_line.move_id.name
-                                    move_obj.button_cancel(cr, uid, [move_line.move_id.id])
-                                move_obj.unlink(cr, uid, [statement.journal_entry_id.id])
+                    statement_obj.write(cr, uid, [line.id], {'amount' : order.amount_total})
+                    for move_line in line.journal_entry_id.line_id:
+                        if move_line.credit > 0:
+                            cr.execute("update account_move_line set credit=%s where id=%s"%(order.amount_total, move_line.id) )
+                            #move_line_obj.write(cr, uid, [move_line.id], {'credit' : order.amount_total} )
+                        if move_line.debit > 0:
+                            cr.execute("update account_move_line set debit=%s where id=%s"%(order.amount_total, move_line.id) )
+                            #move_line_obj.write(cr, uid, [move_line.id], {'debit' : order.amount_total} )
+                    udpate_statement_ids = statement_obj.search(cr, uid, [('pos_statement_id','=',order.id),('id','!=',line.id)])
+                    statement_obj.write(cr, uid, udpate_statement_ids, {'amount' : 0})
+                    for statement in statement_obj.browse(cr, uid, udpate_statement_ids):
+                        if statement.journal_entry_id:
+                            for move_line in statement.journal_entry_id.line_id:
+                                #print "move id......................",move_line.move_id.id, move_line.move_id.name
+                                move_obj.button_cancel(cr, uid, [move_line.move_id.id])
+                            move_obj.unlink(cr, uid, [statement.journal_entry_id.id])
                 #statement_obj.unlink(cr, uid, [line.id])
                                     #move_line_obj.write(cr, uid, [move_line.id], {'debit' : 0, 'credit' :0} )
                          
