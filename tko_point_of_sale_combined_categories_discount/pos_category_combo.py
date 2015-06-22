@@ -34,6 +34,7 @@ class pos_category_combo(models.Model):
     disc_category_id = fields.Many2one('pos.category', 'Discount Category', required=True)
     type = fields.Selection([('p', 'Percentage'), ('fi', 'Fixed')], string='Type', required=True)
     value = fields.Float('Value', required=True)
+    company_id = fields.Many2one('res.company', string='Company')
     
     _sql_constraints = [('category_combo_unique', 'unique(main_category_id, disc_category_id)', _('You already have a combo with current selected categories')),]
     
@@ -53,7 +54,8 @@ class pos_config(models.Model):
     
     def get_category_combo_ids(self):
         for records in self:
-            combo_ids = self.env['pos.category.combo'].search([])
+            combo_ids = self.env['pos.category.combo'].search([('company_id','=',records.company_id.id)])
+            print "combo ids.................",combo_ids, records.company_id
             records.combo_ids = [(6 , 0 , [combo_id.id for combo_id in combo_ids])]
 
 

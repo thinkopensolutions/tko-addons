@@ -14,10 +14,9 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
 	module.PosModel.prototype.models.push(
 			{
 	            model:  'pos.category.combo',
-	            fields: ['main_category_id','disc_category_id', 'type', 'value' ],
+	            fields: ['main_category_id','disc_category_id', 'type', 'value', 'company_id' ],
 	            loaded: function(self,combos){ 
 	            	self.combos = combos;
-	            	console.log("combos loaded.............................",combos)
 	            }
 	        }
 	)
@@ -129,7 +128,12 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
             		//get all combo options 
                 	_.each(combos,function(combos){
 //                		create array having [main_categ, disc_categ, type, value]
-                		combo_ids.push([combos.main_category_id[0], combos.disc_category_id[0], combos.type, combos.value ]);
+                		//to keep combos functioning for multi company
+                		if (combos.company_id[0] === this.posmodel.company.id)
+                		{
+                			combo_ids.push([combos.main_category_id[0], combos.disc_category_id[0], combos.type, combos.value ]);
+                		}
+                		
                     });
             	}
             	//filter array based on current product category

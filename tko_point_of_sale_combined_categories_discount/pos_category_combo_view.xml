@@ -26,12 +26,13 @@
 			<field name="name">Category Combo Discount</field>
 			<field name="model">pos.category.combo</field>
 			<field name="arch" type="xml">
-				<form string="Language Skill" version="7.0">
+				<form string="Category Combo Discount" version="7.0">
 					<group>
 						<field name="main_category_id"/>
 						<field name="disc_category_id"/>
 						<field name="type"/>
 						<field name="value"/>
+						<field name="company_id" required="1"/>
 					</group>
 					
 				</form>
@@ -46,6 +47,7 @@
 					<field name="disc_category_id"/>
 					<field name="type"/>
 					<field name="value"/>
+					<field name="company_id" required="1"/>
 				</tree>
 			</field>
 		</record>
