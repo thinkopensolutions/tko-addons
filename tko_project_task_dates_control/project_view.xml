@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	
+    	
+        <!--
+        <record id="project.view_task_gantt" model="ir.ui.view">
+            <field name="name">project.task.gantt</field>
+            <field name="model">project.task</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">
+                <gantt date_start="date_start" date_stop="date_end" progress="progress" string="Tasks" default_group_by="project_id">
+                </gantt>
+            </field>
+        </record>
+        -->
+    	
+        <record id="task_inherit_tree_view" model="ir.ui.view">
+            <field name="name">project.task.</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_tree2"/>
+            <field name="arch" type="xml">
+    			<field name="date_start" position="after">
+            		<field name="date_deadline"/>
+            	</field>
+            </field>
+        </record>
+    	<record id="task_inherit_form_view" model="ir.ui.view">
+            <field name="name">project.task.</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+            	<field name="date_start" position="after">
+            		<field name="date_initiated"/>
+            	</field>
+                <!--
+            	<field name="date_start" position="attributes">
+            		<attribute name="readonly">1</attribute>
+            	</field>
+            	<field name="date_end" position="attributes">
+            		<attribute name="readonly">0</attribute>
+            	</field>
+            	<field name="date_last_stage_update" position="attributes">
+            		<attribute name="readonly">1</attribute>
+            	</field>
+                -->
+            </field>
+        </record>
+    	
+    	<record id="task_stage_inherit_form_view" model="ir.ui.view">
+            <field name="name">project.task.form</field>
+            <field name="model">project.task.type</field>
+            <field name="inherit_id" ref="project.task_type_edit"/>
+            <field name="arch" type="xml">
+            	<field name="sequence" position="after">
+            		<field name="stage_type"/>
+            	</field>
+            </field>
+        </record>
+        
+        
+    
+        
+    </data>
+</openerp>
