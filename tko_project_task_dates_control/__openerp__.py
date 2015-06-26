@@ -4,8 +4,8 @@
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
 #
-#    Thinkopen Brasil
-#    Copyright (C) Thinkopen Solutions Brasil (<http://www.tkobr.com>).
+#    ThinkOpen Solutions Brasil
+#    Copyright (C) Thinkopen Solutions <http://www.tkobr.com>.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -23,31 +23,29 @@
 ##############################################################################
 
 {
-    'name': 'tko_project_task_dates_control',
-    'version': '0.005',
+    'name': 'Project task dates control',
+    'version': '0.006',
     'category': 'Customizations',
     'sequence': 38,
     'complexity': 'easy',
-    'description': ''' This module adds initial, final and cancel field in task stage form 
+    'description': ''' This module allows to define the type of project stages.\n
+When a task is moved to an initial stage the task starting date is set automatically, and when moved to a final one the final date.
 ''',
     'author': 'ThinkOpen Solutions Brasil',
     'website': 'http://www.tkobr.com',
     'images': ['images/oerp61.jpeg',
-              ],
+               ],
     'depends': ['base',
                 'project',
-                #'web_relativedelta',
-              ],
-                
-    'data': ['project_view.xml'
-             
+                ],
+    'data': ['project_view.xml',
              ],
     'init': [],
     'demo': [],
     'update': [],
-    'test': [], #YAML files with tests
+    'test': [],  # YAML files with tests
     'installable': True,
     'application': False,
-    'auto_install': False, #If it's True, the modules will be auto-installed when all dependencies are installed
+    'auto_install': False,  # If it's True, the modules will be auto-installed when all dependencies are installed
     'certificate': '',
 }
