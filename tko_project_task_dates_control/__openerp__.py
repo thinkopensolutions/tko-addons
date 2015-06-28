@@ -24,7 +24,7 @@
 
 {
     'name': 'Project task dates control',
-    'version': '0.006',
+    'version': '0.007',
     'category': 'Customizations',
     'sequence': 38,
     'complexity': 'easy',
