@@ -62,7 +62,7 @@ class pos_config(models.Model):
 class pos_order_line(models.Model):
     _inherit = 'pos.order.line'
     
-    discount_type = fields.Selection([('f', 'Fixed'), ('p', 'Percentage')], string='Discount Type', default='p')
+    discount_type = fields.Selection([('fi', 'Fixed'), ('p', 'Percentage')], string='Discount Type', default='p')
     discount_value = fields.Float('Discounted Amount')
     
    
@@ -72,7 +72,7 @@ class pos_order_line(models.Model):
         discount = self.discount_value or 0.0
         qty = self.qty
         price_unit = self.price_unit
-        if discount_type == 'f':
+        if discount_type == 'fi':
             try:
                 self.discount = discount * 100 / (price_unit * qty)
             except:
@@ -92,7 +92,7 @@ class pos_order_line(models.Model):
                 discount = discount * 100 / (price_unit * qty)
             except:
                 discount = 0.0
-            vals.update({'discount' : discount, 'discount_type' : 'f'})
+            vals.update({'discount' : discount, 'discount_type' : 'fi'})
         res = super(pos_order_line,self).create(vals)
         return res
     
