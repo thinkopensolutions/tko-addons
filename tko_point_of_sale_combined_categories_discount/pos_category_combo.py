@@ -36,7 +36,7 @@ class pos_category_combo(models.Model):
     value = fields.Float('Value', required=True)
     company_id = fields.Many2one('res.company', string='Company')
     
-    _sql_constraints = [('category_combo_unique', 'unique(main_category_id, disc_category_id)', _('You already have a combo with current selected categories')),]
+    _sql_constraints = [('category_combo_unique', 'unique(main_category_id, disc_category_id,company_id)', _('You already have a combo with current selected categories')),]
     
 
 #adding field becuase we need to have values of combo ids even if no internet connection   
