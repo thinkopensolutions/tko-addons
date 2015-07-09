@@ -21,7 +21,7 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
         update_payment_summary: function() {
             this._super();
             var currentOrder = this.pos.get('selectedOrder');
-            var selected = $('#discount-card-select option:selected').attr('value');
+            //var selected = $('#discount-card-select option:selected').attr('value');
             var paidTotal = currentOrder.getPaidTotal();
             var dueTotal = currentOrder.getTotalTaxIncluded();
             var remaining = dueTotal > paidTotal ? dueTotal - paidTotal : 0;
@@ -60,7 +60,7 @@ module.Order = module.Order.extend({
     
     //this method returns discount given by discount card
     getDiscountCard : function(){
-        var discount_id = self.$('.discount-card-select option:selected').attr('id');
+       // var discount_id = self.$('.discount-card-select option:selected').attr('id');
         var discount_type = self.$('.discount-card-select option:selected').attr('type');
         var discount_value = self.$('.discount-card-select option:selected').attr('value');
         var subtotal = (this.get('orderLines')).reduce((function(sum, orderLine) {
@@ -83,7 +83,7 @@ module.Order = module.Order.extend({
     },
 
     getTotalTaxIncluded: function() {
-        var discount_id = self.$('.discount-card-select option:selected').attr('id');
+        //var discount_id = self.$('.discount-card-select option:selected').attr('id');
         var discount_type = self.$('.discount-card-select option:selected').attr('type');
         var discount_value = self.$('.discount-card-select option:selected').attr('value');
         
