@@ -63,8 +63,8 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
             	this.discounted = false;
             	if (this.paired_line)
 	            	{
-	            		//this.paired_line.set_discount(0);
-            		this.paired_line.set_discount = 0;
+	            		this.paired_line.set_discount = 0;
+	            		this.paired_line.('change',this.paired_line);
 	            	}
             	this.paired_line.discountStr = '0';
             	this.paired_line.discounted = false;
