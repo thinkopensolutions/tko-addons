@@ -58,7 +58,7 @@ module.Order = module.Order.extend({
 	
 	initialize: function(attributes){
 		OrderSuper.__super__.initialize.call(this,  attributes); 
-		this.discount_card_id = 'p'
+		this.discount_card_id = ''
 		this.discount_card_type = 'p'
 		this.discount_card_value = '0'
     },
