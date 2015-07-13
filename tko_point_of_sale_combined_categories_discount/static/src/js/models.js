@@ -47,7 +47,6 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
             this.categ_id = options.product.pos_categ_id[0]
             this.default_code = options.product.default_code;
             this.discount_type = 'p'
-            this.paired_line = false;
         },
         
         get_discount_type: function(){
@@ -57,19 +56,6 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
         get_base_price:    function(){
             var rounding = this.pos.currency.rounding;
             discount_type = this.get_discount_type();
-            if (!this.get_quantity()){
-            	this.discount = 0;
-            	this.discountStr = '0';
-            	this.discounted = false;
-            	if (this.paired_line)
-	            	{
-	            		this.paired_line.set_discount = 0;
-	            		this.paired_line.trigger('change',this.paired_line);
-	            	}
-            	this.paired_line.discountStr = '0';
-            	this.paired_line.discounted = false;
-            }
-            
             if (discount_type === 'fi'){
         		return round_pr(this.get_unit_price() * this.get_quantity() - (this.get_discount()), rounding);
         	}
@@ -196,8 +182,6 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
                             line.discounted = true;
                             currentline.discounted = true;
                             flag = true;
-                            line.paired_line = currentline;
-                            currentline.paired_line = line;
 
                         }
                     });
