@@ -47,6 +47,7 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
             this.categ_id = options.product.pos_categ_id[0]
             this.default_code = options.product.default_code;
             this.discount_type = 'p'
+            this.paired = false; // this is the line which is paired with the discounted line, used when we need to clear discount
         },
         
         get_discount_type: function(){
@@ -64,14 +65,45 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
             	return round_pr(this.get_unit_price() * this.get_quantity() * (1 - this.get_discount()/100), rounding);
             	}
             	
-            },
-            
-    		//send discount card type to write in database
-    	    export_as_JSON: function() {
-    	        var res = OrderlineSuper.prototype.export_as_JSON.call(this);
-    	        res.discount_type = this.discount_type || false;
-    	        return res;
-    	    },
+        },
+        
+		//send discount card type to write in database
+	    export_as_JSON: function() {
+	        var res = OrderlineSuper.prototype.export_as_JSON.call(this);
+	        res.discount_type = this.discount_type || false;
+	        return res;
+	    },
+	    
+	    
+	    //this method clears discounted paired 
+	    set_quantity: function(quantity){
+            if(quantity === 'remove' || quantity === '0' || !quantity){
+            	if (this.paired){
+            		this.paired.discounted = false;
+            		this.paired.discount_type = 'p';
+            		this.paired.set_discount(0);
+            	}
+            	this.discounted = false;
+                this.order.removeOrderline(this);
+                return;
+            }else{
+                var quant = parseFloat(quantity) || 0;
+                var unit = this.get_unit();
+                if(unit){
+                    if (unit.rounding) {
+                        this.quantity    = round_pr(quant, unit.rounding);
+                        this.quantityStr = this.quantity.toFixed(Math.ceil(Math.log(1.0 / unit.rounding) / Math.log(10)));
+                    } else {
+                        this.quantity    = round_pr(quant, 1);
+                        this.quantityStr = this.quantity.toFixed(0);
+                    }
+                }else{
+                    this.quantity    = quant;
+                    this.quantityStr = '' + this.quantity;
+                }
+            }
+            this.trigger('change',this);
+        },
             
 	});
 	
@@ -182,6 +214,10 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
                             line.discounted = true;
                             currentline.discounted = true;
                             flag = true;
+                            
+                            //set paired line
+                            currentline.paired = line
+                            line.paired = currentline
 
                         }
                     });
