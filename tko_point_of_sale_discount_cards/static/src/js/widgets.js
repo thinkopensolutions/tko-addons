@@ -5,20 +5,12 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
     
 
     module.PaymentScreenWidget = module.PaymentScreenWidget.extend({
-    	
-    	el: '.discount-card',
         
-        events: _.extend({
-        	"change .discount-card-select": "selectCard" 
-    }, module.PaymentScreenWidget.prototype.events),
+        events: {
+            "change .discount-card-select": "selectCard" 
+        },
 
         selectCard: function(e){
-        	// set card type and value in order
-        	order = this.pos.get('selectedOrder')
-        	selected_discount_card = $('.discount-card-select option:selected')
-        	order.discount_card_id = selected_discount_card.attr('id');
-        	order.discount_card_type = selected_discount_card.attr('type');
-        	order.discount_card_value = selected_discount_card.attr('value');
             this.pos_widget.order_widget.update_summary();
             this.pos_widget.payment_screen.update_payment_summary();
             },
@@ -27,7 +19,7 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
         update_payment_summary: function() {
             this._super();
             var currentOrder = this.pos.get('selectedOrder');
-            //var selected = $('#discount-card-select option:selected').attr('value');
+            var selected = $('#discount-card-select option:selected').attr('value');
             var paidTotal = currentOrder.getPaidTotal();
             var dueTotal = currentOrder.getTotalTaxIncluded();
             var remaining = dueTotal > paidTotal ? dueTotal - paidTotal : 0;
@@ -55,27 +47,20 @@ function pos_discount_cards_widgets(instance, module){ //module is instance.poin
 // compute discount of
 var OrderSuper = module.Order;
 module.Order = module.Order.extend({
-	
-	initialize: function(attributes){
-		OrderSuper.__super__.initialize.call(this,  attributes); 
-		this.discount_card_id = ''
-		this.discount_card_type = 'p'
-		this.discount_card_value = '0'
-    },
-	
     //send discount_card_id to write in database
     export_as_JSON: function() {
         var res = OrderSuper.prototype.export_as_JSON.call(this);
-        res.discount_card_id = this.discount_card_id || false;
+        var discount_card_id = self.$('.discount-card-select option:selected').attr('id');
+        res.discount_card_id = discount_card_id || false;
         
         return res;
     },
     
     //this method returns discount given by discount card
     getDiscountCard : function(){
-       // var discount_id = self.$('.discount-card-select option:selected').attr('id');
-        var discount_type = this.discount_card_type;
-        var discount_value = this.discount_card_value;
+        var discount_id = self.$('.discount-card-select option:selected').attr('id');
+        var discount_type = self.$('.discount-card-select option:selected').attr('type');
+        var discount_value = self.$('.discount-card-select option:selected').attr('value');
         var subtotal = (this.get('orderLines')).reduce((function(sum, orderLine) {
             return sum + orderLine.get_price_with_tax();
         }), 0);
@@ -96,9 +81,9 @@ module.Order = module.Order.extend({
     },
 
     getTotalTaxIncluded: function() {
-        //var discount_id = self.$('.discount-card-select option:selected').attr('id');
-        var discount_type = this.discount_card_type;
-        var discount_value = this.discount_card_value;
+        var discount_id = self.$('.discount-card-select option:selected').attr('id');
+        var discount_type = self.$('.discount-card-select option:selected').attr('type');
+        var discount_value = self.$('.discount-card-select option:selected').attr('value');
         
         var subtotal = (this.get('orderLines')).reduce((function(sum, orderLine) {
             return sum + orderLine.get_price_with_tax();
