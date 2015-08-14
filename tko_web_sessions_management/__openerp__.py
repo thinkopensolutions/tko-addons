@@ -24,7 +24,7 @@
 
 {
     'name': 'Odoo Web Sessions Management Rules',
-    'version': '1.010',
+    'version': '1.011',
     'category': 'Tools',
     'sequence': 15,
     'summary': 'Manage Users Login Rules in Odoo.',
@@ -48,10 +48,10 @@ One can do following:\n
 2. Users can close related active session;\n
 3. Users can choose to close all sessions except current one.\n
 NOTE: Admin has no restrictions""",
-    'author': 'ThinkOpen Solutions Brasil',
+    'author': 'ThinkOpen Solutions Brasil, Ivan Yelizariev',
     'website': 'http://www.tkobr.com',
-    'price': 19.99,
-    'currency': 'EUR',
+    #'price': 19.99,
+    #'currency': 'EUR',
     'depends': [
                 'base',
                 'resource',
