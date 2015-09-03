@@ -47,10 +47,7 @@
             <field name="inherit_id"
                 ref="l10n_br_base.view_l10n_br_base_partner_form" />
             <field name="arch" type="xml">
-                <field name="email" position="attributes">
-                    <attribute name="on_change">onchange_email(email)
-                    </attribute>
-                </field>
+                
                 <field name="fax" position="replace" />
                 <field name="mobile" position="replace" />
                 <field name="phone" position="replace" />
@@ -106,8 +103,7 @@
                                     style="width: 20%%"
                                     attrs="{'invisible': [('is_company','=', True)]}" />
                                 <field name="cnpj_cpf" nolabel="1"
-                                    style="width: 80%%" placeholder="cpf / cnpj"
-                                    on_change="onchange_mask_cnpj_cpf(is_company, cnpj_cpf)" />
+                                    style="width: 80%%" placeholder="cpf / cnpj"/>
                             </div>
                             <field name="parent_id" nolabel="1"
                                 colspan="3" placeholder="company"
@@ -162,8 +158,7 @@
                                 placeholder="classe" />
                         </group>
                     </page>
-                    <page string="Internet &amp; Social Network"
-                        attrs="{'invisible': [('is_company','=', True)]}">
+                    <page string="Internet &amp; Social Network">
                         <group>
                             <group>
                                 <field name="skype" widget="url" />
