@@ -26,11 +26,60 @@ import openerp
 from openerp.osv import fields, osv, orm
 from datetime import date, datetime, time, timedelta
 from openerp.addons.base.ir.ir_cron import _intervalTypes
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from dateutil.relativedelta import *
+from openerp import models
+from openerp import http
+from openerp.http import root
 from openerp.http import request
 
 
 class res_users(osv.osv):
     _inherit = 'res.users'
+        
+    def _check_session_validity(self, db, uid, passwd):
+        if not request:
+            return
+        now = fields.datetime.now()
+        session = request.session
+        session_store = root.session_store
+        
+        if session.db and session.uid:
+            session_obj = request.registry.get('ir.sessions')
+            cr = self.pool.cursor()
+            # autocommit: our single update request will be performed atomically.
+            # (In this way, there is no opportunity to have two transactions
+            # interleaving their cr.execute()..cr.commit() calls and have one
+            # of them rolled back due to a concurrent access.)
+            cr.autocommit(True)
+            session_ids = session_obj.search(cr, uid,
+                [('session_id', '=', session.sid),
+                 ('expiration_date', '>', now),
+                 ('logged_in', '=', True)],
+                order='expiration_date asc',
+                context=request.context)
+            if session_ids:
+                if request.httprequest.path <> '/longpolling/poll':
+                    open_sessions = session_obj.read(cr, uid,
+                        session_ids, ['logged_in',
+                                      'session_seconds',
+                                      'expiration_date'],
+                        context=request.context)
+                    for s in open_sessions:
+                        seconds = s['session_seconds']
+                        session_obj.write(cr, uid, s['id'],
+                            {'expiration_date': datetime.strftime((datetime.strptime(now, DEFAULT_SERVER_DATETIME_FORMAT) + relativedelta(seconds=seconds)), DEFAULT_SERVER_DATETIME_FORMAT),},
+                            context=request.context)
+                    cr.commit()
+            else:
+                session.logout(logout_type='to', keep_db=True)
+            cr.close()
+        return True
+    
+    def check(self, db, uid, passwd):
+        res = super(res_users, self).check(db, uid, passwd)
+        self._check_session_validity(db, uid, passwd)
+        return res
     
     def _get_groups(self, cr, uid, ids, context=None):
         result = set()
@@ -44,7 +93,6 @@ class res_users(osv.osv):
         result = {}
         now = datetime.now()
         seconds = (now + _intervalTypes['weeks'](1) - now).total_seconds()
-#         user_obj = request.registry.get('res.users')
         for id in ids:
             user = self.browse(cr, uid, id, context=context)
             if user.interval_number and user.interval_type:
@@ -52,6 +100,7 @@ class res_users(osv.osv):
                 if u_seconds < seconds:
                     seconds = u_seconds
             else:
+                # Get lowest session time
                 for group in user.groups_id:
                     if group.interval_number and group.interval_type:
                         g_seconds = (now + _intervalTypes[group.interval_type](group.interval_number) - now).total_seconds()
@@ -86,5 +135,4 @@ class res_users(osv.osv):
         }
     
     _defaults = {'multiple_sessions_block': False}
-    
     

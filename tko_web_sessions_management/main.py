@@ -39,31 +39,8 @@ from openerp.http import Response
 _logger = logging.getLogger(__name__)
 
 
-# def set_cookie_and_redirect(redirect_url):
-#     redirect = werkzeug.utils.redirect(redirect_url, 303)
-#     redirect.autocorrect_location_header = False
-#     return redirect
-
-    
 class Home_tkobr(openerp.addons.web.controllers.main.Home):
     
-    def save_session(self, cr, uid, sid, now, context=None):
-        session_obj = request.registry.get('ir.sessions')
-        user = request.registry.get('res.users').browse(request.cr,
-            request.uid, uid, request.context)
-        values = {
-                  'user_id': uid,
-                  'logged_in': True,
-                  'session_id': sid,
-                  'session_seconds': user.session_default_seconds,
-                  'multiple_sessions_block': user.multiple_sessions_block,
-                  'date_login': now,
-                  'expiration_date': datetime.strftime((datetime.strptime(now, DEFAULT_SERVER_DATETIME_FORMAT) + relativedelta(seconds=user.session_default_seconds)), DEFAULT_SERVER_DATETIME_FORMAT)
-                  }
-        session = session_obj.search(cr, uid, [('session_id', '=', sid)], context=context)
-        session_obj.create(cr, request.uid, values, context=context)
-        return True
-        
     @http.route('/web/login', type='http', auth="none")
     def web_login(self, redirect=None, **kw):
         openerp.addons.web.controllers.main.ensure_db()
@@ -145,29 +122,25 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
             values['reason3'] = '- User not allowed to login at this specific time and/or day'
         return request.render('web.login', values)
     
+    def save_session(self, cr, uid, sid, now, context=None):
+        session_obj = request.registry.get('ir.sessions')
+        user = request.registry.get('res.users').browse(request.cr,
+            request.uid, uid, request.context)
+        values = {
+                  'user_id': uid,
+                  'logged_in': True,
+                  'session_id': sid,
+                  'session_seconds': user.session_default_seconds,
+                  'multiple_sessions_block': user.multiple_sessions_block,
+                  'date_login': now,
+                  'expiration_date': datetime.strftime((datetime.strptime(now, DEFAULT_SERVER_DATETIME_FORMAT) + relativedelta(seconds=user.session_default_seconds)), DEFAULT_SERVER_DATETIME_FORMAT)
+                  }
+        session = session_obj.search(cr, uid, [('session_id', '=', sid)], context=context)
+        session_obj.create(cr, request.uid, values, context=context)
+        return True
+     
     @http.route('/web/session/logout', type='http', auth="none")
     def logout(self, redirect='/web'):
-        now = fields.datetime.now()
-        if not request.uid:
-            request.uid = openerp.SUPERUSER_ID
-        sid = request.httprequest.session.sid
-        session_obj = request.registry.get('ir.sessions')
-        session_id = session_obj.search(request.cr, request.uid,
-            [('session_id', '=', sid),
-             ('logged_in', '=', True)],
-            context=request.context)
-        if session_id:
-            session = session_obj.read(request.cr, request.uid, session_id[0],
-                ['date_login'],
-                context=request.context)
-            session_obj.write(request.cr, request.uid, session['id'],
-                {'logged_in': False,
-                 'date_logout': datetime.strptime(now, DEFAULT_SERVER_DATETIME_FORMAT),
-                 'logout_type': 'ul',
-                 'session_duration': str(datetime.strptime(now, DEFAULT_SERVER_DATETIME_FORMAT) - datetime.strptime(session['date_login'], DEFAULT_SERVER_DATETIME_FORMAT)),
-                 },
-                context=request.context)
-        request.session.logout(keep_db=True)
+        request.session.logout(keep_db=True, logout_type='ul')
         return werkzeug.utils.redirect(redirect, 303)
-    
-    
+     

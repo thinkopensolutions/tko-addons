@@ -22,8 +22,8 @@
 #
 ##############################################################################
 
-import res_users
+import res_groups
+import main
 import http
 import ir_sessions
-import main
-import res_groups
+import res_users
