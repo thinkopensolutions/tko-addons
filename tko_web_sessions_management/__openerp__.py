@@ -23,8 +23,8 @@
 ##############################################################################
 
 {
-    'name': 'Odoo Web Sessions Management Rules',
-    'version': '1.015',
+    'name': 'TKOBR - Odoo Web Sessions Management Rules',
+    'version': '1.016',
     'category': 'Tools',
     'sequence': 15,
     'summary': 'Manage Users Login Rules in Odoo.',
