@@ -145,7 +145,8 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
                   'session_seconds': user.session_default_seconds,
                   'multiple_sessions_block': user.multiple_sessions_block,
                   'date_login': now,
-                  'expiration_date': datetime.strftime((datetime.strptime(now, DEFAULT_SERVER_DATETIME_FORMAT) + relativedelta(seconds=user.session_default_seconds)), DEFAULT_SERVER_DATETIME_FORMAT)
+                  'expiration_date': datetime.strftime((datetime.strptime(now, DEFAULT_SERVER_DATETIME_FORMAT) + relativedelta(seconds=user.session_default_seconds)), DEFAULT_SERVER_DATETIME_FORMAT),
+                  'ip': request.httprequest.headers.environ['REMOTE_ADDR'],
                   }
         session = session_obj.search(cr, uid, [('session_id', '=', sid)], context=context)
         session_obj.create(cr, request.uid, values, context=context)

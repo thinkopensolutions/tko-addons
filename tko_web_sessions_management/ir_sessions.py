@@ -67,6 +67,7 @@ class ir_sessions(osv.osv):
         'logout_type': fields.selection(LOGOUT_TYPES, 'Logout Type'),
         'session_duration': fields.char('Session Duration', size=8),
         'user_kill_id' : fields.many2one('res.users', 'Killed by',),
+        'ip': fields.char('Remote IP', size=15),
         # Add other fields about the sessions from HEADER 
         # like Source IPs etc...
         }

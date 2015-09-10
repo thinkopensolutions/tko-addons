@@ -26,6 +26,7 @@
                                 domain="[('user_id', '=', parent.id)]">
                                 <tree edit="false" create="false"
                                     colors="gray:(logged_in == False);black:(logged_in == True)">
+                                    <field name="ip" />
                                     <field name="logged_in" />
                                     <field name="multiple_sessions_block" />
                                     <field name="date_login" />
@@ -89,6 +90,7 @@
                                     <tree edit="false" create="false"
                                         delete="false"
                                         colors="gray:(logged_in == False);black:(logged_in == True)">
+                                        <field name="ip" />
                                         <field name="logged_in" />
                                         <field name="multiple_sessions_block" />
                                         <field name="date_login" />
