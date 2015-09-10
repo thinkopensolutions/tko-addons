@@ -26,10 +26,12 @@
                                 domain="[('user_id', '=', parent.id)]">
                                 <tree edit="false" create="false"
                                     colors="gray:(logged_in == False);black:(logged_in == True)">
-                                    <field name="ip" />
                                     <field name="logged_in" />
+                                    <field name="ip" />
+                                    <field name="remote_tz" />
                                     <field name="multiple_sessions_block" />
                                     <field name="date_login" />
+                                    <field name="expiration_date" />
                                     <field name="date_logout" />
                                     <field name="session_duration" />
                                     <field name="logout_type" />
@@ -41,11 +43,14 @@
                                     delete="false">
                                     <group col="4">
                                         <field name="logged_in" />
+                                        <field name="ip" />
+                                        <field name="remote_tz" />
                                         <field name="multiple_sessions_block" />
                                         <field name="date_login" />
+                                        <field name="expiration_date" />
                                         <field name="date_logout" />
-                                        <field name="logout_type" />
                                         <field name="session_duration" />
+                                        <field name="logout_type" />
                                         <field name="user_kill_id" />
                                     </group>
                                 </form>
@@ -90,8 +95,9 @@
                                     <tree edit="false" create="false"
                                         delete="false"
                                         colors="gray:(logged_in == False);black:(logged_in == True)">
-                                        <field name="ip" />
                                         <field name="logged_in" />
+                                        <field name="ip" />
+                                        <field name="remote_tz" />
                                         <field name="multiple_sessions_block" />
                                         <field name="date_login" />
                                         <field name="expiration_date" />
@@ -104,13 +110,16 @@
                                     </tree>
                                     <form edit="false" create="false">
                                         <group col="4">
-                                            <field name="logged_in" />
-                                            <field name="multiple_sessions_block" />
-                                            <field name="date_login" />
-                                            <field name="date_logout" />
-                                            <field name="logout_type" />
-                                            <field name="session_duration" />
-                                            <field name="user_kill_id" />
+                                        <field name="logged_in" />
+                                        <field name="ip" />
+                                        <field name="remote_tz" />
+                                        <field name="multiple_sessions_block" />
+                                        <field name="date_login" />
+                                        <field name="expiration_date" />
+                                        <field name="date_logout" />
+                                        <field name="session_duration" />
+                                        <field name="logout_type" />
+                                        <field name="user_kill_id" />
                                         </group>
                                     </form>
                                 </field>

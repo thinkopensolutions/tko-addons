@@ -68,8 +68,8 @@ class ir_sessions(osv.osv):
         'session_duration': fields.char('Session Duration', size=8),
         'user_kill_id' : fields.many2one('res.users', 'Killed by',),
         'ip': fields.char('Remote IP', size=15),
-        # Add other fields about the sessions from HEADER 
-        # like Source IPs etc...
+        'remote_tz' : fields.char('Remote Time Zone', size=32, required=True),
+        # Add other fields about the sessions from HEADER...
         }
     
     _order = 'date_logout desc'

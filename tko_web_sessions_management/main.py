@@ -72,58 +72,58 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
             if request.params.has_key('login') and request.params.has_key('password'):
                 uid = request.session.authenticate(request.session.db,
                     request.params['login'], request.params['password'])
-            if uid is not False and not uid is SUPERUSER_ID:
-                # check for multiple sessions block
-                sessions = request.registry.get('ir.sessions').search(request.cr,
-                    request.uid,
-                    [('user_id', '=', uid),
-                     ('logged_in', '=', True)],
-                    context=request.context)
-                
+            if uid is not False:
                 user = request.registry.get('res.users').browse(request.cr,
                     request.uid, uid, request.context)
-                
-                if sessions and user.multiple_sessions_block:
-                    multi_ok = False
-                
-                if multi_ok:
-                    # check calendars
-                    calendar_obj = request.registry.get('resource.calendar')
-                    attendance_obj = request.registry.get('resource.calendar.attendance')
+                if not uid is SUPERUSER_ID:
+                    # check for multiple sessions block
+                    sessions = request.registry.get('ir.sessions').search(request.cr,
+                        request.uid,
+                        [('user_id', '=', uid),
+                         ('logged_in', '=', True)],
+                        context=request.context)
                     
-                    # GET USER LOCAL TIME
-                    tz = pytz.timezone(user.tz)
-                    tzoffset = tz.utcoffset(now)
-                    now = now + tzoffset
+                    if sessions and user.multiple_sessions_block:
+                        multi_ok = False
                     
-                    if user.login_calendar_id:
-                        calendar_set += 1
-                        # check user calendar
-                        attendances = attendance_obj.search(request.cr,
-                            request.uid, [('calendar_id', '=', user.login_calendar_id.id),
-                                          ('dayofweek', '=', now.weekday()),
-                                          ('hour_from', '<=', now.hour+now.minute/60.0),
-                                          ('hour_to', '>=', now.hour+now.minute/60.0)],
-                            context=request.context)
-                        if attendances:
-                            calendar_ok = True
-                    else:
-                        # check user groups calendar
-                        for group in user.groups_id:
-                            if group.login_calendar_id:
-                                calendar_set += 1
-                                attendances = attendance_obj.search(request.cr,
-                                    request.uid, [('calendar_id', '=', group.login_calendar_id.id),
-                                                  ('dayofweek', '=', now.weekday()),
-                                                  ('hour_from', '<=', now.hour+now.minute/60.0),
-                                                  ('hour_to', '>=', now.hour+now.minute/60.0)],
-                                    context=request.context)
-                                if attendances:
-                                    if sessions and group.multiple_sessions_block and multi_ok:
-                                        multi_ok = False 
-                                    calendar_ok = True
+                    if multi_ok:
+                        # check calendars
+                        calendar_obj = request.registry.get('resource.calendar')
+                        attendance_obj = request.registry.get('resource.calendar.attendance')
+                        
+                        # GET USER LOCAL TIME
+                        tz = pytz.timezone(user.tz)
+                        tzoffset = tz.utcoffset(now)
+                        now = now + tzoffset
+                        
+                        if user.login_calendar_id:
+                            calendar_set += 1
+                            # check user calendar
+                            attendances = attendance_obj.search(request.cr,
+                                request.uid, [('calendar_id', '=', user.login_calendar_id.id),
+                                              ('dayofweek', '=', now.weekday()),
+                                              ('hour_from', '<=', now.hour+now.minute/60.0),
+                                              ('hour_to', '>=', now.hour+now.minute/60.0)],
+                                context=request.context)
+                            if attendances:
+                                calendar_ok = True
+                        else:
+                            # check user groups calendar
+                            for group in user.groups_id:
+                                if group.login_calendar_id:
+                                    calendar_set += 1
+                                    attendances = attendance_obj.search(request.cr,
+                                        request.uid, [('calendar_id', '=', group.login_calendar_id.id),
+                                                      ('dayofweek', '=', now.weekday()),
+                                                      ('hour_from', '<=', now.hour+now.minute/60.0),
+                                                      ('hour_to', '>=', now.hour+now.minute/60.0)],
+                                        context=request.context)
+                                    if attendances:
+                                        if sessions and group.multiple_sessions_block and multi_ok:
+                                            multi_ok = False 
+                                        calendar_ok = True
             if uid is not False and (multi_ok == True and ((calendar_set > 0 and calendar_ok == True) or calendar_set == 0)) or uid is SUPERUSER_ID:
-                self.save_session(request.cr, uid,
+                self.save_session(request.cr, uid, user.tz,
                     request.httprequest.session.sid, request.context)
                 return http.redirect_with_hash(redirect)
             request.uid = old_uid
@@ -133,7 +133,7 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
             values['reason3'] = '- User not allowed to login at this specific time or day'
         return request.render('web.login', values)
     
-    def save_session(self, cr, uid, sid, context=None):
+    def save_session(self, cr, uid, tz, sid, context=None):
         now = fields.datetime.now()
         session_obj = request.registry.get('ir.sessions')
         user = request.registry.get('res.users').browse(request.cr,
@@ -147,6 +147,7 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
                   'date_login': now,
                   'expiration_date': datetime.strftime((datetime.strptime(now, DEFAULT_SERVER_DATETIME_FORMAT) + relativedelta(seconds=user.session_default_seconds)), DEFAULT_SERVER_DATETIME_FORMAT),
                   'ip': request.httprequest.headers.environ['REMOTE_ADDR'],
+                  'remote_tz': tz,
                   }
         session = session_obj.search(cr, uid, [('session_id', '=', sid)], context=context)
         session_obj.create(cr, request.uid, values, context=context)
