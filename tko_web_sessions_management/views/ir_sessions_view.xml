@@ -6,7 +6,8 @@
             <field name="name">ir.sessions.tree</field>
             <field name="model">ir.sessions</field>
             <field name="arch" type="xml">
-                <tree edit="false" create="false" delete="false">
+                <tree edit="false" create="false" delete="false"
+                    colors="gray:(logged_in == False);black:(logged_in == True)">
                     <field name="logged_in" />
                     <field name="multiple_sessions_block" />
                     <field name="user_id" />

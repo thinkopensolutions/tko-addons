@@ -25,6 +25,7 @@
 import logging
 import openerp
 from openerp.osv import fields, osv, orm
+import pytz
 from datetime import date, datetime, time, timedelta
 from dateutil.relativedelta import *
 from openerp.addons.base.ir.ir_cron import _intervalTypes
@@ -44,10 +45,10 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
     @http.route('/web/login', type='http', auth="none")
     def web_login(self, redirect=None, **kw):
         openerp.addons.web.controllers.main.ensure_db()
-        multi_ok = False
+        multi_ok = True
         calendar_set = 0
         calendar_ok = False
-        now = fields.datetime.now()
+        now = datetime.now()
         
         if request.httprequest.method == 'GET' and redirect and request.session.uid:
             return http.redirect_with_hash(redirect)
@@ -71,29 +72,38 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
             if request.params.has_key('login') and request.params.has_key('password'):
                 uid = request.session.authenticate(request.session.db,
                     request.params['login'], request.params['password'])
-            if uid is not False:
+            if uid is not False and not uid is SUPERUSER_ID:
                 # check for multiple sessions block
                 sessions = request.registry.get('ir.sessions').search(request.cr,
                     request.uid,
                     [('user_id', '=', uid),
-                     ('multiple_sessions_block', '=', True),
                      ('logged_in', '=', True)],
                     context=request.context)
-                if not sessions:
-                    multi_ok = True
+                
+                user = request.registry.get('res.users').browse(request.cr,
+                    request.uid, uid, request.context)
+                
+                if sessions and user.multiple_sessions_block:
+                    multi_ok = False
+                
+                if multi_ok:
                     # check calendars
                     calendar_obj = request.registry.get('resource.calendar')
                     attendance_obj = request.registry.get('resource.calendar.attendance')
-                    user = request.registry.get('res.users').browse(request.cr,
-                        request.uid, uid, request.context)
+                    
+                    # GET USER LOCAL TIME
+                    tz = pytz.timezone(user.tz)
+                    tzoffset = tz.utcoffset(now)
+                    now = now + tzoffset
+                    
                     if user.login_calendar_id:
                         calendar_set += 1
                         # check user calendar
                         attendances = attendance_obj.search(request.cr,
                             request.uid, [('calendar_id', '=', user.login_calendar_id.id),
                                           ('dayofweek', '=', now.weekday()),
-                                          ('hour_from', '<=', now.hour),
-                                          ('hour_to', '>=', now.hour)],
+                                          ('hour_from', '<=', now.hour+now.minute/60.0),
+                                          ('hour_to', '>=', now.hour+now.minute/60.0)],
                             context=request.context)
                         if attendances:
                             calendar_ok = True
@@ -105,24 +115,26 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
                                 attendances = attendance_obj.search(request.cr,
                                     request.uid, [('calendar_id', '=', group.login_calendar_id.id),
                                                   ('dayofweek', '=', now.weekday()),
-                                                  ('hour_from', '<=', now.hour),
-                                                  ('hour_to', '>=', now.hour)],
+                                                  ('hour_from', '<=', now.hour+now.minute/60.0),
+                                                  ('hour_to', '>=', now.hour+now.minute/60.0)],
                                     context=request.context)
                                 if attendances:
+                                    if sessions and group.multiple_sessions_block and multi_ok:
+                                        multi_ok = False 
                                     calendar_ok = True
-                                    break
-            if (multi_ok == True and ((calendar_set > 0 and calendar_ok == True) or calendar_set == 0)) or uid is SUPERUSER_ID:
+            if uid is not False and (multi_ok == True and ((calendar_set > 0 and calendar_ok == True) or calendar_set == 0)) or uid is SUPERUSER_ID:
                 self.save_session(request.cr, uid,
-                    request.httprequest.session.sid, now, request.context)
+                    request.httprequest.session.sid, request.context)
                 return http.redirect_with_hash(redirect)
             request.uid = old_uid
             values['error'] = 'Login failed due to one of the following reasons:'
             values['reason1'] = '- Wrong login/password'
             values['reason2'] = '- User not allowed to have multiple logins'
-            values['reason3'] = '- User not allowed to login at this specific time and/or day'
+            values['reason3'] = '- User not allowed to login at this specific time or day'
         return request.render('web.login', values)
     
-    def save_session(self, cr, uid, sid, now, context=None):
+    def save_session(self, cr, uid, sid, context=None):
+        now = fields.datetime.now()
         session_obj = request.registry.get('ir.sessions')
         user = request.registry.get('res.users').browse(request.cr,
             request.uid, uid, request.context)
