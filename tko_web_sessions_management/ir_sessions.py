@@ -72,7 +72,7 @@ class ir_sessions(osv.osv):
         # Add other fields about the sessions from HEADER...
         }
     
-    _order = 'logged_in desc, date_login desc'
+    _order = 'logged_in desc, expiration_date desc'
     
     # scheduler function to validate users session
     def validate_sessions(self, cr, uid, context=None):
