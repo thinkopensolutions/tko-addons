@@ -92,7 +92,7 @@ class ir_sessions(osv.osv):
     @api.multi
     def _on_session_logout(self, logout_type=None):
         now = fields.datetime.now()
-        session_obj = request.registry.get('ir.sessions')
+        session_obj = self.pool['ir.sessions']
         cr = self.pool.cursor()
         # autocommit: our single update request will be performed atomically.
         # (In this way, there is no opportunity to have two transactions
