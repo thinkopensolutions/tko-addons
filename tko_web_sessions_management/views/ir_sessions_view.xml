@@ -14,9 +14,9 @@
                     <field name="multiple_sessions_block" />
                     <field name="user_id" />
                     <field name="date_login" />
-                    <field name="date_logout" />
                     <field name="session_duration" />
                     <field name="expiration_date"/>
+                    <field name="date_logout" />
                     <field name="logout_type" />
                     <field name="user_kill_id" />
                     <button name="action_close_session" string="Close Session"
@@ -31,16 +31,17 @@
             <field name="arch" type="xml">
                 <form edit="false" create="false" delete="false">
                     <group col="4">
-                        <field name="logged_in" />
-                        <field name="ip" />
-                        <field name="remote_tz" />
-                        <field name="multiple_sessions_block" />
-                        <field name="user_id" />
-                        <field name="date_login" />
-                        <field name="date_logout" />
-                        <field name="session_duration" />
-                        <field name="logout_type" />
-                        <field name="user_kill_id" />
+                    <field name="logged_in" />
+                    <field name="ip" />
+                    <field name="remote_tz" />
+                    <field name="multiple_sessions_block" />
+                    <field name="user_id" />
+                    <field name="date_login" />
+                    <field name="session_duration" />
+                    <field name="expiration_date"/>
+                    <field name="date_logout" />
+                    <field name="logout_type" />
+                    <field name="user_kill_id" />
                     </group>
                     <button name="action_close_session" string="Close Session"
                         type="object" icon="STOCK_CANCEL" attrs="{'invisible':[('logged_in','=',False)]}" />
@@ -59,8 +60,8 @@
                     <field name="multiple_sessions_block" />
                     <field name="user_id" />
                     <field name="date_login" />
-                    <field name="date_logout" />
                     <field name="logout_type" />
+                    <field name="date_logout" />
                     <field name="user_kill_id" />
                     <field name="session_duration" />
                     <group expand="0" string="Filter by Login State">

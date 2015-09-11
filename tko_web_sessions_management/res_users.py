@@ -62,13 +62,15 @@ class res_users(osv.osv):
                 if request.httprequest.path <> '/longpolling/poll':
                     open_sessions = session_obj.read(cr, uid,
                         session_ids, ['logged_in',
+                                      'date_login',
                                       'session_seconds',
                                       'expiration_date'],
                         context=request.context)
                     for s in open_sessions:
                         seconds = s['session_seconds']
                         session_obj.write(cr, uid, s['id'],
-                            {'expiration_date': datetime.strftime((datetime.strptime(now, DEFAULT_SERVER_DATETIME_FORMAT) + relativedelta(seconds=seconds)), DEFAULT_SERVER_DATETIME_FORMAT),},
+                            {'expiration_date': datetime.strftime((datetime.strptime(now, DEFAULT_SERVER_DATETIME_FORMAT) + relativedelta(seconds=seconds)), DEFAULT_SERVER_DATETIME_FORMAT),
+                             'session_duration': str(datetime.strptime(now, DEFAULT_SERVER_DATETIME_FORMAT) - datetime.strptime(s['date_login'], DEFAULT_SERVER_DATETIME_FORMAT)),},
                             context=request.context)
                     cr.commit()
             else:
