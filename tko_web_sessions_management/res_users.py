@@ -59,7 +59,7 @@ class res_users(osv.osv):
                 order='expiration_date asc',
                 context=request.context)
             if session_ids:
-                if request.httprequest.path <> '/longpolling/poll':
+                if request.httprequest.path[:5] <> '/web/':
                     open_sessions = session_obj.read(cr, uid,
                         session_ids, ['logged_in',
                                       'date_login',

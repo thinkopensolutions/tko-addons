@@ -24,7 +24,7 @@
 
 {
     'name': 'TKOBR - Odoo Web Sessions Management Rules',
-    'version': '1.031',
+    'version': '1.032',
     'category': 'Tools',
     'sequence': 15,
     'summary': 'Manage Users Login Rules in Odoo.',
