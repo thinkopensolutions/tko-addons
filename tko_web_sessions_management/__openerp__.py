@@ -24,10 +24,10 @@
 
 {
     'name': 'TKOBR - Odoo Web Sessions Management Rules',
-    'version': '1.035',
+    'version': '1.036',
     'category': 'Tools',
     'sequence': 15,
-    'summary': 'Manage Users Login Rules in Odoo.',
+    'summary': 'Manage Users Login Rules in Odoo. Complete with multisessions block, terminate any active session, inactive sessions timeout, calendar to define allowed week hours to login.',
     'description': """
 # Manage Users Login Rules in Odoo\n
 ===========================\n
