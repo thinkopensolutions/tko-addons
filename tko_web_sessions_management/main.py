@@ -48,6 +48,7 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
         multi_ok = True
         calendar_set = 0
         calendar_ok = False
+        calendar_group = ''
         now = datetime.now()
         
         if request.httprequest.method == 'GET' and redirect and request.session.uid:
@@ -107,6 +108,8 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
                                 context=request.context)
                             if attendances:
                                 calendar_ok = True
+                            else:
+                                _logger.info("unsuccessful login from '%s', user time out of allowed calendar defined in user" % request.params['login'])
                         else:
                             # check user groups calendar
                             for group in user.groups_id:
@@ -119,9 +122,19 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
                                                       ('hour_to', '>=', now.hour+now.minute/60.0)],
                                         context=request.context)
                                     if attendances:
-                                        if sessions and group.multiple_sessions_block and multi_ok:
-                                            multi_ok = False 
                                         calendar_ok = True
+                                    else:
+                                        calendar_group = group.name
+                                if sessions and group.multiple_sessions_block and multi_ok:
+                                    multi_ok = False
+                                    _logger.info("unsuccessful login from '%s', multisessions block defined in group '%s'" % (request.params['login'], group.name))
+                                    break
+                            if not ((calendar_set > 0 and calendar_ok == True) or calendar_set == 0):
+                                _logger.info("unsuccessful login from '%s', user time out of allowed calendar defined in group '%s'" % (request.params['login'], calendar_group))
+                    else:
+                        _logger.info("unsuccessful login from '%s', multisessions block defined in user" % request.params['login'])
+            else:
+                _logger.info("unsuccessful login from '%s', wrong username or password" % request.params['login'])
             if uid is not False and (multi_ok == True and ((calendar_set > 0 and calendar_ok == True) or calendar_set == 0)) or uid is SUPERUSER_ID:
                 self.save_session(request.cr, uid, user.tz,
                     request.httprequest.session.sid, request.context)
