@@ -2,6 +2,20 @@
 <openerp>
     <data>
 
+        <record id="view_users_tree" model="ir.ui.view">
+            <field name="name">view.users.tree</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_tree" />
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="interval_number"/>
+                    <field name="interval_type"/>
+                    <field name="login_calendar_id"/>
+                    <field name="multiple_sessions_block"/>
+                </field>
+            </field>
+        </record>
+        
         <record id="view_users_form" model="ir.ui.view">
             <field name="name">res.users.form.session</field>
             <field name="model">res.users</field>
