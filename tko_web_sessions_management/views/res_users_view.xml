@@ -42,7 +42,6 @@
                                     colors="gray:(logged_in == False);black:(logged_in == True)">
                                     <field name="logged_in" />
                                     <field name="ip" />
-                                    <field name="remote_tz" />
                                     <field name="multiple_sessions_block" />
                                     <field name="date_login" />
                                     <field name="session_duration" />
@@ -50,6 +49,7 @@
                                     <field name="date_logout" />
                                     <field name="logout_type" />
                                     <field name="user_kill_id" />
+                                    <field name="unsuccessful_message" />
                                     <button name="action_close_session" string="Close Session"
                                         type="object" icon="STOCK_CANCEL" attrs="{'invisible':[('logged_in','=',False)]}" />
                                 </tree>
@@ -66,6 +66,7 @@
                                         <field name="date_logout" />
                                         <field name="logout_type" />
                                         <field name="user_kill_id" />
+                                        <field name="unsuccessful_message" />
                                     </group>
                                 </form>
                             </field>
@@ -111,7 +112,6 @@
                                         colors="gray:(logged_in == False);black:(logged_in == True)">
                                         <field name="logged_in" />
                                         <field name="ip" />
-                                        <field name="remote_tz" />
                                         <field name="multiple_sessions_block" />
                                         <field name="date_login" />
                                         <field name="session_duration" />
@@ -119,6 +119,7 @@
                                         <field name="date_logout" />
                                         <field name="logout_type" />
                                         <field name="user_kill_id" />
+                                        <field name="unsuccessful_message" />
                                         <button name="action_close_session" string="Close Session"
                                             type="object" icon="STOCK_CANCEL" attrs="{'invisible':[('logged_in','=',False)]}" />
                                     </tree>
@@ -134,6 +135,7 @@
                                         <field name="date_logout" />
                                         <field name="logout_type" />
                                         <field name="user_kill_id" />
+                                        <field name="unsuccessful_message" />
                                         </group>
                                     </form>
                                 </field>

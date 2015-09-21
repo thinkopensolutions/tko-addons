@@ -19,6 +19,7 @@
                     <field name="date_logout" />
                     <field name="logout_type" />
                     <field name="user_kill_id" />
+                    <field name="unsuccessful_message" />
                     <button name="action_close_session" string="Close Session"
                         type="object" icon="STOCK_CANCEL" attrs="{'invisible':[('logged_in','=',False)]}"/>
                 </tree>
@@ -42,6 +43,7 @@
                     <field name="date_logout" />
                     <field name="logout_type" />
                     <field name="user_kill_id" />
+                    <field name="unsuccessful_message" />
                     </group>
                     <button name="action_close_session" string="Close Session"
                         type="object" icon="STOCK_CANCEL" attrs="{'invisible':[('logged_in','=',False)]}" />
@@ -64,6 +66,7 @@
                     <field name="date_logout" />
                     <field name="user_kill_id" />
                     <field name="session_duration" />
+                    <field name="unsuccessful_message" />
                     <group expand="0" string="Filter by Login State">
                         <filter string="Logged" domain="[('logged_in','=',True)]"
                             help="Logged" />
