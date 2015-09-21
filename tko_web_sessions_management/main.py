@@ -102,7 +102,7 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
                             # check user calendar
                             attendances = attendance_obj.search(request.cr,
                                 request.uid, [('calendar_id', '=', user.login_calendar_id.id),
-                                              ('dayofweek', '=', now.weekday()),
+                                              ('dayofweek', '=', str(now.weekday())),
                                               ('hour_from', '<=', now.hour+now.minute/60.0),
                                               ('hour_to', '>=', now.hour+now.minute/60.0)],
                                 context=request.context)
@@ -117,7 +117,7 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
                                     calendar_set += 1
                                     attendances = attendance_obj.search(request.cr,
                                         request.uid, [('calendar_id', '=', group.login_calendar_id.id),
-                                                      ('dayofweek', '=', now.weekday()),
+                                                      ('dayofweek', '=', str(now.weekday())),
                                                       ('hour_from', '<=', now.hour+now.minute/60.0),
                                                       ('hour_to', '>=', now.hour+now.minute/60.0)],
                                         context=request.context)
