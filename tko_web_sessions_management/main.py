@@ -49,7 +49,7 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
         calendar_set = 0
         calendar_ok = False
         calendar_group = ''
-        unsuccessful_message= ''
+        unsuccessful_message = ''
         now = datetime.now()
         
         if request.httprequest.method == 'GET' and redirect and request.session.uid:
@@ -130,13 +130,13 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
                                     multi_ok = False
                                     unsuccessful_message = "unsuccessful login from '%s', multisessions block defined in group '%s'" % (request.params['login'], group.name)
                                     break
-                            if not ((calendar_set > 0 and calendar_ok == True) or calendar_set == 0):
+                            if calendar_set > 0 and calendar_ok == False:
                                 unsuccessful_message = "unsuccessful login from '%s', user time out of allowed calendar defined in group '%s'" % (request.params['login'], calendar_group)
                     else:
                         unsuccessful_message = "unsuccessful login from '%s', multisessions block defined in user" % request.params['login']
             else:
                 unsuccessful_message = "unsuccessful login from '%s', wrong username or password" % request.params['login']
-            if uid is not False and (multi_ok == True and ((calendar_set > 0 and calendar_ok == True) or calendar_set == 0)) or uid is SUPERUSER_ID:
+            if not unsuccessful_message or uid is SUPERUSER_ID:
                 self.save_session(request.cr, uid, user.tz,
                     request.httprequest.session.sid, context=request.context)
                 return http.redirect_with_hash(redirect)
@@ -145,7 +145,6 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
             self.save_session(request.cr, uid, user.tz,
                 request.httprequest.session.sid, unsuccessful_message, request.context)
             _logger.info(unsuccessful_message)
-            return http.redirect_with_hash(redirect)
             request.uid = old_uid
             values['error'] = 'Login failed due to one of the following reasons:'
             values['reason1'] = '- Wrong login/password'
@@ -158,23 +157,32 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
         session_obj = request.registry.get('ir.sessions')
         user = request.registry.get('res.users').browse(request.cr,
             request.uid, uid, request.context)
+        ip = request.httprequest.headers.environ['REMOTE_ADDR']
         logged_in = True
-        if not uid or not sid:
+        if unsuccessful_message:
             uid = SUPERUSER_ID
             logged_in = False
-        values = {
-                  'user_id': uid,
-                  'logged_in': logged_in,
-                  'session_id': sid,
-                  'session_seconds': user.session_default_seconds,
-                  'multiple_sessions_block': user.multiple_sessions_block,
-                  'date_login': now,
-                  'expiration_date': datetime.strftime((datetime.strptime(now, DEFAULT_SERVER_DATETIME_FORMAT) + relativedelta(seconds=user.session_default_seconds)), DEFAULT_SERVER_DATETIME_FORMAT),
-                  'ip': request.httprequest.headers.environ['REMOTE_ADDR'],
-                  'remote_tz': tz,
-                  'unsuccessful_message': unsuccessful_message,
-                  }
-        session_obj.create(cr, uid, values, context=context)
+            sessions = False
+        else:
+            sessions = session_obj.search(cr, uid, [('session_id', '=', sid),
+                                                    ('ip', '=', ip),
+                                                    ('user_id', '=', uid),
+                                                    ('logged_in', '=', True)],
+                                          context=context)
+        if not sessions:
+            values = {
+                      'user_id': uid,
+                      'logged_in': logged_in,
+                      'session_id': sid,
+                      'session_seconds': user.session_default_seconds,
+                      'multiple_sessions_block': user.multiple_sessions_block,
+                      'date_login': now,
+                      'expiration_date': datetime.strftime((datetime.strptime(now, DEFAULT_SERVER_DATETIME_FORMAT) + relativedelta(seconds=user.session_default_seconds)), DEFAULT_SERVER_DATETIME_FORMAT),
+                      'ip': ip,
+                      'remote_tz': tz,
+                      'unsuccessful_message': unsuccessful_message,
+                      }
+            session_obj.create(cr, uid, values, context=context)
         return True
      
     @http.route('/web/session/logout', type='http', auth="none")
