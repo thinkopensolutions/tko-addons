@@ -127,18 +127,17 @@ class res_partner(osv.osv):
                     'domain':{'title':[('is_fisica', '=', 'f')]}
                    }
         else:
-            return True
+            return {}
     
     @api.onchange('cnpj_cpf', 'is_company')
     def onchange_mask_cnpj_cpf(self):
-        result = super(res_partner, self).onchange_mask_cnpj_cpf()
         if self.cnpj_cpf:
             if self.is_company:
                 if not fiscal.validate_cnpj(self.cnpj_cpf):
                     raise Warning(_('CNPJ not valid'))
             elif not fiscal.validate_cpf(self.cnpj_cpf):
                     raise Warning(_('CPF not valid'))
-        return result
+        return {}
     
     @api.onchange('email')
     def onchange_email(self):
