@@ -21,7 +21,7 @@
 
 {
     'name': 'Capture partner picture with webcam',
-    'version': '1.003',
+    'version': '1.004',
     'category': 'Generic Modules',
     'description': """
 WebCam

@@ -20,7 +20,7 @@
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
 				<xpath expr="//div[@name='buttons']" position="inside">
-					<button name="action_take_picture" class="oe_stat_button" icon="fa-camera" type="object" groups="base.group_no_one" string="Take Picture"/>
+					<button name="action_take_picture" class="oe_stat_button" icon="fa-camera" type="object" groups="base.group_user" string="Take Picture"/>
 				</xpath>
             </field>
         </record>
