@@ -62,7 +62,7 @@ module.Order = module.Order.extend({
         var discount_type = self.$('.discount-card-select option:selected').attr('type');
         var discount_value = self.$('.discount-card-select option:selected').attr('value');
         var subtotal = (this.get('orderLines')).reduce((function(sum, orderLine) {
-            return sum + orderLine.get_price_with_tax();
+            return sum + orderLine.get_display_price(); //display price is computed with considering both discount types fixed and precentage 
         }), 0);
         var discount = 0.0;
         var total = 0.0
@@ -86,7 +86,7 @@ module.Order = module.Order.extend({
         var discount_value = self.$('.discount-card-select option:selected').attr('value');
         
         var subtotal = (this.get('orderLines')).reduce((function(sum, orderLine) {
-            return sum + orderLine.get_price_with_tax();
+            return sum + orderLine.get_display_price(); //display price is computed with considering both discount types fixed and precentage 
         }), 0);
         
         var discount = 0.0;
