@@ -211,6 +211,7 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
 
                             //set discount and mark this line to be true
                             line_to_discount.set_discount(disc_value);
+                            //line_to_discount.pos.pos_widget.order_widget.update_summary()
                             line.discounted = true;
                             currentline.discounted = true;
                             flag = true;
