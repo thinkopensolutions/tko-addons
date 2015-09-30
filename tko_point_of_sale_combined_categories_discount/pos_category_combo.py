@@ -132,7 +132,7 @@ class pos_order(osv.osv):
                     self.pool.get('account.bank.statement.line').write(cr, uid, [statement_line.id],{'amount' : statement_line.amount - (payemnt_total - order_total)})
                     break
             if pos_obj.test_paid(cr, uid, [order_id]):
-                    _logger.info("searching orders in new stage............%s"%(order_id))
+                    _logger.info("seting order to Paid............%s"%(order_id))
                     pos_obj.signal_workflow(cr, uid, [order_id], 'paid')
         return True
                          
