@@ -10,10 +10,10 @@
 					<attribute name="invisible">1</attribute>
 				</field>
 <!--This button below validates orders in New stag-->
-			<!--	<button name="refund" position="before">
+				<button name="refund" position="before">
 					<button name="validate_old_orders" type="object" string="Validate Orders"/>
 				</button>
-	-->
+
 				<xpath expr="//field[@name='lines']/tree//field[@name='discount']" position="after">
 					<field name="discount_type"/>
 					<field name="discount_value"/>

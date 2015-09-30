@@ -101,20 +101,38 @@ class pos_order_line(models.Model):
 
 
 
-#===============================================================================
-# This code below checks orders in 'New' Stage validates them with workflow
-#===============================================================================
-# class pos_order(osv.osv):
-#     _inherit = 'pos.order'
-#     
-#     def validate_old_orders(self, cr, uid, ids, context = None):
-#         pos_obj = self.pool.get('pos.order')
-#         _logger.info("searching orders in new stage............")
-#         order_ids = pos_obj.search(cr ,uid, [('state','=','draft')])
-#         for order_id in order_ids:
-#             if pos_obj.test_paid(cr, uid, [order_id]):
-#                     _logger.info("searching orders in new stage............%s"%(order_id))
-#                     pos_obj.signal_workflow(cr, uid, [order_id], 'paid')
-#         return True
-#                         
-#===============================================================================
+#This code below checks orders in 'New' Stage validates them with workflow
+class pos_order(osv.osv):
+    _inherit = 'pos.order'
+    #===========================================================================
+    # #this method validates orders if total and payment info matches
+    # def validate_old_orders(self, cr, uid, ids, context = None):
+    #     pos_obj = self.pool.get('pos.order')
+    #     _logger.info("searching orders in new stage............")
+    #     order_ids = pos_obj.search(cr ,uid, [('state','=','draft')])
+    #     for order_id in order_ids:
+    #         if pos_obj.test_paid(cr, uid, [order_id]):
+    #                 _logger.info("searching orders in new stage............%s"%(order_id))
+    #                 pos_obj.signal_workflow(cr, uid, [order_id], 'paid')
+    #     return True
+    #===========================================================================
+    
+    #this method corrects payment info based on total of order
+    def validate_old_orders(self, cr, uid, ids, context = None):
+        pos_obj = self.pool.get('pos.order')
+        _logger.info("searching orders in new stage............")
+        order_ids = pos_obj.search(cr ,uid, [('state','=','draft')])
+        for order_id in order_ids:
+            order_total = self.browse(cr, uid, order_id).amount_total
+            payemnt_total = 0.0
+            for statement_line in self.browse(cr, uid, order_id).statement_ids:
+                payemnt_total = payemnt_total + statement_line.amount
+            if payemnt_total != order_total:
+                for statement_line in self.browse(cr, uid, order_id).statement_ids:
+                    self.pool.get('account.bank.statement.line').write(cr, uid, [statement_line.id],{'amount' : statement_line.amount - (payemnt_total - order_total)})
+                    break
+            if pos_obj.test_paid(cr, uid, [order_id]):
+                    _logger.info("searching orders in new stage............%s"%(order_id))
+                    pos_obj.signal_workflow(cr, uid, [order_id], 'paid')
+        return True
+                         
