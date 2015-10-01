@@ -30,7 +30,9 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
 	var OrderlineSuper = module.Orderline;
 	module.Orderline = module.Orderline.extend({
 		initialize: function(attr,options){
-			module.Orderline.__super__.initialize.call(this, attr, options);
+			//commenting super call, on calling super it gives error with tko_point_of_sale_product_price_by_pos
+			//it allows to call super only one time, second time calling super ends in Uncaught RangeError: Maximum call stack size exceeded
+			//module.Orderline.__super__.initialize.call(this, attr, options);
             this.pos = options.pos;
             this.order = options.order;
             this.product = options.product;
