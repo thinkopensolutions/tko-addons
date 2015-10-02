@@ -31,7 +31,7 @@ class res_partner_phone(osv.osv):
     _rec_name = "phone"
     _columns = {
         'phone': fields.char('Number', size=64, required=True),
-        'res_partner_id': fields.many2one('res.partner', 'Partner ID'),
+        'res_partner_id': fields.many2one('res.partner', 'Partner ID', ondelete="cascade"),
         'type_id': fields.many2one('res.partner.phone.type', 'Type', required=True),
         'is_active':fields.boolean('Is Active'),
         }

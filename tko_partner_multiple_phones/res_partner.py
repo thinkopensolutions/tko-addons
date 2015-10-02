@@ -26,6 +26,10 @@ from openerp.osv import fields
 from openerp.osv import osv
 from openerp.tools.translate import _
 from openerp import api
+from openerp import SUPERUSER_ID
+import logging
+_logger = logging.getLogger(__name__)
+
 
 
 class res_partner(osv.osv):
@@ -47,17 +51,18 @@ class res_partner(osv.osv):
     
     def write(self, cr, uid, ids, vals, context=False):
         res = super(res_partner, self).write(cr, uid, ids, vals, context=context)
-        if isinstance(ids, list):
-            ids = ids[0]
-        phone_obj = self.pool.get('res.partner.phone')
-        phone_type_id = self.pool.get('res.partner.phone.type').search(cr, uid, [('code', '=', 'phone')])
-        mobile_type_id = self.pool.get('res.partner.phone.type').search(cr, uid, [('code', '=', 'cel')])
-        phone_ids = phone_obj.search(cr, uid, [('res_partner_id', '=', ids), ('type_id', '=' , phone_type_id[0])])
-        mobile_ids = phone_obj.search(cr, uid, [('res_partner_id', '=', ids), ('type_id', '=' , mobile_type_id[0])])
-        if len(phone_ids) == 1:
-            phone_obj.write(cr, uid, phone_ids, {'is_active' : True})
-        if len(mobile_ids) == 1:
-            phone_obj.write(cr, uid, mobile_ids, {'is_active' : True})
+        if isinstance(ids, int):
+            ids = [ids]
+        if len(ids):
+            phone_obj = self.pool.get('res.partner.phone')
+            phone_type_id = self.pool.get('res.partner.phone.type').search(cr, uid, [('code', '=', 'phone')])
+            mobile_type_id = self.pool.get('res.partner.phone.type').search(cr, uid, [('code', '=', 'cel')])
+            phone_ids = phone_obj.search(cr, uid, [('res_partner_id', '=', ids), ('type_id', '=' , phone_type_id[0])])
+            mobile_ids = phone_obj.search(cr, uid, [('res_partner_id', '=', ids), ('type_id', '=' , mobile_type_id[0])])
+            if len(phone_ids) == 1:
+                phone_obj.write(cr, uid, phone_ids, {'is_active' : True})
+            if len(mobile_ids) == 1:
+                phone_obj.write(cr, uid, mobile_ids, {'is_active' : True})
         return res
     
     def _get_phones(self, cr, uid, ids, name, args, context=False):
@@ -151,5 +156,35 @@ class res_partner(osv.osv):
                     
                     ),
         }
+    
+    
+    def _create_multiple_phones_at_first_install(self, cr, SUPERUSER_ID, ids=None, context =None):
+        partner_ids = self.search(cr, SUPERUSER_ID, ['|',('phone','!=',False),('mobile','!=',False)])
+        part_phone_obj = self.pool.get('res.partner.phone')
+        
+        cel = self.pool.get('res.partner.phone.type').search(cr, SUPERUSER_ID, [('code', '=', 'cel')])[0]
+        phone = self.pool.get('res.partner.phone.type').search(cr, SUPERUSER_ID, [('code', '=', 'phone')])[0]
+        
+        for partner_id in partner_ids:
+            partner = self.browse(cr, SUPERUSER_ID, partner_id)
+            phone_number = partner.phone
+            mobile_number = partner.mobile
+            print "partenr ponen and mobile, ....%%%%%%%%%%%.........................",phone_number, mobile_number
+            if phone_number:
+                part_phone_obj.create(cr, SUPERUSER_ID,{
+                                                        'phone': phone_number,
+                                                        'is_active' :True ,
+                                                        'res_partner_id' : partner_id,
+                                                        'type_id' :phone
+                                                        })
+            if mobile_number:
+                part_phone_obj.create(cr, SUPERUSER_ID,{
+                                                        'phone': mobile_number,
+                                                        'is_active' :True ,
+                                                        'res_partner_id' : partner_id,
+                                                        'type_id' :cel
+                                                        })
+            _logger.info("Setting up multiple phones record for client %s ."%partner.name)
+        return True
     
     

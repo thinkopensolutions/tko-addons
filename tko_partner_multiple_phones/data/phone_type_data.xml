@@ -11,6 +11,8 @@
             <field name="name">Telefone</field>
             <field name="code">phone</field>
         </record>
+        
+        <function model="res.partner" name="_create_multiple_phones_at_first_install"/>
 
     </data>
 </openerp>
