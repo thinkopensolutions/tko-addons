@@ -1,19 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <openerp>
 	<data noupdate="1">
-		<record model="res.partner.email.type" id="email_type1">
-			<field name="name">Personal</field>
-			<field name="code">PR</field>
-		</record>
-		
-		<record model="res.partner.email.type" id="email_type2">
-			<field name="name">Home</field>
-			<field name="code">HM</field>
-		</record>
-		
-		<record model="res.partner.email.type" id="email_type3">
-			<field name="name">Work</field>
-			<field name="code">WK</field>
-		</record>
+		<function model="res.partner" name="_create_multiple_emails_at_first_install"/>
 	</data>
 </openerp>

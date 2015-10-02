@@ -32,7 +32,7 @@ class res_partner_email(osv.osv):
     _rec_name = 'email'
     _columns = {
         'email': fields.char('Emails', size=240, required=True),
-        'res_partner_id':fields.many2one('res.partner', 'Partner ID'),
+        'res_partner_id':fields.many2one('res.partner', 'Partner ID', ondelete="cascade"),
         'is_active' : fields.boolean(string='Active')
         }
     

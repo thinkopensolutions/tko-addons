@@ -24,7 +24,7 @@
 
 {
     'name': 'Partner multiple emails',
-    'version': '0.003',
+    'version': '0.005',
     'category': 'Customizations',
     'sequence': 15,
     'complexity': 'normal',
@@ -39,6 +39,7 @@ This module don't break email functionality because it keeps the email char fiel
                 'base',
                 ],
     'data': [
+             'data/email_type_data.xml',
              'security/ir.model.access.csv',
              'tko_partner_email_view.xml',
              'res_partner_view.xml',

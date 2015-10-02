@@ -24,6 +24,9 @@
 
 from openerp.osv import osv, fields
 from openerp import api
+from openerp import SUPERUSER_ID
+import logging
+_logger = logging.getLogger(__name__)
 
 
 class res_partner(osv.osv):
@@ -42,12 +45,14 @@ class res_partner(osv.osv):
     
     def write(self, cr, uid, ids, vals, context=None):
         res = super(res_partner, self).write(cr, uid, ids, vals, context=context)
+        email_ids = []
         if isinstance(ids, int):
             ids = [ids]
         mail_obj = self.pool.get('res.partner.email')
-        email_ids = mail_obj.search(cr, uid, [('res_partner_id', '=', ids[0])])       
-        if len(email_ids) == 1:
-            mail_obj.write(cr, uid, email_ids[0], {'is_active' : True})
+        if len(ids):
+            email_ids = mail_obj.search(cr, uid, [('res_partner_id', '=', ids[0])])       
+            if len(email_ids) == 1:
+                mail_obj.write(cr, uid, email_ids[0], {'is_active' : True})
         return res
         
     
@@ -111,4 +116,17 @@ class res_partner(osv.osv):
         'email_ids_readonly': fields.function(_get_mail_ids, type='one2many', relation='res.partner.email', string='Emails')
         }
     
+    def _create_multiple_emails_at_first_install(self, cr, SUPERUSER_ID, ids=None, context =None):
+        partner_ids = self.search(cr, SUPERUSER_ID, [('email','!=',False)])
+        part_email_obj = self.pool.get('res.partner.email')
+        for partner_id in partner_ids:
+            partner = self.browse(cr, SUPERUSER_ID, partner_id)
+            part_email_obj.create(cr, SUPERUSER_ID,{
+                                                    'email': partner.email,
+                                                    'is_active' :True ,
+                                                    'res_partner_id' : partner_id,
+                                                    })
+            _logger.info("Setting up multiple email record for client %s ."%partner.name)
+        return True
+        
     
