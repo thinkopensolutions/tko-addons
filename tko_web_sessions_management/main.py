@@ -36,6 +36,7 @@ from openerp.tools.translate import _
 from openerp import http
 import werkzeug.contrib.sessions
 from openerp.http import Response
+from openerp import pooler
 
 _logger = logging.getLogger(__name__)
 
