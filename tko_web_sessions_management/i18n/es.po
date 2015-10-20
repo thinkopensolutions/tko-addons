@@ -222,12 +222,12 @@ msgstr "TimeZone Remota"
 #. module: tko_web_sessions_management
 #: help:res.users,multiple_sessions_block:0
 msgid "Select this to prevent user to start more than one session."
-msgstr "Selecione para impedir o utilizador de abrir mais de uma sessão."
+msgstr "Selecione para impedir o Usuário de abrir mais de uma sessão."
 
 #. module: tko_web_sessions_management
 #: help:res.groups,multiple_sessions_block:0
 msgid "Select this to prevent users of this group to start more than one session."
-msgstr "Selecione para impedir utilizadores deste grupo de abrir mais de uma sessão."
+msgstr "Selecione para impedir Usuários deste grupo de abrir mais de uma sessão."
 
 #. module: tko_web_sessions_management
 #: field:ir.sessions,session_duration:0
@@ -276,60 +276,60 @@ msgstr "Sessões"
 #: help:res.groups,login_calendar_id:0
 msgid "The user will be only allowed to login in the calendar defined here.\n"
 "NOTE: The users will be allowed to login using a merge/union of all calendars to wich one belongs."
-msgstr "O utilizador só poderá entrar no horário definido no calandário selecionado aqui.\n"
-"NOTA: Os utilizadores poderão entrar na união dos calendários dos grupos a que pertencem."
+msgstr "O Usuário só poderá entrar no horário definido no calandário selecionado aqui.\n"
+"NOTA: Os Usuários poderão entrar na união dos calendários dos grupos a que pertencem."
 
 #. module: tko_web_sessions_management
 #: help:res.users,login_calendar_id:0
 msgid "The user will be only allowed to login in the calendar defined here.\n"
 "NOTE:The calendar defined here will overlap all defined in groups."
-msgstr "O utilizador só poderá entrar no horário selecionado aqui.\n"
-"NOTA: Definindo o calendário aqui irá sobrepôr os calendários dos grupos a que o utilizador pertence."
+msgstr "O Usuário só poderá entrar no horário selecionado aqui.\n"
+"NOTA: Definindo o calendário aqui irá sobrepôr os calendários dos grupos a que o Usuário pertence."
 
 #. module: tko_web_sessions_management
 #: help:res.groups,interval_number:0
 msgid "This define the timeout for the users of this group.\n"
 "NOTE: The system will get the lowest timeout of all user groups."
-msgstr "Indique aqui o timout dos utilizadores que pertencem a este grupo.\n"
+msgstr "Indique aqui o timout dos Usuários que pertencem a este grupo.\n"
 "NOTA: O sistema irá considerar o menor tempo de timout definido em todos os grupos."
 
 #. module: tko_web_sessions_management
 #: help:res.users,interval_number:0
 msgid "This is the timeout for this user.\n"
 "NOTE: The timeout defined here will overlap all the timeouts defined in groups."
-msgstr "Indique o timeout deste utilizador.\n"
-"NOTE: O timeout definido aqui irá prevalecer sobre os definidos nos grupos a que pertence este utilizador."
+msgstr "Indique o timeout deste Usuário.\n"
+"NOTE: O timeout definido aqui irá prevalecer sobre os definidos nos grupos a que pertence este Usuário."
 
 #. module: tko_web_sessions_management
 #: view:ir.sessions:tko_web_sessions_management.view_sesssions_search
 #: field:ir.sessions,user_id:0
 msgid "User"
-msgstr "Utilizador"
+msgstr "Usuário"
 
 #. module: tko_web_sessions_management
 #: selection:ir.sessions,logout_type:0
 msgid "User Logout"
-msgstr "Terminado pelo Utilizador"
+msgstr "Terminado pelo Usuário"
 
 #. module: tko_web_sessions_management
 #: field:res.users,session_ids:0
 msgid "User Sessions"
-msgstr "Sessões do Utilizador"
+msgstr "Sessões do Usuário"
 
 #. module: tko_web_sessions_management
 #: model:ir.model,name:tko_web_sessions_management.model_res_users
 msgid "Users"
-msgstr "Utilizadores"
+msgstr "Usuários"
 
 #. module: tko_web_sessions_management
 #: view:ir.sessions:tko_web_sessions_management.view_sesssions_search
 msgid "Users that can login in multiple sessions"
-msgstr "Utilizadores que podem ter várias sessões"
+msgstr "Usuários que podem ter várias sessões"
 
 #. module: tko_web_sessions_management
 #: view:ir.sessions:tko_web_sessions_management.view_sesssions_search
 msgid "Users that can't open multiple sessions"
-msgstr "Utilizadores que não podem ter várias sessões"
+msgstr "Usuários que não podem ter várias sessões"
 
 #. module: tko_web_sessions_management
 #: selection:res.groups,interval_type:0
