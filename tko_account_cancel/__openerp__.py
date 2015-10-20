@@ -24,7 +24,7 @@
 
 {
     'name': 'Show invoice number in canceled invoices',
-    'version': '0.001',
+    'version': '0.002',
     'category': 'Account',
     'sequence': 1,
     'complexity': 'normal',
