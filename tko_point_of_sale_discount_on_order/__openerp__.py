@@ -24,7 +24,7 @@
 
 {
     'name': 'tko_point_of_sale_discount_on_order',
-    'version': '0.004',
+    'version': '0.005',
     'description': 'This module allows discount on total',
     'category': 'Customizations',
     'sequence': 150,
