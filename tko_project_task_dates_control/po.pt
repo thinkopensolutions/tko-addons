@@ -1,0 +1,52 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* tko_project_task_dates_control
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0-20150926\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-10-21 23:37+0000\n"
+"PO-Revision-Date: 2015-10-21 23:37+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: tko_project_task_dates_control
+#: selection:project.task.type,stage_type:0
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: tko_project_task_dates_control
+#: selection:project.task.type,stage_type:0
+msgid "Final"
+msgstr "Final"
+
+#. module: tko_project_task_dates_control
+#: selection:project.task.type,stage_type:0
+msgid "Initial"
+msgstr "Inicial"
+
+#. module: tko_project_task_dates_control
+#: model:ir.model,name:tko_project_task_dates_control.model_project_task
+msgid "Task"
+msgstr "Tarefa"
+
+#. module: tko_project_task_dates_control
+#: field:project.task,date_initiated:0
+msgid "Task Initiated"
+msgstr "Tarefa Iniciada"
+
+#. module: tko_project_task_dates_control
+#: model:ir.model,name:tko_project_task_dates_control.model_project_task_type
+msgid "Task Stage"
+msgstr "Estágios de Tarefas"
+
+#. module: tko_project_task_dates_control
+#: field:project.task.type,stage_type:0
+msgid "Type"
+msgstr "Tipo"
+
