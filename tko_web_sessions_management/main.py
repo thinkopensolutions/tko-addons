@@ -156,13 +156,13 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
     def save_session(self, cr, uid, tz, sid, unsuccessful_message='', context=None):
         now = fields.datetime.now()
         session_obj = request.registry.get('ir.sessions')
-#         cr = self.pool.cursor()
+        cr = request.registry.cursor()
         # autocommit: our single update request will be performed atomically.
         # (In this way, there is no opportunity to have two transactions
         # interleaving their cr.execute()..cr.commit() calls and have one
         # of them rolled back due to a concurrent access.)
-#         cr.autocommit(True)
-        user = request.registry.get('res.users').browse(request.cr,
+        cr.autocommit(True)
+        user = request.registry.get('res.users').browse(cr,
             request.uid, uid, request.context)
         ip = request.httprequest.headers.environ['REMOTE_ADDR']
         logged_in = True
@@ -190,8 +190,8 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
                       'unsuccessful_message': unsuccessful_message,
                       }
             session_obj.create(cr, uid, values, context=context)
-#             cr.commit()
-#         cr.close()
+            cr.commit()
+        cr.close()
         return True
      
     @http.route('/web/session/logout', type='http', auth="none")
