@@ -186,7 +186,7 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
                       'date_login': now,
                       'expiration_date': datetime.strftime((datetime.strptime(now, DEFAULT_SERVER_DATETIME_FORMAT) + relativedelta(seconds=user.session_default_seconds)), DEFAULT_SERVER_DATETIME_FORMAT),
                       'ip': ip,
-                      'remote_tz': tz,
+                      'remote_tz': tz or 'GMT',
                       'unsuccessful_message': unsuccessful_message,
                       }
             session_obj.create(cr, uid, values, context=context)
