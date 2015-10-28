@@ -877,7 +877,9 @@
             <field name="view_id"
                 ref="view_tko_hr_emp_categoria_habilitacao_tree" />
         </record>
-
+        
+        <menuitem id="hr.menu_hr_configuration" name="Configuration" parent="hr.menu_hr_root" groups="base.group_no_one" sequence="50"/>
+        
         <menuitem id="menu_tko_hr_emp_motive" string="Motive"
             action="action_tko_hr_emp_motive" parent="hr.menu_hr_configuration"
             sequence="35" />
