@@ -8,6 +8,7 @@
             <field name="inherit_id" ref="base.view_users_tree" />
             <field name="arch" type="xml">
                 <field name="name" position="after">
+                    <field name="ip"/>
                     <field name="interval_number"/>
                     <field name="interval_type"/>
                     <field name="login_calendar_id"/>
