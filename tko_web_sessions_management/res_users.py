@@ -134,7 +134,8 @@ class res_users(osv.osv):
                         ['interval_number', 'interval_type'],
                         10),
                    }),
-        'session_ids': fields.one2many('ir.sessions', 'user_id', 'User Sessions')
+        'session_ids': fields.one2many('ir.sessions', 'user_id', 'User Sessions'),
+        'ip' : fields.char(related='session_ids.ip', string='Latest ip adress')
         }
     
     _defaults = {'multiple_sessions_block': False}
