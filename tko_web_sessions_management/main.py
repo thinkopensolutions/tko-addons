@@ -95,7 +95,10 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
                         attendance_obj = request.registry.get('resource.calendar.attendance')
                         
                         # GET USER LOCAL TIME
-                        tz = pytz.timezone(user.tz)
+                        if user.tz:
+                            tz = pytz.timezone(user.tz)
+                        else:
+                            tz = pytz.timezone('GMT')
                         tzoffset = tz.utcoffset(now)
                         now = now + tzoffset
                         
