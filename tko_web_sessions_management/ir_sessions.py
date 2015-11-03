@@ -69,6 +69,7 @@ class ir_sessions(osv.osv):
         'user_kill_id' : fields.many2one('res.users', 'Killed by',),
         'unsuccessful_message' : fields.char('Unsuccessful', size=252),
         'ip': fields.char('Remote IP', size=15),
+        'ip_location': fields.char('IP Location',),
         'remote_tz' : fields.char('Remote Time Zone', size=32, required=True),
         # Add other fields about the sessions from HEADER...
         }
