@@ -27,7 +27,7 @@
     'version': '1.053',
     'category': 'Tools',
     'sequence': 15,
-    'summary': 'Complete! session timeout, kill, no multisessions, login calendar (week day hours).',
+    'summary': 'Complete! session timeout, kill. No multisessions. Login by calendar (week day hours).',
     'description': """
 # Manage Users Login Rules in Odoo\n
 ===========================\n
