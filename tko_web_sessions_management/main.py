@@ -165,7 +165,6 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
         try:
             import GeoIP
             geo_ip_resolver = GeoIP.open('/usr/share/GeoIP/GeoIP.dat', GeoIP.GEOIP_STANDARD)
-            print "geo_ip_resolver",self.geo_ip_resolver
         except ImportError:
             geo_ip_resolver = False
         if geo_ip_resolver:
