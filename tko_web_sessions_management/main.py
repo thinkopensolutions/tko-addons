@@ -157,6 +157,20 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
         now = fields.datetime.now()
         session_obj = request.registry.get('ir.sessions')
         cr = request.registry.cursor()
+        
+        # for GeoIP
+        geo_ip_resolver = None
+        ip_location = ""
+        
+        try:
+            import GeoIP
+            geo_ip_resolver = GeoIP.open('/usr/share/GeoIP/GeoIP.dat', GeoIP.GEOIP_STANDARD)
+            print "geo_ip_resolver",self.geo_ip_resolver
+        except ImportError:
+            geo_ip_resolver = False
+        if geo_ip_resolver:
+            ip_location = (str(geo_ip_resolver.country_name_by_addr(request.httprequest.remote_addr)) or "")
+              
         # autocommit: our single update request will be performed atomically.
         # (In this way, there is no opportunity to have two transactions
         # interleaving their cr.execute()..cr.commit() calls and have one
@@ -186,6 +200,7 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
                       'date_login': now,
                       'expiration_date': datetime.strftime((datetime.strptime(now, DEFAULT_SERVER_DATETIME_FORMAT) + relativedelta(seconds=user.session_default_seconds)), DEFAULT_SERVER_DATETIME_FORMAT),
                       'ip': ip,
+                      'ip_location': ip_location,
                       'remote_tz': tz or 'GMT',
                       'unsuccessful_message': unsuccessful_message,
                       }
