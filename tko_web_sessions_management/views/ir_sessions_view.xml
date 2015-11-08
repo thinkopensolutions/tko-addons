@@ -10,6 +10,7 @@
                     colors="gray:(logged_in == False);black:(logged_in == True)">
                     <field name="logged_in" />
                     <field name="ip" />
+                    <field name="ip_location" />
                     <field name="remote_tz" />
                     <field name="multiple_sessions_block" />
                     <field name="user_id" />
@@ -34,6 +35,7 @@
                     <group col="4">
                     <field name="logged_in" />
                     <field name="ip" />
+                    <field name="ip_location" />
                     <field name="remote_tz" />
                     <field name="multiple_sessions_block" />
                     <field name="user_id" />
@@ -58,6 +60,7 @@
                 <search>
                     <field name="logged_in" />
                     <field name="ip" />
+                    <field name="ip_location" />
                     <field name="remote_tz" />
                     <field name="multiple_sessions_block" />
                     <field name="user_id" />
