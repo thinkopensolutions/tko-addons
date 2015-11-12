@@ -37,4 +37,4 @@ class res_company(models.Model):
     def _set_address_data(self):
         return super(res_company, self)._set_address_data()
 
-    zone = fields.Selection(AVAILABLE_ZONES, compute='_get_address_data', inverse='_set_address_data')
+    zone = fields.Selection(AVAILABLE_ZONES)

@@ -5,8 +5,9 @@ access_business_size,access_business_size,model_business_size,base.group_sale_ma
 access_annual_income,access_annual_income,model_annual_income,base.group_sale_manager,1,1,1,1
 access_economic_sector,access_economic_sector,model_economic_sector,base.group_sale_manager,1,1,1,1
 access_business_nationality,access_business_nationality,model_business_nationality,base.group_sale_manager,1,1,1,1
-access_activity_branch conf,access_activity_branch,model_activity_branch,base.group_no_one,1,0,0,0
-access_business_size conf,access_business_size,model_business_size,base.group_no_one,1,0,0,0
-access_annual_income conf,access_annual_income,model_annual_income,base.group_no_one,1,0,0,0
-access_economic_sector conf,access_economic_sector,model_economic_sector,base.group_no_one,1,0,0,0
-access_business_nationality conf,access_business_nationality,model_business_nationality,base.group_no_one,1,0,0,0
+access_district_all,access_district,model_district,base.group_no_one,1,0,0,0
+access_activity_branch_all,access_activity_branch,model_activity_branch,base.group_no_one,1,0,0,0
+access_business_size_all,access_business_size,model_business_size,base.group_no_one,1,0,0,0
+access_annual_income_all,access_annual_income,model_annual_income,base.group_no_one,1,0,0,0
+access_economic_sector_all,access_economic_sector,model_economic_sector,base.group_no_one,1,0,0,0
+access_business_nationality_all,access_business_nationality,model_business_nationality,base.group_no_one,1,0,0,0
