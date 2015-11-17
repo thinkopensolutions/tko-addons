@@ -148,7 +148,7 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
                 SUPERUSER_ID, SUPERUSER_ID, request.context)
             self.save_session(request.cr, uid, user.tz,
                 request.httprequest.session.sid, unsuccessful_message, request.context)
-            _logger.info(unsuccessful_message)
+            _logger.warning(unsuccessful_message)
             request.uid = old_uid
             values['error'] = 'Login failed due to one of the following reasons:'
             values['reason1'] = '- Wrong login/password'
