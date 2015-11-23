@@ -1,6 +1,6 @@
 from openerp.osv import osv, fields
 
-class pos_journal_fix(osv.osv):
+class pos_journal_fix(osv.osv_memory):
     _name = 'pos.journal.fix'
     
     _columns ={
