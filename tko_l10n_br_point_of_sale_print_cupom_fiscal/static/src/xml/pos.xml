@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template" xml:space="preserve">
+      
+       <t t-extend="PosWidget">
+		    <t t-jquery="img.pos-logo" t-operation="replace">
+		    	
+		     <img class="pos-logo" src="/tko_l10n_br_point_of_sale_print_cupom_fiscal/static/src/img/logo.png" />
+		    </t>
+	    </t>
+    
+	     <t t-extend="rightpane">
+		    <t t-jquery=".placeholder-OnscreenKeyboardWidget" t-operation="append">
+		    	
+		     	<div class="placeholder-OnscreenKeyboardWidgetCnpjCPF"></div>
+		    </t>
+	    </t>
+	    
+	    <t t-extend="OnscreenKeyboardSimple">
+		    <t t-jquery="li.delete.lastitem" t-operation="append">
+		     	<li class="clear_input">Clear</li>
+		    </t>
+	    </t>
+
+      
+
+</templates>

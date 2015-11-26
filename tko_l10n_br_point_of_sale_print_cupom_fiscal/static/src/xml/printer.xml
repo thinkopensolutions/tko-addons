@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<templates id="template" xml:space="preserve">
+	
+	
+	<t t-name="PrinterButtonWidget">
+        <div class="header-button">
+            <i class="fa fa-print"></i>
+        </div>
+    </t>
+    
+    <t t-name="FiscalAppletWidget" >
+        <applet width="256" height="255" id="appECF" code="com/tkobr/ECFApplet" class="fiscal_applet" archive="https://pafecf.tkobr.com/TKOECFApplet.jar">
+          <param name="COMPORT" t-att-value="widget.port"/>
+          <param name="PRINTERMODEL" t-att-value="widget.model"/>
+          <param name="average_federal_tax" t-att-value="widget.federal_tax"/>
+          <param name="average_state_tax" t-att-value="widget.state_tax"/>
+           <param name="baudrate" t-att-value="widget.baudrate"/>
+ 	  	</applet>
+    </t>
+    
+  
+    
+    <t t-extend="PaymentScreenWidget">
+	    <t t-jquery="div.payment-lines" t-operation="prepend">
+	      <div><input type="text" readonly="readonly" placeholder="CPF / CNPJ" class="cnpj_input" maxlength="14"/></div>
+	    </t>
+	    
+	    <t t-jquery="div.payment-info" t-operation="append">
+	    	<div class="paymentline-name">
+	    		<button id="cnpj_cpf_btn">CPF / CNPJ</button>
+            </div>
+	      
+	    </t>
+	</t>
+	
+    
+</templates>
