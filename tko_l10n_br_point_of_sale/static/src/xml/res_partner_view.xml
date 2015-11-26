@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template" xml:space="preserve">
+	
+	<!-- Add CNPJ/CPF in table header of customer in POS -->
+	<t t-extend="ClientListScreenWidget">
+	    <t t-jquery="tr" t-operation="append">
+	       <th>CNPJ/CPF</th>
+	    </t>
+	</t>
+	
+	 <t t-extend="ClientLine">
+	    <t t-jquery="tr" t-operation="append">
+	       <td><t t-esc='partner.cnpj_cpf' /></td>
+	    </t>
+	</t>
+	
+	<t t-extend="ClientDetailsEdit">
+	    <t t-jquery="div.client-details-left" t-operation="prepend">
+	       <div class='client-detail'>
+                <span class='label'>CNPJ/CPF</span>
+                <input class='detail client-cpf-cnpj' name='cnpj_cpf'       t-att-value='partner.cnpj_cpf' placeholder='CNPJ/CPF'></input>
+            </div>
+	    </t>
+	</t>
+	
+	
+	<t t-extend="ClientDetails">
+	    <t t-jquery="div.client-details-left" t-operation="prepend">
+	       <div class='client-detail'>
+                <span class='label'>CNPJ/CPF</span>
+                <input class='detail client-cpf-cnpj' name='cnpj_cpf'       t-att-value='partner.cnpj_cpf' placeholder='CNPJ/CPF'></input>
+            </div>
+	    </t>
+	</t>
+	
+
+</templates>
+
+
+   
