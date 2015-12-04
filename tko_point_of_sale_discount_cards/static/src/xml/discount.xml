@@ -24,7 +24,7 @@
 
     <!-- add discount to OrderWidget -->
     <t t-extend="OrderWidget">
-        <t t-jquery="div.subentry" t-operation="prepend">
+        <t t-jquery="div.subentry" t-operation="append">
             <div class="discount">Discount: <span class="value">0.00€</span></div>
         </t>
     </t>

@@ -26,6 +26,15 @@
             		<field name="discount_card_type" readonly="1"/>
             		<field name="discount_card_value" readonly="1"/>
             	</field>
+            	<field name="price_subtotal" position="attributes">
+            		<attribute name="invisible">1</attribute>
+            	</field>
+            	<field name="price_subtotal_incl" position="attributes">
+            		<attribute name="invisible">1</attribute>
+            	</field>
+            	<field name="price_subtotal_incl" position="after">
+            		<field name="line_subototal"/>
+            	</field>
             </field>
        </record>
 

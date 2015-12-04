@@ -69,3 +69,13 @@ class pos_order(models.Model):
                     i = i + 1
         return order_ids
         
+class pos_order_line(models.Model):
+    _inherit = 'pos.order.line'
+    
+    line_subototal = fields.Float(string='Subtotal', compute='_get_line_subtotal',store=True)
+    
+    
+    @api.one
+    @api.depends('price_unit','discount','qty')
+    def _get_line_subtotal(self):
+        self.line_subototal = self.price_unit * (1 - (self.discount or 0.0) / 100.0) * self.qty
