@@ -72,46 +72,53 @@ class contract_template_wizard(models.TransientModel):
         data = {}
         # assert len(ids) == 1, 'This option should only be used for a single id at a time.'
         active_id = context.get('active_id', False)
-        contract_obj = self.pool.get('account.analytic.account').browse(cr, uid, active_id)
+        active_model = context.get('active_model',False)
+        if active_model == 'account.analytic.account':
+            model_obj = self.pool.get('account.analytic.account').browse(cr, uid, active_id)
+        if active_model == 'crm.lead':
+            model_obj = self.pool.get('crm.lead').browse(cr, uid, active_id)
         
         if active_id:
-            data['partner_id'] = contract_obj.partner_id and contract_obj.partner_id.id or False
-            data['partner_phone'] = contract_obj.partner_id.phone or False
-            data['partner_mobile'] = contract_obj.partner_id.mobile or False
-            data['partner_email'] = contract_obj.partner_id.email or False
-            data['partner_country_id'] = contract_obj.partner_id.country_id.id or False
-            data['partner_state_id'] = contract_obj.partner_id.state_id.id or False
-            data['partner_city'] = contract_obj.partner_id.city or False
-            data['partner_street'] = contract_obj.partner_id.street or False
-            data['partner_street2'] = contract_obj.partner_id.street2 or False
-            data['partner_zip'] = contract_obj.partner_id.zip or False
-            data['manager_id'] = contract_obj.manager_id and contract_obj.manager_id.id or False
-            data['manager_phone'] = contract_obj.manager_id.phone or False
-            data['manager_mobile'] = contract_obj.manager_id.mobile or False
-            data['manager_email'] = contract_obj.manager_id.email or False
-            data['manager_country_id'] = contract_obj.manager_id.country_id.id or False
-            data['manager_state_id'] = contract_obj.manager_id.state_id.id or False
-            data['manager_city'] = contract_obj.manager_id.city or False
-            data['manager_street'] = contract_obj.manager_id.street or False
-            data['manager_street2'] = contract_obj.manager_id.street2 or False
-            data['manager_zip'] = contract_obj.manager_id.zip or False
-            data['manager_function'] = contract_obj.manager_id.partner_id.function or False
-            data['company_id'] = contract_obj.company_id and contract_obj.company_id.id or False
-            data['company_phone'] = contract_obj.company_id.phone or False
-            data['company_mobile'] = contract_obj.company_id.partner_id.mobile or False
-            data['company_email'] = contract_obj.company_id.email or False
-            data['company_country_id'] = contract_obj.company_id.country_id.id or False
-            data['company_state_id'] = contract_obj.company_id.state_id.id or False
-            data['company_city'] = contract_obj.company_id.city or False
-            data['company_street'] = contract_obj.company_id.street or False
-            data['company_street2'] = contract_obj.company_id.street2 or False
-            data['company_zip'] = contract_obj.company_id.zip or False
-            if contract_obj.contract_template_body_id:
-                data['signature'] = contract_obj.contract_template_body_id.signature
-                data['contract_template_id'] = contract_obj.contract_template_body_id.id
-                data['quantity_max'] = contract_obj.quantity_max
-                data['date_start'] = contract_obj.date_start
-                data['date_end'] = contract_obj.date
+            #common fields in lead and contract
+            data['partner_id'] = model_obj.partner_id and model_obj.partner_id.id or False
+            data['partner_phone'] = model_obj.partner_id.phone or False
+            data['partner_mobile'] = model_obj.partner_id.mobile or False
+            data['partner_email'] = model_obj.partner_id.email or False
+            data['partner_country_id'] = model_obj.partner_id.country_id.id or False
+            data['partner_state_id'] = model_obj.partner_id.state_id.id or False
+            data['partner_city'] = model_obj.partner_id.city or False
+            data['partner_street'] = model_obj.partner_id.street or False
+            data['partner_street2'] = model_obj.partner_id.street2 or False
+            data['partner_zip'] = model_obj.partner_id.zip or False
+            data['company_id'] = model_obj.company_id and model_obj.company_id.id or False
+            data['company_phone'] = model_obj.company_id.phone or False
+            data['company_mobile'] = model_obj.company_id.partner_id.mobile or False
+            data['company_email'] = model_obj.company_id.email or False
+            data['company_country_id'] = model_obj.company_id.country_id.id or False
+            data['company_state_id'] = model_obj.company_id.state_id.id or False
+            data['company_city'] = model_obj.company_id.city or False
+            data['company_street'] = model_obj.company_id.street or False
+            data['company_street2'] = model_obj.company_id.street2 or False
+            data['company_zip'] = model_obj.company_id.zip or False
+            if active_model == 'account.analytic.account':
+                #only  contract related fields
+                data['manager_function'] = model_obj.manager_id.partner_id.function or False
+                data['manager_id'] = model_obj.manager_id and model_obj.manager_id.id or False
+                data['manager_phone'] = model_obj.manager_id.phone or False
+                data['manager_mobile'] = model_obj.manager_id.mobile or False
+                data['manager_email'] = model_obj.manager_id.email or False
+                data['manager_country_id'] = model_obj.manager_id.country_id.id or False
+                data['manager_state_id'] = model_obj.manager_id.state_id.id or False
+                data['manager_city'] = model_obj.manager_id.city or False
+                data['manager_street'] = model_obj.manager_id.street or False
+                data['manager_street2'] = model_obj.manager_id.street2 or False
+                data['manager_zip'] = model_obj.manager_id.zip or False
+                if model_obj.contract_template_body_id :
+                    data['signature'] = model_obj.contract_template_body_id.signature
+                    data['contract_template_id'] = model_obj.contract_template_body_id.id
+                    data['quantity_max'] = model_obj.quantity_max
+                    data['date_start'] = model_obj.date_start
+                    data['date_end'] = model_obj.date
         return data
     
     @api.onchange('contract_template_id')
@@ -123,8 +130,17 @@ class contract_template_wizard(models.TransientModel):
             context = {}
         if not isinstance(ids, list):
             ids = [ids]
-        active_ids = context.get('active_ids', [])
+        
         wizard_obj = self.browse(cr, uid, ids[0])
+        active_model = context.get('active_model',False)
+        if active_model == 'account.analytic.account':
+            active_ids = context.get('active_ids', [])
+        else:
+            active_ids = [self.pool.get('ir.model.data').get_object_reference(cr, uid, 'tko_account_contract_report_template', 'analytic_opportunity')[1]]
+            context.update({'active_model' : 'account.analytic.account',
+                                'active_ids' : active_ids,
+                                'active_id' : active_ids[0],
+                                })
         contract_obj = self.pool.get('account.analytic.account')
         report_body_obj = self.pool.get('account.analytic.account.contract.report.body')
         partner_obj = self.pool.get('res.partner')
@@ -186,6 +202,6 @@ class contract_template_wizard(models.TransientModel):
             })
         
         report_body_obj.write(cr, uid, [wizard_obj.contract_template_id.id], {'signature': wizard_obj.signature})
-        
+        print "generate contract active_ids.........................",active_ids , wizard_obj.contract_template_id.id, context
         return contract_obj.generate_contract(cr, uid, active_ids, context=context)
     

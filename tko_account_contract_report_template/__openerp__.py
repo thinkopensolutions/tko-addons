@@ -24,7 +24,7 @@
 
 {
     'name': 'Account Contract Report Template',
-    'version': '0.051',
+    'version': '0.053',
     'category': 'Account',
     'sequence': 38,
     'complexity': 'normal',
@@ -40,6 +40,7 @@
                 ],
     'init_xml': [],
     'data': [
+             'data/contract_data_view.xml',
              'security/ir.model.access.csv',
              'report/contract_report_view.xml',
              'report/contract_report_template_view.xml',

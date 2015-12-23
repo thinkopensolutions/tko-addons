@@ -1,3 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_contrac_report_body_usr,contrac_report_body user,model_account_analytic_account_contract_report_body,account.group_account_user,1,1,1,1
 access_contrac_report_body_mgr,contrac_report_body manager,model_account_analytic_account_contract_report_body,account.group_account_manager,1,1,1,1
+access_contrac_report_body_own leads,contrac_report_body own leads,model_account_analytic_account_contract_report_body,base.group_sale_salesman,1,1,1,0
+access_contrac_report_body_own leads user,contrac_report_body own leads,base.model_res_users,base.group_sale_salesman,1,1,0,0
+access_contrac_report_body_own leads company,contrac_report_body own leads,base.model_res_company,base.group_sale_salesman,1,1,0,0
