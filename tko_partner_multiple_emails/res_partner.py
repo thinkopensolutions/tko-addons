@@ -143,12 +143,17 @@ class res_partner(osv.osv):
         part_email_obj = self.pool.get('res.partner.email')
         for partner_id in partner_ids:
             partner = self.browse(cr, SUPERUSER_ID, partner_id)
-            part_email_obj.create(cr, SUPERUSER_ID, {
+            try:
+                part_email_obj.create(cr, SUPERUSER_ID, {
                 'email': partner.email,
                 'is_active': True,
                 'res_partner_id': partner_id,
-            })
-            _logger.info(
+                })
+                _logger.info(
                 "Setting up multiple email record for client %s ." %
                 partner.name)
+            except:
+                _logger.info(
+                "%s email already exists ." %
+                partner.email)
         return True

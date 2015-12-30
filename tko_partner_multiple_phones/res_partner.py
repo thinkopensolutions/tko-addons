@@ -83,7 +83,6 @@ class res_partner(osv.osv):
         return res
 
     def _get_phones(self, cr, uid, ids, name, args, context=False):
-        print "running _get_phones"
         res = {}
         phone_obj = self.pool.get('res.partner.phone')
         for record in self.browse(cr, uid, ids):
@@ -244,7 +243,6 @@ class res_partner(osv.osv):
             partner = self.browse(cr, SUPERUSER_ID, partner_id)
             phone_number = partner.phone
             mobile_number = partner.mobile
-            print "partenr ponen and mobile, ....%%%%%%%%%%%.........................", phone_number, mobile_number
             if phone_number:
                 part_phone_obj.create(cr, SUPERUSER_ID, {
                     'phone': phone_number,
