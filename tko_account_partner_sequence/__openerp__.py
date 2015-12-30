@@ -35,16 +35,18 @@
     'depends': [
                 'base',
                 'tko_partner_sequence',
-                ],
+    ],
     'data': [
-            'views/report_invoice.xml'
-             ],
+        'views/report_invoice.xml'
+    ],
     'init': [],
     'demo': [],
     'update': [],
     'test': [],  # YAML files with tests
     'installable': True,
     'application': False,
-    'auto_install': True,  # If it's True, the modules will be auto-installed when all dependencies are installed
+    # If it's True, the modules will be auto-installed when all dependencies
+    # are installed
+    'auto_install': True,
     'certificate': '',
 }

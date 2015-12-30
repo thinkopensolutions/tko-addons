@@ -56,7 +56,7 @@ NOTE: Admin has no restrictions""",
                 'base',
                 'resource',
                 'web',
-                ],
+    ],
     'data': [
         'security/ir.model.access.csv',
         'views/scheduler.xml',
@@ -64,14 +64,16 @@ NOTE: Admin has no restrictions""",
         'views/res_groups_view.xml',
         'views/ir_sessions_view.xml',
         'views/webclient_templates.xml',
-        ],
+    ],
     'init': [],
     'demo': [],
     'update': [],
     'test': [],  # YAML files with tests
     'installable': True,
     'application': False,
-    'auto_install': False,  # If it's True, the modules will be auto-installed when all dependencies are installed
+    # If it's True, the modules will be auto-installed when all dependencies
+    # are installed
+    'auto_install': False,
     'certificate': '',
     'reload': True,
 }
