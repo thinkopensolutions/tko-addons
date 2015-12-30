@@ -46,6 +46,8 @@ When a task is moved to an initial stage the task starting date is set automatic
     'test': [],  # YAML files with tests
     'installable': True,
     'application': False,
-    'auto_install': False,  # If it's True, the modules will be auto-installed when all dependencies are installed
+    # If it's True, the modules will be auto-installed when all dependencies
+    # are installed
+    'auto_install': False,
     'certificate': '',
 }

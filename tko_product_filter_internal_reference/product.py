@@ -27,7 +27,12 @@ from openerp.osv import osv, fields
 
 class product_template(osv.osv):
     _inherit = "product.template"
-    
+
     _columns = {
-                'default_code': fields.related('product_variant_ids', 'default_code', type='char', string='Internal Reference' , store=True),
-                }
+        'default_code': fields.related(
+            'product_variant_ids',
+            'default_code',
+            type='char',
+            string='Internal Reference',
+            store=True),
+    }

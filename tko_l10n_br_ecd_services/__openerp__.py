@@ -34,18 +34,19 @@
     'depends': [
                 'account',
                 'account_chart',
-                ],
+    ],
     'data': [
-             'data/account.account.template.csv',
-             'data/account_chart_template.xml',
-             ],
+        'data/account.account.template.csv',
+        'data/account_chart_template.xml',
+    ],
     'init': [],
     'demo': [],
     'update': [],
     'test': [],  # YAML files with tests
     'installable': True,
     'application': False,
-    'auto_install': False,  # If it's True, the modules will be auto-installed when all dependencies are installed
+    # If it's True, the modules will be auto-installed when all dependencies
+    # are installed
+    'auto_install': False,
     'certificate': '',
 }
-
