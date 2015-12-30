@@ -24,10 +24,11 @@
 
 from openerp.osv import osv, fields
 
+
 class res_user(osv.osv):
     _inherit = 'res.users'
-    
+
     _columns = {
         'smtp_server_id': fields.one2many('ir.mail_server', 'user_id',
-          'Email Server'),
+                                          'Email Server'),
     }
