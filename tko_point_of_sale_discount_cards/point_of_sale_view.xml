@@ -1,0 +1,80 @@
+<openerp>
+    <data>
+
+        <record id="pos_config_form" model="ir.ui.view">
+            <field name="name">Discount Cards</field>
+            <field name="model">pos.config</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_config_form" />
+            <field name="arch" type="xml">
+                <group string="Features" position="before">
+                    <group string="Discound Cards">
+                        <field name="discount_card_ids" nolabel="1" />
+                    </group>
+                </group>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="view_pos_pos_extended_form">
+            <field name="name">pos.order.extended</field>
+            <field name="model">pos.order</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form" />
+            <field name="arch" type="xml">
+            	<field name="partner_id" position="after">
+            		<field name="discount_card_id" invisible="1" readonly="1"/>
+            		<field name="discount_card_name" readonly="1"/>
+            		<field name="discount_card_type" readonly="1"/>
+            		<field name="discount_card_value" readonly="1"/>
+            	</field>
+            	<field name="price_subtotal" position="attributes">
+            		<attribute name="invisible">1</attribute>
+            	</field>
+            	<field name="price_subtotal_incl" position="attributes">
+            		<attribute name="invisible">1</attribute>
+            	</field>
+            	<field name="price_subtotal_incl" position="after">
+            		<field name="line_subototal"/>
+            	</field>
+            </field>
+       </record>
+
+        <record id="pos_discount_cards_form" model="ir.ui.view">
+            <field name="name">Discount Cards</field>
+            <field name="model">pos.discount.cards</field>
+            <field name="arch" type="xml">
+                <form string="Language Skill" version="7.0">
+                    <group>
+                        <field name="name" />
+                        <field name="type" />
+                        <field name="value" />
+                    </group>
+
+                </form>
+            </field>
+        </record>
+        <record id="pos_discount_cards_tree" model="ir.ui.view">
+            <field name="name">Discount Cards</field>
+            <field name="model">pos.discount.cards</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                    <field name="type" />
+                    <field name="value" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="pos_discount_cards_action" model="ir.actions.act_window">
+            <field name="name">Discount Cards</field>
+            <field name="res_model">pos.discount.cards</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="pos_discount_cards_tree" />
+        </record>
+
+        <menuitem id="pos_disc_card_menu" name="Discount Cards"
+            action="pos_discount_cards_action" parent="point_of_sale.menu_point_config_product"
+            sequence="40" />
+
+    </data>
+</openerp>

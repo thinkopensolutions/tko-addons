@@ -1,0 +1,115 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* tko_point_of_sale_discount_cards
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0-20150322\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-05-08 05:58+0000\n"
+"PO-Revision-Date: 2015-05-08 05:58+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: tko_point_of_sale_discount_cards
+#: field:pos.discount.cards,active:0
+msgid "Active"
+msgstr "Ativo"
+
+#. module: tko_point_of_sale_discount_cards
+#: field:pos.discount.cards,create_uid:0
+msgid "Created by"
+msgstr "Criado por"
+
+#. module: tko_point_of_sale_discount_cards
+#: field:pos.discount.cards,create_date:0
+msgid "Created on"
+msgstr "Criado em"
+
+#. module: tko_point_of_sale_discount_cards
+#: view:pos.config:tko_point_of_sale_discount_cards.pos_config_form
+msgid "Discound Cards"
+msgstr "Cartões de Desconto"
+
+#. module: tko_point_of_sale_discount_cards
+#. openerp-web
+#: code:addons/tko_point_of_sale_discount_cards/static/src/xml/discount.xml:9
+#: model:ir.actions.act_window,name:tko_point_of_sale_discount_cards.pos_discount_cards_action
+#: model:ir.ui.menu,name:tko_point_of_sale_discount_cards.pos_disc_card_menu
+#, python-format
+msgid "Discount Cards"
+msgstr "Cartões de Desconto"
+
+#. module: tko_point_of_sale_discount_cards
+#: field:pos.config,discount_card_ids:0
+msgid "Discount cards"
+msgstr "Cartões de Desconto"
+
+#. module: tko_point_of_sale_discount_cards
+#. openerp-web
+#: code:addons/tko_point_of_sale_discount_cards/static/src/xml/discount.xml:28
+#, python-format
+msgid "Discount:"
+msgstr "Desconto:"
+
+#. module: tko_point_of_sale_discount_cards
+#: view:pos.config:tko_point_of_sale_discount_cards.pos_config_form
+msgid "Features"
+msgstr "Funcionalidades"
+
+#. module: tko_point_of_sale_discount_cards
+#: selection:pos.discount.cards,type:0
+msgid "Fixed"
+msgstr "Fixo"
+
+#. module: tko_point_of_sale_discount_cards
+#: field:pos.discount.cards,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: tko_point_of_sale_discount_cards
+#: view:pos.discount.cards:tko_point_of_sale_discount_cards.pos_discount_cards_form
+msgid "Language Skill"
+msgstr "Language Skill"
+
+#. module: tko_point_of_sale_discount_cards
+#: field:pos.discount.cards,write_uid:0
+msgid "Last Updated by"
+msgstr "Última atualização por"
+
+#. module: tko_point_of_sale_discount_cards
+#: field:pos.discount.cards,write_date:0
+msgid "Last Updated on"
+msgstr "Última atualização em"
+
+#. module: tko_point_of_sale_discount_cards
+#: field:pos.discount.cards,name:0
+msgid "Name"
+msgstr "Nome"
+
+#. module: tko_point_of_sale_discount_cards
+#. openerp-web
+#: code:addons/tko_point_of_sale_discount_cards/static/src/xml/discount.xml:11
+#, python-format
+msgid "None"
+msgstr "Nenhum"
+
+#. module: tko_point_of_sale_discount_cards
+#: selection:pos.discount.cards,type:0
+msgid "Percentage"
+msgstr "Percentagem"
+
+#. module: tko_point_of_sale_discount_cards
+#: field:pos.discount.cards,type:0
+msgid "Type"
+msgstr "Tipo"
+
+#. module: tko_point_of_sale_discount_cards
+#: field:pos.discount.cards,value:0
+msgid "Value"
+msgstr "Valor"
+
