@@ -202,6 +202,5 @@ class contract_template_wizard(models.TransientModel):
             })
         
         report_body_obj.write(cr, uid, [wizard_obj.contract_template_id.id], {'signature': wizard_obj.signature})
-        print "generate contract active_ids.........................",active_ids , wizard_obj.contract_template_id.id, context
         return contract_obj.generate_contract(cr, uid, active_ids, context=context)
     
