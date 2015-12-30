@@ -43,36 +43,38 @@ from openerp.http import Response
 from openerp import http
 from openerp.tools.func import lazy_property
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
-#   
+#
 _logger = logging.getLogger(__name__)
 
+
 class OpenERPSession(openerp.http.OpenERPSession):
-     
+
     def logout(self, keep_db=False, logout_type=None, env=None):
         try:
             env = env or request.env
         except:
             pass
-        if env and hasattr(env, 'registry') and env.registry.get('ir.sessions'):
-           session = env['ir.sessions'].sudo().search(
-                                  [('session_id', '=', self.sid),
-                                   ('logged_in', '=', True),])
-           if session:
-               session._on_session_logout(logout_type)
+        if env and hasattr(
+                env,
+                'registry') and env.registry.get('ir.sessions'):
+            session = env['ir.sessions'].sudo().search(
+                [('session_id', '=', self.sid),
+                 ('logged_in', '=', True), ])
+            if session:
+                session._on_session_logout(logout_type)
         return super(OpenERPSession, self).logout(keep_db=keep_db)
-    
-    
+
+
 class Root_tkobr(openerp.http.Root):
-    
+
     @lazy_property
     def session_store(self):
         # Setup http sessions
         path = openerp.tools.config.session_dir
         _logger.debug('HTTP sessions stored in: %s', path)
-        return werkzeug.contrib.sessions.FilesystemSessionStore(path,
-                                                session_class=OpenERPSession)
-    
-    
+        return werkzeug.contrib.sessions.FilesystemSessionStore(
+            path, session_class=OpenERPSession)
+
+
 root = Root_tkobr()
 openerp.http.root.session_store = root.session_store
-

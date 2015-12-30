@@ -37,19 +37,21 @@ This module don't break email functionality because it keeps the email char fiel
     'website': 'http://www.tkobr.com',
     'depends': [
                 'base',
-                ],
+    ],
     'data': [
-             'data/email_type_data.xml',
-             'security/ir.model.access.csv',
-             'tko_partner_email_view.xml',
-             'res_partner_view.xml',
-             ],
+        'data/email_type_data.xml',
+        'security/ir.model.access.csv',
+        'tko_partner_email_view.xml',
+        'res_partner_view.xml',
+    ],
     'init': [],
     'demo': [],
     'update': [],
     'test': [],  # YAML files with tests
     'installable': True,
     'application': False,
-    'auto_install': False,  # If it's True, the modules will be auto-installed when all dependencies are installed
+    # If it's True, the modules will be auto-installed when all dependencies
+    # are installed
+    'auto_install': False,
     'certificate': '',
 }

@@ -34,18 +34,20 @@
     'depends': [
                 'base',
                 'mail',
-                ],
+    ],
     'data': [
-             'security/ir.model.access.csv',
-             'res_users_view.xml',
-             'ir_mail_server_view.xml',
-             ],
+        'security/ir.model.access.csv',
+        'res_users_view.xml',
+        'ir_mail_server_view.xml',
+    ],
     'init': [],
     'demo': [],
     'update': [],
     'test': [],  # YAML files with tests
     'installable': True,
     'application': False,
-    'auto_install': False,  # If it's True, the modules will be auto-installed when all dependencies are installed
+    # If it's True, the modules will be auto-installed when all dependencies
+    # are installed
+    'auto_install': False,
     'certificate': '',
 }

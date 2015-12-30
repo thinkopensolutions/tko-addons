@@ -35,17 +35,19 @@ Each type will have a colour. This makes easy to identify the tasks types in kan
     'depends': [
                 'base',
                 'project',
-               ],
+    ],
     'data': [
-             'security/ir.model.access.csv',
-             'project_task_view.xml',
-             ],
+        'security/ir.model.access.csv',
+        'project_task_view.xml',
+    ],
     'init': [],
     'demo': [],
     'update': [],
     'test': [],  # YAML files with tests
     'installable': True,
     'application': False,
-    'auto_install': False,  # If it's True, the modules will be auto-installed when all dependencies are installed
+    # If it's True, the modules will be auto-installed when all dependencies
+    # are installed
+    'auto_install': False,
     'certificate': '',
 }

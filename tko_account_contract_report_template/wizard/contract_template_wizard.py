@@ -27,8 +27,11 @@ from openerp import models, api, fields, _
 
 class contract_template_wizard(models.TransientModel):
     _name = 'contract.template.wizard'
-    
-    partner_id = fields.Many2one('res.partner', string='Customer', required=True)
+
+    partner_id = fields.Many2one(
+        'res.partner',
+        string='Customer',
+        required=True)
     partner_phone = fields.Char(string='Phone')
     partner_mobile = fields.Char(string='Mobile')
     partner_email = fields.Char(string='Email')
@@ -38,7 +41,10 @@ class contract_template_wizard(models.TransientModel):
     partner_street = fields.Char(string='Street')
     partner_street2 = fields.Char(string='Street2')
     partner_zip = fields.Char(string='Zip', size=24)
-    manager_id = fields.Many2one('res.users', string='Account Manager', required=True)
+    manager_id = fields.Many2one(
+        'res.users',
+        string='Account Manager',
+        required=True)
     manager_phone = fields.Char(string='Phone')
     manager_mobile = fields.Char(string='Mobile')
     manager_email = fields.Char(string='Email')
@@ -49,7 +55,10 @@ class contract_template_wizard(models.TransientModel):
     manager_street2 = fields.Char(string='Street2')
     manager_zip = fields.Char(string='Zip', size=24)
     manager_function = fields.Char(string='Job Position')
-    company_id = fields.Many2one('res.company', string='Company', required=True)
+    company_id = fields.Many2one(
+        'res.company',
+        string='Company',
+        required=True)
     company_phone = fields.Char(string='Phone')
     company_mobile = fields.Char(string='Mobile')
     company_email = fields.Char(string='Email')
@@ -60,26 +69,29 @@ class contract_template_wizard(models.TransientModel):
     company_street2 = fields.Char(string='Street2')
     company_zip = fields.Char(string='Zip', size=24)
     signature = fields.Binary('Signature')
-    contract_template_id = fields.Many2one('account.analytic.account.contract.report.body',
-       string='Contract', required=True)
+    contract_template_id = fields.Many2one(
+        'account.analytic.account.contract.report.body',
+        string='Contract',
+        required=True)
     date_start = fields.Date('Start Date', required=True)
     date_end = fields.Date('End Date')
     quantity_max = fields.Float('Prepaid Service Units')
-   
+
     def default_get(self, cr, uid, fields_list, context=None):
         if context is None:
             context = {}
         data = {}
         # assert len(ids) == 1, 'This option should only be used for a single id at a time.'
         active_id = context.get('active_id', False)
-        active_model = context.get('active_model',False)
+        active_model = context.get('active_model', False)
         if active_model == 'account.analytic.account':
-            model_obj = self.pool.get('account.analytic.account').browse(cr, uid, active_id)
+            model_obj = self.pool.get(
+                'account.analytic.account').browse(cr, uid, active_id)
         if active_model == 'crm.lead':
             model_obj = self.pool.get('crm.lead').browse(cr, uid, active_id)
-        
+
         if active_id:
-            #common fields in lead and contract
+            # common fields in lead and contract
             data['partner_id'] = model_obj.partner_id and model_obj.partner_id.id or False
             data['partner_phone'] = model_obj.partner_id.phone or False
             data['partner_mobile'] = model_obj.partner_id.mobile or False
@@ -101,9 +113,11 @@ class contract_template_wizard(models.TransientModel):
             data['company_street2'] = model_obj.company_id.street2 or False
             data['company_zip'] = model_obj.company_id.zip or False
             if active_model == 'account.analytic.account':
-                #only  contract related fields
-                data['manager_function'] = model_obj.manager_id.partner_id.function or False
-                data['manager_id'] = model_obj.manager_id and model_obj.manager_id.id or False
+                # only  contract related fields
+                data[
+                    'manager_function'] = model_obj.manager_id.partner_id.function or False
+                data[
+                    'manager_id'] = model_obj.manager_id and model_obj.manager_id.id or False
                 data['manager_phone'] = model_obj.manager_id.phone or False
                 data['manager_mobile'] = model_obj.manager_id.mobile or False
                 data['manager_email'] = model_obj.manager_id.email or False
@@ -113,40 +127,42 @@ class contract_template_wizard(models.TransientModel):
                 data['manager_street'] = model_obj.manager_id.street or False
                 data['manager_street2'] = model_obj.manager_id.street2 or False
                 data['manager_zip'] = model_obj.manager_id.zip or False
-                if model_obj.contract_template_body_id :
+                if model_obj.contract_template_body_id:
                     data['signature'] = model_obj.contract_template_body_id.signature
                     data['contract_template_id'] = model_obj.contract_template_body_id.id
                     data['quantity_max'] = model_obj.quantity_max
                     data['date_start'] = model_obj.date_start
                     data['date_end'] = model_obj.date
         return data
-    
+
     @api.onchange('contract_template_id')
     def change_contemplate(self):
         self.signature = self.contract_template_id.signature
-        
+
     def print_contract(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
         if not isinstance(ids, list):
             ids = [ids]
-        
+
         wizard_obj = self.browse(cr, uid, ids[0])
-        active_model = context.get('active_model',False)
+        active_model = context.get('active_model', False)
         if active_model == 'account.analytic.account':
             active_ids = context.get('active_ids', [])
         else:
-            active_ids = [self.pool.get('ir.model.data').get_object_reference(cr, uid, 'tko_account_contract_report_template', 'analytic_opportunity')[1]]
-            context.update({'active_model' : 'account.analytic.account',
-                                'active_ids' : active_ids,
-                                'active_id' : active_ids[0],
-                                })
+            active_ids = [self.pool.get('ir.model.data').get_object_reference(
+                cr, uid, 'tko_account_contract_report_template', 'analytic_opportunity')[1]]
+            context.update({'active_model': 'account.analytic.account',
+                            'active_ids': active_ids,
+                            'active_id': active_ids[0],
+                            })
         contract_obj = self.pool.get('account.analytic.account')
-        report_body_obj = self.pool.get('account.analytic.account.contract.report.body')
+        report_body_obj = self.pool.get(
+            'account.analytic.account.contract.report.body')
         partner_obj = self.pool.get('res.partner')
         manager_obj = self.pool.get('res.users')
         company_obj = self.pool.get('res.company')
-        
+
         # write contract fields  values to respective fields
         contract_obj.write(cr, uid, active_ids, {
             'partner_id': wizard_obj.partner_id.id,
@@ -156,8 +172,8 @@ class contract_template_wizard(models.TransientModel):
             'quantity_max': wizard_obj.quantity_max,
             'date_start': wizard_obj.date_start,
             'date': wizard_obj.date_end,
-            })
-        
+        })
+
         # write partner field values
         partner_obj.write(cr, uid, [wizard_obj.partner_id.id], {
             'phone': wizard_obj.partner_phone,
@@ -168,8 +184,8 @@ class contract_template_wizard(models.TransientModel):
             'city': wizard_obj.partner_city,
             'street2': wizard_obj.partner_street2,
             'zip': wizard_obj.partner_zip,
-            })
-        
+        })
+
         # write manager related fields
         manager_obj.write(cr, uid, [wizard_obj.manager_id.id], {
             'phone': wizard_obj.manager_phone,
@@ -181,11 +197,11 @@ class contract_template_wizard(models.TransientModel):
             'street': wizard_obj.manager_street,
             'street2': wizard_obj.manager_street2,
             'zip': wizard_obj.manager_zip,
-            })
+        })
         partner_obj.write(cr, uid, [wizard_obj.manager_id.partner_id.id], {
             'function': wizard_obj.manager_function,
-            })
-        
+        })
+
         # write company field values
         company_obj.write(cr, uid, [wizard_obj.company_id.id], {
             'phone': wizard_obj.company_phone,
@@ -196,11 +212,14 @@ class contract_template_wizard(models.TransientModel):
             'street': wizard_obj.company_street,
             'street2': wizard_obj.company_street2,
             'zip': wizard_obj.company_zip,
-            })
+        })
         partner_obj.write(cr, uid, [wizard_obj.company_id.partner_id.id], {
             'mobile': wizard_obj.company_mobile,
-            })
-        
-        report_body_obj.write(cr, uid, [wizard_obj.contract_template_id.id], {'signature': wizard_obj.signature})
-        return contract_obj.generate_contract(cr, uid, active_ids, context=context)
-    
+        })
+
+        report_body_obj.write(
+            cr, uid, [
+                wizard_obj.contract_template_id.id], {
+                'signature': wizard_obj.signature})
+        return contract_obj.generate_contract(
+            cr, uid, active_ids, context=context)

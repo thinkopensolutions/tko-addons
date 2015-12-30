@@ -34,20 +34,22 @@ Merge into one single partner's tab the multiple phones and emails tabs.\n\n
     'author': 'ThinkOpen Solutions Brasil',
     'website': 'http://www.tkobr.com',
     'images': ['images/oerp61.jpeg',
-              ],
-    'depends': [
-                'tko_partner_multiple_phones',
-                'tko_partner_multiple_emails',
                ],
+    'depends': [
+        'tko_partner_multiple_phones',
+        'tko_partner_multiple_emails',
+    ],
     'data': [
-             'res_partner_view.xml',
-             ],
+        'res_partner_view.xml',
+    ],
     'init': [],
     'demo': [],
     'update': [],
     'test': [],  # YAML files with tests
     'installable': True,
     'application': False,
-    'auto_install': True,  # If it's True, the module will be auto-installed when all dependencies are installed
+    # If it's True, the module will be auto-installed when all dependencies
+    # are installed
+    'auto_install': True,
     'certificate': '',
 }

@@ -27,13 +27,12 @@ from openerp.osv import osv, fields
 
 class res_partner(osv.osv):
     _inherit = 'res.partner'
-    
+
     _columns = {
-                'partner_sequence':fields.char('Number'),
-                }
-    
-    def create(self, cr, uid, vals , context=None):
+        'partner_sequence': fields.char('Number'),
+    }
+
+    def create(self, cr, uid, vals, context=None):
         code = self.pool.get('ir.sequence').get(cr, uid, 'res.partner')
         vals['partner_sequence'] = code
         return super(res_partner, self).create(cr, uid, vals, context=context)
-    

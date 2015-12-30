@@ -22,9 +22,9 @@
 #
 ##############################################################################
 from openerp import models, api, fields, _
+
+
 class account_journal(models.Model):
     _inherit = 'account.journal'
-    
+
     fiscal_code = fields.Integer('Fiscal Code')
-    
-    

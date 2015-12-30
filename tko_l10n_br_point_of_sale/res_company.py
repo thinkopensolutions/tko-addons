@@ -29,10 +29,11 @@ from openerp.osv import osv
 class res_compamy(models.Model):
     _inherit = 'res.company'
 
-    average_federal_tax = fields.Float('Average Federal Tax [%]',
+    average_federal_tax = fields.Float(
+        'Average Federal Tax [%]',
         company_dependent=True,
         help='The average federal tax percentage [0..100]')
-    average_state_tax = fields.Float('Average State Tax Value [%]',
+    average_state_tax = fields.Float(
+        'Average State Tax Value [%]',
         company_dependent=True,
         help='The average state tax percentage [0..100]')
-    

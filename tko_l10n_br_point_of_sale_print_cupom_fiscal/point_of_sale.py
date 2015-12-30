@@ -39,7 +39,7 @@ PRINTER_MODELS = [('1', 'Não Fiscal'),
                   ('12', 'FiscNET'),
                   ('13', 'Epson'),
                   ('14', 'NCR'),
-                  ('15', 'SwedaSTX'),]
+                  ('15', 'SwedaSTX'), ]
 
 SERIAL_PORTS = [('COM1', 'COM1'),
                 ('COM2', 'COM2'),
@@ -55,60 +55,82 @@ SERIAL_PORTS = [('COM1', 'COM1'),
                 ('COM12', 'COM12'),
                 ('COM13', 'COM13'),
                 ('COM14', 'COM14'),
-                ('COM15', 'COM15'),]
+                ('COM15', 'COM15'), ]
+
 
 class pos_session(models.Model):
     _inherit = 'pos.session'
-    
-    confirm_payment = fields.Boolean(string='Confirm Payment', related="config_id.confirm_payment", default = True)
-    
-    
+
+    confirm_payment = fields.Boolean(
+        string='Confirm Payment',
+        related="config_id.confirm_payment",
+        default=True)
+
 
 class pos_config(models.Model):
     _inherit = 'pos.config'
-    
+
     com_port = fields.Selection(SERIAL_PORTS, 'COM Port', required=True)
-    printer_model = fields.Selection(PRINTER_MODELS, 'Printer Model', required=True)
+    printer_model = fields.Selection(
+        PRINTER_MODELS, 'Printer Model', required=True)
     baudrate = fields.Integer('Baudrate', required=True, default=9600)
-    confirm_payment = fields.Boolean(string='Confirm Payment', default = True)
-    
-    
-    
+    confirm_payment = fields.Boolean(string='Confirm Payment', default=True)
+
+
 class pos_order(models.Model):
     _inherit = 'pos.order'
-    
-    cnpj_cpf = fields.Char('CNPJ/CPF' ,size =20)
-    
+
+    cnpj_cpf = fields.Char('CNPJ/CPF', size=20)
+
     def create_from_ui(self, cr, uid, orders, context=None):
         # Keep only new orders
-        
-        
+
         pos_obj = self.pool.get('pos.order')
         pos_line_object = self.pool.get('pos.order.line')
         table_reserved_obj = self.pool.get("table.reserverd")
         session_obj = self.pool.get('pos.session')
         shop_obj = self.pool.get('sale.shop')
         partner_obj = self.pool.get('res.partner')
-        order_ids = super(pos_order,self).create_from_ui(cr, uid, orders, context = context)
-        #write cnpj_cpf to order
+        order_ids = super(
+            pos_order,
+            self).create_from_ui(
+            cr,
+            uid,
+            orders,
+            context=context)
+        # write cnpj_cpf to order
         if len(order_ids) == len(orders):
             i = 0
             for tmp_order in orders:
-                
+
                 if 'data' in tmp_order.keys():
                     cnpj_cpf = tmp_order['data'].get('cnpj_cpf')
-                    
+
                     if cnpj_cpf:
-                        cnpj_cpf = cnpj_cpf.replace('-','').replace('.','').replace(',','').replace('/','')
+                        cnpj_cpf = cnpj_cpf.replace(
+                            '-',
+                            '').replace(
+                            '.',
+                            '').replace(
+                            ',',
+                            '').replace(
+                            '/',
+                            '')
                         if len(cnpj_cpf) == 11:
-                            cnpj_cpf = cnpj_cpf[0:3] +'.' +cnpj_cpf[3:6] + '.' +cnpj_cpf[6:9] + '-'+ cnpj_cpf[9:11]
+                            cnpj_cpf = cnpj_cpf[
+                                0:3] + '.' + cnpj_cpf[3:6] + '.' + cnpj_cpf[6:9] + '-' + cnpj_cpf[9:11]
                         elif len(cnpj_cpf) == 14:
-                            cnpj_cpf = cnpj_cpf[0:2] +'.' +cnpj_cpf[2:5] + '.' +cnpj_cpf[5:8] + '/'+ cnpj_cpf[8:12]+ '-' + cnpj_cpf[12:14]
+                            cnpj_cpf = cnpj_cpf[0:2] + '.' + cnpj_cpf[2:5] + '.' + cnpj_cpf[
+                                5:8] + '/' + cnpj_cpf[8:12] + '-' + cnpj_cpf[12:14]
                         else:
-                            #this case should never happen for a validated cpf / cnpj
+                            # this case should never happen for a validated cpf
+                            # / cnpj
                             _logger.error("Please check CPF/CNPJ validator")
-                        partner = partner_obj.search(cr, uid, [('cnpj_cpf','=',cnpj_cpf)])
-                        pos_obj.write(cr, uid, [order_ids[i]],{'cnpj_cpf' : cnpj_cpf, 'partner_id' : partner and partner[0] or False})
+                        partner = partner_obj.search(
+                            cr, uid, [('cnpj_cpf', '=', cnpj_cpf)])
+                        pos_obj.write(
+                            cr, uid, [
+                                order_ids[i]], {
+                                'cnpj_cpf': cnpj_cpf, 'partner_id': partner and partner[0] or False})
                     i = i + 1
         return order_ids
-        

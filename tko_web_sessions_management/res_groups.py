@@ -28,17 +28,17 @@ from openerp.osv import fields, osv, orm
 
 class res_groups(osv.osv):
     _inherit = 'res.groups'
-    
+
     _columns = {
         'login_calendar_id': fields.many2one('resource.calendar',
-             'Allow Login Calendar', company_dependent=True,
-             help='The user will be only allowed to login in the calendar defined here.\nNOTE: The users will be allowed to login using a merge/union of all calendars to wich one belongs.'),
+                                             'Allow Login Calendar', company_dependent=True,
+                                             help='The user will be only allowed to login in the calendar defined here.\nNOTE: The users will be allowed to login using a merge/union of all calendars to wich one belongs.'),
         'multiple_sessions_block': fields.boolean('Block Multiple Sessions', company_dependent=True,
-            help='Select this to prevent users of this group to start more than one session.'),
+                                                  help='Select this to prevent users of this group to start more than one session.'),
         'interval_number': fields.integer('Default Session Duration', company_dependent=True,
-            help='This define the timeout for the users of this group.\nNOTE: The system will get the lowest timeout of all user groups.'),
+                                          help='This define the timeout for the users of this group.\nNOTE: The system will get the lowest timeout of all user groups.'),
         'interval_type': fields.selection([('minutes', 'Minutes'),
-            ('hours', 'Hours'), ('work_days', 'Work Days'),
-            ('days', 'Days'), ('weeks', 'Weeks'), ('months', 'Months')],
-            'Interval Unit', company_dependent=True),
-        }
+                                           ('hours', 'Hours'), ('work_days', 'Work Days'),
+                                           ('days', 'Days'), ('weeks', 'Weeks'), ('months', 'Months')],
+                                          'Interval Unit', company_dependent=True),
+    }

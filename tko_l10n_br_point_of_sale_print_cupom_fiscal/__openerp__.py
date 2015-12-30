@@ -32,30 +32,34 @@
     'author': 'ThinkOpen Solutions Brasil',
     'website': 'http://www.tkobr.com',
     'images': ['images/oerp61.jpeg',
-              ],
+               ],
     'depends': [
-                'point_of_sale',
-                'tko_l10n_br_base',
-                'tko_l10n_br_point_of_sale',
-                'tko_point_of_sale_combined_categories_discount', #this module sets discount type fixed, used to compute fixed discount
-                'tko_point_of_sale_discount_cards', # this module computes discount on total used for print
-                ],
-                
+        'point_of_sale',
+        'tko_l10n_br_base',
+        'tko_l10n_br_point_of_sale',
+        'tko_point_of_sale_combined_categories_discount',
+        # this module sets discount type fixed, used to compute fixed discount
+        'tko_point_of_sale_discount_cards',
+        # this module computes discount on total used for print
+    ],
+
     'data': [
-             
-             'static/src/xml/main.xml',
-             'point_of_sale_view.xml',
-             ],
+
+        'static/src/xml/main.xml',
+        'point_of_sale_view.xml',
+    ],
     'qweb': [
-             'static/src/xml/printer.xml',
-             'static/src/xml/pos.xml',
-             ],
+        'static/src/xml/printer.xml',
+        'static/src/xml/pos.xml',
+    ],
     'init': [],
     'demo': [],
     'update': [],
-    'test': [], #YAML files with tests
+    'test': [],  # YAML files with tests
     'installable': True,
     'application': False,
-    'auto_install': False, #If it's True, the modules will be auto-installed when all dependencies are installed
+    # If it's True, the modules will be auto-installed when all dependencies
+    # are installed
+    'auto_install': False,
     'certificate': '',
 }

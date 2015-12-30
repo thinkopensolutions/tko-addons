@@ -28,25 +28,37 @@ from openerp import api
 
 class res_company(osv.osv):
     _inherit = 'res.company'
-    
-    #===========================================================================
+
+    #=========================================================================
     # def _get_partner(self, cr, uid, ids, context=None):
     #     result = {}
     #     for part in self.browse(cr, uid, ids, context=context):
     #         result[part.company_id.id] = True
     #     return result.keys()
-    #===========================================================================
-    
+    #=========================================================================
+
     _columns = {
-                'email': fields.related('partner_id', 'email', size=64, type='char', string="Email",),
-                }
-    
+        'email': fields.related(
+            'partner_id',
+            'email',
+            size=64,
+            type='char',
+            string="Email",
+        ),
+    }
+
     def create(self, cr, uid, vals, context=None):
-        company_id = super(res_company, self).create(cr, uid, vals, context=context)
-        if 'email' in vals.keys() and 'partner_id' in vals.keys() and vals['email'] and vals['partner_id']:
+        company_id = super(
+            res_company,
+            self).create(
+            cr,
+            uid,
+            vals,
+            context=context)
+        if 'email' in vals.keys() and 'partner_id' in vals.keys() and vals[
+                'email'] and vals['partner_id']:
             mail_obj = self.pool.get('res.partner.email')
-            mail_obj.create(cr, uid, { 'email' : vals['email'], 'res_partner_id' : vals['partner_id'], 'is_active' :  True})
-            
+            mail_obj.create(cr, uid, {'email': vals['email'], 'res_partner_id': vals[
+                            'partner_id'], 'is_active': True})
+
         return company_id
-    
-    
