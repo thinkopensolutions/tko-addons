@@ -66,7 +66,6 @@ class res_partner(osv.osv):
         return res
     
     def _get_phones(self, cr, uid, ids, name, args, context=False):
-        print "running _get_phones"
         res = {}
         phone_obj = self.pool.get('res.partner.phone')
         for record in self.browse(cr, uid, ids):
@@ -161,15 +160,12 @@ class res_partner(osv.osv):
     def _create_multiple_phones_at_first_install(self, cr, SUPERUSER_ID, ids=None, context =None):
         partner_ids = self.search(cr, SUPERUSER_ID, ['|',('phone','!=',False),('mobile','!=',False)])
         part_phone_obj = self.pool.get('res.partner.phone')
-        
         cel = self.pool.get('res.partner.phone.type').search(cr, SUPERUSER_ID, [('code', '=', 'cel')])[0]
         phone = self.pool.get('res.partner.phone.type').search(cr, SUPERUSER_ID, [('code', '=', 'phone')])[0]
-        
         for partner_id in partner_ids:
             partner = self.browse(cr, SUPERUSER_ID, partner_id)
             phone_number = partner.phone
             mobile_number = partner.mobile
-            print "partenr ponen and mobile, ....%%%%%%%%%%%.........................",phone_number, mobile_number
             if phone_number:
                 part_phone_obj.create(cr, SUPERUSER_ID,{
                                                         'phone': phone_number,
