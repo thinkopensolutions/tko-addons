@@ -40,24 +40,26 @@ Também adiciona novos campos específicos, de cadastro de empresa:\n
     'depends': [
                 'base',
                 'l10n_br_base',
-                ],
+    ],
     'data': [
-             'security/ir.model.access.csv',
-             'data/activity_branch.csv',
-             'data/business_size.csv',
-             'data/annual_income.csv',
-             'data/economic_sector.csv',
-             'data/business_nationality.csv',
-             'data/district.csv',
-             'res_partner_view.xml',
-             'res_company_view.xml',
-             ],
+        'security/ir.model.access.csv',
+        'data/activity_branch.csv',
+        'data/business_size.csv',
+        'data/annual_income.csv',
+        'data/economic_sector.csv',
+        'data/business_nationality.csv',
+        'data/district.csv',
+        'res_partner_view.xml',
+        'res_company_view.xml',
+    ],
     'init': [],
     'demo': [],
     'update': [],
     'test': [],  # YAML files with tests
     'installable': True,
     'application': False,
-    'auto_install': False,  # If it's True, the modules will be auto-installed when all dependencies are installed
+    # If it's True, the modules will be auto-installed when all dependencies
+    # are installed
+    'auto_install': False,
     'certificate': '',
 }

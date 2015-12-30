@@ -32,24 +32,26 @@
     'author': 'ThinkOpen Solutions Brasil',
     'website': 'http://www.tkobr.com',
     'images': ['images/oerp61.jpeg',
-              ],
+               ],
     'depends': [
-                'point_of_sale',
-                ],
-                
+        'point_of_sale',
+    ],
+
     'data': [
-              'static/src/xml/pos.xml',
-             'pos_category_view.xml',
-             ],
+        'static/src/xml/pos.xml',
+        'pos_category_view.xml',
+    ],
     'qweb': [
-             'static/src/xml/category_shortcut.xml',
-             ],
+        'static/src/xml/category_shortcut.xml',
+    ],
     'init': [],
     'demo': [],
     'update': [],
-    'test': [], #YAML files with tests
+    'test': [],  # YAML files with tests
     'installable': True,
     'application': False,
-    'auto_install': False, #If it's True, the modules will be auto-installed when all dependencies are installed
+    # If it's True, the modules will be auto-installed when all dependencies
+    # are installed
+    'auto_install': False,
     'certificate': '',
 }
