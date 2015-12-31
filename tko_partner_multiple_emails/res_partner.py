@@ -146,9 +146,14 @@ class res_partner(osv.osv):
                 "Setting up multiple email '%s' record for client %s ." %
                 (partner.email, partner.name))
             partner = self.browse(cr, SUPERUSER_ID, partner_id)
-            part_email_obj.create(cr, SUPERUSER_ID, {
-                'email': partner.email,
-                'is_active': True,
-                'res_partner_id': partner_id,
-            })
+            try:
+                part_email_obj.create(cr, SUPERUSER_ID, {
+                    'email': partner.email,
+                    'is_active': True,
+                    'res_partner_id': partner_id,
+                })
+            except:
+                _logger.warning(
+                    "Unable to setup multiple email '%s' record for client %s ." %
+                    (partner.email, partner.name))
         return True
