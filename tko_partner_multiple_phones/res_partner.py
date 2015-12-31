@@ -83,7 +83,6 @@ class res_partner(osv.osv):
         return res
 
     def _get_phones(self, cr, uid, ids, name, args, context=False):
-        print "running _get_phones"
         res = {}
         phone_obj = self.pool.get('res.partner.phone')
         for record in self.browse(cr, uid, ids):
@@ -244,22 +243,24 @@ class res_partner(osv.osv):
             partner = self.browse(cr, SUPERUSER_ID, partner_id)
             phone_number = partner.phone
             mobile_number = partner.mobile
-            print "partenr ponen and mobile, ....%%%%%%%%%%%.........................", phone_number, mobile_number
-            if phone_number:
-                part_phone_obj.create(cr, SUPERUSER_ID, {
-                    'phone': phone_number,
-                    'is_active': True,
-                    'res_partner_id': partner_id,
-                    'type_id': phone
-                })
-            if mobile_number:
-                part_phone_obj.create(cr, SUPERUSER_ID, {
-                    'phone': mobile_number,
-                    'is_active': True,
-                    'res_partner_id': partner_id,
-                    'type_id': cel
-                })
             _logger.info(
-                "Setting up multiple phones record for client %s ." %
+                'Setting up multiple phones record for client %s .' %
                 partner.name)
+            try:
+                if phone_number:
+                    part_phone_obj.create(cr, SUPERUSER_ID, {
+                        'phone': phone_number,
+                        'is_active': True,
+                        'res_partner_id': partner_id,
+                        'type_id': phone
+                    })
+                if mobile_number:
+                    part_phone_obj.create(cr, SUPERUSER_ID, {
+                        'phone': mobile_number,
+                        'is_active': True,
+                        'res_partner_id': partner_id,
+                        'type_id': cel
+                    })
+            except:
+                _logger.info('Unable to setup multiple phones record for client')
         return True

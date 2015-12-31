@@ -144,7 +144,7 @@ class res_partner(osv.osv):
         for partner_id in partner_ids:
             partner = self.browse(cr, SUPERUSER_ID, partner_id)
             _logger.info(
-                "Setting up multiple email '%s' record for client %s ." %
+                'Setting up multiple email <%s> record for client %s.' %
                 (partner.email, partner.name))
             try:
                 part_email_obj.create(cr, SUPERUSER_ID, {
@@ -153,7 +153,5 @@ class res_partner(osv.osv):
                     'res_partner_id': partner_id,
                 })
             except:
-                _logger.warning(
-                    "Unable to setup multiple email '%s' record for client %s ." %
-                    (partner.email, partner.name))
+                _logger.warning('Unable to setup multiple email record for client.')
         return True
