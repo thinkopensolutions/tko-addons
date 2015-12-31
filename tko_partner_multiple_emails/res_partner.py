@@ -146,12 +146,12 @@ class res_partner(osv.osv):
             _logger.info(
                 'Setting up multiple email <%s> record for client %s.' %
                 (partner.email, partner.name))
-            try:
+            if part_email_obj.search(cr, SUPERUSER_ID, [('email', '=', partner.email)]):
+                _logger.warning('Not set email duplicated record for client.')
+            else:
                 part_email_obj.create(cr, SUPERUSER_ID, {
                     'email': partner.email,
                     'is_active': True,
                     'res_partner_id': partner_id,
                 })
-            except:
-                _logger.warning('Unable to setup multiple email record for client.')
         return True

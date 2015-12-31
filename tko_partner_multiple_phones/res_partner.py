@@ -246,21 +246,25 @@ class res_partner(osv.osv):
             _logger.info(
                 'Setting up multiple phones record for client %s .' %
                 partner.name)
-            try:
-                if phone_number:
+            
+            if phone_number:
+                if part_phone_obj.search(cr, SUPERUSER_ID, [('phone', '=', phone_number)]):
                     part_phone_obj.create(cr, SUPERUSER_ID, {
                         'phone': phone_number,
                         'is_active': True,
                         'res_partner_id': partner_id,
                         'type_id': phone
                     })
-                if mobile_number:
+                else:
+                    _logger.info('Unable to setup multiple phone record for client')
+            if mobile_number:
+                if part_phone_obj.search(cr, SUPERUSER_ID, [('mobile', '=', mobile_number)]):
                     part_phone_obj.create(cr, SUPERUSER_ID, {
                         'phone': mobile_number,
                         'is_active': True,
                         'res_partner_id': partner_id,
                         'type_id': cel
                     })
-            except:
-                _logger.info('Unable to setup multiple phones record for client')
+                else:
+                    _logger.info('Unable to setup multiple mobile record for client')
         return True
