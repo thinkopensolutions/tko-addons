@@ -142,10 +142,10 @@ class res_partner(osv.osv):
         partner_ids = self.search(cr, SUPERUSER_ID, [('email', '!=', False)])
         part_email_obj = self.pool.get('res.partner.email')
         for partner_id in partner_ids:
+            partner = self.browse(cr, SUPERUSER_ID, partner_id)
             _logger.info(
                 "Setting up multiple email '%s' record for client %s ." %
                 (partner.email, partner.name))
-            partner = self.browse(cr, SUPERUSER_ID, partner_id)
             try:
                 part_email_obj.create(cr, SUPERUSER_ID, {
                     'email': partner.email,
