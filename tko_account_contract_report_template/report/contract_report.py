@@ -49,7 +49,6 @@ class tko_contract_report(report_sxw.rml_parse):
         self.localcontext.update({
             'time': time,
             'compute_template_variables': self.compute_template_variables,
-
         })
 
     def compute_template_variables(self, object, text):
@@ -65,7 +64,18 @@ class tko_contract_report(report_sxw.rml_parse):
                     for field in block[0].split('.'):
                         try:
                             type = value._fields[field].type
-                            value = value[field]
+                            if type != 'selection':
+                                value = value[field]
+                            else:
+                                # get label for selection field
+                                value = str(
+                                    dict(
+                                        value._model.fields_get(
+                                            self.cr,
+                                            self.uid,
+                                            allfields=[field])[field]['selection'])[
+                                        unicode(
+                                            value[field]).encode('utf-8')])
                         except Exception as err:
                             value = (
                                 '<font color="red"><strong>[ERROR: Field %s doesn\'t exist  in %s]<strong></font>') % (err, value)
@@ -74,17 +84,8 @@ class tko_contract_report(report_sxw.rml_parse):
                                 (err, value))
                     if value:
                         if type != 'binary':
-                            if type == 'selection':
-                                # get lable of selection field instaed of key
-                                text = text.replace(
-                                    '$(' + match + ')s', str(
-                                        dict(
-                                            object.fields_get(
-                                                allfields=[field])[field]['selection'])[
-                                            unicode(value).encode('utf-8')]))
-                            else:
-                                text = text.replace(
-                                    '$(' + match + ')s', str(unicode(value).encode('utf-8')).decode('utf-8'))
+                            text = text.replace(
+                                '$(' + match + ')s', str(unicode(value).encode('utf-8')).decode('utf-8'))
 
                         else:
                             width, height = '', ''
