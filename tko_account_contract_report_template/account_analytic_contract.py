@@ -22,7 +22,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
+from openerp import models, fields, _
 from openerp.osv import osv
 
 
@@ -73,18 +73,20 @@ class account_analytic_account(models.Model):
 
     def action_contract_sent(self, cr, uid, ids, context=None):
         '''
-        This function opens a window to compose an email, with the edi invoice template message loaded by default
+        This function opens a window to compose an email, with the edi invoice
+        template message loaded by default
         '''
-        assert len(
-            ids) == 1, 'This option should only be used for a single id at a time.'
+        assert len(ids) == 1, \
+               'This option should only be used for a single id at a time.'
         ir_model_data = self.pool.get('ir.model.data')
         contract_obj = self.browse(cr, uid, ids[0])
         attach_obj = self.pool.get('ir.attachment')
-        contract_name = contract_obj.name + '-contract.pdf'
 
         try:
             template_id = ir_model_data.get_object_reference(
-                cr, uid, 'tko_account_contract_report_template', 'email_template_contract')[1]
+                cr, uid,
+                'tko_account_contract_report_template',
+                'email_template_contract')[1]
         except ValueError:
             template_id = False
         try:

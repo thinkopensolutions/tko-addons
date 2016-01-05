@@ -28,7 +28,8 @@
     'category': 'Account',
     'sequence': 1,
     'complexity': 'normal',
-    'description': '''This module will show invoice number even if invoice is cancelled.''',
+    'description': '''This module will show invoice number even if invoice is
+cancelled.''',
     'author': 'ThinkOpen Solutions Brasil',
     'license': 'AGPL-3',
     'website': 'http://www.tkobr.com',

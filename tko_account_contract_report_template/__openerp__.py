@@ -36,7 +36,8 @@
         'base',
         'analytic',
         'account_analytic_analysis',  # contract
-        'hr_timesheet_invoice',  # to place button <header> tag is created in this module
+        # to place button <header> tag is created in this module
+        'hr_timesheet_invoice',
     ],
     'init_xml': [],
     'data': [

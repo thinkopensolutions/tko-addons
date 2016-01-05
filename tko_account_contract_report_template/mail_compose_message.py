@@ -41,6 +41,9 @@ class mail_compose_message(osv.TransientModel):
         if active_model == 'account.analytic.account':
             active_ids = context.get('active_ids', [])
             if active_ids:
-                self.pool.get('account.analytic.account').write(cr, uid, active_ids, {
-                    'state': 'sent', 'date_contract_sent': datetime.now()}, context=context)
+                self.pool.get('account.analytic.account').write(cr, uid,
+                    active_ids, {
+                        'state': 'sent',
+                        'date_contract_sent': datetime.now()},
+                    context=context)
         return res
