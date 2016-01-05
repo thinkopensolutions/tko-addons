@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<templates id="template" xml:space="preserve">
+	
+	<!-- Inherit to add fixed discount in template-->
+	
+	 <t t-extend="Orderline">
+	    <t t-jquery="ul.info-list" t-operation="replace">
+			<ul class="info-list">
+                <t t-if="line.get_quantity_str() !== '1' || line.selected ">
+                    <li class="info">
+                        <em>
+                            <t t-esc="line.get_quantity_str()" />
+                        </em>
+                        <t t-esc="line.get_unit().name" />
+                        at
+                        <t t-esc="widget.format_currency(line.get_unit_price(),'Product Price')" />
+                        /
+                        <t t-esc="line.get_unit().name" />
+                    </li>
+                </t>
+                <t t-if="line.get_discount_str() !== '0'">
+                    <t t-if="line.get_discount_type() !== 'fi'">
+                        <li class="info">
+	                    	With a 
+	                        <em>
+	                            <t t-esc="line.get_discount_str()" />%
+	                        </em>
+	                        discount
+	                    </li>
+	               </t>
+	               <t t-if="line.get_discount_type() === 'fi'">
+                        <li class="info">
+	                    	With fixed
+	                        <em>
+	                            <t t-esc="line.get_discount_str()" />
+	                        </em> R$
+	                        discount
+	                    </li>
+	               </t>
+                </t>
+            </ul>
+				    	
+	    </t>
+	</t>
+
+
+    
+</templates>
