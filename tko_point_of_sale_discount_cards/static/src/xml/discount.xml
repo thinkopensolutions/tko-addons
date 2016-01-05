@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<templates id="template" xml:space="preserve">
+
+    <!-- Add Category Shortcut Widget on ProductScreen-->
+    <t t-extend="PaymentScreenWidget">
+        <t t-jquery="div.pos-payment-container" t-operation="prepend">
+            <div class="discount-card">
+                <div class="discount-card-label">Discount Cards</div>
+                <select class="discount-card-select">
+                    <option value="x">None</option>
+                    <t t-foreach="widget.pos.cards" t-as="card">
+                        <option class="discount-card-options"
+                            t-att-id="card.id"
+                            t-att-type="card.type"
+                            t-att-value="card.value"> 
+                            <t t-esc="card.name" />
+                        </option>
+                    </t>
+                </select>
+            </div>
+        </t>
+    </t>
+
+    <!-- add discount to OrderWidget -->
+    <t t-extend="OrderWidget">
+        <t t-jquery="div.subentry" t-operation="append">
+            <div class="discount">Discount: <span class="value">0.00€</span></div>
+        </t>
+    </t>
+
+</templates>

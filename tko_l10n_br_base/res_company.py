@@ -26,13 +26,14 @@ from openerp import fields, models, api, _
 from res_partner import AVAILABLE_ZONES
 from openerp import api, _
 
+
 class res_company(models.Model):
     _inherit = 'res.company'
-    
+
     @api.one
     def _get_address_data(self):
         return super(res_company, self)._get_address_data()
-    
+
     @api.one
     def _set_address_data(self):
         return super(res_company, self)._set_address_data()

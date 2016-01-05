@@ -28,7 +28,8 @@
     'category': 'Account',
     'sequence': 1,
     'complexity': 'normal',
-    'description': '''This module will show invoice number even if invoice is cancelled.''',
+    'description': '''This module will show invoice number even if invoice is
+cancelled.''',
     'author': 'ThinkOpen Solutions Brasil',
     'license': 'AGPL-3',
     'website': 'http://www.tkobr.com',
@@ -37,14 +38,16 @@
                 'account_cancel',
                 ],
     'data': [
-             'invoice_cancel_view.xml',
-             ],
+        'invoice_cancel_view.xml',
+    ],
     'init': [],
     'demo': [],
     'update': [],
     'test': [],  # YAML files with tests
     'installable': True,
     'application': False,
-    'auto_install': False,  # If it's True, the modules will be auto-installed when all dependencies are installed
+    # If it's True, the modules will be auto-installed when all dependencies
+    # are installed
+    'auto_install': False,
     'certificate': '',
 }

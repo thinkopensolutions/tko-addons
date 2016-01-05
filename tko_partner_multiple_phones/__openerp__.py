@@ -36,22 +36,24 @@ This module don't break phone functionality because it keeps the phone char fiel
     'author': 'ThinkOpen Solutions Brasil',
     'website': 'http://www.tkobr.com',
     'images': ['images/oerp61.jpeg',
-              ],
+               ],
     'depends': [
-                'base',
-                ],
+        'base',
+    ],
     'data': [
-             'security/ir.model.access.csv',
-             'tko_partner_phones_view.xml',
-             'res_partner_view.xml',
-             'data/phone_type_data.xml'
-             ],
+        'security/ir.model.access.csv',
+        'tko_partner_phones_view.xml',
+        'res_partner_view.xml',
+        'data/phone_type_data.xml'
+    ],
     'init': [],
     'demo': [],
     'update': [],
     'test': [],  # YAML files with tests
     'installable': True,
     'application': False,
-    'auto_install': False,  # If it's True, the modules will be auto-installed when all dependencies are installed
+    # If it's True, the modules will be auto-installed when all dependencies
+    # are installed
+    'auto_install': False,
     'certificate': '',
 }
