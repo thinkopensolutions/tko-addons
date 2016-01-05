@@ -70,10 +70,12 @@ class pos_session(models.Model):
 class pos_config(models.Model):
     _inherit = 'pos.config'
 
-    com_port = fields.Selection(SERIAL_PORTS, 'COM Port', required=True)
-    printer_model = fields.Selection(
-        PRINTER_MODELS, 'Printer Model', required=True)
-    baudrate = fields.Integer('Baudrate', required=True, default=9600)
+    com_port = fields.Selection(SERIAL_PORTS, 'COM Port',
+                                required=True, default='COM2')
+    printer_model = fields.Selection(PRINTER_MODELS, 'Printer Model',
+                                     required=True, default='13')
+    baudrate = fields.Integer('Baudrate',
+                              required=True, default=9600)
     confirm_payment = fields.Boolean(string='Confirm Payment', default=True)
 
 
