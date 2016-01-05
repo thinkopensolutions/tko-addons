@@ -27,11 +27,13 @@ from openerp.osv import osv, fields
 
 class invoice(osv.osv):
     _inherit = 'account.invoice'
-    
+
     def invoice_pay_customer(self, cr, uid, ids, context=None):
         if not ids:
             return []
         inv = self.browse(cr, uid, ids[0], context=context)
-        res = super(invoice, self).invoice_pay_customer(cr, uid, ids, context=None)
+        res = super(
+            invoice, self).invoice_pay_customer(
+            cr, uid, ids, context=None)
         res['context'].update({'default_reference': inv.number})
         return res

@@ -30,33 +30,46 @@ class res_partner_phone(osv.osv):
     _description = "partner phone numbers"
     _rec_name = "phone"
     _columns = {
-        'phone': fields.char('Number', size=64, required=True),
-        'res_partner_id': fields.many2one('res.partner', 'Partner ID', ondelete="cascade"),
-        'type_id': fields.many2one('res.partner.phone.type', 'Type', required=True),
-        'is_active':fields.boolean('Is Active'),
-        }
-    
+        'phone': fields.char(
+            'Number',
+            size=64,
+            required=True),
+        'res_partner_id': fields.many2one(
+            'res.partner',
+            'Partner ID',
+            ondelete="cascade"),
+        'type_id': fields.many2one(
+            'res.partner.phone.type',
+            'Type',
+            required=True),
+        'is_active': fields.boolean('Is Active'),
+    }
+
     _order = 'phone'
-    
-    
+
     _defaults = {
-                 
-                 'is_active':False
-                 }
-    _sql_constraints = [('unique_phone_no', 'unique(res_partner_id,phone)', "Phone number should be unique !"),
-                      ]
+
+        'is_active': False
+    }
+    _sql_constraints = [
+        ('unique_phone_no',
+         'unique(res_partner_id,phone)',
+         "Phone number should be unique !"),
+    ]
     _constraints = []
-    
+
     def set_partner_phone(self, cr, uid, ids, context=None):
         res = {}
         for record in self.browse(cr, uid, ids):
-            phone_ids = self.search(cr, uid, [('res_partner_id', '=', record.res_partner_id.id), ('type_id', '=', record.type_id.id)])
-            self.write(cr, uid, phone_ids, {'is_active' : False})
-            self.write(cr, uid, ids, {'is_active' : 't'})
+            phone_ids = self.search(
+                cr, uid, [
+                    ('res_partner_id', '=', record.res_partner_id.id), ('type_id', '=', record.type_id.id)])
+            self.write(cr, uid, phone_ids, {'is_active': False})
+            self.write(cr, uid, ids, {'is_active': 't'})
         return {
-                'type': 'ir.actions.client',
-                'tag': 'reload',
-                }
+            'type': 'ir.actions.client',
+            'tag': 'reload',
+        }
 
 
 class res_partner_phone_type(osv.osv):
@@ -65,6 +78,4 @@ class res_partner_phone_type(osv.osv):
     _columns = {
         'name': fields.char('Type', size=64, required=True),
         'code': fields.char('Code', size=64, required=True, readonly=True),
-        }
-    
-    
+    }

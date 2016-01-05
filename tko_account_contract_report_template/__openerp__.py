@@ -31,24 +31,25 @@
     'description': '''Account Contract Report.''',
     'author': 'ThinkOpen Solutions Brasil',
     'website': 'http://www.thinkopensolution.com',
-    'images': ['images/oerp61.jpeg',],
+    'images': ['images/oerp61.jpeg', ],
     'depends': [
-                'base',
-                'analytic',
-                'account_analytic_analysis',#contract
-                'hr_timesheet_invoice', # to place button <header> tag is created in this module
-                ],
+        'base',
+        'analytic',
+        'account_analytic_analysis',  # contract
+        # to place button <header> tag is created in this module
+        'hr_timesheet_invoice',
+    ],
     'init_xml': [],
     'data': [
-             'data/contract_data_view.xml',
-             'security/ir.model.access.csv',
-             'report/contract_report_view.xml',
-             'report/contract_report_template_view.xml',
-             'wizard/contract_template_wizard_view.xml',
-             'contract_mail_template.xml',
-             'account_analytic_contract_view.xml',
-             
-             ],
+        'data/contract_data_view.xml',
+        'security/ir.model.access.csv',
+        'report/contract_report_view.xml',
+        'report/contract_report_template_view.xml',
+        'wizard/contract_template_wizard_view.xml',
+        'contract_mail_template.xml',
+        'account_analytic_contract_view.xml',
+
+    ],
     'demo_xml': [],
     'installable': True,
     'application': False,

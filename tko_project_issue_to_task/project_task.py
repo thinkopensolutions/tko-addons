@@ -27,7 +27,7 @@ from openerp.osv import osv, fields
 
 class project_task(osv.osv):
     _inherit = "project.task"
-    
+
     _columns = {
-                'issue_id':fields.many2one('project.issue', 'Issue')
-                }
+        'issue_id': fields.many2one('project.issue', 'Issue')
+    }

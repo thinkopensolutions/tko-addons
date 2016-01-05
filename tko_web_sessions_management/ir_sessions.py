@@ -47,50 +47,53 @@ _logger = logging.getLogger(__name__)
 
 LOGOUT_TYPES = [('ul', 'User Logout'),
                 ('to', 'Session Timeout'),
-                ('sk', 'Session Killed'),]
+                ('sk', 'Session Killed'), ]
+
 
 class ir_sessions(osv.osv):
     _name = 'ir.sessions'
     _description = "Sessions"
-    
+
     _columns = {
-        'user_id' : fields.many2one('res.users', 'User', ondelete='cascade',
-            required=True),
+        'user_id': fields.many2one('res.users', 'User', ondelete='cascade',
+                                   required=True),
         'logged_in': fields.boolean('Logged in', required=True, index=True),
-        'session_id' : fields.char('Session ID', size=100, required=True),
+        'session_id': fields.char('Session ID', size=100, required=True),
         'session_seconds': fields.integer('Session duration in seconds'),
         'multiple_sessions_block': fields.boolean('Block Multiple Sessions'),
         'date_login': fields.datetime('Login', required=True),
         'expiration_date': fields.datetime('Expiration Date', required=True,
-            index=True),
+                                           index=True),
         'date_logout': fields.datetime('Logout'),
         'logout_type': fields.selection(LOGOUT_TYPES, 'Logout Type'),
         'session_duration': fields.char('Session Duration', size=8),
-        'user_kill_id' : fields.many2one('res.users', 'Killed by',),
-        'unsuccessful_message' : fields.char('Unsuccessful', size=252),
+        'user_kill_id': fields.many2one('res.users', 'Killed by',),
+        'unsuccessful_message': fields.char('Unsuccessful', size=252),
         'ip': fields.char('Remote IP', size=15),
         'ip_location': fields.char('IP Location',),
-        'remote_tz' : fields.char('Remote Time Zone', size=32, required=True),
+        'remote_tz': fields.char('Remote Time Zone', size=32, required=True),
         # Add other fields about the sessions from HEADER...
-        }
-    
+    }
+
     _order = 'logged_in desc, expiration_date desc'
-    
+
     # scheduler function to validate users session
     def validate_sessions(self, cr, uid, context=None):
         ids = self.search(cr, SUPERUSER_ID,
-            [('expiration_date', '<=', fields.datetime.now()),
-             ('logged_in', '=', True)])
+                          [('expiration_date', '<=', fields.datetime.now()),
+                           ('logged_in', '=', True)])
         if ids:
             self.browse(cr, SUPERUSER_ID, ids)._close_session(logout_type='to')
         return True
-    
+
     @api.multi
     def action_close_session(self):
         redirect = self._close_session(logout_type='sk')
         if redirect:
-            return werkzeug.utils.redirect('/web/login?db=%s' % self.env.cr.dbname, 303)
-    
+            return werkzeug.utils.redirect(
+                '/web/login?db=%s' %
+                self.env.cr.dbname, 303)
+
     @api.multi
     def _on_session_logout(self, logout_type=None):
         now = fields.datetime.now()
@@ -102,17 +105,27 @@ class ir_sessions(osv.osv):
         # of them rolled back due to a concurrent access.)
         cr.autocommit(True)
         for r in self:
-            session_obj.write(cr, SUPERUSER_ID, r.id,
-                    {'logged_in': False,
-                     'date_logout': now,
-                     'logout_type': logout_type,
-                     'user_kill_id': SUPERUSER_ID,
-                     'session_duration': str(datetime.strptime(now, DEFAULT_SERVER_DATETIME_FORMAT) - datetime.strptime(r.date_login, DEFAULT_SERVER_DATETIME_FORMAT)),
-                     })
+            session_obj.write(
+                cr,
+                SUPERUSER_ID,
+                r.id,
+                {
+                    'logged_in': False,
+                    'date_logout': now,
+                    'logout_type': logout_type,
+                    'user_kill_id': SUPERUSER_ID,
+                    'session_duration': str(
+                        datetime.strptime(
+                            now,
+                            DEFAULT_SERVER_DATETIME_FORMAT) -
+                        datetime.strptime(
+                            r.date_login,
+                            DEFAULT_SERVER_DATETIME_FORMAT)),
+                })
         cr.commit()
         cr.close()
         return True
-        
+
     @api.multi
     def _close_session(self, logout_type=None):
         redirect = False
@@ -122,4 +135,3 @@ class ir_sessions(osv.osv):
             session = root.session_store.get(r.session_id)
             session.logout(logout_type=logout_type, env=self.env)
         return redirect
-        

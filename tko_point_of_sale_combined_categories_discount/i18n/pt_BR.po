@@ -1,0 +1,127 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* tko_point_of_sale_combined_categories_discount
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0-20150322\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-05-08 06:02+0000\n"
+"PO-Revision-Date: 2015-05-08 06:02+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: tko_point_of_sale_combined_categories_discount
+#: model:ir.actions.act_window,name:tko_point_of_sale_combined_categories_discount.pos_category_combo_action
+#: model:ir.ui.menu,name:tko_point_of_sale_combined_categories_discount.pos_disc_card_menu
+msgid "Category Combo Discount"
+msgstr "Descontos Combo"
+
+#. module: tko_point_of_sale_combined_categories_discount
+#: field:pos.category.combo,create_uid:0
+msgid "Created by"
+msgstr "Criado por"
+
+#. module: tko_point_of_sale_combined_categories_discount
+#: field:pos.category.combo,create_date:0
+msgid "Created on"
+msgstr "Criado em"
+
+#. module: tko_point_of_sale_combined_categories_discount
+#: field:pos.category.combo,disc_category_id:0
+msgid "Discount Category"
+msgstr "Categoria de Desconto"
+
+#. module: tko_point_of_sale_combined_categories_discount
+#: selection:pos.category.combo,type:0
+msgid "Fixed"
+msgstr "Fixo"
+
+#. module: tko_point_of_sale_combined_categories_discount
+#: field:pos.category.combo,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: tko_point_of_sale_combined_categories_discount
+#: view:pos.category.combo:tko_point_of_sale_combined_categories_discount.pos_category_combo_form
+msgid "Language Skill"
+msgstr "Language Skill"
+
+#. module: tko_point_of_sale_combined_categories_discount
+#: field:pos.category.combo,write_uid:0
+msgid "Last Updated by"
+msgstr "Última Atualização por"
+
+#. module: tko_point_of_sale_combined_categories_discount
+#: field:pos.category.combo,write_date:0
+msgid "Last Updated on"
+msgstr "Última Atualização em"
+
+#. module: tko_point_of_sale_combined_categories_discount
+#: field:pos.category.combo,main_category_id:0
+msgid "Main Category"
+msgstr "Categoria Principal"
+
+#. module: tko_point_of_sale_combined_categories_discount
+#: selection:pos.category.combo,type:0
+msgid "Percentage"
+msgstr "Percentagem"
+
+#. module: tko_point_of_sale_combined_categories_discount
+#. openerp-web
+#: code:addons/tko_point_of_sale_combined_categories_discount/static/src/xml/order_view.xml:35
+#, python-format
+msgid "R$\n"
+"	                        desconto"
+msgstr "R$\n"
+"	                        desconto"
+
+#. module: tko_point_of_sale_combined_categories_discount
+#: field:pos.category.combo,type:0
+msgid "Type"
+msgstr "Tipo"
+
+#. module: tko_point_of_sale_combined_categories_discount
+#: field:pos.category.combo,value:0
+msgid "Value"
+msgstr "Valor"
+
+#. module: tko_point_of_sale_combined_categories_discount
+#. openerp-web
+#: code:addons/tko_point_of_sale_combined_categories_discount/static/src/xml/order_view.xml:24
+#, python-format
+msgid "With a"
+msgstr "Com"
+
+#. module: tko_point_of_sale_combined_categories_discount
+#. openerp-web
+#: code:addons/tko_point_of_sale_combined_categories_discount/static/src/xml/order_view.xml:33
+#, python-format
+msgid "With fixed"
+msgstr "Com"
+
+#. module: tko_point_of_sale_combined_categories_discount
+#: code:addons/tko_point_of_sale_combined_categories_discount/pos_category_combo.py:14
+#: sql_constraint:pos.category.combo:0
+#, python-format
+msgid "You already have a combo with current selected categories"
+msgstr "Você já tem um combo criado com estas mesmas categorias"
+
+#. module: tko_point_of_sale_combined_categories_discount
+#. openerp-web
+#: code:addons/tko_point_of_sale_combined_categories_discount/static/src/xml/order_view.xml:15
+#, python-format
+msgid "at"
+msgstr "a"
+
+#. module: tko_point_of_sale_combined_categories_discount
+#. openerp-web
+#: code:addons/tko_point_of_sale_combined_categories_discount/static/src/xml/order_view.xml:26
+#, python-format
+msgid "discount"
+msgstr "desconto"
+
