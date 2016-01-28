@@ -14,7 +14,7 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
 	module.PosModel.prototype.models.push(
 			{
 	            model:  'pos.category.combo',
-	            fields: ['main_category_id','disc_category_id', 'type', 'value', 'company_id' ],
+	            fields: ['main_category_id','disc_category_id', 'type', 'value', 'company_id','company_ids'],
 	            loaded: function(self,combos){ 
 	            	self.combos = combos;
 	            }
@@ -163,7 +163,7 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
                 	_.each(combos,function(combos){
 //                		create array having [main_categ, disc_categ, type, value]
                 		//to keep combos functioning for multi company
-                		if (combos.company_id[0] === this.posmodel.company.id)
+                		if (combos.company_ids.indexOf(this.posmodel.company.id) !== -1)
                 		{
                 			combo_ids.push([combos.main_category_id[0], combos.disc_category_id[0], combos.type, combos.value ]);
                 		}
