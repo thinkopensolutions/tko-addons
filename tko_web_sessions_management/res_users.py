@@ -59,7 +59,8 @@ class res_users(osv.osv):
                                              order='expiration_date asc',
                                              context=request.context)
             if session_ids:
-                if request.httprequest.path[:5] == '/web/':
+                if request.httprequest.path[:5] == '/web/' or \
+                   request.httprequest.path[:9] == '/im_chat/':
                     open_sessions = session_obj.read(cr, uid,
                                                      session_ids, ['logged_in',
                                                                    'date_login',
