@@ -39,12 +39,35 @@ class pos_category_combo(models.Model):
         [('p', 'Percentage'), ('fi', 'Fixed')], string='Type', required=True)
     value = fields.Float('Value', required=True)
     company_id = fields.Many2one('res.company', string='Company')
+    company_ids = fields.Many2many('res.company', string='Company')
 
     _sql_constraints = [
         ('category_combo_unique',
          'unique(main_category_id, disc_category_id,company_id)',
          _('You already have a combo with current selected categories')),
     ]
+    
+    @api.multi
+    def set_company_ids(self):
+        combo_ids = self.search([])
+        combo_dict= {}
+        try:
+            for combo in combo_ids:
+                comapny_ids = []
+                duplicates = self.search([('main_category_id','=',combo.main_category_id.id),('disc_category_id','=',combo.disc_category_id.id)])
+                for duplicate in duplicates:
+                    comapny_ids.append(duplicate.company_id.id)
+                duplicates_with_no_original = duplicates - combo
+                combo.write({'company_ids' : [(6,0,comapny_ids)]})
+                duplicates_with_no_original.unlink()
+                print "deleting..................",duplicates_with_no_original
+                print "saving========================",combo
+        except:
+            print "duplciate not foudn.....................",combo
+            
+        return True
+                
+        
 
 
 # adding field becuase we need to have values of combo ids even if no
@@ -76,7 +99,6 @@ class pos_config(models.Model):
         for records in self:
             combo_ids = self.env['pos.category.combo'].search(
                 [('company_id', '=', records.company_id.id)])
-            print "combo ids.................", combo_ids, records.company_id
             records.combo_ids = [
                 (6, 0, [combo_id.id for combo_id in combo_ids])]
 

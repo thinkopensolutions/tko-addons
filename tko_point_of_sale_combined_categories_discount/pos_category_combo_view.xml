@@ -32,9 +32,10 @@
 						<field name="disc_category_id"/>
 						<field name="type"/>
 						<field name="value"/>
-						<field name="company_id" required="1"/>
 					</group>
-					
+					<group string="Allowed Companies">
+						<field name="company_ids" options="{'no_create' : True}" required="1" nolabel="1"/>
+					</group>
 				</form>
 			</field>
 		</record>
