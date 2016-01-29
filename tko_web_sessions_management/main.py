@@ -133,17 +133,17 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
                                         calendar_group = group.name
                                 if sessions and group.multiple_sessions_block and multi_ok:
                                     multi_ok = False
-                                    unsuccessful_message = "unsuccessful login from '%s', multisessions block defined in group '%s'" % (
+                                    unsuccessful_message = _("unsuccessful login from '%s', multisessions block defined in group '%s'") % (
                                         request.params['login'], group.name)
                                     break
                             if calendar_set > 0 and calendar_ok == False:
-                                unsuccessful_message = "unsuccessful login from '%s', user time out of allowed calendar defined in group '%s'" % (
+                                unsuccessful_message = _("unsuccessful login from '%s', user time out of allowed calendar defined in group '%s'") % (
                                     request.params['login'], calendar_group)
                     else:
-                        unsuccessful_message = "unsuccessful login from '%s', multisessions block defined in user" % request.params[
+                        unsuccessful_message = _("unsuccessful login from '%s', multisessions block defined in user") % request.params[
                             'login']
             else:
-                unsuccessful_message = "unsuccessful login from '%s', wrong username or password" % request.params[
+                unsuccessful_message = _("unsuccessful login from '%s', wrong username or password") % request.params[
                     'login']
             if not unsuccessful_message or uid is SUPERUSER_ID:
                 self.save_session(
@@ -164,11 +164,11 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
                 request.context)
             _logger.error(unsuccessful_message)
             request.uid = old_uid
-            values['error'] = 'Login failed due to one of the following reasons:'
-            values['reason1'] = '- Wrong login/password'
-            values['reason2'] = '- User not allowed to have multiple logins'
+            values['error'] = _('Login failed due to one of the following reasons:')
+            values['reason1'] = _('- Wrong login/password')
+            values['reason2'] = _('- User not allowed to have multiple logins')
             values[
-                'reason3'] = '- User not allowed to login at this specific time or day'
+                'reason3'] = _('- User not allowed to login at this specific time or day')
         return request.render('web.login', values)
 
     def save_session(
