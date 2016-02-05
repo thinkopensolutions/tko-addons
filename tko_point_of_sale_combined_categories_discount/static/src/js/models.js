@@ -76,6 +76,10 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
 	        return res;
 	    },
 	    
+	    // we do not want to merge newly added product, it becomes easier to discount multiple quantities of same product
+	    can_be_merged_with: function(quantity){
+	    	return false;
+	    },
 	    
 	    //this method clears discounted paired 
 	    set_quantity: function(quantity){
