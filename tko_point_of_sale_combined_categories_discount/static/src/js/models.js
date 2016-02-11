@@ -5,8 +5,8 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
 	
 	//to load for server disconnection
 	module.PosModel.prototype.models.filter(function (m)
-			 { return m.model === 'pos.category'; }).map(function (m) {
-			  return m.fields.push('category_type'), 
+			 { return m.model === 'pos.session'; }).map(function (m) {
+			  return m.fields.push('combo_ids'), 
 			  m;
 			   });
 	//no need to load this model, we can't use without connection
