@@ -5,11 +5,10 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
 	
 	//to load for server disconnection
 	module.PosModel.prototype.models.filter(function (m)
-			 { return m.model === 'pos.session'; }).map(function (m) {
-			  return m.fields.push('combo_ids'), 
+			 { return m.model === 'pos.category'; }).map(function (m) {
+			  return m.fields.push('category_type'), 
 			  m;
 			   });
-	
 	//no need to load this model, we can't use without connection
 	module.PosModel.prototype.models.push(
 			{
@@ -161,6 +160,9 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
             var flag = false;
             var currentline = line;
             if(categ_id) {
+            	// this variable holds category type 'm' for main and 'd' for discount
+            	// each category must have category type
+            	category_type = this.pos.db.get_category_by_id(categ_id).category_type
             	if(this.pos){
             		var combos = this.pos.combos;
             		//get all combo options 
@@ -179,58 +181,37 @@ function pos_category_combo_discount(instance, module){ //module is instance.poi
             		
             		return combo.indexOf(categ_id) !== -1;
             	});
-            	//make discount on applicable line set line to be discounted
-            	_.each(filter_combo_ids,function(combos){
-//            		get other pair of current product's category id and search for that in exisiting lines
-            		var discount_type = combos[2];
-                    var disc_value = combos[3];
-                    if (combos.indexOf(categ_id) === 0){
-            			pair_index = 1
-            		}
-            		else{
-            			pair_index = 0
-            		}
-            		pair_categ_id = combos[pair_index];
-                    //search for all lines which are not discounted and having categ_id as pair_categ_id 
-                    _.each(orderlines, function(line){
-
-                        //if undiscounted but deserving lines
-                        if (line.categ_id === pair_categ_id && line.discounted === false && !flag)
-                        {
-                            //check if last created or search line to be discounted
-                            if (pair_index === 1){ //give discount to searched line
-                                line_to_discount = line;
-                            }
-                            else{
-                                line_to_discount = currentline;
-                            }
-
-                            if (discount_type === 'fi'){
-                                line_to_discount.discount_type = 'fi';
-                                line_to_discount.discountStr = 'fixed discount';
-                                //set discount type for line
-                                line.discount_type = 'fi';
-                            }
-                            else{
-                            	line.discount_type = 'p';
-                            }
-
-                            //set discount and mark this line to be true
-                            line_to_discount.set_discount(disc_value);
-                            //line_to_discount.pos.pos_widget.order_widget.update_summary()
-                            line.discounted = true;
-                            currentline.discounted = true;
-                            flag = true;
-                            
-                            //set paired line
-                            currentline.paired = line
-                            line.paired = currentline
-
-                        }
-                    });
-            		
-//            		check if there is any line in order with id other than current product categ_id belonging to this array
-            	});
+            	
+            	// iterate over all combos and set applicable discount
+        		_.each(filter_combo_ids,function(combo){
+        			var discount_type = combo[2];
+        			var disc_value = combo[3];
+        			_.each(orderlines, function(line){
+            			if ((line.categ_id) === combo[0]){
+            				// search discounted line against this main product if not found and exists then discount it
+            				var found = false;
+            				for (i =0; i < orderlines.length; i++){
+                		    	if(orderlines[i].categ_id === combo[1] && orderlines[i].discounted === true  && orderlines[i].paired === line)
+                		    	{
+                		    		found = true;
+                		    		break;
+                		    	}
+            				}
+                		    if (found === false){
+                		    	for (i =0; i < orderlines.length; i++){
+                    		    	if(orderlines[i].categ_id === combo[1] && orderlines[i].discounted === false){
+                    		    		orderlines[i].discount_type = discount_type;
+                    		    		orderlines[i].set_discount(disc_value);
+                    		    		orderlines[i].paired = line;
+                    		    		orderlines[i].discounted = true;
+                    		    		break;
+                    		    	}
+                				}
+                		    }
+                		    	
+            			}
+            		});
+        		});
             	}
             	
             
