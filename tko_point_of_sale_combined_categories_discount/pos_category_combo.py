@@ -47,29 +47,7 @@ class pos_category_combo(models.Model):
          _('You already have a combo with current selected categories')),
     ]
     
-    @api.multi
-    def set_company_ids(self):
-        combo_ids = self.search([])
-        combo_dict= {}
-        try:
-            for combo in combo_ids:
-                comapny_ids = []
-                duplicates = self.search([('main_category_id','=',combo.main_category_id.id),('disc_category_id','=',combo.disc_category_id.id)])
-                for duplicate in duplicates:
-                    comapny_ids.append(duplicate.company_id.id)
-                duplicates_with_no_original = duplicates - combo
-                combo.write({'company_ids' : [(6,0,comapny_ids)]})
-                duplicates_with_no_original.unlink()
-                print "deleting..................",duplicates_with_no_original
-                print "saving========================",combo
-        except:
-            print "duplciate not foudn.....................",combo
-            
-        return True
-                
-        
-
-
+   
 # adding field becuase we need to have values of combo ids even if no
 # internet connection
 
@@ -144,18 +122,6 @@ class pos_order_line(models.Model):
 # This code below checks orders in 'New' Stage validates them with workflow
 class pos_order(osv.osv):
     _inherit = 'pos.order'
-    #=========================================================================
-    # #this method validates orders if total and payment info matches
-    # def validate_old_orders(self, cr, uid, ids, context = None):
-    #     pos_obj = self.pool.get('pos.order')
-    #     _logger.info("searching orders in new stage............")
-    #     order_ids = pos_obj.search(cr ,uid, [('state','=','draft')])
-    #     for order_id in order_ids:
-    #         if pos_obj.test_paid(cr, uid, [order_id]):
-    #                 _logger.info("searching orders in new stage............%s"%(order_id))
-    #                 pos_obj.signal_workflow(cr, uid, [order_id], 'paid')
-    #     return True
-    #=========================================================================
 
     # this method corrects payment info based on total of order
     def validate_old_orders(self, cr, uid, ids, context=None):
