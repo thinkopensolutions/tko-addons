@@ -4,8 +4,8 @@
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
 #
-#    Thinkopen Brasil
-#    Copyright (C) Thinkopen Solutions Brasil (<http://www.tkobr.com>).
+#    ThinkOpen Solutions Brasil
+#    Copyright (C) Thinkopen Solutions <http://www.tkobr.com>.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -22,5 +22,13 @@
 #
 ##############################################################################
 
-import res_company
-import res_partner
+from openerp import models, api, fields, _
+
+class res_partner(models.Model):
+    _inherit = 'res.partner'
+    
+    @api.model
+    def create(self,vals):
+        if 'cnpj_cpf'  in vals.keys() and not vals['cnpj_cpf']:
+            vals.pop('cnpj_cpf') 
+        return super(res_partner,self).create(vals)
