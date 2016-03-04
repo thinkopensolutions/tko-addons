@@ -48,7 +48,7 @@
 					<field name="disc_category_id"/>
 					<field name="type"/>
 					<field name="value"/>
-					<field name="company_id" required="1"/>
+					<field name="company_ids" required="1"/>
 				</tree>
 			</field>
 		</record>
