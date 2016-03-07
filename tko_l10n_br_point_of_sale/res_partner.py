@@ -29,6 +29,6 @@ class res_partner(models.Model):
     
     @api.model
     def create(self,vals):
-        if 'cnpj_cpf'  in vals.keys() and not vals['cnpj_cpf']:
+        if 'cnpj_cpf'  in vals.keys() and not vals['cnpj_cpf'] or vals['cnpj_cpf'] == 'false':
             vals.pop('cnpj_cpf') 
         return super(res_partner,self).create(vals)
