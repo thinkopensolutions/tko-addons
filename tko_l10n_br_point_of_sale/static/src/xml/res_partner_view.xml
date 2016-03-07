@@ -18,7 +18,7 @@
 	    <t t-jquery="div.client-details-left" t-operation="prepend">
 	       <div class='client-detail'>
                 <span class='label'>CNPJ/CPF</span>
-                <input class='detail client-cpf-cnpj' name='cnpj_cpf'       t-att-value='partner.cnpj_cpf' placeholder='CNPJ/CPF'></input>
+                <input class='detail client-cpf-cnpj' name='cnpj_cpf' t-att-value='partner.cnpj_cpf || ""' placeholder='CNPJ/CPF'></input>
             </div>
 	    </t>
 	</t>
@@ -28,7 +28,7 @@
 	    <t t-jquery="div.client-details-left" t-operation="prepend">
 	       <div class='client-detail'>
                 <span class='label'>CNPJ/CPF</span>
-                <input class='detail client-cpf-cnpj' name='cnpj_cpf'       t-att-value='partner.cnpj_cpf' placeholder='CNPJ/CPF'></input>
+                <input class='detail client-cpf-cnpj' name='cnpj_cpf'  t-att-value='partner.cnpj_cpf || ""' readonly = "readonly" placeholder='CNPJ/CPF'></input>
             </div>
 	    </t>
 	</t>
