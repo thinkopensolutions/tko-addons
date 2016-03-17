@@ -65,6 +65,7 @@ class res_partner(osv.osv):
         if isinstance(ids, int):
             ids = [ids]
         if len(ids):
+            ids = ids[0]
             phone_obj = self.pool.get('res.partner.phone')
             phone_type_id = self.pool.get('res.partner.phone.type').search(
                 cr, uid, [('code', '=', 'phone')])
