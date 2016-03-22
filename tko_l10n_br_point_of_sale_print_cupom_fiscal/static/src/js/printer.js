@@ -70,7 +70,7 @@ function tko_pos_print_receipt(instance, module){ //module is instance.point_of_
 
 			});
 			// add print button in right header 
-			this.print_button.appendTo(this.$('.pos-rightheader'));
+			//this.print_button.appendTo(this.$('.pos-rightheader'));
 			
 		}
 	});
