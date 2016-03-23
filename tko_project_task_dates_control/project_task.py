@@ -39,15 +39,14 @@ class project_task(models.Model):
     @api.multi
     def write(self, vals):
         for record in self:
-            res = super(project_task, record).write(vals)
             if 'stage_id' in vals:
                 if record.stage_id.stage_type == 'i' and not record.date_initiated:
                     vals.update(
                         {'date_start': fields.datetime.now(), 'date_initiated': True})
                 elif record.stage_id.stage_type == 'f' or record.stage_id.stage_type == 'c':
                     vals.update({'date_end': fields.datetime.now()})
-                res = super(project_task, record).write(vals)
-            return record
+            res = super(project_task, record).write(vals)
+            return res
 
     # not working correctly , added 1 extra day to get correct date
     @api.onchange('date_deadline')
