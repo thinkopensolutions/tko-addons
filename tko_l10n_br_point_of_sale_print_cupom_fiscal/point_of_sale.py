@@ -66,7 +66,18 @@ class pos_session(models.Model):
         related="config_id.confirm_payment",
         default=True)
 
+class pos_config_journal_tko_rel(models.Model):
+    _name = 'pos.config.journal.tko.rel'
+    
+    journal_id = fields.Many2one('account.journal', string=u'Payment Method')
+    config_id = fields.Many2one('pos.config', string=u'POS Config')
+    fiscal_code = fields.Integer(u'Fiscal Code')
 
+    _sql_constraints = [
+        ('journal_pos_uniq', 'unique (journal_id,config_id)',
+         'Duplicate Payment method in POS')
+    ]
+    
 class pos_config(models.Model):
     _inherit = 'pos.config'
 
@@ -77,8 +88,19 @@ class pos_config(models.Model):
     baudrate = fields.Integer('Baudrate',
                               required=True, default=9600)
     confirm_payment = fields.Boolean(string='Confirm Payment', default=True)
-
-
+    tko_journal_ids = fields.One2many('pos.config.journal.tko.rel', 'config_id', string = u'Journal')
+    
+    
+    @api.constrains('tko_journal_ids','journal_ids')
+    def _check_fiscal_codes(self):
+        """
+        replace_product_id must not be an obsolete product.
+        """
+        if self.replace_product_id and \
+                self.replace_product_id.state2 in ['obsolete']:
+            raise ValidationError(
+                _("The replacement line replace product can not be a"
+                  " obsolete product"))
 class pos_order(models.Model):
     _inherit = 'pos.order'
 
