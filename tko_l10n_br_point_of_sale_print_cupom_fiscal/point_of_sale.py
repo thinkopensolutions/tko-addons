@@ -23,6 +23,7 @@
 ##############################################################################
 from openerp import models, api, fields, _
 import logging
+from openerp.exceptions import Warning
 _logger = logging.getLogger(__name__)
 
 PRINTER_MODELS = [('1', 'Não Fiscal'),
@@ -65,6 +66,7 @@ class pos_session(models.Model):
         string='Confirm Payment',
         related="config_id.confirm_payment",
         default=True)
+    default_fiscal_code = fields.Integer('Default Fiscal Code', related="config_id.default_fiscal_code", required=True, help="If no fiscal code is matched default one is passed to fiscal printer")
 
 class pos_config_journal_tko_rel(models.Model):
     _name = 'pos.config.journal.tko.rel'
@@ -72,7 +74,7 @@ class pos_config_journal_tko_rel(models.Model):
     journal_id = fields.Many2one('account.journal', string=u'Payment Method')
     config_id = fields.Many2one('pos.config', string=u'POS Config')
     fiscal_code = fields.Integer(u'Fiscal Code')
-
+    
     _sql_constraints = [
         ('journal_pos_uniq', 'unique (journal_id,config_id)',
          'Duplicate Payment method in POS')
@@ -88,19 +90,17 @@ class pos_config(models.Model):
     baudrate = fields.Integer('Baudrate',
                               required=True, default=9600)
     confirm_payment = fields.Boolean(string='Confirm Payment', default=True)
-    tko_journal_ids = fields.One2many('pos.config.journal.tko.rel', 'config_id', string = u'Journal')
+    default_fiscal_code = fields.Integer('Default Fiscal Code', default=0, required=True, help="If no fiscal code is matched default one is passed to fiscal printer")
+    tko_journal_ids = fields.One2many('pos.config.journal.tko.rel', 'config_id', string = u'Journal', ondelete="cascade")
     
     
     @api.constrains('tko_journal_ids','journal_ids')
     def _check_fiscal_codes(self):
         """
-        replace_product_id must not be an obsolete product.
+        Validate fiscal codes in payment methods
         """
-        if self.replace_product_id and \
-                self.replace_product_id.state2 in ['obsolete']:
-            raise ValidationError(
-                _("The replacement line replace product can not be a"
-                  " obsolete product"))
+        if len(self.tko_journal_ids) != len(self.journal_ids):
+            raise Warning(_("Please Define fiscal codes for each payment method"))
 class pos_order(models.Model):
     _inherit = 'pos.order'
 
