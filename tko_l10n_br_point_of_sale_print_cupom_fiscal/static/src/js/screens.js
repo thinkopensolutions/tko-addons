@@ -448,7 +448,23 @@ function tko_pos_print_screens(instance, module){ //module is instance.point_of_
                         //data to print
     		    var pos_data = currentOrder.export_for_printing();
     		   
-    		    	
+    		    // get jouranal
+    		    var jouranl_id = currentOrder.get('paymentLines').models[0].cashregister.journal.id;
+    		    var config_id = currentOrder.pos.config.id;
+    		    var fiscal_codes = self.pos.fiscal_codes;
+    		    var fiscal_code =  self.pos.config.default_fiscal_code; // default fiscal code
+    		    console.log("default fiscal code found.................",fiscal_code);
+    		    // fiscal codes
+    		    for (i=0; i<fiscal_codes.length; i ++){
+    		    	fiscal_journal_id =  fiscal_codes[i].journal_id[0];
+    		    	fiscal_config_id =  fiscal_codes[i].config_id[0];
+    		    	if (jouranl_id === fiscal_journal_id && config_id === fiscal_config_id)
+    		    	{
+    		    		fiscal_code = fiscal_codes[i].fiscal_code;
+    		    		break;
+    		    	}
+    		    }
+    		    console.log("fianl fiscal code found.................",fiscal_code);
                 var orderlines = pos_data.orderlines;
                 var order = self.pos.get('selectedOrder');
                 var orderlines_disc = order.get('orderLines').models;
@@ -482,6 +498,7 @@ function tko_pos_print_screens(instance, module){ //module is instance.point_of_
     					  "purchase_discount" : Number(parseFloat(order.getDiscountCard()).toFixed(2)),
     					  "average_federal_tax":self.pos.company.average_federal_tax || 0.0,
     					  "average_state_tax": self.pos.company.average_state_tax || 0.0,
+    					  "payment_method_index" : Number(fiscal_code),
     					}
     		    
     		    //to check data sent to fiscal printer
