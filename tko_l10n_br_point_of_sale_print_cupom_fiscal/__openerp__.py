@@ -44,7 +44,7 @@
     ],
 
     'data': [
-
+        'security/ir.model.access.csv',
         'static/src/xml/main.xml',
         'point_of_sale_view.xml',
     ],
