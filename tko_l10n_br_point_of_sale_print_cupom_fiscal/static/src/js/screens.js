@@ -448,23 +448,39 @@ function tko_pos_print_screens(instance, module){ //module is instance.point_of_
                         //data to print
     		    var pos_data = currentOrder.export_for_printing();
     		   
-    		    // get jouranal
-    		    var jouranl_id = currentOrder.get('paymentLines').models[0].cashregister.journal.id;
+    		   // get current config, it will remain same over payment lines
     		    var config_id = currentOrder.pos.config.id;
-    		    var fiscal_codes = self.pos.fiscal_codes;
-    		    var fiscal_code =  self.pos.config.default_fiscal_code; // default fiscal code
-    		    console.log("default fiscal code found.................",fiscal_code);
-    		    // fiscal codes
-    		    for (i=0; i<fiscal_codes.length; i ++){
-    		    	fiscal_journal_id =  fiscal_codes[i].journal_id[0];
-    		    	fiscal_config_id =  fiscal_codes[i].config_id[0];
-    		    	if (jouranl_id === fiscal_journal_id && config_id === fiscal_config_id)
-    		    	{
-    		    		fiscal_code = fiscal_codes[i].fiscal_code;
-    		    		break;
+    		    // filter fiscal codes of current session
+    		    var fiscal_codes = self.pos.fiscal_codes.filter(function (m)
+    		    		 { return m.config_id[0] === config_id; });
+    		    // default fiscal code
+    		    var fiscal_code =  self.pos.config.default_fiscal_code; 
+    		    // make array of payment methods
+    		    payment_methods = []
+    		    payment_lines = currentOrder.get('paymentLines').models
+    		    // iterate over payment lines
+    		    for (i=0; i < currentOrder.get('paymentLines').models.length; i ++){
+    		    	var amount = payment_lines[i].amount
+    		    	// get jouranal of current payment line
+    		    	var jouranl_id = payment_lines[i].cashregister.journal.id
+    		    	if (fiscal_codes.length > 0){
+    		    		for (j=0; j<fiscal_codes.length; j ++){
+    		    			// get config and journal from fiscal codes
+    		    			fiscal_config_id =  fiscal_codes[j].config_id[0];
+    		    			fiscal_journal_id = fiscal_codes[j].journal_id[0];
+    		    			// search for matching jouanl and config, if found append in array
+    		    			if (jouranl_id === fiscal_journal_id && config_id === fiscal_config_id)
+    	    		    	{	
+    	    		    		payment_methods.push({
+					    	    		    			"payment_method_index" : Number(fiscal_codes[i].fiscal_code) ||  Number(fiscal_code),
+					    	    		    			"paid_value" : Number(parseFloat(amount).toFixed(2))
+					    	    		    		})
+    	    		    	}
+    		    			
+    		    		}
+    		    		
     		    	}
     		    }
-    		    console.log("fianl fiscal code found.................",fiscal_code);
                 var orderlines = pos_data.orderlines;
                 var order = self.pos.get('selectedOrder');
                 var orderlines_disc = order.get('orderLines').models;
@@ -490,7 +506,6 @@ function tko_pos_print_screens(instance, module){ //module is instance.point_of_
     		    	//currentOrder.attributes.paymentLines.models
     	            json_data = {
     					  "id": currentOrder.sequence_number || 0,
-    					  "valor_pago": Number(parseFloat(pos_data.subtotal).toFixed(2)),
     					  "nome": currentOrder.get_client_name() || "NAO OBTIDO",
     					  "cpf_cnpj":payment_cnpj_cpf || "",
     					  "endereco_completo":currentOrder.get_client_address() || "NAO OBTIDO",
@@ -498,7 +513,7 @@ function tko_pos_print_screens(instance, module){ //module is instance.point_of_
     					  "purchase_discount" : Number(parseFloat(order.getDiscountCard()).toFixed(2)),
     					  "average_federal_tax":self.pos.company.average_federal_tax || 0.0,
     					  "average_state_tax": self.pos.company.average_state_tax || 0.0,
-    					  "payment_method_index" : Number(fiscal_code),
+    					  "payments" : payment_methods
     					}
     		    
     		    //to check data sent to fiscal printer
