@@ -1,42 +1,38 @@
-.fiscal_applet{
-visibility: hidden;
+.fiscal_applet {
+	visibility: hidden;
+	display: none;
 }
 
-.pos .cnpj_input{
-    font-size: 20px;
-    font-family: Lato;
-    display: block;
-    width: 100%;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    outline: none;
-    border: none;
-    padding: 6px 8px;
-    margin-bottom : 10px;
-    background: white;
-    color: #484848;
-    text-align: left;
-    border-radius: 3px;
-    box-shadow: 0px 2px rgba(143, 143, 143, 0.3) inset;
+.pos .cnpj_input {
+	font-size: 20px;
+	font-family: Lato;
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	outline: none;
+	border: none;
+	padding: 6px 8px;
+	margin-bottom: 10px;
+	background: white;
+	color: #484848;
+	text-align: left;
+	border-radius: 3px;
+	box-shadow: 0px 2px rgba(143, 143, 143, 0.3) inset;
 }
 
-li.clear_input{
-	display : none;
+li.clear_input {
+	display: none;
 }
-
-
 
 button#cnpj_cpf_btn {
-  width: 360px;
-  line-height: 20px;
-  font-size : 20px;
-  margin-top : 10px;
+	width: 360px;
+	line-height: 20px;
+	font-size: 20px;
+	margin-top: 10px;
 }
 
-input.cnpj_cpf_dialog{
-	font-size:29px !important;
+input.cnpj_cpf_dialog {
+	font-size: 29px !important;
 	width: 250px !important;
 }
-
-
-
