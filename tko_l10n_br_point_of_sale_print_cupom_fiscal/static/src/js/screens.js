@@ -472,7 +472,7 @@ function tko_pos_print_screens(instance, module){ //module is instance.point_of_
     		    			if (jouranl_id === fiscal_journal_id && config_id === fiscal_config_id)
     	    		    	{	
     	    		    		payment_methods.push({
-					    	    		    			"payment_method_index" : Number(fiscal_codes[j].fiscal_code) ||  Number(fiscal_code),
+					    	    		    			"payment_method_index" : String(fiscal_codes[j].fiscal_code) ||  String(fiscal_code),
 					    	    		    			"paid_value" : Number(parseFloat(amount).toFixed(2))
 					    	    		    		})
     	    		    	}
