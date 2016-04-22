@@ -66,7 +66,7 @@ class pos_session(models.Model):
         string='Confirm Payment',
         related="config_id.confirm_payment",
         default=True)
-    default_fiscal_code = fields.Integer('Default Fiscal Code', related="config_id.default_fiscal_code", required=True, help="If no fiscal code is matched default one is passed to fiscal printer")
+    default_fiscal_code = fields.Char('Default Fiscal Code', related="config_id.default_fiscal_code", required=True, help="If no fiscal code is matched default one is passed to fiscal printer")
 
 class pos_config_journal_tko_rel(models.Model):
     _name = 'pos.config.journal.tko.rel'
