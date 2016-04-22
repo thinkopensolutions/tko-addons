@@ -73,7 +73,7 @@ class pos_config_journal_tko_rel(models.Model):
     
     journal_id = fields.Many2one('account.journal', string=u'Payment Method')
     config_id = fields.Many2one('pos.config', string=u'POS Config')
-    fiscal_code = fields.Integer(u'Fiscal Code')
+    fiscal_code = fields.Char(u'Fiscal Code')
     
     _sql_constraints = [
         ('journal_pos_uniq', 'unique (journal_id,config_id)',
@@ -90,7 +90,7 @@ class pos_config(models.Model):
     baudrate = fields.Integer('Baudrate',
                               required=True, default=9600)
     confirm_payment = fields.Boolean(string='Confirm Payment', default=True)
-    default_fiscal_code = fields.Integer('Default Fiscal Code', default=0, required=True, help="If no fiscal code is matched default one is passed to fiscal printer")
+    default_fiscal_code = fields.Char('Default Fiscal Code', default='0', required=True, help="If no fiscal code is matched default one is passed to fiscal printer")
     tko_journal_ids = fields.One2many('pos.config.journal.tko.rel', 'config_id', string = u'Journal', ondelete="cascade")
     
     
