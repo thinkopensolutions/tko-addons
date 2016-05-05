@@ -490,7 +490,7 @@ function tko_pos_print_screens(instance, module){ //module is instance.point_of_
     		    	if(orderlines[i].quantity && orderlines[i].price_display){
     		    		itemlines.push({
     		    	  "codigo_item": orderlines_disc[i].default_code || "000",
-    			      "aliquotaICMS": "I",
+    			      "aliquotaICMS": orderlines[i].icms_tax_code || "",
     			      "descricao": orderlines[i].product_name || "",
     			      "unidade": orderlines[i].unit_name || 0,
     			      "tipoDescontoAcrescimo": "$",
@@ -528,7 +528,8 @@ function tko_pos_print_screens(instance, module){ //module is instance.point_of_
                         	
     	            }
     	            catch(error){
-    	            	console.log("Please check if applet is loaded, could not call appECF.imprimirCupom()")
+    	            	console.log("json_data.........................",JSON.stringify(json_data));
+    	            	smoke.alert("Could not connect to applet")
     	            }
     	            
                         //kitchen print
