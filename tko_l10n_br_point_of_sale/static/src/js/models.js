@@ -101,7 +101,16 @@ function l10n_br_fields(instance, module){ //module is instance.point_of_sale
         	
         	return tax_code_id
         	},
-		
+        
+        // commented because we will get taxes from sever while saving order
+        // pass taxes from pos
+    	//export_as_JSON: function() {
+    	//	var res = OrderlineSuper.prototype.export_as_JSON.call(this);
+    	//	res.taxes = this.get_tax_details();
+    	//	return res;
+        //},
+        
+	
         export_for_printing: function(){
         	var res = OrderlineSuper.prototype.export_for_printing.call(this);
         	res.product = this.get_product();
