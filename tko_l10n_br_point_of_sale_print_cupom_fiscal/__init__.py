@@ -22,4 +22,4 @@
 #
 ##############################################################################
 import point_of_sale
-import account_journal
+import account_tax

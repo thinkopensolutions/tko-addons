@@ -42,7 +42,7 @@ function l10n_br_fields(instance, module){ //module is instance.point_of_sale
 	// tax definition with tax codes
 	module.PosModel.prototype.models.push({
             model:  'account.tax.code',
-            fields: ['name','code'],
+            fields: ['name','code','pos_fiscal_code'],
            
             loaded: function(self, tax_codes){
                 self.tax_codes = tax_codes;
@@ -64,7 +64,7 @@ function l10n_br_fields(instance, module){ //module is instance.point_of_sale
         	{
         		if (tax_codes[i].id === tax_code_id)
         		{
-        			return tax_codes[i].code;
+        			return tax_codes[i].pos_fiscal_code;
         		}
         	}
         },
@@ -75,12 +75,15 @@ function l10n_br_fields(instance, module){ //module is instance.point_of_sale
         	var taxes_definations  = this.pos.tax_definitions;
         	var fiscal_classification_id = product.property_fiscal_classification[0];
         	var icms_tax_id = undefined; // set icms tax_id
+        	var tax_amount = 0.0
         	
         	for (i = 0; i < taxes.length; i++) 
         		{
                 // filter icms tax_id from product taxes
                 if (taxes_ids.indexOf(taxes[i].id) !== -1 && taxes[i].domain === 'icms') {
                 	icms_tax_id = taxes[i].id;
+                	// consider discount will always be percent type
+                	tax_amount = taxes[i].amount * 100
                 }
 
             }
@@ -99,7 +102,7 @@ function l10n_br_fields(instance, module){ //module is instance.point_of_sale
 						}
         	}
         	
-        	return tax_code_id
+        	return [tax_code_id,tax_amount]
         	},
         
         // commented because we will get taxes from sever while saving order
@@ -115,7 +118,9 @@ function l10n_br_fields(instance, module){ //module is instance.point_of_sale
         	var res = OrderlineSuper.prototype.export_for_printing.call(this);
         	res.product = this.get_product();
         	res.taxes = this.get_tax_details();
-        	res.icms_tax_code = this.get_tax_icms_tax_code(res.product);
+        	var tax_detail = this.get_tax_icms_tax_code(res.product);
+        	res.icms_tax_code = tax_detail[0]
+        	res.icms_tax_value = Number(parseFloat(tax_detail[1]).toFixed(2))
         	res.ncm = this.get_ncm();
         	return res;
             },

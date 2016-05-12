@@ -24,7 +24,7 @@
 from openerp import models, api, fields, _
 
 
-class account_journal(models.Model):
-    _inherit = 'account.journal'
+class account_tax_code(models.Model):
+    _inherit = 'account.tax.code'
 
-    fiscal_code = fields.Integer('Fiscal Code')
+    pos_fiscal_code = fields.Selection([('I',u'Isento'),('N',u'Não tributado'),('F',u'Substituição Tributária')], default = 'I', string='Fiscal Code')
