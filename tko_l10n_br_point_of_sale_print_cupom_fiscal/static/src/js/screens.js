@@ -513,8 +513,10 @@ function tko_pos_print_screens(instance, module){ //module is instance.point_of_
     					  "purchase_discount" : Number(parseFloat(order.getDiscountCard()).toFixed(2)),
     					  "average_federal_tax":self.pos.company.average_federal_tax || 0.0,
     					  "average_state_tax": self.pos.company.average_state_tax || 0.0,
-    					  "payments" : payment_methods
+    					  "payments" : payment_methods,
+    					  "vendedor" : order.pos.cashier.name || "",
     					}
+    	            //"unique_id" : order.uid
     		    
     		    //to check data sent to fiscal printer
     	            
