@@ -140,7 +140,7 @@ function tko_pos_store_cnpj_cpf(instance, module){ //module is instance.point_of
             return {
                 "priceWithTax": totalTax,
                 "priceWithoutTax": totalNoTax,
-                "tax": taxtotal,
+                "tax": 0 , //taxtotal, we do not want to add taxes in pos UI
                 "taxDetails": taxdetail,
             };
         },

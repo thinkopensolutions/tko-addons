@@ -26,7 +26,8 @@ class pos_order(osv.osv):
                 val2 += line.price_subtotal
             res[order.id]['amount_tax'] = cur_obj.round(cr, uid, cur, val1)
             amount_untaxed = cur_obj.round(cr, uid, cur, val2)
-            res[order.id]['amount_total'] = res[order.id]['amount_tax'] + amount_untaxed - order.discount_on_order
+            # we do not want to add tax in total for localization
+            res[order.id]['amount_total'] = sum([line.qty * line.price_unit for line in order.lines]) - order.discount_on_order
         return res
 
     _columns = {
