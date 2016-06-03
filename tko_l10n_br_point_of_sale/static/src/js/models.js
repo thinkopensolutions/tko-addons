@@ -18,7 +18,7 @@ function l10n_br_fields(instance, module){ //module is instance.point_of_sale
 	// load domain in taxes
 	module.PosModel.prototype.models.filter(function (m)
 			 { return m.model === 'account.tax'; }).map(function (m) {
-			  return m.fields.push('domain'), 
+			  return m.fields.push('domain','tax_code_id_tax_discount'), 
 			  m;
 			   });
 	// load NCM of product

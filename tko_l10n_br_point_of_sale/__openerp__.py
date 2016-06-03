@@ -36,6 +36,7 @@
     'depends': [
         'base',
         'point_of_sale',
+        'account',
         'tko_l10n_br_base',
     ],
 
@@ -43,6 +44,7 @@
         'static/src/xml/main.xml',
         'res_company_view.xml',
         'point_of_sale_view.xml',
+        'account_tax_view.xml',
     ],
     'qweb': [
         'static/src/xml/res_partner_view.xml',
