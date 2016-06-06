@@ -38,6 +38,7 @@
         'point_of_sale',
         'account',
         'tko_l10n_br_base',
+        'l10n_br_account_product',
     ],
 
     'data': [
