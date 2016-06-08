@@ -12,7 +12,11 @@
 }
 
 .discount-card {
-	margin: 30px 0 30px 0;
+	display: none;
+}
+
+.discount-card-order {
+	margin: 1px 18px 1px 18px;
 	position: relative;
 	padding: 8px;
 	border-box: 3px;
@@ -28,6 +32,24 @@
 }
 
 .discount-card-select {
+  width: 100%;
+  margin-top : 8px;
+  font-size: 20px;
+  font-family: Lato;
+  display: block;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+  border: none;
+  padding: 6px 8px;
+  background: white;
+  color: #989898;
+  text-align: left;
+  border-radius: 3px;
+  box-shadow: 0px 2px rgba(143, 143, 143, 0.3) inset;
+}
+
+.discount-card-select-order {
   width: 100%;
   margin-top : 8px;
   font-size: 20px;

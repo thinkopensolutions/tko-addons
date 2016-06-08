@@ -30,13 +30,20 @@ function tko_pos_print_screens(instance, module){ //module is instance.point_of_
             },
             
        clickCnpjCpf:function(e){
-			var cnpj_cpf = $(".cnpj_input").val();
+			var cnpj_cpf = $(".cnpj_input").val().replace(/\D/g,'');
 			smoke.prompt("CPF / CNPJ", function(e){
 				// if there is input
 				if (e) 
 					{
 				//set value to field on parent form
 					$(".cnpj_input").val(e);
+					var partners =  self.posmodel.partners;
+					var partner = undefined;
+					for(i=0; i < partners.length ; i++){
+						if (partners[i]["cnpj_cpf"].replace(/\D/g,'') === e)
+							partner = partners[i];
+						    self.posmodel.pos_widget.pos.get('selectedOrder').set_client(partner);
+					}
 					// if input is 12 digits long its supposed to be a CPF
 					if (e.length === 11){
 						console.log("check for cpf validation.................");
@@ -347,7 +354,7 @@ function tko_pos_print_screens(instance, module){ //module is instance.point_of_
                 }
                 
                 //get and validate CNPJ/CPF
-                var payment_cnpj_cpf = self.pos_widget.$(".cnpj_input").val();
+                var payment_cnpj_cpf = self.pos_widget.$(".cnpj_input").val().replace(/\D/g,'');;
                 //validate cpf if value is given
 
                 if (payment_cnpj_cpf){
@@ -514,7 +521,7 @@ function tko_pos_print_screens(instance, module){ //module is instance.point_of_
     					  "average_federal_tax":self.pos.company.average_federal_tax || 0.0,
     					  "average_state_tax": self.pos.company.average_state_tax || 0.0,
     					  "payments" : payment_methods,
-    					  "vendedor" : order.pos.cashier.name || "",
+    					  "vendedor" : order.pos.user.name || "",
     					}
     	            //"unique_id" : order.uid
     		    

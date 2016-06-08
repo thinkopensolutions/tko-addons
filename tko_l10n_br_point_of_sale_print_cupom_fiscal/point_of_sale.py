@@ -123,11 +123,14 @@ class pos_order(models.Model):
             orders,
             context=context)
         # write cnpj_cpf to order
+        # we do not need this method but for some unknown reason cnpj_cpf is not written on order
+        # even if it is passed correctly from pos  to server
         if len(order_ids) == len(orders):
             i = 0
             for tmp_order in orders:
 
                 if 'data' in tmp_order.keys():
+                    tmp_order['data']
                     cnpj_cpf = tmp_order['data'].get('cnpj_cpf')
 
                     if cnpj_cpf:
@@ -150,11 +153,9 @@ class pos_order(models.Model):
                             # this case should never happen for a validated cpf
                             # / cnpj
                             _logger.error("Please check CPF/CNPJ validator")
-                        partner = partner_obj.search(
-                            cr, uid, [('cnpj_cpf', '=', cnpj_cpf)])
                         pos_obj.write(
                             cr, uid, [
                                 order_ids[i]], {
-                                'cnpj_cpf': cnpj_cpf, 'partner_id': partner and partner[0] or False})
+                                'cnpj_cpf': cnpj_cpf})
                     i = i + 1
         return order_ids
