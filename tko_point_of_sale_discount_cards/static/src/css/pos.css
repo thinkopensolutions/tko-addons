@@ -13,6 +13,15 @@
 
 .discount-card {
 	display: none;
+	/*margin: 1px 18px 1px 18px;
+	position: relative;
+	padding: 8px;
+	border-box: 3px;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	border-radius: 3px;
+	background: rgb(245,240,220);*/
 }
 
 .discount-card-order {
