@@ -22,7 +22,6 @@ update_summary: function(){
             else{
                 discount  = value + 100;
             }
-            console.log("discount value.........................",value)
             return discount;
         });
     }
@@ -34,7 +33,6 @@ update_summary: function(){
     discount_promise
     .then(function (discount)
     {
-        console.log("discount value fianl....................val",discount);
         this.el.querySelector('.summary .total > .value').textContent = this.format_currency(total);
         this.el.querySelector('.summary .total .subentry .value').textContent = this.format_currency(taxes);
         this.el.querySelector('.summary .total .discount .value').textContent = this.format_currency(discount);
