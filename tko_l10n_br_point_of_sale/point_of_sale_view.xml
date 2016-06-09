@@ -1,0 +1,19 @@
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="view_pos_pos_extended_form">
+            <field name="name">pos.order.extended</field>
+            <field name="model">pos.order</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//tree[@string='Order lines']//field[@name='product_id']" position="after">
+                    <field name="line_taxes_ids" widget="many2many_tags"/>
+                </xpath>
+                 <xpath expr="//tree[@string='Order lines']//field[@name='product_id']" position="attributes">
+                    <attribute name="on_change">tko_onchange_product_id(parent.pricelist_id,product_id,qty,parent.partner_id)</attribute>
+                </xpath>
+            </field>
+        </record>
+		
+	</data>
+</openerp>

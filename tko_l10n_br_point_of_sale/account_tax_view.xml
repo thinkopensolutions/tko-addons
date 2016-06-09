@@ -1,0 +1,15 @@
+<openerp>
+	<data>
+		<!-- include domain field in account.tax.code and account.tax.code.template from -->
+		<record model="ir.ui.view" id="view_l10n_br_accout_tax_code_form">
+			<field name="name">l10n_br_account.tax.code.form</field>
+			<field name="model">account.tax.code</field>
+			<field name="inherit_id" ref="account.view_tax_code_form"/>
+			<field name="arch" type="xml">
+				<field position="after" name="parent_id">
+					<field name="pos_fiscal_code" required="1"/>
+			    </field>
+			</field>
+		</record>
+	</data>
+</openerp>
