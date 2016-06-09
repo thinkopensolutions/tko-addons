@@ -115,7 +115,7 @@ module.OrderWidget = module.OrderWidget.extend({
 		 }
 		 catch (err){
 			 self.pos_widget.order_widget.update_summary();
-			 self.posmodel.pos_widget.payment_screen.update_payment_summary();
+			 self.pos_widget.payment_screen.update_payment_summary();
 		 }
 		 
 	     },
