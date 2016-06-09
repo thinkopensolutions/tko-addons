@@ -40,7 +40,7 @@ function tko_pos_print_screens(instance, module){ //module is instance.point_of_
 					var partners =  self.posmodel.partners;
 					var partner = undefined;
 					for(i=0; i < partners.length ; i++){
-						if (partners[i]["cnpj_cpf"].replace(/\D/g,'') === e)
+						if (partners[i]["cnpj_cpf"] && partners[i]["cnpj_cpf"].replace(/\D/g,'') === e)
 							partner = partners[i];
 						    self.posmodel.pos_widget.pos.get('selectedOrder').set_client(partner);
 					}
