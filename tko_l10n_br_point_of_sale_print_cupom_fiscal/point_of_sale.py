@@ -25,6 +25,7 @@ from openerp import models, api, fields, _
 import logging
 from openerp.exceptions import Warning
 _logger = logging.getLogger(__name__)
+import re
 
 PRINTER_MODELS = [('1', 'Não Fiscal'),
                   ('2', 'Bematech'),
@@ -105,7 +106,11 @@ class pos_order(models.Model):
     _inherit = 'pos.order'
 
     cnpj_cpf = fields.Char('CNPJ/CPF', size=20)
-
+    def _order_fields(self, cr, uid, ui_order, context=None):
+        result = super(pos_order,self)._order_fields(cr, uid, ui_order, context=context)
+        result['pos_reference'] = str(''.join(re.findall(r'\d+', str(result['name']))))
+        return result
+        
     def create_from_ui(self, cr, uid, orders, context=None):
         # Keep only new orders
 
@@ -123,11 +128,14 @@ class pos_order(models.Model):
             orders,
             context=context)
         # write cnpj_cpf to order
+        # we do not need this method but for some unknown reason cnpj_cpf is not written on order
+        # even if it is passed correctly from pos  to server
         if len(order_ids) == len(orders):
             i = 0
             for tmp_order in orders:
 
                 if 'data' in tmp_order.keys():
+                    tmp_order['data']
                     cnpj_cpf = tmp_order['data'].get('cnpj_cpf')
 
                     if cnpj_cpf:
@@ -150,11 +158,9 @@ class pos_order(models.Model):
                             # this case should never happen for a validated cpf
                             # / cnpj
                             _logger.error("Please check CPF/CNPJ validator")
-                        partner = partner_obj.search(
-                            cr, uid, [('cnpj_cpf', '=', cnpj_cpf)])
                         pos_obj.write(
                             cr, uid, [
                                 order_ids[i]], {
-                                'cnpj_cpf': cnpj_cpf, 'partner_id': partner and partner[0] or False})
+                                'cnpj_cpf': cnpj_cpf})
                     i = i + 1
         return order_ids
