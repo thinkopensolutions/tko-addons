@@ -520,7 +520,7 @@ function tko_pos_print_screens(instance, module){ //module is instance.point_of_
     		    		vendedor = order.pos.user.name
     		    	}
     	            json_data = {
-    					  "id": currentOrder.uid.replace(/\D/g,'') || 0,
+    					  "id": String(currentOrder.uid).replace(/\D/g,'') || 0,
     					  "nome": currentOrder.get_client_name() || "NAO OBTIDO",
     					  "cpf_cnpj":payment_cnpj_cpf || "",
     					  "endereco_completo":currentOrder.get_client_address() || "NAO OBTIDO",

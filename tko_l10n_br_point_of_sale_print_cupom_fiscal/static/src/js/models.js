@@ -25,6 +25,7 @@ function tko_pos_store_cnpj_cpf(instance, module){ //module is instance.point_of
 		export_as_JSON: function() {
 			var res = OrderSuper.prototype.export_as_JSON.call(this);
 			var cnpj_cpf = this.attributes.cnpj_cpf || "";
+			res.uid = String(res.uid).replace(/\D/g,'');
 			res.name = res.uid;
 		    res.cnpj_cpf = cnpj_cpf;
 		    return res;

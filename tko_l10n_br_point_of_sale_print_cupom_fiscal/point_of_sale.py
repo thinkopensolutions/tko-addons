@@ -107,8 +107,8 @@ class pos_order(models.Model):
 
     cnpj_cpf = fields.Char('CNPJ/CPF', size=20)
     def _order_fields(self, cr, uid, ui_order, context=None):
-        result = super(pos_order,self)._order_fields(cr, uid, ui_order, context=None)
-        result['pos_reference'] = ''.join(re.findall(r'\d+', ui_order['name']))
+        result = super(pos_order,self)._order_fields(cr, uid, ui_order, context=context)
+        result['pos_reference'] = str(''.join(re.findall(r'\d+', str(result['name']))))
         return result
         
     def create_from_ui(self, cr, uid, orders, context=None):
