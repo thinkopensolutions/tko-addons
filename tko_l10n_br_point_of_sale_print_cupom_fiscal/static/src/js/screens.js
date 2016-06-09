@@ -511,8 +511,16 @@ function tko_pos_print_screens(instance, module){ //module is instance.point_of_
     		    	};
     		    
     		    	//currentOrder.attributes.paymentLines.models
+    		    	vendedor = ""
+    		    	try{
+    		    		// pos_cashier module creates this field
+    		    		vendedor = order.pos.cashier.name
+    		    	}
+    		    	catch (err){
+    		    		vendedor = order.pos.user.name
+    		    	}
     	            json_data = {
-    					  "id": currentOrder.sequence_number || 0,
+    					  "id": currentOrder.uid.replace(/\D/g,'') || 0,
     					  "nome": currentOrder.get_client_name() || "NAO OBTIDO",
     					  "cpf_cnpj":payment_cnpj_cpf || "",
     					  "endereco_completo":currentOrder.get_client_address() || "NAO OBTIDO",
@@ -521,7 +529,7 @@ function tko_pos_print_screens(instance, module){ //module is instance.point_of_
     					  "average_federal_tax":self.pos.company.average_federal_tax || 0.0,
     					  "average_state_tax": self.pos.company.average_state_tax || 0.0,
     					  "payments" : payment_methods,
-    					  "vendedor" : order.pos.user.name || "",
+    					  "vendedor" : vendedor,
     					}
     	            //"unique_id" : order.uid
     		    
@@ -531,7 +539,6 @@ function tko_pos_print_screens(instance, module){ //module is instance.point_of_
     	            try{
                         appECF.abrirGaveta();
                         if (itemlines.length){
-                        	console.log("json_data.........................",JSON.stringify(json_data));
                         	appECF.imprimirCupom(JSON.stringify(json_data));
                         }
                         	

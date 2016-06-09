@@ -98,17 +98,17 @@ module.OrderWidget = module.OrderWidget.extend({
 	 renderElement: function() {
 		 var self = this;
          this._super();
-         this.el.querySelector('.discount-card-select-order').addEventListener('change',this.selectCardOrder);
+         this.el.querySelector('.discount-card-select-order').addEventListener('change',this.selectCard);
 	 },
 	 
 	 // This will sync discount cards on payment screen widget
-	 selectCardOrder: function(e){
+	 selectCard: function(e){
 		 // after update payment summy discount card in order widget is set to None
 	     // set back value of selected discount card from payment screen widget to order widget
 		 //self.posmodel.pos_widget.order_widget.update_summary
 		 $(".discount-card-select").val($('.discount-card-select-order option:selected').attr('value'));
-		 // vistaalegre sometimes raises error on production
 		 // code in catch block is specific to vistaalegre
+		 // set window in self, for some reason self had jquery in vistaalegre database
 		 self = window;
          self.posmodel.pos_widget.order_widget.update_summary();
          self.posmodel.pos_widget.payment_screen.update_payment_summary();

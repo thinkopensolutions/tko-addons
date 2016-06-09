@@ -25,6 +25,7 @@ from openerp import models, api, fields, _
 import logging
 from openerp.exceptions import Warning
 _logger = logging.getLogger(__name__)
+import re
 
 PRINTER_MODELS = [('1', 'Não Fiscal'),
                   ('2', 'Bematech'),
@@ -105,7 +106,11 @@ class pos_order(models.Model):
     _inherit = 'pos.order'
 
     cnpj_cpf = fields.Char('CNPJ/CPF', size=20)
-
+    def _order_fields(self, cr, uid, ui_order, context=None):
+        result = super(pos_order,self)._order_fields(cr, uid, ui_order, context=None)
+        result['pos_reference'] = ''.join(re.findall(r'\d+', ui_order['name']))
+        return result
+        
     def create_from_ui(self, cr, uid, orders, context=None):
         # Keep only new orders
 
