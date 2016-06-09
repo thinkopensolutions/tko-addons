@@ -107,8 +107,17 @@ module.OrderWidget = module.OrderWidget.extend({
 	     // set back value of selected discount card from payment screen widget to order widget
 		 //self.posmodel.pos_widget.order_widget.update_summary
 		 $(".discount-card-select").val($('.discount-card-select-order option:selected').attr('value'));
-		 self.posmodel.pos_widget.order_widget.update_summary();
-		 self.posmodel.pos_widget.payment_screen.update_payment_summary();
+		 // vistaalegre sometimes raises error on production
+		 // code in catch block is specific to vistaalegre
+		 try{
+			 self.posmodel.pos_widget.order_widget.update_summary();
+			 self.posmodel.pos_widget.payment_screen.update_payment_summary();
+		 }
+		 catch (err){
+			 self.pos_widget.order_widget.update_summary();
+			 self.pos_widget.payment_screen.update_payment_summary();
+		 }
+		 
 	     },
     update_summary: function(){
         this._super();
