@@ -60,7 +60,7 @@ module.Order = module.Order.extend({
     getDiscountCard : function(){
         var discount_id = self.$('.discount-card-select option:selected').attr('id');
         var discount_type = self.$('.discount-card-select option:selected').attr('type');
-        var discount_value = self.$('.discount-card-select option:selected').attr('value');
+        var discount_value = self.$('.discount-card-select option:selected').attr('disc_value');
         var subtotal = (this.get('orderLines')).reduce((function(sum, orderLine) {
             return sum + orderLine.get_display_price(); //display price is computed with considering both discount types fixed and precentage 
         }), 0);
@@ -95,6 +95,26 @@ module.Order = module.Order.extend({
 
 
 module.OrderWidget = module.OrderWidget.extend({
+	 renderElement: function() {
+		 var self = this;
+         this._super();
+         this.el.querySelector('.discount-card-select-order').addEventListener('change',this.selectCard);
+	 },
+	 
+	 // This will sync discount cards on payment screen widget
+	 selectCard: function(e){
+		 // after update payment summy discount card in order widget is set to None
+	     // set back value of selected discount card from payment screen widget to order widget
+		 //self.posmodel.pos_widget.order_widget.update_summary
+		 $(".discount-card-select").val($('.discount-card-select-order option:selected').attr('value'));
+		 // code in catch block is specific to vistaalegre
+		 // set window in self, for some reason self had jquery in vistaalegre database
+		 self = window;
+         self.posmodel.pos_widget.order_widget.update_summary();
+         self.posmodel.pos_widget.payment_screen.update_payment_summary();
+
+		 
+	     },
     update_summary: function(){
         this._super();
         
@@ -102,12 +122,12 @@ module.OrderWidget = module.OrderWidget.extend({
         var total     = order ? order.getTotalTaxIncluded() : 0;
         var discount     = order ? order.getDiscountCard() : 0;
         var taxes     = order ? order.getTax(): 0;
-        if (total < 0){
-            total = 0;
-        }
         this.el.querySelector('.summary .total > .value').textContent = this.format_currency(total);
         this.el.querySelector('.summary .total .subentry .value').textContent = this.format_currency(taxes );
         this.el.querySelector('.summary .total .discount .value').textContent = this.format_currency(-discount);
+        // after update payment summy discount card in order widget is set to None
+        // set back value of selected discount card from payment screen widget to order widget
+        $(".discount-card-select-order").val($('.discount-card-select option:selected').attr('value'));
     },
     });
 } //end of code

@@ -1,0 +1,11 @@
+/* fix height used by category widget
+because we want to show products on same screen
+*/
+.pos .product-list-container {
+    position: relative !important;
+}
+
+.pos .categories{
+	height: 350px !important;
+    overflow:auto !important;
+}

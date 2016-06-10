@@ -2,7 +2,7 @@
 
 <templates id="template" xml:space="preserve">
 
-    <!-- Add Category Shortcut Widget on ProductScreen-->
+    <!-- Add Category Shortcut Widget on ProductScreen -->
     <t t-extend="PaymentScreenWidget">
         <t t-jquery="div.pos-payment-container" t-operation="prepend">
             <div class="discount-card">
@@ -13,7 +13,28 @@
                         <option class="discount-card-options"
                             t-att-id="card.id"
                             t-att-type="card.type"
-                            t-att-value="card.value"> 
+                            t-att-value="card.id"
+                        	t-att-disc_value="card.value"> 
+                            <t t-esc="card.name" />
+                        </option>
+                    </t>
+                </select>
+            </div>
+        </t>
+    </t>
+    
+    <t t-extend="OrderWidget">
+        <t t-jquery="div.order-container > div.order-scroller:has(.order)" t-operation="prepend">
+            <div class="discount-card-order" id="discount-card">
+                <div class="discount-card-label">Discount Cards</div>
+                <select class="discount-card-select-order">
+                    <option value="x">None</option>
+                    <t t-foreach="widget.pos.cards" t-as="card">
+                        <option class="discount-card-options"
+                           t-att-id="card.id"
+                            t-att-type="card.type"
+                            t-att-value="card.id"
+                        	t-att-disc_value="card.value"> 
                             <t t-esc="card.name" />
                         </option>
                     </t>

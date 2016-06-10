@@ -36,6 +36,18 @@
             	<field name="journal_id" position="after">
             		<field name="confirm_payment"/>
             	</field>
+            	<field name="journal_ids" position="after">
+            		<separator string="Payment Methods with Fiscal Code"/>
+            		<label for ="default_fiscal_code"/>
+            		<field name="default_fiscal_code"/>
+            		<field name="tko_journal_ids" colspan="4" nolabel="1">
+            			<tree editable="bottom">
+            				<field name="journal_id" domain="[('id','in',parent.journal_ids[0][2])]" options="{'no_create' : True}"/>
+            				<field name="config_id" readonly="1" invisible="1"/>
+            				<field name="fiscal_code"/>
+            			</tree>
+            		</field>
+            	</field>
                 <group string="Features" position="after">
                 	<group string="Fiscal Printer Configurations" col="4">
                 		<field name="com_port"/>

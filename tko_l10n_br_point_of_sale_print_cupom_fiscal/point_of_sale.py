@@ -23,7 +23,9 @@
 ##############################################################################
 from openerp import models, api, fields, _
 import logging
+from openerp.exceptions import Warning
 _logger = logging.getLogger(__name__)
+import re
 
 PRINTER_MODELS = [('1', 'Não Fiscal'),
                   ('2', 'Bematech'),
@@ -65,8 +67,20 @@ class pos_session(models.Model):
         string='Confirm Payment',
         related="config_id.confirm_payment",
         default=True)
+    default_fiscal_code = fields.Char('Default Fiscal Code', related="config_id.default_fiscal_code", required=True, help="If no fiscal code is matched default one is passed to fiscal printer")
 
-
+class pos_config_journal_tko_rel(models.Model):
+    _name = 'pos.config.journal.tko.rel'
+    
+    journal_id = fields.Many2one('account.journal', string=u'Payment Method')
+    config_id = fields.Many2one('pos.config', string=u'POS Config')
+    fiscal_code = fields.Char(u'Fiscal Code')
+    
+    _sql_constraints = [
+        ('journal_pos_uniq', 'unique (journal_id,config_id)',
+         'Duplicate Payment method in POS')
+    ]
+    
 class pos_config(models.Model):
     _inherit = 'pos.config'
 
@@ -77,13 +91,26 @@ class pos_config(models.Model):
     baudrate = fields.Integer('Baudrate',
                               required=True, default=9600)
     confirm_payment = fields.Boolean(string='Confirm Payment', default=True)
-
-
+    default_fiscal_code = fields.Char('Default Fiscal Code', default='0', required=True, help="If no fiscal code is matched default one is passed to fiscal printer")
+    tko_journal_ids = fields.One2many('pos.config.journal.tko.rel', 'config_id', string = u'Journal', ondelete="cascade")
+    
+    
+    @api.constrains('tko_journal_ids','journal_ids')
+    def _check_fiscal_codes(self):
+        """
+        Validate fiscal codes in payment methods
+        """
+        if len(self.tko_journal_ids) != len(self.journal_ids):
+            raise Warning(_("Please Define fiscal codes for each payment method"))
 class pos_order(models.Model):
     _inherit = 'pos.order'
 
     cnpj_cpf = fields.Char('CNPJ/CPF', size=20)
-
+    def _order_fields(self, cr, uid, ui_order, context=None):
+        result = super(pos_order,self)._order_fields(cr, uid, ui_order, context=context)
+        result['pos_reference'] = str(''.join(re.findall(r'\d+', str(result['name']))))
+        return result
+        
     def create_from_ui(self, cr, uid, orders, context=None):
         # Keep only new orders
 
@@ -101,11 +128,14 @@ class pos_order(models.Model):
             orders,
             context=context)
         # write cnpj_cpf to order
+        # we do not need this method but for some unknown reason cnpj_cpf is not written on order
+        # even if it is passed correctly from pos  to server
         if len(order_ids) == len(orders):
             i = 0
             for tmp_order in orders:
 
                 if 'data' in tmp_order.keys():
+                    tmp_order['data']
                     cnpj_cpf = tmp_order['data'].get('cnpj_cpf')
 
                     if cnpj_cpf:
@@ -128,11 +158,9 @@ class pos_order(models.Model):
                             # this case should never happen for a validated cpf
                             # / cnpj
                             _logger.error("Please check CPF/CNPJ validator")
-                        partner = partner_obj.search(
-                            cr, uid, [('cnpj_cpf', '=', cnpj_cpf)])
                         pos_obj.write(
                             cr, uid, [
                                 order_ids[i]], {
-                                'cnpj_cpf': cnpj_cpf, 'partner_id': partner and partner[0] or False})
+                                'cnpj_cpf': cnpj_cpf})
                     i = i + 1
         return order_ids

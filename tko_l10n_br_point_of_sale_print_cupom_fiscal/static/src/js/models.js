@@ -8,6 +8,14 @@ function tko_pos_store_cnpj_cpf(instance, module){ //module is instance.point_of
 	    		  return m.fields.push('confirm_payment'), 
 	    		  m;
 	    		   });
+	    // load model pos.config.journal.tko.rel
+	    module.PosModel.prototype.models.push({
+            model:  'pos.config.journal.tko.rel',
+            fields: ['id','journal_id','config_id','fiscal_code'],
+            loaded: function(self,fiscal_codes){ self.fiscal_codes = fiscal_codes; },
+        });
+	    	     
+	    	      
 	    
 	    
 	
@@ -17,7 +25,8 @@ function tko_pos_store_cnpj_cpf(instance, module){ //module is instance.point_of
 		export_as_JSON: function() {
 			var res = OrderSuper.prototype.export_as_JSON.call(this);
 			var cnpj_cpf = this.attributes.cnpj_cpf || "";
-			
+			res.uid = String(res.uid).replace(/\D/g,'');
+			res.name = res.uid;
 		    res.cnpj_cpf = cnpj_cpf;
 		    return res;
 		},
