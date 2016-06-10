@@ -479,11 +479,11 @@ function tko_pos_print_screens(instance, module) { //module is instance.point_of
                         }
                         // get cupom reference based on company config
                         var order_reference = ''
-                        if (self.pos.company.order_reference === 'order'){
-                        	order_reference = currentOrder.sequence_number
+                        if (self.pos.company.order_reference === 'uid'){
+                        	order_reference = String(currentOrder.uid).replace(/\D/g, '')
                         }
                         else{
-                        	order_reference = String(currentOrder.uid).replace(/\D/g, '')
+                        	order_reference = currentOrder.sequence_number
                         }
                         json_data = {
                                 "id": order_reference || 0,
