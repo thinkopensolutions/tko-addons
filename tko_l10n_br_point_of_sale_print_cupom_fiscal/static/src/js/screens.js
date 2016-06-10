@@ -46,8 +46,6 @@ function tko_pos_print_screens(instance, module){ //module is instance.point_of_
 					}
 					// if input is 12 digits long its supposed to be a CPF
 					if (e.length === 11){
-						console.log("check for cpf validation.................");
-						
 						cpf = e.replace(/[^\d]+/g,'');
 					    var numeros, digitos, soma, i, resultado, digitos_iguais;
 					        digitos_iguais = 1;
@@ -58,10 +56,8 @@ function tko_pos_print_screens(instance, module){ //module is instance.point_of_
 					                    digitos_iguais = 0;
 					                    break;
 					                   }
-					        console.log("1 checking for cpf validation.................");
 					        if (!digitos_iguais)
 					              {
-					        	  console.log("2 still checking for cpf validation.................");
 					              numeros = cpf.substring(0,9);
 					              digitos = cpf.substring(9);
 					              soma = 0;
@@ -69,9 +65,7 @@ function tko_pos_print_screens(instance, module){ //module is instance.point_of_
 					                    soma += numeros.charAt(10 - i) * i;
 					              resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
 					              if (resultado != digitos.charAt(0)){
-					            	  console.log("fail 1 checking for cpf validation.................");
 					            	  smoke.alert("Invalid CPF ", function(e){
-											console.log("invalid cpf /cnpj")
 											$('#cnpj_cpf_btn').trigger('click');
 										});
 					            	  return false;
@@ -85,9 +79,7 @@ function tko_pos_print_screens(instance, module){ //module is instance.point_of_
 					              resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
 					              if (resultado != digitos.charAt(1))
 					            	  {
-					            	  console.log("fail 2 checking for cpf validation.................");
 					            	  smoke.alert("Invalid CPF", function(e){
-											console.log("invalid cpf /cnpj")
 											$('#cnpj_cpf_btn').trigger('click');
 										});
 					            	   return false;
@@ -96,9 +88,7 @@ function tko_pos_print_screens(instance, module){ //module is instance.point_of_
 					              }
 					        else
 					        	{
-					        	console.log("fail 3 checking for cpf validation else.................")
 					        	smoke.alert("Invalid CPF", function(e){
-									console.log("invalid cpf /cnpj")
 									$('#cnpj_cpf_btn').trigger('click');
 									return false;
 								});
@@ -108,7 +98,6 @@ function tko_pos_print_screens(instance, module){ //module is instance.point_of_
 					
 					// if input is 12 digits long its supposed to be a CNPJ
 					else if (e.length === 14){
-						console.log("check for cnpj validation.................")
 						
 						//start CNPJ check
 						
@@ -126,7 +115,6 @@ function tko_pos_print_screens(instance, module){ //module is instance.point_of_
 				            cnpj == "88888888888888" ||
 				            cnpj == "99999999999999")
 				        	{
-				        	console.log("fail 1............");
 			            	  smoke.alert("Invalid CNPJ ", function(e){
 									console.log("invalid cpf /cnpj")
 									$('#cnpj_cpf_btn').trigger('click');
@@ -149,7 +137,6 @@ function tko_pos_print_screens(instance, module){ //module is instance.point_of_
 				        resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
 				        if (resultado != digitos.charAt(0))
 				        	{
-				        	console.log("fail 2............");
 			            	  smoke.alert("Invalid CNPJ", function(e){
 									console.log("invalid cpf /cnpj")
 									$('#cnpj_cpf_btn').trigger('click');
@@ -169,7 +156,6 @@ function tko_pos_print_screens(instance, module){ //module is instance.point_of_
 				        resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
 				        if (resultado != digitos.charAt(1))
 				        {
-				        	console.log("fail 3............");
 			            	  smoke.alert("Invalid CNPJ ", function(e){
 									console.log("invalid cpf /cnpj")
 									$('#cnpj_cpf_btn').trigger('click');
@@ -251,14 +237,10 @@ function tko_pos_print_screens(instance, module){ //module is instance.point_of_
     //validate CNPJ
 
     verifica_cnpj: function( cnpj ) {
-
 	    cnpj = cnpj.replace(/[^\d]+/g,'');
-
 	        if(cnpj == '') return false;
-
 	        if (cnpj.length != 14)
 	            return false;
-
 	        // LINHA 10 - Elimina CNPJs invalidos conhecidos
 	        if (cnpj == "00000000000000" ||
 	            cnpj == "11111111111111" ||
@@ -301,13 +283,8 @@ function tko_pos_print_screens(instance, module){ //module is instance.point_of_
 	              return false; // LINHA 49
 
 	        return true; // LINHA 51
-
-
-       
-
         },
 
-        
         show: function(){
         	this._super();
             var currentOrder = this.pos.get('selectedOrder');
@@ -315,7 +292,6 @@ function tko_pos_print_screens(instance, module){ //module is instance.point_of_
         	this.pos_widget.$(".cnpj_input").val(cnpj_cpf);
         	
         },
-
 		
      // inherit PosWidget to add print button in top right header 	
     	validate_order: function(options) {
@@ -543,6 +519,7 @@ function tko_pos_print_screens(instance, module){ //module is instance.point_of_
                         	
     	            }
     	            catch(error){
+    	            	console.log("json data....",json_data)
     	            	smoke.alert("Please check if applet is loaded, could not call appECF.imprimirCupom()")
     	            }
     	            
