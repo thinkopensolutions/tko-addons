@@ -122,9 +122,6 @@ module.OrderWidget = module.OrderWidget.extend({
         var total     = order ? order.getTotalTaxIncluded() : 0;
         var discount     = order ? order.getDiscountCard() : 0;
         var taxes     = order ? order.getTax(): 0;
-        if (total < 0){
-            total = 0;
-        }
         this.el.querySelector('.summary .total > .value').textContent = this.format_currency(total);
         this.el.querySelector('.summary .total .subentry .value').textContent = this.format_currency(taxes );
         this.el.querySelector('.summary .total .discount .value').textContent = this.format_currency(-discount);
