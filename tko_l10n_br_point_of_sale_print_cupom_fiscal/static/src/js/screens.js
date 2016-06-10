@@ -502,14 +502,14 @@ function tko_pos_print_screens(instance, module) { //module is instance.point_of
                         //send data to fiscal printer only if total of order is greater than 0
                         //open drawer & fiscal print 
                         try {
-                            appECF.abrirGaveta();
                             if (itemlines.length && currentOrder.getTotalTaxIncluded() > 0) {
+                            	appECF.abrirGaveta();
                                 appECF.imprimirCupom(JSON.stringify(json_data));
                             }
 
                         } catch (error) {
                             console.log(json_data)
-                            smoke.alert("Please check if applet is loaded, could not call appECF.imprimirCupom()")
+                            //smoke.alert("Please check if applet is loaded, could not call appECF.imprimirCupom()")
                         }
 
                         //kitchen print
