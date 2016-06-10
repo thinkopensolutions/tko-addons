@@ -508,7 +508,7 @@ function tko_pos_print_screens(instance, module) { //module is instance.point_of
                             }
 
                         } catch (error) {
-                            console.log("json data....", json_data)
+                            console.log(json_data)
                             smoke.alert("Please check if applet is loaded, could not call appECF.imprimirCupom()")
                         }
 
