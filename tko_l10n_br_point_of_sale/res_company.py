@@ -37,4 +37,4 @@ class res_compamy(models.Model):
         'Average State Tax Value [%]',
         company_dependent=True,
         help='The average state tax percentage [0..100]')
-    order_reference = fields.Selection([('uid',u'Ref do Recibo'),('order',u'Referência da Ordem ')], string='Fiscal cupom reference', help="Selected option will be printed on fiscal cupom")
+    order_reference = fields.Selection([('uid',u'Ref do Recibo'),('order',u'Referência da Ordem ')], default='order', required=True, string='Fiscal cupom reference', help="Selected option will be printed on fiscal cupom")
