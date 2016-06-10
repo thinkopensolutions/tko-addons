@@ -477,8 +477,16 @@ function tko_pos_print_screens(instance, module) { //module is instance.point_of
                         } catch (err) {
                             vendedor = order.pos.user.name
                         }
+                        // get cupom reference based on company config
+                        var order_reference = ''
+                        if (self.pos.company.order_reference === 'order'){
+                        	order_reference = currentOrder.sequence_number
+                        }
+                        else{
+                        	order_reference = String(currentOrder.uid).replace(/\D/g, '')
+                        }
                         json_data = {
-                                "id": String(currentOrder.uid).replace(/\D/g, '') || 0,
+                                "id": order_reference || 0,
                                 "nome": currentOrder.get_client_name() || "NAO OBTIDO",
                                 "cpf_cnpj": payment_cnpj_cpf || "",
                                 "endereco_completo": currentOrder.get_client_address() || "NAO OBTIDO",

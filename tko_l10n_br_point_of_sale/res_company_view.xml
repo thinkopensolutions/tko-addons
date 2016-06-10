@@ -12,6 +12,7 @@
                     <group name="pos_average_tax" string="Point of Sale Average Taxes" col="4">
                         <field name="average_federal_tax" />
                         <field name="average_state_tax" />
+                        <field name="order_reference"/>
                     </group>
                 </xpath>
             </field>
