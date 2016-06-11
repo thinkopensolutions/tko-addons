@@ -149,6 +149,7 @@ function pos_category_combo_discount(instance, module) { //module is instance.po
     });
 
     //Extend order to apply combo disocount each time a product is added
+    var _super_order = instance.point_of_sale.Order.prototype;
     module.Order = module.Order.extend({
 
 
@@ -164,7 +165,21 @@ function pos_category_combo_discount(instance, module) { //module is instance.po
             var attr = JSON.parse(JSON.stringify(product));
             attr.pos = this.pos;
             attr.order = this;
-
+            /* this piece of code is for pos_return can work without adding in dependency 
+             because both module inherit and override same function without calling super
+             calling super adds duplicate lines
+             */
+            var return_id = false;
+            try{
+            	return_id = this.get_ret_o_id();
+            }
+            catch (error){
+            	return_id = false;
+            }
+            if (return_id){
+            	return _super_order.addProduct.call(this, product, options);
+            }
+            /* end pos_return related code */
             var line = new module.Orderline({}, {
                 pos: this.pos,
                 order: this,
