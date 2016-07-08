@@ -35,7 +35,13 @@ function tko_pos_print_screens(instance, module) { //module is instance.point_of
                     //set value to field on parent form
                     $(".cnpj_input").val(e);
                     // pos_stock module from odoo apps changes scope of self
-                    var partners = this2.posmodel.partners;
+                    try{
+                       var partners = this2.posmodel.partners;
+                    }
+                    catch (error){
+                        var partners = this2.pos.partners;
+                    }
+
                     var partner = undefined;
                     for (i = 0; i < partners.length; i++) {
                         if (partners[i]["cnpj_cpf"] && partners[i]["cnpj_cpf"].replace(/\D/g, '') === e)
