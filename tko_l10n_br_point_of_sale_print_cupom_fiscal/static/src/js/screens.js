@@ -27,26 +27,18 @@ function tko_pos_print_screens(instance, module) { //module is instance.point_of
         },
 
         clickCnpjCpf: function(e) {
-            var this2= self;
             var cnpj_cpf = $(".cnpj_input").val().replace(/\D/g, '');
             smoke.prompt("CPF / CNPJ", function(e) {
                 // if there is input
                 if (e) {
                     //set value to field on parent form
                     $(".cnpj_input").val(e);
-                    // pos_stock module from odoo apps changes scope of self
-                    try{
-                       var partners = this2.posmodel.partners;
-                    }
-                    catch (error){
-                        var partners = this2.pos.partners;
-                    }
-
+                    var partners = self.pos.partners;
                     var partner = undefined;
                     for (i = 0; i < partners.length; i++) {
                         if (partners[i]["cnpj_cpf"] && partners[i]["cnpj_cpf"].replace(/\D/g, '') === e)
                             partner = partners[i];
-                        this2.posmodel.pos_widget.pos.get('selectedOrder').set_client(partner);
+                        self.pos.get('selectedOrder').set_client(partner);
                     }
                     // if input is 12 digits long its supposed to be a CPF
                     if (e.length === 11) {
