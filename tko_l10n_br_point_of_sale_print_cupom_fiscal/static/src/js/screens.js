@@ -33,13 +33,28 @@ function tko_pos_print_screens(instance, module) { //module is instance.point_of
                 if (e) {
                     //set value to field on parent form
                     $(".cnpj_input").val(e);
-                    var partners = self.pos.partners;
-                    var partner = undefined;
-                    for (i = 0; i < partners.length; i++) {
-                        if (partners[i]["cnpj_cpf"] && partners[i]["cnpj_cpf"].replace(/\D/g, '') === e)
-                            partner = partners[i];
-                        self.pos.get('selectedOrder').set_client(partner);
+
+                    try{
+                        var partners = self.pos.partners;
+                        var partner = undefined;
+                        for (i = 0; i < partners.length; i++) {
+                            if (partners[i]["cnpj_cpf"] && partners[i]["cnpj_cpf"].replace(/\D/g, '') === e)
+                                partner = partners[i];
+                            self.pos.get('selectedOrder').set_client(partner);
+                        }
                     }
+                    catch (error){
+                        var partners = self.posmodel.partners;
+                        var partner = undefined;
+                        for (i = 0; i < partners.length; i++) {
+                            if (partners[i]["cnpj_cpf"] && partners[i]["cnpj_cpf"].replace(/\D/g, '') === e)
+                                partner = partners[i];
+                            self.posmodel.pos_widget.pos.get('selectedOrder').set_client(partner);
+                        }
+
+                    }
+
+
                     // if input is 12 digits long its supposed to be a CPF
                     if (e.length === 11) {
                         cpf = e.replace(/[^\d]+/g, '');
