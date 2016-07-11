@@ -83,7 +83,10 @@ function pos_category_combo_discount(instance, module) { //module is instance.po
         	// if line is being removed
             if (quantity === 'remove' || quantity === '0' || !quantity) {
                 var currentLine = this;
-                var orderLines = currentLine.order.get('orderLines').models;
+                // before was reading order from current line but giving error with pos_stocks and pos_return installed
+                //var order = currentLine.order
+                var  order  = this.pos.get('selectedOrder')
+                var orderLines = order.get('orderLines').models;
                 var found = false;
                 _.each(orderLines, function(line) {
                     // find a line which can be replaced with current being deleted line
@@ -125,7 +128,7 @@ function pos_category_combo_discount(instance, module) { //module is instance.po
 
                     }
                 }
-                this.order.removeOrderline(this);
+                order.removeOrderline(this);
                 return;
             } else {
                 var quant = parseFloat(quantity) || 0;
