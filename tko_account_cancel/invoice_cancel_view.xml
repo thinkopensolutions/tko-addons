@@ -19,6 +19,7 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_form" />
             <field name="arch" type="xml">
+            	<field name="internal_number" position="replace"/>
                 <field name="number" position="replace">
                     <field name="number" invisible="1"/>
                     <field name="internal_number" />
@@ -31,6 +32,7 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_supplier_form" />
             <field name="arch" type="xml">
+            	<field name="internal_number" position="replace"/>
                 <field name="number" position="replace">
                     <field name="number" invisible="1"/>
                     <field name="internal_number" />
