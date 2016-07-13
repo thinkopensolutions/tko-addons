@@ -24,7 +24,7 @@ function l10n_br_fields(instance, module){ //module is instance.point_of_sale
 	// load NCM of product
 	module.PosModel.prototype.models.filter(function (m)
 			 { return m.model === 'product.product'; }).map(function (m) {
-			  return m.fields.push('property_fiscal_classification'), 
+			  return m.fields.push('fiscal_classification_id'),
 			  m;
 			   });
 	
@@ -55,7 +55,7 @@ function l10n_br_fields(instance, module){ //module is instance.point_of_sale
 	module.Orderline = module.Orderline.extend({
 		
 		get_ncm: function(){
-            return this.get_product().property_fiscal_classification[0];
+            return this.get_product().fiscal_classification_id[0];
         },
         
         get_tax_code: function(tax_code_id){
@@ -73,7 +73,7 @@ function l10n_br_fields(instance, module){ //module is instance.point_of_sale
         	var taxes_ids = this.get_product().taxes_id;
         	var taxes =  this.pos.taxes;
         	var taxes_definations  = this.pos.tax_definitions;
-        	var fiscal_classification_id = product.property_fiscal_classification[0];
+        	var fiscal_classification_id = product.fiscal_classification_id[0];
         	var icms_tax_id = undefined; // set icms tax_id
         	var tax_amount = 0.0
         	
