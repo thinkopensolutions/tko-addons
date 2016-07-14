@@ -23,8 +23,12 @@
 ##############################################################################
 from openerp import models, api, fields, _
 
+class account_tax(models.Model):
+    _inherit = 'account.tax'
+    
+    tax_code_id_tax_discount = fields.Boolean(string='Discount this Tax in Price', related='tax_code_id.tax_discount', store=True)
 
-class account_journal(models.Model):
-    _inherit = 'account.journal'
+class account_tax_code(models.Model):
+    _inherit = 'account.tax.code'
 
-    fiscal_code = fields.Integer('Fiscal Code')
+    pos_fiscal_code = fields.Selection([('I',u'Isento'),('N',u'Não tributado'),('F',u'Substituição Tributária')], default = 'I', string='Fiscal Code')
