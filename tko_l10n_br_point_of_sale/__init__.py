@@ -24,3 +24,5 @@
 
 import res_company
 import res_partner
+import point_of_sale
+import account_tax
