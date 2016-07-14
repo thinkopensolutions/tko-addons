@@ -427,6 +427,7 @@ function tko_pos_print_screens(instance, module) { //module is instance.point_of
 
 
                         //data to print
+
                         var pos_data = currentOrder.export_for_printing();
 
                         // get current config, it will remain same over payment lines
@@ -554,5 +555,4 @@ function tko_pos_print_screens(instance, module) { //module is instance.point_of
         },
 
     });
-
 };
