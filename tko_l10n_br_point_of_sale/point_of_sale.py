@@ -27,7 +27,7 @@ import openerp.addons.decimal_precision as dp
 class pos_order(models.Model):
     _inherit = 'pos.order'
 
-    amount_tax = fields.Float(compute='_amount_all', string='Taxes', digits_compute=dp.get_precision('Account')),
+    amount_tax = fields.Float(compute='_amount_line_tax', string='Taxes', digits_compute=dp.get_precision('Account'))
     
     # compute taxes with not tax.base_code_id.tax_discount
     def _amount_line_tax(self, cr, uid, line, context=None):
