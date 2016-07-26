@@ -42,6 +42,7 @@
     ],
 
     'data': [
+        'wizard/unset_orders_view.xml',
         'static/src/xml/main.xml',
         'res_company_view.xml',
         'point_of_sale_view.xml',
