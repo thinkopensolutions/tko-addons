@@ -25,9 +25,9 @@
             <field name="view_mode">form</field>
             <field name="target">new</field>
         </record>
-        <!-- This Menu Item must have a parent and an action -->
+        <!-- This Menu Item must have a parent and an action
         <menuitem id="unset_orders_wzrd_menu" name="POS Unset Orders" parent="point_of_sale.menu_point_config_product" action="unset_orders_wzrd_action" sequence="40"/>
-
+-->
 
     </data>
 </openerp>
