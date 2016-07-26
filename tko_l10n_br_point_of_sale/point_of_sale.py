@@ -43,7 +43,6 @@ class pos_order(models.Model):
     
     def create_from_ui(self, cr, uid, orders, context=None):
         # Keep only new orders
-        print orders
         pos_obj = self.pool.get('pos.order')
         pos_line_object = self.pool.get('pos.order.line')
         table_reserved_obj = self.pool.get("table.reserverd")
