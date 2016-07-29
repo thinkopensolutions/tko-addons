@@ -8,7 +8,7 @@
             <field name="inherit_id" ref="base.view_users_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='action_id']" position="after">
-                    <field name="smtp_server_id" widget="many2one" readonly="1"/>
+                    <field name="smtp_server_id" widget="one2many_tags" readonly="1"/>
                 </xpath>
             </field>
         </record>
