@@ -34,7 +34,7 @@
     'depends': [
                 'base',
                 'mail',
-                'web_widget_one2many_tags',
+               # 'web_widget_one2many_tags',
     ],
     'data': [
         'security/ir.model.access.csv',
