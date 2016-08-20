@@ -167,7 +167,8 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
             values['error'] = _('Login failed due to one of the following reasons:')
             values['reason1'] = _('- Wrong login/password')
             values['reason2'] = _('- User not allowed to have multiple logins')
-            values['reason3'] = _('- User not allowed to login at this specific time or day')
+            values[
+                'reason3'] = _('- User not allowed to login at this specific time or day')
         return request.render('web.login', values)
 
     def save_session(
@@ -182,10 +183,17 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
         session_obj = request.registry.get('ir.sessions')
         cr = request.registry.cursor()
 
+        # Get IP, check if it's behind a proxy
+        ip = request.httprequest.headers.environ['REMOTE_ADDR']
+        forwarded_for = ''
+        if request.httprequest.headers.environ['HTTP_X_FORWARDED_FOR']:
+            forwarded_for = request.httprequest.headers.environ['HTTP_X_FORWARDED_FOR'].split(', ')
+            if forwarded_for and forwarded_for[0]:
+                ip = forwarded_for[0]
+
         # for GeoIP
         geo_ip_resolver = None
-        ip_location = ""
-
+        ip_location = ''
         try:
             import GeoIP
             geo_ip_resolver = GeoIP.open(
@@ -194,8 +202,7 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
         except ImportError:
             geo_ip_resolver = False
         if geo_ip_resolver:
-            ip_location = (str(geo_ip_resolver.country_name_by_addr(
-                request.httprequest.remote_addr)) or "")
+            ip_location = (str(geo_ip_resolver.country_name_by_addr(ip)) or '')
 
         # autocommit: our single update request will be performed atomically.
         # (In this way, there is no opportunity to have two transactions
@@ -204,10 +211,6 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
         cr.autocommit(True)
         user = request.registry.get('res.users').browse(
             cr, request.uid, uid, request.context)
-        ip = request.httprequest.headers.environ['REMOTE_ADDR']
-        if ip == '127.0.0.1' or ip == 'localhost':
-            if request.httprequest.headers.environ['HTTP_X_FORWARDED_FOR']:
-                ip = request.httprequest.headers.environ['HTTP_X_FORWARDED_FOR']
         logged_in = True
         if unsuccessful_message:
             uid = SUPERUSER_ID
