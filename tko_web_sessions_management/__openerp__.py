@@ -27,7 +27,7 @@
     'version': '2.0',
     'category': 'Tools',
     'sequence': 15,
-    'summary': 'Complete! session timeout, kill. No multisessions. Login by calendar (week day hours).',
+    'summary': 'Sessions timeout and forced termination. Multisession control. Login by calendar (week day hours). Remote IP filter and location.',
     'description': """
 # Manage Users Login Rules in Odoo\n
 ===========================\n
