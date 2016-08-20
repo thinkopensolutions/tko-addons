@@ -183,10 +183,17 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
         session_obj = request.registry.get('ir.sessions')
         cr = request.registry.cursor()
 
+        # Get IP, check if it's behind a proxy
+        ip = request.httprequest.headers.environ['REMOTE_ADDR']
+        forwarded_for = ''
+        if request.httprequest.headers.environ['HTTP_X_FORWARDED_FOR']:
+            forwarded_for = request.httprequest.headers.environ['HTTP_X_FORWARDED_FOR'].split(', ')
+            if forwarded_for and forwarded_for[0]:
+                ip = forwarded_for[0]
+
         # for GeoIP
         geo_ip_resolver = None
-        ip_location = ""
-
+        ip_location = ''
         try:
             import GeoIP
             geo_ip_resolver = GeoIP.open(
@@ -195,8 +202,7 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
         except ImportError:
             geo_ip_resolver = False
         if geo_ip_resolver:
-            ip_location = (str(geo_ip_resolver.country_name_by_addr(
-                request.httprequest.remote_addr)) or "")
+            ip_location = (str(geo_ip_resolver.country_name_by_addr(ip)) or '')
 
         # autocommit: our single update request will be performed atomically.
         # (In this way, there is no opportunity to have two transactions
@@ -205,7 +211,6 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
         cr.autocommit(True)
         user = request.registry.get('res.users').browse(
             cr, request.uid, uid, request.context)
-        ip = request.httprequest.headers.environ['REMOTE_ADDR']
         logged_in = True
         if unsuccessful_message:
             uid = SUPERUSER_ID
