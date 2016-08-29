@@ -24,7 +24,7 @@
 
 {
     'name': 'TKOBR - Odoo Web Sessions Management Rules',
-    'version': '2.0',
+    'version': '2.0.1',
     'category': 'Tools',
     'sequence': 15,
     'summary': 'Sessions timeout and forced termination. Multisession control. Login by calendar (week day hours). Remote IP filter and location.',
