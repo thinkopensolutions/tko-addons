@@ -186,7 +186,7 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
         # Get IP, check if it's behind a proxy
         ip = request.httprequest.headers.environ['REMOTE_ADDR']
         forwarded_for = ''
-        if request.httprequest.headers.environ['HTTP_X_FORWARDED_FOR']:
+        if 'HTTP_X_FORWARDED_FOR' in request.httprequest.headers.environ and request.httprequest.headers.environ['HTTP_X_FORWARDED_FOR']:
             forwarded_for = request.httprequest.headers.environ['HTTP_X_FORWARDED_FOR'].split(', ')
             if forwarded_for and forwarded_for[0]:
                 ip = forwarded_for[0]
