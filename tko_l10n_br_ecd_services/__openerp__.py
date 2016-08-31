@@ -32,8 +32,8 @@
     'version': '1.019',
     'sequence': 8,
     'depends': [
-                'account',
-                'account_chart',
+        'account',
+        'account_chart',
     ],
     'data': [
         'data/account.account.template.csv',

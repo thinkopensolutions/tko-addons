@@ -7,7 +7,13 @@
             </div>
             <canvas id="canvas" width="320" height="240"></canvas>
             <ul id="cams"></ul>
-            <div><a href="javascript:webcam.capture();void(0);">Take a Picture</a> | <span class="oe_partner_webcam_close"><a href="#">Close Window</a></span></div>
+            <div>
+                <a href="javascript:webcam.capture();void(0);">Take a Picture</a>
+                |
+                <span class="oe_partner_webcam_close">
+                    <a href="#">Close Window</a>
+                </span>
+            </div>
         </div>
     </div>
 </templates>

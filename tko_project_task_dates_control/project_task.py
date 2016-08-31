@@ -22,9 +22,9 @@
 #
 ##############################################################################
 
-from openerp import fields, models, api, _
 from datetime import timedelta, datetime
 
+from openerp import fields, models, api
 
 _stage_type = [('i', 'Initial'), ('f', 'Final'), ('c', 'Cancel')]
 

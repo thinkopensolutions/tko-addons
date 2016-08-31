@@ -22,18 +22,18 @@
 #
 ##############################################################################
 
-import time
-from openerp.osv import osv, orm
-from openerp.report import report_sxw
-from openerp.exceptions import Warning
-from openerp import _
-import re
 import logging
+import re
+import time
+
+from openerp import _
+from openerp.osv import osv
+from openerp.report import report_sxw
+
 _logger = logging.getLogger(__name__)
 
 
 class tko_contract_report(report_sxw.rml_parse):
-
     def __init__(self, cr, uid, name, context):
         super(
             tko_contract_report,
@@ -78,9 +78,10 @@ class tko_contract_report(report_sxw.rml_parse):
                                             value[field]).encode('utf-8')])
                         except Exception as err:
                             value = (
-                                '<font color="red"><strong>[ERROR: Field %s doesn\'t exist  in %s]<strong></font>') % (err, value)
+                                        '<font color="red"><strong>[ERROR: Field %s doesn\'t exist  in %s]<strong></font>') % (
+                                    err, value)
                             _logger.error(
-                                ("Field %s doesn't exist  in %s") % 
+                                ("Field %s doesn't exist  in %s") %
                                 (err, value))
                     if value:
                         if type != 'binary':
@@ -95,14 +96,15 @@ class tko_contract_report(report_sxw.rml_parse):
                                 if block[2]:
                                     height = ' height="%spx"' % block[2]
                                 text = text.replace(
-                                    '$(' + match + ')s', '<img src="data:image/jpeg;base64,' + str(value) + '"%s%s/>' % 
+                                    '$(' + match + ')s', '<img src="data:image/jpeg;base64,' + str(value) + '"%s%s/>' %
                                     (width, height))
                             except Exception as err:
                                 value = _(
-                                    u'<font color="red"><strong>[ERROR: Wrong image size indication in "%s". Examples: "(partner_id.image,160,160)" or "(partner_id.image,,160)" or "(partner_id.image,160,)" or "(partner_id.image,,)"]<strong></font>' % 
+                                    u'<font color="red"><strong>[ERROR: Wrong image size indication in "%s". Examples: "(partner_id.image,160,160)" or "(partner_id.image,,160)" or "(partner_id.image,160,)" or "(partner_id.image,,)"]<strong></font>' %
                                     match)
                                 _logger.error(
-                                    _(u'Wrong image size indication in "$(%s)s". Examples: $(partner_id.image,160,160)s or $(partner_id.image,,160)s or $(partner_id.image,160,)s or $(partner_id.image,,)s' % match))
+                                    _(
+                                        u'Wrong image size indication in "$(%s)s". Examples: $(partner_id.image,160,160)s or $(partner_id.image,,160)s or $(partner_id.image,160,)s or $(partner_id.image,,)s' % match))
                                 text = text.replace(
                                     '$(' + match + ')s', str(value))
 

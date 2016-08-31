@@ -22,7 +22,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
+from openerp import models, api, fields
 
 
 class task_type(models.Model):

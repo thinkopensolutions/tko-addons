@@ -3,10 +3,10 @@
     <data>
 
         <report id="report_tko_contract" string="Contract"
-            model="account.analytic.account" report_type="qweb-pdf"
-            file="tko_account_contract_report_template.contract_report_template_view.xml"
-            name="tko_account_contract_report_template.tko_contract_report"
-            attachment_use="0" />
+                model="account.analytic.account" report_type="qweb-pdf"
+                file="tko_account_contract_report_template.contract_report_template_view.xml"
+                name="tko_account_contract_report_template.tko_contract_report"
+                attachment_use="0"/>
 
     </data>
 </openerp>

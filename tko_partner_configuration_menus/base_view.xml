@@ -4,29 +4,29 @@
 
         <!-- Activity Branch -->
         <record id="activity_branch_tree" model="ir.ui.view">
-            <field name="name"> Activity Branch</field>
+            <field name="name">Activity Branch</field>
             <field name="model">activity_branch</field>
             <field name="arch" type="xml">
                 <tree string="Activity Branch" version="7.0">
-                    <field name="name" />
+                    <field name="name"/>
                 </tree>
             </field>
         </record>
 
         <record id="activity_branch_form" model="ir.ui.view">
-            <field name="name"> Activity Branch</field>
+            <field name="name">Activity Branch</field>
             <field name="model">activity_branch</field>
             <field name="arch" type="xml">
                 <form string="Activity Branch" version="7.0">
                     <group>
-                        <field name="name" />
+                        <field name="name"/>
                     </group>
                 </form>
             </field>
         </record>
 
         <record id="activity_branch_action" model="ir.actions.act_window">
-            <field name="name"> Activity Branch</field>
+            <field name="name">Activity Branch</field>
             <field name="res_model">activity_branch</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -34,22 +34,22 @@
 
         <!-- Business Size -->
         <record id="business_size_tree" model="ir.ui.view">
-            <field name="name"> Business Size</field>
+            <field name="name">Business Size</field>
             <field name="model">business_size</field>
             <field name="arch" type="xml">
                 <tree string="Business Size" version="7.0">
-                    <field name="name" />
+                    <field name="name"/>
                 </tree>
             </field>
         </record>
 
         <record id="business_size_form" model="ir.ui.view">
-            <field name="name"> Business Size</field>
+            <field name="name">Business Size</field>
             <field name="model">business_size</field>
             <field name="arch" type="xml">
                 <form string="Business Size" version="7.0">
                     <group>
-                        <field name="name" />
+                        <field name="name"/>
                     </group>
                 </form>
             </field>
@@ -64,11 +64,11 @@
 
         <!-- Annual Income -->
         <record id="annual_income_tree" model="ir.ui.view">
-            <field name="name"> Annual Income</field>
+            <field name="name">Annual Income</field>
             <field name="model">annual_income</field>
             <field name="arch" type="xml">
                 <tree string="Business Size" version="7.0">
-                    <field name="name" />
+                    <field name="name"/>
                 </tree>
             </field>
         </record>
@@ -79,7 +79,7 @@
             <field name="arch" type="xml">
                 <form string="Business Size" version="7.0">
                     <group>
-                        <field name="name" />
+                        <field name="name"/>
                     </group>
                 </form>
             </field>
@@ -98,7 +98,7 @@
             <field name="model">economic_sector</field>
             <field name="arch" type="xml">
                 <tree string="Economic Sector" version="7.0">
-                    <field name="name" />
+                    <field name="name"/>
                 </tree>
             </field>
         </record>
@@ -109,7 +109,7 @@
             <field name="arch" type="xml">
                 <form string="Economic Sector" version="7.0">
                     <group>
-                        <field name="name" />
+                        <field name="name"/>
                     </group>
                 </form>
             </field>
@@ -128,7 +128,7 @@
             <field name="model">business_nationality</field>
             <field name="arch" type="xml">
                 <tree string="Business Nationality" version="7.0">
-                    <field name="name" />
+                    <field name="name"/>
                 </tree>
             </field>
         </record>
@@ -139,7 +139,7 @@
             <field name="arch" type="xml">
                 <form string="Business Nationality" version="7.0">
                     <group>
-                        <field name="name" />
+                        <field name="name"/>
                     </group>
                 </form>
             </field>
@@ -153,26 +153,26 @@
         </record>
 
         <menuitem id="partner_config_menu" name="Partner"
-            parent="base.menu_custom" groups="base.group_no_one"
-            sequence="60" />
+                  parent="base.menu_custom" groups="base.group_no_one"
+                  sequence="60"/>
         <menuitem action="base.action_partner_category_form"
-            id="menu_partner_category_form" name="Tags" sequence="70"
-            parent="partner_config_menu" groups="base.group_no_one" />
+                  id="menu_partner_category_form" name="Tags" sequence="70"
+                  parent="partner_config_menu" groups="base.group_no_one"/>
         <menuitem action="base.action_partner_title_partner"
-            id="menu_partner_title_partner" parent="partner_config_menu"
-            sequence="80" groups="base.group_no_one" />
+                  id="menu_partner_title_partner" parent="partner_config_menu"
+                  sequence="80" groups="base.group_no_one"/>
         <menuitem id="activity_main_menu" name="Activity"
-            parent="partner_config_menu" sequence="5" groups="base.group_no_one" />
+                  parent="partner_config_menu" sequence="5" groups="base.group_no_one"/>
         <menuitem action="activity_branch_action" id="activity_branch_menu"
-            parent="activity_main_menu" sequence="10" groups="base.group_no_one" />
+                  parent="activity_main_menu" sequence="10" groups="base.group_no_one"/>
         <menuitem action="business_size_action" id="business_size_menu"
-            parent="activity_main_menu" sequence="20" groups="base.group_no_one" />
+                  parent="activity_main_menu" sequence="20" groups="base.group_no_one"/>
         <menuitem action="annual_income_action" id="annual_income_menu"
-            parent="activity_main_menu" sequence="30" groups="base.group_no_one" />
+                  parent="activity_main_menu" sequence="30" groups="base.group_no_one"/>
         <menuitem action="economic_sector_action" id="economic_sector_menu"
-            parent="activity_main_menu" sequence="40" groups="base.group_no_one" />
+                  parent="activity_main_menu" sequence="40" groups="base.group_no_one"/>
         <menuitem action="business_nationality_action" id="business_nationality_menu"
-            parent="activity_main_menu" sequence="50" groups="base.group_no_one" />
+                  parent="activity_main_menu" sequence="50" groups="base.group_no_one"/>
 
     </data>
 </openerp>

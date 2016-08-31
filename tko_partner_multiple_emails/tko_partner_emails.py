@@ -22,8 +22,9 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
 import re
+
+from openerp.osv import osv, fields
 
 
 class res_partner_email(osv.osv):
@@ -34,7 +35,7 @@ class res_partner_email(osv.osv):
         'email': fields.char(
             'Emails', size=240, required=True), 'res_partner_id': fields.many2one(
             'res.partner', 'Partner ID', ondelete="cascade"), 'is_active': fields.boolean(
-                string='Active')}
+            string='Active')}
 
     _sql_constraints = [
         ('unique_email',
@@ -57,9 +58,9 @@ class res_partner_email(osv.osv):
         return False
 
     _constraints = (
-        _ValidateEmail,
-        'Error!\nPlease enter a valid email address.',
-        ['email']),
+                       _ValidateEmail,
+                       'Error!\nPlease enter a valid email address.',
+                       ['email']),
 
     def set_partner_email(self, cr, uid, ids, context=None):
         res = {}

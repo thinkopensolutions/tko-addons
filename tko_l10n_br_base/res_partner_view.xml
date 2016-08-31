@@ -6,10 +6,10 @@
         <record id="view_l10n_br_base_partner_filter" model="ir.ui.view">
             <field name="name">l10n_br_base.partner.filter</field>
             <field name="model">res.partner</field>
-            <field name="inherit_id" ref="base.view_res_partner_filter" />
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
             <field name="arch" type="xml">
                 <field name="name" position="after">
-                    <field name="cnpj_cpf" />
+                    <field name="cnpj_cpf"/>
                 </field>
             </field>
         </record>
@@ -18,11 +18,11 @@
         <record id="res_partner_title_form_inherit" model="ir.ui.view">
             <field name="name">res_partner_title_inherit_form</field>
             <field name="model">res.partner.title</field>
-            <field name="inherit_id" ref="base.view_partner_title_form" />
+            <field name="inherit_id" ref="base.view_partner_title_form"/>
             <field name="arch" type="xml">
                 <field name="shortcut" position="after">
-                    <field name="is_fisica" />
-                    <field name="is_juridica" />
+                    <field name="is_fisica"/>
+                    <field name="is_juridica"/>
                 </field>
             </field>
         </record>
@@ -30,13 +30,13 @@
         <record id="res_partner_original_form_inherit" model="ir.ui.view">
             <field name="name">res_partner_inherit_form</field>
             <field name="model">res.partner</field>
-            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//sheet/group/group" positoin="after">
                     <field name="birth_date"
-                        attrs="{'invisible':[('is_company','=',True)]}" />
+                           attrs="{'invisible':[('is_company','=',True)]}"/>
                     <field name="age"
-                        attrs="{'invisible':[('is_company','=',True)]}" />
+                           attrs="{'invisible':[('is_company','=',True)]}"/>
                 </xpath>
             </field>
         </record>
@@ -45,21 +45,21 @@
             <field name="name">res_partner_inherit_form</field>
             <field name="model">res.partner</field>
             <field name="inherit_id"
-                ref="l10n_br_base.view_l10n_br_base_partner_form" />
+                   ref="l10n_br_base.view_l10n_br_base_partner_form"/>
             <field name="arch" type="xml">
-                
-                <field name="fax" position="replace" />
-                <field name="mobile" position="replace" />
-                <field name="phone" position="replace" />
-                <field name="website" position="replace" />
-                <field name="parent_id" position="replace" />
-                <field name="function" position="replace" />
-                <field name="is_company" position="replace" />
-                <field name="title" position="replace" />
-                <field name="zip" position="replace" />
-                <field name="state_id" position="replace" />
-                <field name="country_id" position="replace" />
-                <field name="street2" position="replace" />
+
+                <field name="fax" position="replace"/>
+                <field name="mobile" position="replace"/>
+                <field name="phone" position="replace"/>
+                <field name="website" position="replace"/>
+                <field name="parent_id" position="replace"/>
+                <field name="function" position="replace"/>
+                <field name="is_company" position="replace"/>
+                <field name="title" position="replace"/>
+                <field name="zip" position="replace"/>
+                <field name="state_id" position="replace"/>
+                <field name="country_id" position="replace"/>
+                <field name="street2" position="replace"/>
                 <field name="street" position="attributes">
                     <attribute name="placeholder">street</attribute>
                 </field>
@@ -67,108 +67,108 @@
                     <attribute name="placeholder">number</attribute>
                 </field>
                 <field name="district" position="replace">
-                    <field name="street2" placeholder="complement" />
-                    <field name="district" placeholder="district" />
-                    <field name="zip" placeholder="zip" />
-                    <field name="country_id" placeholder="country" />
-                    <field name="state_id" placeholder="state" />
+                    <field name="street2" placeholder="complement"/>
+                    <field name="district" placeholder="district"/>
+                    <field name="zip" placeholder="zip"/>
+                    <field name="country_id" placeholder="country"/>
+                    <field name="state_id" placeholder="state"/>
                 </field>
-                <xpath expr="//div/div" position="replace" />
-                <xpath expr="//div/group" position="replace" />
+                <xpath expr="//div/div" position="replace"/>
+                <xpath expr="//div/group" position="replace"/>
                 <xpath expr="//page[@string='Contacts']" position="attributes">
                     <attribute name="attrs"></attribute>
                 </xpath>
                 <field name="category_id" position="before">
                     <field name="is_company_selection" nolabel="1"
-                        colspan="1"
-                        on_change="onchange_is_company_selection(is_company_selection)" />
+                           colspan="1"
+                           on_change="onchange_is_company_selection(is_company_selection)"/>
                 </field>
                 <page string="Contacts" position="attributes">
                     <attribute name="attrs">{'invisible':[('is_company_selection','=','f')]}</attribute>
                 </page>
                 <xpath expr="//group" position="before">
-                    <field name="is_company" invisible="1" />
+                    <field name="is_company" invisible="1"/>
                     <group colspan="2">
-                        <label for="is_company_selection" />
+                        <label for="is_company_selection"/>
                         <div>
                             <div>
                                 <field name="title" nolabel="1"
-                                    style="width: 20%%" widget="selection"
-                                    options='{"no_open": True}' domain="[('is_juridica','=',True)]" />
+                                       style="width: 20%%" widget="selection"
+                                       options='{"no_open": True}' domain="[('is_juridica','=',True)]"/>
                                 <field name="legal_name" nolabel="1"
-                                    style="width: 80%%" placeholder="legal name" domain="[('is_company','=',True)]" />
+                                       style="width: 80%%" placeholder="legal name" domain="[('is_company','=',True)]"/>
                             </div>
                             <div>
                                 <field name="gender" nolabel="1"
-                                    style="width: 20%%"
-                                    attrs="{'invisible': [('is_company','=', True)]}" />
+                                       style="width: 20%%"
+                                       attrs="{'invisible': [('is_company','=', True)]}"/>
                                 <field name="cnpj_cpf" nolabel="1"
-                                    style="width: 80%%" placeholder="cpf / cnpj"/>
+                                       style="width: 80%%" placeholder="cpf / cnpj"/>
                             </div>
                             <field name="parent_id" nolabel="1"
-                                colspan="3" placeholder="company"
-                                domain="[('is_company', '=', True),('id','!=',active_id)]"
-                                context="{'default_is_company': True, 'default_is_company_selection': 'j', 'default_supplier': supplier, 'default_customer': customer}"
-                                on_change="onchange_address(use_parent_address, parent_id)" />
+                                   colspan="3" placeholder="company"
+                                   domain="[('is_company', '=', True),('id','!=',active_id)]"
+                                   context="{'default_is_company': True, 'default_is_company_selection': 'j', 'default_supplier': supplier, 'default_customer': customer}"
+                                   on_change="onchange_address(use_parent_address, parent_id)"/>
                         </div>
                     </group>
                 </xpath>
                 <field name="email" position="before">
                     <field name="function" placeholder="position"
-                        attrs="{'invisible' : [('is_company','=', True)]}" />
-                    <label for="departamento" string=" " />
+                           attrs="{'invisible' : [('is_company','=', True)]}"/>
+                    <label for="departamento" string=" "/>
                     <field name="departamento" placeholder="department"
-                        nolabel="1"
-                        attrs="{'invisible' : [('is_company','=', True)]}" />
-                    <label for="pabx" />
+                           nolabel="1"
+                           attrs="{'invisible' : [('is_company','=', True)]}"/>
+                    <label for="pabx"/>
                     <div name="telephone">
                         <group col="3">
                             <field name="pabx" nolabel="1"
-                                placeholder="pabx" colspan="2" />
+                                   placeholder="pabx" colspan="2"/>
                             <field name="pabx_extension" nolabel="1"
-                                placeholder="ramal" colspan="1" />
+                                   placeholder="ramal" colspan="1"/>
                             <field name="fax" nolabel="1"
-                                placeholder="fax" colspan="2" />
+                                   placeholder="fax" colspan="2"/>
                             <field name="fax_extension" nolabel="1"
-                                placeholder="ramal" colspan="1" />
+                                   placeholder="ramal" colspan="1"/>
                             <field name="phone" nolabel="1"
-                                placeholder="direct phone" colspan="3" />
+                                   placeholder="direct phone" colspan="3"/>
                             <field name="mobile" nolabel="1"
-                                placeholder="mobile phone" colspan="3" />
+                                   placeholder="mobile phone" colspan="3"/>
                             <field name="residence_phone" nolabel="1"
-                                placeholder="residêncial"
-                                attrs="{'invisible': [('is_company','=', True)]}"
-                                colspan="3" />
+                                   placeholder="residêncial"
+                                   attrs="{'invisible': [('is_company','=', True)]}"
+                                   colspan="3"/>
                         </group>
                     </div>
                 </field>
                 <page string="Contacts" position="after">
                     <page string="Activity"
-                        attrs="{'invisible': [('is_company','=', False)]}">
+                          attrs="{'invisible': [('is_company','=', False)]}">
                         <group>
                             <field name="activity_branch_id"
-                                placeholder="ramo de atividade" />
+                                   placeholder="ramo de atividade"/>
                             <field name="business_size_id"
-                                placeholder="porte" />
+                                   placeholder="porte"/>
                             <field name="annual_income_id"
-                                placeholder="faturamento anual" />
+                                   placeholder="faturamento anual"/>
                             <field name="economic_sector_id"
-                                placeholder="setor econômico" />
+                                   placeholder="setor econômico"/>
                             <field name="business_nationality_id"
-                                placeholder="classe" />
+                                   placeholder="classe"/>
                         </group>
                     </page>
                     <page string="Internet &amp; Social Network">
                         <group>
                             <group>
-                                <field name="skype" widget="url" />
-                                <field name="website" widget="url" />
-                                <field name="blog" widget="url" />
+                                <field name="skype" widget="url"/>
+                                <field name="website" widget="url"/>
+                                <field name="blog" widget="url"/>
                             </group>
                             <group>
-                                <field name="facebook" widget="url" />
-                                <field name="twitter" widget="url" />
-                                <field name="linkedin" widget="url" />
+                                <field name="facebook" widget="url"/>
+                                <field name="twitter" widget="url"/>
+                                <field name="linkedin" widget="url"/>
                             </group>
                         </group>
                     </page>

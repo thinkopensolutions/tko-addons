@@ -5,11 +5,11 @@
         <record id="product_template_search_view_inherit" model="ir.ui.view">
             <field name="name">product.template.search</field>
             <field name="model">product.template</field>
-            <field name="inherit_id" ref="product.product_template_search_view" />
+            <field name="inherit_id" ref="product.product_template_search_view"/>
             <field name="arch" type="xml">
                 <field name="product_variant_ids" position="before">
                     <field name="seller_ids" string="Supplier Default Code"
-                        filter_domain="[('seller_ids.product_code','ilike',self)]" />
+                           filter_domain="[('seller_ids.product_code','ilike',self)]"/>
                 </field>
             </field>
         </record>
@@ -17,10 +17,10 @@
         <record id="product_supplier_info_tree_view" model="ir.ui.view">
             <field name="name">product.supplierinfo.tree.view</field>
             <field name="model">product.supplierinfo</field>
-            <field name="inherit_id" ref="product.product_supplierinfo_tree_view" />
+            <field name="inherit_id" ref="product.product_supplierinfo_tree_view"/>
             <field name="arch" type="xml">
                 <field name="name" position="after">
-                    <field name="product_code" />
+                    <field name="product_code"/>
                 </field>
             </field>
         </record>

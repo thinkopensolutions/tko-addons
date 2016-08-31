@@ -33,10 +33,10 @@
     'license': 'AGPL-3',
     'website': 'http://www.tkobr.com',
     'depends': [
-                'base',
-                'project',
-                'project_issue',
-                'project_issue_sheet',
+        'base',
+        'project',
+        'project_issue',
+        'project_issue_sheet',
     ],
     'data': [
         'wizard/project_issue_view.xml',

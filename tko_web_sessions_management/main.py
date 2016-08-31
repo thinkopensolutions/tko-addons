@@ -23,26 +23,25 @@
 ##############################################################################
 
 import logging
-import openerp
-from openerp.osv import fields, osv, orm
 import pytz
-from datetime import date, datetime, time, timedelta
+from datetime import datetime
 from dateutil.relativedelta import *
-from openerp.addons.base.ir.ir_cron import _intervalTypes
-from openerp import SUPERUSER_ID
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
-from openerp.http import request
-from openerp.tools.translate import _
-from openerp import http
+
+import openerp
 import werkzeug.contrib.sessions
-from openerp.http import Response
+from openerp import SUPERUSER_ID
+from openerp import http
+from openerp.http import request
+from openerp.osv import fields
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from openerp.tools.translate import _
+
 # from openerp import pooler
 
 _logger = logging.getLogger(__name__)
 
 
 class Home_tkobr(openerp.addons.web.controllers.main.Home):
-
     @http.route('/web/login', type='http', auth="none")
     def web_login(self, redirect=None, **kw):
         openerp.addons.web.controllers.main.ensure_db()
@@ -74,7 +73,7 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
             uid = False
             if 'login' in request.params and 'password' in request.params:
                 uid = request.session.authenticate(request.session.db, request.params[
-                                                   'login'], request.params['password'])
+                    'login'], request.params['password'])
             if uid is not False:
                 user = request.registry.get('res.users').browse(
                     request.cr, request.uid, uid, request.context)
@@ -106,26 +105,32 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
                             calendar_set += 1
                             # check user calendar
                             attendances = attendance_obj.search(request.cr,
-                                                                request.uid, [('calendar_id', '=', user.login_calendar_id.id),
-                                                                              ('dayofweek', '=', str(now.weekday())),
-                                                                              ('hour_from', '<=', now.hour + now.minute / 60.0),
-                                                                              ('hour_to', '>=', now.hour + now.minute / 60.0)],
+                                                                request.uid,
+                                                                [('calendar_id', '=', user.login_calendar_id.id),
+                                                                 ('dayofweek', '=', str(now.weekday())),
+                                                                 ('hour_from', '<=', now.hour + now.minute / 60.0),
+                                                                 ('hour_to', '>=', now.hour + now.minute / 60.0)],
                                                                 context=request.context)
                             if attendances:
                                 calendar_ok = True
                             else:
-                                unsuccessful_message = "unsuccessful login from '%s', user time out of allowed calendar defined in user" % request.params[
-                                    'login']
+                                unsuccessful_message = "unsuccessful login from '%s', user time out of allowed calendar defined in user" % \
+                                                       request.params[
+                                                           'login']
                         else:
                             # check user groups calendar
                             for group in user.groups_id:
                                 if group.login_calendar_id:
                                     calendar_set += 1
                                     attendances = attendance_obj.search(request.cr,
-                                                                        request.uid, [('calendar_id', '=', group.login_calendar_id.id),
-                                                                                      ('dayofweek', '=', str(now.weekday())),
-                                                                                      ('hour_from', '<=', now.hour + now.minute / 60.0),
-                                                                                      ('hour_to', '>=', now.hour + now.minute / 60.0)],
+                                                                        request.uid, [('calendar_id', '=',
+                                                                                       group.login_calendar_id.id),
+                                                                                      ('dayofweek', '=',
+                                                                                       str(now.weekday())),
+                                                                                      ('hour_from', '<=',
+                                                                                       now.hour + now.minute / 60.0),
+                                                                                      ('hour_to', '>=',
+                                                                                       now.hour + now.minute / 60.0)],
                                                                         context=request.context)
                                     if attendances:
                                         calendar_ok = True
@@ -133,15 +138,18 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
                                         calendar_group = group.name
                                 if sessions and group.multiple_sessions_block and multi_ok:
                                     multi_ok = False
-                                    unsuccessful_message = _("unsuccessful login from '%s', multisessions block defined in group '%s'") % (
-                                        request.params['login'], group.name)
+                                    unsuccessful_message = _(
+                                        "unsuccessful login from '%s', multisessions block defined in group '%s'") % (
+                                                               request.params['login'], group.name)
                                     break
                             if calendar_set > 0 and calendar_ok == False:
-                                unsuccessful_message = _("unsuccessful login from '%s', user time out of allowed calendar defined in group '%s'") % (
-                                    request.params['login'], calendar_group)
+                                unsuccessful_message = _(
+                                    "unsuccessful login from '%s', user time out of allowed calendar defined in group '%s'") % (
+                                                           request.params['login'], calendar_group)
                     else:
-                        unsuccessful_message = _("unsuccessful login from '%s', multisessions block defined in user") % request.params[
-                            'login']
+                        unsuccessful_message = _("unsuccessful login from '%s', multisessions block defined in user") % \
+                                               request.params[
+                                                   'login']
             else:
                 unsuccessful_message = _("unsuccessful login from '%s', wrong username or password") % request.params[
                     'login']
@@ -186,7 +194,8 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
         # Get IP, check if it's behind a proxy
         ip = request.httprequest.headers.environ['REMOTE_ADDR']
         forwarded_for = ''
-        if 'HTTP_X_FORWARDED_FOR' in request.httprequest.headers.environ and request.httprequest.headers.environ['HTTP_X_FORWARDED_FOR']:
+        if 'HTTP_X_FORWARDED_FOR' in request.httprequest.headers.environ and request.httprequest.headers.environ[
+            'HTTP_X_FORWARDED_FOR']:
             forwarded_for = request.httprequest.headers.environ['HTTP_X_FORWARDED_FOR'].split(', ')
             if forwarded_for and forwarded_for[0]:
                 ip = forwarded_for[0]
@@ -234,8 +243,8 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
                     (datetime.strptime(
                         now,
                         DEFAULT_SERVER_DATETIME_FORMAT) +
-                        relativedelta(
-                        seconds=user.session_default_seconds)),
+                     relativedelta(
+                         seconds=user.session_default_seconds)),
                     DEFAULT_SERVER_DATETIME_FORMAT),
                 'ip': ip,
                 'ip_location': ip_location,
