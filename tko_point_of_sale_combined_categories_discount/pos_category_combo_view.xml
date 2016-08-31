@@ -1,66 +1,67 @@
 <openerp>
-	<data>
-		
-		<record id="pos_config_form" model="ir.ui.view">
-			<field name="name">POS Order</field>
-			<field name="model">pos.order</field>
-			<field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
-			<field name="arch" type="xml">
-				<field name="discount" position="attributes">
-					<attribute name="invisible">1</attribute>
-				</field>
-<!--This button below validates orders in New stag-->
-		<!--		<button name="refund" position="before">
-					<button name="validate_old_orders" type="object" string="Validate Orders"/>
-				</button>
--->
-				<xpath expr="//field[@name='lines']/tree//field[@name='discount']" position="after">
-					<field name="discount_type"/>
-					<field name="discount_value"/>
-				</xpath>
-			</field>
-		</record>
-	
-		
-		<record id="pos_category_combo_form" model="ir.ui.view">
-			<field name="name">Category Combo Discount</field>
-			<field name="model">pos.category.combo</field>
-			<field name="arch" type="xml">
-				<form string="Category Combo Discount" version="7.0">
-					<group>
-						<field name="main_category_id"/>
-						<field name="disc_category_id"/>
-						<field name="type"/>
-						<field name="value"/>
-					</group>
-					<group string="Allowed Companies">
-						<field name="company_ids" options="{'no_create' : True}" required="1" nolabel="1"/>
-					</group>
-				</form>
-			</field>
-		</record>
-		<record id="pos_category_combo_tree" model="ir.ui.view">
-			<field name="name">Category Combo Discount</field>
-			<field name="model">pos.category.combo</field>
-			<field name="arch" type="xml">
-				<tree>
-					<field name="main_category_id"/>
-					<field name="disc_category_id"/>
-					<field name="type"/>
-					<field name="value"/>
-					<field name="company_ids" required="1"/>
-				</tree>
-			</field>
-		</record>
-		
-		<record id="pos_category_combo_action" model="ir.actions.act_window">
-			<field name="name">Category Combo Discount</field>
-			<field name="res_model">pos.category.combo</field>
-			<field name="view_mode">tree,form</field>
-			<field name="view_type">form</field>
-			<field name="view_id" ref="pos_category_combo_tree"/>
-		</record>
-		
-		<menuitem id="pos_disc_card_menu" name="Category Combo Discount" action="pos_category_combo_action" parent="point_of_sale.menu_point_config_product" sequence="50"/>
-	</data>
+    <data>
+
+        <record id="pos_config_form" model="ir.ui.view">
+            <field name="name">POS Order</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="arch" type="xml">
+                <field name="discount" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <!--This button below validates orders in New stag-->
+                <!--		<button name="refund" position="before">
+                            <button name="validate_old_orders" type="object" string="Validate Orders"/>
+                        </button>
+        -->
+                <xpath expr="//field[@name='lines']/tree//field[@name='discount']" position="after">
+                    <field name="discount_type"/>
+                    <field name="discount_value"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="pos_category_combo_form" model="ir.ui.view">
+            <field name="name">Category Combo Discount</field>
+            <field name="model">pos.category.combo</field>
+            <field name="arch" type="xml">
+                <form string="Category Combo Discount" version="7.0">
+                    <group>
+                        <field name="main_category_id"/>
+                        <field name="disc_category_id"/>
+                        <field name="type"/>
+                        <field name="value"/>
+                    </group>
+                    <group string="Allowed Companies">
+                        <field name="company_ids" options="{'no_create' : True}" required="1" nolabel="1"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="pos_category_combo_tree" model="ir.ui.view">
+            <field name="name">Category Combo Discount</field>
+            <field name="model">pos.category.combo</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="main_category_id"/>
+                    <field name="disc_category_id"/>
+                    <field name="type"/>
+                    <field name="value"/>
+                    <field name="company_ids" required="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="pos_category_combo_action" model="ir.actions.act_window">
+            <field name="name">Category Combo Discount</field>
+            <field name="res_model">pos.category.combo</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="pos_category_combo_tree"/>
+        </record>
+
+        <menuitem id="pos_disc_card_menu" name="Category Combo Discount" action="pos_category_combo_action"
+                  parent="point_of_sale.menu_point_config_product" sequence="50"/>
+    </data>
 </openerp>

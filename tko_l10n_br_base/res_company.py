@@ -22,9 +22,10 @@
 #
 ##############################################################################
 
-from openerp import fields, models, api, _
+from openerp import api
+from openerp import fields, models
+
 from res_partner import AVAILABLE_ZONES
-from openerp import api, _
 
 
 class res_company(models.Model):

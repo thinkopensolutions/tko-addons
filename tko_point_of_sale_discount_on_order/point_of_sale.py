@@ -1,8 +1,11 @@
-from openerp.osv import osv, fields
 import logging
+
+from openerp.osv import osv, fields
+
 _logger = logging.getLogger(__name__)
 
 import openerp.addons.decimal_precision as dp
+
 
 class pos_order(osv.osv):
     _inherit = 'pos.order'
@@ -13,13 +16,13 @@ class pos_order(osv.osv):
         for order in self.browse(cr, uid, ids, context=context):
             res[order.id] = {
                 'amount_paid': 0.0,
-                'amount_return':0.0,
-                'amount_tax':0.0,
+                'amount_return': 0.0,
+                'amount_tax': 0.0,
             }
             val1 = val2 = 0.0
             cur = order.pricelist_id.currency_id
             for payment in order.statement_ids:
-                res[order.id]['amount_paid'] +=  payment.amount
+                res[order.id]['amount_paid'] += payment.amount
                 res[order.id]['amount_return'] += (payment.amount < 0 and payment.amount or 0)
             for line in order.lines:
                 val1 += self._amount_line_tax(cr, uid, line, context=context)
@@ -75,12 +78,13 @@ class pos_order(osv.osv):
                 self.pool.get('account.invoice').write(cr, uid, [res_id], {
                     'discount_on_order': order.discount_on_order})
         return res
-    
+
     def refund(self, cr, uid, ids, context=None):
         for record in self.browse(cr, uid, ids):
-            result = super(pos_order,self).refund(cr, uid, [record.id], context=context)
-            refuned_id = result.get('res_id',False)
+            result = super(pos_order, self).refund(cr, uid, [record.id], context=context)
+            refuned_id = result.get('res_id', False)
             if refuned_id:
-                self.pool.get('pos.order').write(cr, uid, [refuned_id],{'discount_on_order' : -1 * record.discount_on_order})
-        
+                self.pool.get('pos.order').write(cr, uid, [refuned_id],
+                                                 {'discount_on_order': -1 * record.discount_on_order})
+
             return result

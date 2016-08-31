@@ -38,8 +38,8 @@ Entre outros adiciona:\n
     'license': 'AGPL-3',
     'website': 'http://www.tkobr.com',
     'depends': [
-                'base',
-                'hr',
+        'base',
+        'hr',
     ],
     'data': [
         'data/hr.religion.csv',

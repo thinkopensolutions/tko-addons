@@ -1,8 +1,8 @@
 <openerp>
-	<data noupdate="1">
-		<record id="analytic_opportunity" model="account.analytic.account">
+    <data noupdate="1">
+        <record id="analytic_opportunity" model="account.analytic.account">
             <field name="name">Opportunity Contract Report Template</field>
             <field name="type">template</field>
         </record>
-	</data>
+    </data>
 </openerp>
