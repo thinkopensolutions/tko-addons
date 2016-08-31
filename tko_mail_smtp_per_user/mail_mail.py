@@ -24,20 +24,22 @@
 
 from openerp.osv import osv, fields
 
+
 class ir_mail_server(osv.osv):
     _inherit = 'ir.mail_server'
-    
+
     _columns = {
         'user_id': fields.many2one('res.users', string='Owner'),
     }
-    
+
     _sql_constraints = [
-        ('smtp_user_uniq','unique(user_id)','That user already has a SMTP server.'), 
+        ('smtp_user_uniq', 'unique(user_id)', 'That user already has a SMTP server.'),
     ]
+
 
 class mail_mail(osv.Model):
     _inherit = 'mail.mail'
-    
+
     def send(self, cr, uid, ids, auto_commit=False, recipient_ids=None, context=None):
         ir_mail_server = self.pool.get('ir.mail_server')
         res_users = self.pool.get('res.users')
@@ -49,5 +51,7 @@ class mail_mail(osv.Model):
                 server_id = ir_mail_server.search(cr, uid, [('user_id', '=', user_id)], context=context)
                 server_id = server_id and server_id[0] or False
                 if server_id:
-                    self.write(cr, uid, ids, {'mail_server_id': server_id, 'reply_to': email.email_from}, context=context)
-        return super(mail_mail, self).send(cr, uid, ids, auto_commit=auto_commit, recipient_ids=recipient_ids, context=context)
+                    self.write(cr, uid, ids, {'mail_server_id': server_id, 'reply_to': email.email_from},
+                               context=context)
+        return super(mail_mail, self).send(cr, uid, ids, auto_commit=auto_commit, recipient_ids=recipient_ids,
+                                           context=context)

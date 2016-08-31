@@ -22,12 +22,12 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
+from openerp.osv import osv
 
 
 class invoice(osv.osv):
     _inherit = 'account.invoice'
-    
+
     def invoice_pay_customer(self, cr, uid, ids, context=None):
         if not ids:
             return []

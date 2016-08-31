@@ -5,17 +5,17 @@
         <record id="ecd_chart_template" model="account.chart.template">
             <field name="name">Brasil - Template do Plano de Contas ECD
             </field>
-            <field name="account_root_id" ref="CED0" />
-            <field name="bank_account_view_id" ref="CED101010200" />
-            <field name="property_account_income" ref="CED301010101" />
-            <field name="property_account_expense" ref="CED401030204" />
-            <field name="property_account_receivable" ref="CED101050200" />
-            <field name="property_account_payable" ref="CED203010100" />
-            <field name="property_account_expense_categ" ref="CED401030204" />
-            <field name="property_account_income_categ" ref="CED301010101" />
-            <field name="property_account_income_opening" ref="CED301010101" />
-            <field name="property_account_expense_opening" ref="CED401030204" />
-            <field name="currency_id" ref="base.BRL" />
+            <field name="account_root_id" ref="CED0"/>
+            <field name="bank_account_view_id" ref="CED101010200"/>
+            <field name="property_account_income" ref="CED301010101"/>
+            <field name="property_account_expense" ref="CED401030204"/>
+            <field name="property_account_receivable" ref="CED101050200"/>
+            <field name="property_account_payable" ref="CED203010100"/>
+            <field name="property_account_expense_categ" ref="CED401030204"/>
+            <field name="property_account_income_categ" ref="CED301010101"/>
+            <field name="property_account_income_opening" ref="CED301010101"/>
+            <field name="property_account_expense_opening" ref="CED401030204"/>
+            <field name="currency_id" ref="base.BRL"/>
         </record>
         <!-- <field name="tax_code_root_id" ref="tax_code_chart_root"/> <field 
             name="complete_tax_set" eval="False"/> -->
@@ -24,37 +24,37 @@
             <field name="name">Sales Journal</field>
             <field name="code">TSAJ</field>
             <field name="type">sale</field>
-            <field name="sequence_id" ref="account.sequence_sale_journal" />
-            <field name="default_credit_account" ref="CED401010105" />
-            <field name="default_debit_account" ref="CED101050200" />
+            <field name="sequence_id" ref="account.sequence_sale_journal"/>
+            <field name="default_credit_account" ref="CED401010105"/>
+            <field name="default_debit_account" ref="CED101050200"/>
             <!--<field name="analytic_journal_id" ref="account.cose_journal_sale"/> -->
-            <field eval="1" name="revenue_expense" />
-            <field name="user_id" ref="base.user_root" />
-            <field name="currency" ref="base.BRL" />
+            <field eval="1" name="revenue_expense"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="currency" ref="base.BRL"/>
         </record>
 
         <record id="account.refund_sales_journal" model="account.journal">
             <field name="name">Sales Credit Note Journal</field>
             <field name="code">TSCNJ</field>
             <field name="type">sale_refund</field>
-            <field name="sequence_id" ref="account.sequence_refund_sales_journal" />
-            <field name="default_credit_account" ref="CED101050200" />
-            <field name="default_debit_account" ref="CED301010103" />
+            <field name="sequence_id" ref="account.sequence_refund_sales_journal"/>
+            <field name="default_credit_account" ref="CED101050200"/>
+            <field name="default_debit_account" ref="CED301010103"/>
             <!--<field name="analytic_journal_id" ref="account.account.cose_journal_sale"/> -->
-            <field name="user_id" ref="base.user_root" />
-            <field name="currency" ref="base.BRL" />
+            <field name="user_id" ref="base.user_root"/>
+            <field name="currency" ref="base.BRL"/>
         </record>
 
         <record id="account.expenses_journal" model="account.journal">
             <field name="name">Expenses Journal - (test)</field>
             <field name="code">TEXJ</field>
             <field name="type">purchase</field>
-            <field name="sequence_id" ref="account.sequence_purchase_journal" />
-            <field name="default_credit_account" ref="CED203010100" />
-            <field name="default_debit_account" ref="CED401030204" />
+            <field name="sequence_id" ref="account.sequence_purchase_journal"/>
+            <field name="default_credit_account" ref="CED203010100"/>
+            <field name="default_debit_account" ref="CED401030204"/>
             <!--<field name="analytic_journal_id" ref="account.exp"/> -->
-            <field name="user_id" ref="base.user_root" />
-            <field name="currency" ref="base.BRL" />
+            <field name="user_id" ref="base.user_root"/>
+            <field name="currency" ref="base.BRL"/>
         </record>
 
         <record id="account.refund_expenses_journal" model="account.journal">
@@ -62,86 +62,86 @@
             </field>
             <field name="code">TECNJ</field>
             <field name="type">purchase_refund</field>
-            <field name="sequence_id" ref="account.sequence_refund_purchase_journal" />
-            <field name="default_debit_account" ref="CED101050200" />
-            <field name="default_debit_account" ref="CED203010100" />
+            <field name="sequence_id" ref="account.sequence_refund_purchase_journal"/>
+            <field name="default_debit_account" ref="CED101050200"/>
+            <field name="default_debit_account" ref="CED203010100"/>
             <!--<field name="analytic_journal_id" ref="account.exp"/> -->
-            <field name="user_id" ref="base.user_root" />
-            <field name="currency" ref="base.BRL" />
+            <field name="user_id" ref="base.user_root"/>
+            <field name="currency" ref="base.BRL"/>
         </record>
 
         <record id="account.bank_journal" model="account.journal">
             <field name="name">Bank Journal - (test)</field>
             <field name="code">TBNK</field>
             <field name="type">bank</field>
-            <field name="sequence_id" ref="account.sequence_bank_journal" />
-            <field name="default_credit_account" ref="CED101050200" />
-            <field name="default_debit_account" ref="CED101050200" />
+            <field name="sequence_id" ref="account.sequence_bank_journal"/>
+            <field name="default_credit_account" ref="CED101050200"/>
+            <field name="default_debit_account" ref="CED101050200"/>
             <!--<field name="analytic_journal_id" ref="account.sit"/> -->
-            <field name="user_id" ref="base.user_root" />
-            <field name="currency" ref="base.BRL" />
+            <field name="user_id" ref="base.user_root"/>
+            <field name="currency" ref="base.BRL"/>
         </record>
 
         <record id="account.check_journal" model="account.journal">
             <field name="name">Checks Journal - (test)</field>
             <field name="code">TCHK</field>
             <field name="type">bank</field>
-            <field name="sequence_id" ref="account.sequence_check_journal" />
-            <field name="default_credit_account" ref="CED101050200" />
-            <field name="default_debit_account" ref="CED101050200" />
+            <field name="sequence_id" ref="account.sequence_check_journal"/>
+            <field name="default_credit_account" ref="CED101050200"/>
+            <field name="default_debit_account" ref="CED101050200"/>
             <!--<field name="analytic_journal_id" ref="account.sit"/> -->
-            <field name="user_id" ref="base.user_root" />
-            <field name="currency" ref="base.BRL" />
+            <field name="user_id" ref="base.user_root"/>
+            <field name="currency" ref="base.BRL"/>
         </record>
 
         <record id="account.cash_journal" model="account.journal">
             <field name="name">Cash Journal - (test)</field>
             <field name="code">TCSH</field>
             <field name="type">cash</field>
-            <field name="default_credit_account" ref="CED101050200" />
-            <field name="default_debit_account" ref="CED101050200" />
-            <field name="profit_account" ref="CED101050200" />
-            <field name="loss_account" ref="CED101050200" />
-            <field name="internal_account" ref="CED101050200" />
-            <field name="with_last_closing_balance" eval="True" />
-            <field name="cash_control" eval="True" />
-            <field name="sequence_id" ref="account.sequence_cash_journal" />
+            <field name="default_credit_account" ref="CED101050200"/>
+            <field name="default_debit_account" ref="CED101050200"/>
+            <field name="profit_account" ref="CED101050200"/>
+            <field name="loss_account" ref="CED101050200"/>
+            <field name="internal_account" ref="CED101050200"/>
+            <field name="with_last_closing_balance" eval="True"/>
+            <field name="cash_control" eval="True"/>
+            <field name="sequence_id" ref="account.sequence_cash_journal"/>
             <!--<field name="analytic_journal_id" ref="account.sit"/> -->
-            <field name="user_id" ref="base.user_root" />
-            <field name="currency" ref="base.BRL" />
+            <field name="user_id" ref="base.user_root"/>
+            <field name="currency" ref="base.BRL"/>
         </record>
 
         <record id="account.miscellaneous_journal" model="account.journal">
             <field name="name">Miscellaneous Journal - (test)</field>
             <field name="code">TMIS</field>
             <field name="type">general</field>
-            <field name="sequence_id" ref="account.sequence_miscellaneous_journal" />
-            <field name="default_credit_account" ref="CED101050200" />
-            <field name="default_debit_account" ref="CED101050200" />
+            <field name="sequence_id" ref="account.sequence_miscellaneous_journal"/>
+            <field name="default_credit_account" ref="CED101050200"/>
+            <field name="default_debit_account" ref="CED101050200"/>
             <!--<field name="analytic_journal_id" ref="account.sit"/> -->
-            <field name="user_id" ref="base.user_root" />
-            <field name="currency" ref="base.BRL" />
+            <field name="user_id" ref="base.user_root"/>
+            <field name="currency" ref="base.BRL"/>
         </record>
 
         <record id="account.opening_journal" model="account.journal">
             <field name="name">Opening Entries Journal - (test)</field>
             <field name="code">TOEJ</field>
             <field name="type">situation</field>
-            <field name="sequence_id" ref="account.sequence_opening_journal" />
-            <field name="default_credit_account" ref="CED101050200" />
-            <field name="default_debit_account" ref="CED101050200" />
-            <field eval="True" name="centralisation" />
-            <field name="user_id" ref="base.user_root" />
-            <field name="currency" ref="base.BRL" />
+            <field name="sequence_id" ref="account.sequence_opening_journal"/>
+            <field name="default_credit_account" ref="CED101050200"/>
+            <field name="default_debit_account" ref="CED101050200"/>
+            <field eval="True" name="centralisation"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="currency" ref="base.BRL"/>
         </record>
 
         <record id="bank_journal_brl" model="account.journal">
             <field name="name">BRL Bank Journal - (test)</field>
             <field name="code">TUBKBR</field>
             <field name="type">bank</field>
-            <field name="default_credit_account" ref="CED101050200" />
-            <field name="default_debit_account" ref="CED101050200" />
-            <field name="currency" ref="base.BRL" />
+            <field name="default_credit_account" ref="CED101050200"/>
+            <field name="default_debit_account" ref="CED101050200"/>
+            <field name="currency" ref="base.BRL"/>
         </record>
 
     </data>

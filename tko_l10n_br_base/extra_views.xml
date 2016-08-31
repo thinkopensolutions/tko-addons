@@ -3,29 +3,29 @@
 
         <!-- Activity Branch -->
         <record id="activity_branch_tree" model="ir.ui.view">
-            <field name="name"> Activity Branch</field>
+            <field name="name">Activity Branch</field>
             <field name="model">activity_branch</field>
             <field name="arch" type="xml">
                 <tree string="Activity Branch" version="7.0">
-                    <field name="name" />
+                    <field name="name"/>
                 </tree>
             </field>
         </record>
 
         <record id="activity_branch_form" model="ir.ui.view">
-            <field name="name"> Activity Branch</field>
+            <field name="name">Activity Branch</field>
             <field name="model">activity_branch</field>
             <field name="arch" type="xml">
                 <form string="Activity Branch" version="7.0">
                     <group>
-                        <field name="name" />
+                        <field name="name"/>
                     </group>
                 </form>
             </field>
         </record>
 
         <record id="activity_branch_action" model="ir.actions.act_window">
-            <field name="name"> Activity Branch</field>
+            <field name="name">Activity Branch</field>
             <field name="res_model">activity_branch</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -33,22 +33,22 @@
 
         <!-- Business Size -->
         <record id="business_size_tree" model="ir.ui.view">
-            <field name="name"> Business Size</field>
+            <field name="name">Business Size</field>
             <field name="model">business_size</field>
             <field name="arch" type="xml">
                 <tree string="Business Size" version="7.0">
-                    <field name="name" />
+                    <field name="name"/>
                 </tree>
             </field>
         </record>
 
         <record id="business_size_form" model="ir.ui.view">
-            <field name="name"> Business Size</field>
+            <field name="name">Business Size</field>
             <field name="model">business_size</field>
             <field name="arch" type="xml">
                 <form string="Business Size" version="7.0">
                     <group>
-                        <field name="name" />
+                        <field name="name"/>
                     </group>
                 </form>
             </field>
@@ -63,11 +63,11 @@
 
         <!-- Annual Income -->
         <record id="annual_income_tree" model="ir.ui.view">
-            <field name="name"> Annual Income</field>
+            <field name="name">Annual Income</field>
             <field name="model">annual_income</field>
             <field name="arch" type="xml">
                 <tree string="Business Size" version="7.0">
-                    <field name="name" />
+                    <field name="name"/>
                 </tree>
             </field>
         </record>
@@ -78,7 +78,7 @@
             <field name="arch" type="xml">
                 <form string="Business Size" version="7.0">
                     <group>
-                        <field name="name" />
+                        <field name="name"/>
                     </group>
                 </form>
             </field>
@@ -97,7 +97,7 @@
             <field name="model">economic_sector</field>
             <field name="arch" type="xml">
                 <tree string="Economic Sector" version="7.0">
-                    <field name="name" />
+                    <field name="name"/>
                 </tree>
             </field>
         </record>
@@ -108,7 +108,7 @@
             <field name="arch" type="xml">
                 <form string="Economic Sector" version="7.0">
                     <group>
-                        <field name="name" />
+                        <field name="name"/>
                     </group>
                 </form>
             </field>
@@ -127,7 +127,7 @@
             <field name="model">business_nationality</field>
             <field name="arch" type="xml">
                 <tree string="Business Nationality" version="7.0">
-                    <field name="name" />
+                    <field name="name"/>
                 </tree>
             </field>
         </record>
@@ -138,7 +138,7 @@
             <field name="arch" type="xml">
                 <form string="Business Nationality" version="7.0">
                     <group>
-                        <field name="name" />
+                        <field name="name"/>
                     </group>
                 </form>
             </field>

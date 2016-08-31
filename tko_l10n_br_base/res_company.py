@@ -23,17 +23,20 @@
 ##############################################################################
 
 from openerp.osv import fields, osv
+
 from res_partner import AVAILABLE_ZONES
+
 
 class res_company(osv.osv):
     _inherit = 'res.company'
-    
+
     def _get_address_data(self, cr, uid, ids, field_names, arg, context=None):
         return super(res_company, self)._get_address_data(cr, uid, ids, field_names, arg, context=context)
-    
+
     def _set_address_data(self, cr, uid, company_id, name, value, arg, context=None):
         return super(res_company, self)._set_address_data(cr, uid, company_id, name, value, arg, context=context)
 
     _columns = {
-        'zone': fields.function(_get_address_data, fnct_inv=_set_address_data, type='selection', selection=AVAILABLE_ZONES, string="Zona", multi='address'),
+        'zone': fields.function(_get_address_data, fnct_inv=_set_address_data, type='selection',
+                                selection=AVAILABLE_ZONES, string="Zona", multi='address'),
     }

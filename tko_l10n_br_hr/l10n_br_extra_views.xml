@@ -6,7 +6,7 @@
             <field name="model">hr.religion</field>
             <field name="arch" type="xml">
                 <search string="Employee Religion">
-                    <field name="name" />
+                    <field name="name"/>
                 </search>
             </field>
         </record>
@@ -16,7 +16,7 @@
             <field name="model">hr.religion</field>
             <field name="arch" type="xml">
                 <tree string="Employee Promotion">
-                    <field name="name" />
+                    <field name="name"/>
                 </tree>
             </field>
         </record>
@@ -27,7 +27,7 @@
             <field name="arch" type="xml">
                 <form string="Employee Promotion" version="7.0">
                     <group col="4">
-                        <field name="name" />
+                        <field name="name"/>
                     </group>
                 </form>
             </field>
@@ -38,7 +38,7 @@
             <field name="res_model">hr.religion</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="view_tko_hr_emp_religiion_religion_tree" />
+            <field name="view_id" ref="view_tko_hr_emp_religiion_religion_tree"/>
         </record>
 
         <!-- Employee Motive -->
@@ -47,7 +47,7 @@
             <field name="model">hr.motivo</field>
             <field name="arch" type="xml">
                 <search string="Employee Religion">
-                    <field name="name" />
+                    <field name="name"/>
                 </search>
             </field>
         </record>
@@ -57,7 +57,7 @@
             <field name="model">hr.motivo</field>
             <field name="arch" type="xml">
                 <tree string="Employee Promotion">
-                    <field name="name" />
+                    <field name="name"/>
                 </tree>
             </field>
         </record>
@@ -69,7 +69,7 @@
                 <form string="Employee Promotion" version="7.0">
                     <sheet>
                         <group col="4">
-                            <field name="name" />
+                            <field name="name"/>
                         </group>
                     </sheet>
                 </form>
@@ -81,7 +81,7 @@
             <field name="res_model">hr.motivo</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="view_tko_hr_emp_motive_tree" />
+            <field name="view_id" ref="view_tko_hr_emp_motive_tree"/>
         </record>
 
         <!-- Employee Escolaridade -->
@@ -90,13 +90,13 @@
             <field name="model">employee.escolaridade</field>
             <field name="arch" type="xml">
                 <search string="Employee Religion">
-                    <field name="employee_id" />
-                    <field name="grau_instrucao" />
-                    <field name="instituicao" />
-                    <field name="curso" />
-                    <field name="status" />
-                    <field name="date_start" />
-                    <field name="date_end" />
+                    <field name="employee_id"/>
+                    <field name="grau_instrucao"/>
+                    <field name="instituicao"/>
+                    <field name="curso"/>
+                    <field name="status"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
                 </search>
             </field>
         </record>
@@ -106,13 +106,13 @@
             <field name="model">employee.escolaridade</field>
             <field name="arch" type="xml">
                 <tree string="Employee Promotion">
-                    <field name="employee_id" />
-                    <field name="grau_instrucao" />
-                    <field name="instituicao" />
-                    <field name="curso" />
-                    <field name="status" />
-                    <field name="date_start" />
-                    <field name="date_end" />
+                    <field name="employee_id"/>
+                    <field name="grau_instrucao"/>
+                    <field name="instituicao"/>
+                    <field name="curso"/>
+                    <field name="status"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
                 </tree>
             </field>
         </record>
@@ -124,13 +124,13 @@
                 <form string="Employee Promotion" version="7.0">
                     <sheet>
                         <group col="4">
-                            <field name="employee_id" />
-                            <field name="grau_instrucao" />
-                            <field name="instituicao" />
-                            <field name="curso" />
-                            <field name="status" />
-                            <field name="date_start" />
-                            <field name="date_end" />
+                            <field name="employee_id"/>
+                            <field name="grau_instrucao"/>
+                            <field name="instituicao"/>
+                            <field name="curso"/>
+                            <field name="status"/>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
                         </group>
                     </sheet>
                 </form>
@@ -142,23 +142,23 @@
             <field name="res_model">employee.escolaridade</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="view_tko_hr_emp_escolaridade_tree" />
+            <field name="view_id" ref="view_tko_hr_emp_escolaridade_tree"/>
         </record>
 
         <!-- employee.cursos.certificacoes -->
         <record model="ir.ui.view"
-            id="view_tko_hr_emp_cursos_certificacoes_search">
+                id="view_tko_hr_emp_cursos_certificacoes_search">
             <field name="name">employee.cursos.certificacoes</field>
             <field name="model">employee.cursos.certificacoes</field>
             <field name="arch" type="xml">
                 <search string="Employee Religion">
-                    <field name="employee_id" />
-                    <field name="tipo_evento" />
-                    <field name="instituicao" />
-                    <field name="curso" />
-                    <field name="status" />
-                    <field name="date_start" />
-                    <field name="date_end" />
+                    <field name="employee_id"/>
+                    <field name="tipo_evento"/>
+                    <field name="instituicao"/>
+                    <field name="curso"/>
+                    <field name="status"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
                 </search>
             </field>
         </record>
@@ -168,13 +168,13 @@
             <field name="model">employee.cursos.certificacoes</field>
             <field name="arch" type="xml">
                 <tree string="Employee Promotion">
-                    <field name="employee_id" />
-                    <field name="tipo_evento" />
-                    <field name="instituicao" />
-                    <field name="curso" />
-                    <field name="status" />
-                    <field name="date_start" />
-                    <field name="date_end" />
+                    <field name="employee_id"/>
+                    <field name="tipo_evento"/>
+                    <field name="instituicao"/>
+                    <field name="curso"/>
+                    <field name="status"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
                 </tree>
             </field>
         </record>
@@ -186,13 +186,13 @@
                 <form string="Employee Promotion" version="7.0">
                     <sheet>
                         <group col="4">
-                            <field name="employee_id" />
-                            <field name="tipo_evento" />
-                            <field name="instituicao" />
-                            <field name="curso" />
-                            <field name="status" />
-                            <field name="date_start" />
-                            <field name="date_end" />
+                            <field name="employee_id"/>
+                            <field name="tipo_evento"/>
+                            <field name="instituicao"/>
+                            <field name="curso"/>
+                            <field name="status"/>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
                         </group>
                     </sheet>
                 </form>
@@ -205,7 +205,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="view_id"
-                ref="view_tko_hr_emp_cursos_certificacoes_tree" />
+                   ref="view_tko_hr_emp_cursos_certificacoes_tree"/>
         </record>
 
         <!-- grau_instrucao -->
@@ -214,7 +214,7 @@
             <field name="model">grau.instrucao</field>
             <field name="arch" type="xml">
                 <search string="Grau de Instrução">
-                    <field name="name" />
+                    <field name="name"/>
                 </search>
             </field>
         </record>
@@ -224,7 +224,7 @@
             <field name="model">grau.instrucao</field>
             <field name="arch" type="xml">
                 <tree string="Grau de Instrução">
-                    <field name="name" />
+                    <field name="name"/>
                 </tree>
             </field>
         </record>
@@ -236,7 +236,7 @@
                 <form string="Grau de Instrução" version="7.0">
                     <sheet>
                         <group col="4">
-                            <field name="name" />
+                            <field name="name"/>
                         </group>
                     </sheet>
                 </form>
@@ -248,7 +248,7 @@
             <field name="res_model">grau.instrucao</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="view_tko_hr_emp_grau_instrucao_tree" />
+            <field name="view_id" ref="view_tko_hr_emp_grau_instrucao_tree"/>
         </record>
 
         <!-- tipo_evento -->
@@ -257,7 +257,7 @@
             <field name="model">tipo.evento</field>
             <field name="arch" type="xml">
                 <search string="Tipo Evento">
-                    <field name="name" />
+                    <field name="name"/>
                 </search>
             </field>
         </record>
@@ -267,7 +267,7 @@
             <field name="model">tipo.evento</field>
             <field name="arch" type="xml">
                 <tree string="Tipo Evento">
-                    <field name="name" />
+                    <field name="name"/>
                 </tree>
             </field>
         </record>
@@ -279,7 +279,7 @@
                 <form string="Tipo Evento" version="7.0">
                     <sheet>
                         <group col="4">
-                            <field name="name" />
+                            <field name="name"/>
                         </group>
                     </sheet>
                 </form>
@@ -291,7 +291,7 @@
             <field name="res_model">tipo.evento</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="view_tko_hr_emp_tipo_evento_tree" />
+            <field name="view_id" ref="view_tko_hr_emp_tipo_evento_tree"/>
         </record>
 
         <!-- Instituição -->
@@ -300,7 +300,7 @@
             <field name="model">hr.instituicao</field>
             <field name="arch" type="xml">
                 <search string="Instituição">
-                    <field name="name" />
+                    <field name="name"/>
                 </search>
             </field>
         </record>
@@ -310,7 +310,7 @@
             <field name="model">hr.instituicao</field>
             <field name="arch" type="xml">
                 <tree string="Instituição">
-                    <field name="name" />
+                    <field name="name"/>
                 </tree>
             </field>
         </record>
@@ -322,7 +322,7 @@
                 <form string="Instituição" version="7.0">
                     <sheet>
                         <group col="4">
-                            <field name="name" />
+                            <field name="name"/>
                         </group>
                     </sheet>
                 </form>
@@ -334,7 +334,7 @@
             <field name="res_model">hr.instituicao</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="view_tko_hr_emp_instituicao_tree" />
+            <field name="view_id" ref="view_tko_hr_emp_instituicao_tree"/>
         </record>
 
         <!-- Idiomas -->
@@ -343,13 +343,13 @@
             <field name="model">employee.idioma</field>
             <field name="arch" type="xml">
                 <search string="Idiomas">
-                    <field name="employee_id" />
-                    <field name="idioma" />
-                    <field name="instituicao" />
-                    <field name="curso" />
-                    <field name="status" />
-                    <field name="date_start" />
-                    <field name="date_end" />
+                    <field name="employee_id"/>
+                    <field name="idioma"/>
+                    <field name="instituicao"/>
+                    <field name="curso"/>
+                    <field name="status"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
                 </search>
             </field>
         </record>
@@ -359,13 +359,13 @@
             <field name="model">employee.idioma</field>
             <field name="arch" type="xml">
                 <tree string="Idiomas">
-                    <field name="employee_id" />
-                    <field name="idioma" />
-                    <field name="instituicao" />
-                    <field name="curso" />
-                    <field name="status" />
-                    <field name="date_start" />
-                    <field name="date_end" />
+                    <field name="employee_id"/>
+                    <field name="idioma"/>
+                    <field name="instituicao"/>
+                    <field name="curso"/>
+                    <field name="status"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
                 </tree>
             </field>
         </record>
@@ -377,13 +377,13 @@
                 <form string="Idiomas" version="7.0">
                     <sheet>
                         <group col="4">
-                            <field name="employee_id" />
-                            <field name="idioma" />
-                            <field name="instituicao" />
-                            <field name="curso" />
-                            <field name="status" />
-                            <field name="date_start" />
-                            <field name="date_end" />
+                            <field name="employee_id"/>
+                            <field name="idioma"/>
+                            <field name="instituicao"/>
+                            <field name="curso"/>
+                            <field name="status"/>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
                         </group>
                     </sheet>
                 </form>
@@ -395,7 +395,7 @@
             <field name="res_model">employee.idioma</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="view_tko_hr_emp_idioma_tree" />
+            <field name="view_id" ref="view_tko_hr_emp_idioma_tree"/>
         </record>
 
         <!-- Exame Médico -->
@@ -404,14 +404,14 @@
             <field name="model">employee.exame.medico</field>
             <field name="arch" type="xml">
                 <search string="Exame Médico">
-                    <field name="employee_id" />
-                    <field name="tipo_exame" />
-                    <field name="data" />
-                    <field name="clinica" />
-                    <field name="medico" />
-                    <field name="local" />
-                    <field name="os" />
-                    <field name="status" />
+                    <field name="employee_id"/>
+                    <field name="tipo_exame"/>
+                    <field name="data"/>
+                    <field name="clinica"/>
+                    <field name="medico"/>
+                    <field name="local"/>
+                    <field name="os"/>
+                    <field name="status"/>
                 </search>
             </field>
         </record>
@@ -421,14 +421,14 @@
             <field name="model">employee.exame.medico</field>
             <field name="arch" type="xml">
                 <tree string="Exame Médico">
-                    <field name="employee_id" />
-                    <field name="tipo_exame" />
-                    <field name="data" />
-                    <field name="clinica" />
-                    <field name="medico" />
-                    <field name="local" />
-                    <field name="os" />
-                    <field name="status" />
+                    <field name="employee_id"/>
+                    <field name="tipo_exame"/>
+                    <field name="data"/>
+                    <field name="clinica"/>
+                    <field name="medico"/>
+                    <field name="local"/>
+                    <field name="os"/>
+                    <field name="status"/>
                 </tree>
             </field>
         </record>
@@ -440,14 +440,14 @@
                 <form string="Exame Médico" version="7.0">
                     <sheet>
                         <group col="4">
-                            <field name="employee_id" />
-                            <field name="tipo_exame" />
-                            <field name="data" />
-                            <field name="clinica" />
-                            <field name="medico" />
-                            <field name="local" />
-                            <field name="os" />
-                            <field name="status" />
+                            <field name="employee_id"/>
+                            <field name="tipo_exame"/>
+                            <field name="data"/>
+                            <field name="clinica"/>
+                            <field name="medico"/>
+                            <field name="local"/>
+                            <field name="os"/>
+                            <field name="status"/>
                         </group>
                     </sheet>
                 </form>
@@ -459,7 +459,7 @@
             <field name="res_model">employee.exame.medico</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="view_tko_hr_emp_exame_medico_tree" />
+            <field name="view_id" ref="view_tko_hr_emp_exame_medico_tree"/>
         </record>
 
         <!-- Tipo Exame -->
@@ -468,7 +468,7 @@
             <field name="model">tipo.exame</field>
             <field name="arch" type="xml">
                 <search string="Tipo Exame">
-                    <field name="name" />
+                    <field name="name"/>
                 </search>
             </field>
         </record>
@@ -478,7 +478,7 @@
             <field name="model">tipo.exame</field>
             <field name="arch" type="xml">
                 <tree string="Tipo Exame">
-                    <field name="name" />
+                    <field name="name"/>
                 </tree>
             </field>
         </record>
@@ -490,7 +490,7 @@
                 <form string="Tipo Exame" version="7.0">
                     <sheet>
                         <group col="4">
-                            <field name="name" />
+                            <field name="name"/>
                         </group>
                     </sheet>
                 </form>
@@ -502,7 +502,7 @@
             <field name="res_model">tipo.exame</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="view_tko_hr_emp_tipo_exame_tree" />
+            <field name="view_id" ref="view_tko_hr_emp_tipo_exame_tree"/>
         </record>
 
         <!-- Clínica -->
@@ -511,7 +511,7 @@
             <field name="model">hr.clinica</field>
             <field name="arch" type="xml">
                 <search string="Clínica">
-                    <field name="name" />
+                    <field name="name"/>
                 </search>
             </field>
         </record>
@@ -521,7 +521,7 @@
             <field name="model">hr.clinica</field>
             <field name="arch" type="xml">
                 <tree string="Clínica">
-                    <field name="name" />
+                    <field name="name"/>
                 </tree>
             </field>
         </record>
@@ -533,7 +533,7 @@
                 <form string="Clínica" version="7.0">
                     <sheet>
                         <group col="4">
-                            <field name="name" />
+                            <field name="name"/>
                         </group>
                     </sheet>
                 </form>
@@ -545,7 +545,7 @@
             <field name="res_model">hr.clinica</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="view_tko_hr_emp_clinica_tree" />
+            <field name="view_id" ref="view_tko_hr_emp_clinica_tree"/>
         </record>
 
         <!-- Médico -->
@@ -554,7 +554,7 @@
             <field name="model">hr.medico</field>
             <field name="arch" type="xml">
                 <search string="Médico">
-                    <field name="name" />
+                    <field name="name"/>
                 </search>
             </field>
         </record>
@@ -564,7 +564,7 @@
             <field name="model">hr.medico</field>
             <field name="arch" type="xml">
                 <tree string="Tipo Exame">
-                    <field name="name" />
+                    <field name="name"/>
                 </tree>
             </field>
         </record>
@@ -576,7 +576,7 @@
                 <form string="Médico" version="7.0">
                     <sheet>
                         <group col="4">
-                            <field name="name" />
+                            <field name="name"/>
                         </group>
                     </sheet>
                 </form>
@@ -588,7 +588,7 @@
             <field name="res_model">hr.medico</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="view_tko_hr_emp_medico_tree" />
+            <field name="view_id" ref="view_tko_hr_emp_medico_tree"/>
         </record>
 
         <!-- Local -->
@@ -597,7 +597,7 @@
             <field name="model">hr.local</field>
             <field name="arch" type="xml">
                 <search string="Local">
-                    <field name="name" />
+                    <field name="name"/>
                 </search>
             </field>
         </record>
@@ -607,7 +607,7 @@
             <field name="model">hr.local</field>
             <field name="arch" type="xml">
                 <tree string="Local">
-                    <field name="name" />
+                    <field name="name"/>
                 </tree>
             </field>
         </record>
@@ -619,7 +619,7 @@
                 <form string="Local" version="7.0">
                     <sheet>
                         <group col="4">
-                            <field name="name" />
+                            <field name="name"/>
                         </group>
                     </sheet>
                 </form>
@@ -631,7 +631,7 @@
             <field name="res_model">hr.local</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="view_tko_hr_emp_local_tree" />
+            <field name="view_id" ref="view_tko_hr_emp_local_tree"/>
         </record>
 
         <!-- Dependente -->
@@ -640,15 +640,15 @@
             <field name="model">employee.dependente</field>
             <field name="arch" type="xml">
                 <search string="Dependente">
-                    <field name="name" />
-                    <field name="employee_id" />
-                    <field name="sexo" />
-                    <field name="birth_date" />
-                    <field name="parentesco" />
-                    <field name="grau_instrucao" />
-                    <field name="is_handicapped" />
-                    <field name="handicap_description" />
-                    <field name="mora_com" />
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="sexo"/>
+                    <field name="birth_date"/>
+                    <field name="parentesco"/>
+                    <field name="grau_instrucao"/>
+                    <field name="is_handicapped"/>
+                    <field name="handicap_description"/>
+                    <field name="mora_com"/>
                 </search>
             </field>
         </record>
@@ -658,15 +658,15 @@
             <field name="model">employee.dependente</field>
             <field name="arch" type="xml">
                 <tree string="Dependente">
-                    <field name="name" />
-                    <field name="employee_id" />
-                    <field name="sexo" />
-                    <field name="birth_date" />
-                    <field name="parentesco" />
-                    <field name="grau_instrucao" />
-                    <field name="is_handicapped" />
-                    <field name="handicap_description" />
-                    <field name="mora_com" />
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="sexo"/>
+                    <field name="birth_date"/>
+                    <field name="parentesco"/>
+                    <field name="grau_instrucao"/>
+                    <field name="is_handicapped"/>
+                    <field name="handicap_description"/>
+                    <field name="mora_com"/>
                 </tree>
             </field>
         </record>
@@ -678,16 +678,16 @@
                 <form string="Dependente" version="7.0">
                     <sheet>
                         <group col="4">
-                            <field name="name" />
-                            <field name="employee_id" />
-                            <field name="sexo" />
-                            <field name="birth_date" />
-                            <field name="parentesco" />
-                            <field name="grau_instrucao" />
-                            <field name="is_handicapped" />
-                            <field name="mora_com" />
+                            <field name="name"/>
+                            <field name="employee_id"/>
+                            <field name="sexo"/>
+                            <field name="birth_date"/>
+                            <field name="parentesco"/>
+                            <field name="grau_instrucao"/>
+                            <field name="is_handicapped"/>
+                            <field name="mora_com"/>
                             <field name="handicap_description"
-                                colspan="4" />
+                                   colspan="4"/>
                         </group>
                     </sheet>
                 </form>
@@ -699,7 +699,7 @@
             <field name="res_model">employee.dependente</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="view_tko_hr_emp_dependente_tree" />
+            <field name="view_id" ref="view_tko_hr_emp_dependente_tree"/>
         </record>
 
         <!-- Parentesco -->
@@ -708,7 +708,7 @@
             <field name="model">hr.parentesco</field>
             <field name="arch" type="xml">
                 <search string="Parentesco">
-                    <field name="name" />
+                    <field name="name"/>
                 </search>
             </field>
         </record>
@@ -718,7 +718,7 @@
             <field name="model">hr.parentesco</field>
             <field name="arch" type="xml">
                 <tree string="Parentesco">
-                    <field name="name" />
+                    <field name="name"/>
                 </tree>
             </field>
         </record>
@@ -730,7 +730,7 @@
                 <form string="Parentesco" version="7.0">
                     <sheet>
                         <group col="4">
-                            <field name="name" />
+                            <field name="name"/>
                         </group>
                     </sheet>
                 </form>
@@ -742,7 +742,7 @@
             <field name="res_model">hr.parentesco</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="view_tko_hr_emp_parentesco_tree" />
+            <field name="view_id" ref="view_tko_hr_emp_parentesco_tree"/>
         </record>
 
         <!-- Conselho Regional -->
@@ -751,7 +751,7 @@
             <field name="model">conselho.regional</field>
             <field name="arch" type="xml">
                 <search string="Conselho Regional">
-                    <field name="name" />
+                    <field name="name"/>
                 </search>
             </field>
         </record>
@@ -761,7 +761,7 @@
             <field name="model">conselho.regional</field>
             <field name="arch" type="xml">
                 <tree string="Conselho Regional">
-                    <field name="name" />
+                    <field name="name"/>
                 </tree>
             </field>
         </record>
@@ -773,7 +773,7 @@
                 <form string="Conselho Regional" version="7.0">
                     <sheet>
                         <group col="4">
-                            <field name="name" />
+                            <field name="name"/>
                         </group>
                     </sheet>
                 </form>
@@ -785,7 +785,7 @@
             <field name="res_model">conselho.regional</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="view_tko_hr_emp_conselho_regional_tree" />
+            <field name="view_id" ref="view_tko_hr_emp_conselho_regional_tree"/>
         </record>
 
         <!-- Órgão Expedidor -->
@@ -794,7 +794,7 @@
             <field name="model">orgao.expedidor</field>
             <field name="arch" type="xml">
                 <search string="Órgão Expedidor">
-                    <field name="name" />
+                    <field name="name"/>
                 </search>
             </field>
         </record>
@@ -804,7 +804,7 @@
             <field name="model">orgao.expedidor</field>
             <field name="arch" type="xml">
                 <tree string="Órgão Expedidor">
-                    <field name="name" />
+                    <field name="name"/>
                 </tree>
             </field>
         </record>
@@ -816,7 +816,7 @@
                 <form string="Órgão Expedidor" version="7.0">
                     <sheet>
                         <group col="4">
-                            <field name="name" />
+                            <field name="name"/>
                         </group>
                     </sheet>
                 </form>
@@ -828,41 +828,41 @@
             <field name="res_model">orgao.expedidor</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="view_tko_hr_emp_orgao_expedidor_tree" />
+            <field name="view_id" ref="view_tko_hr_emp_orgao_expedidor_tree"/>
         </record>
 
         <!-- Categoria Habilitação -->
         <record model="ir.ui.view"
-            id="view_tko_hr_emp_categoria_habilitacao_search">
+                id="view_tko_hr_emp_categoria_habilitacao_search">
             <field name="name">Categoria Habilitação</field>
             <field name="model">categoria.habilitacao</field>
             <field name="arch" type="xml">
                 <search string="Categoria Habilitação">
-                    <field name="name" />
+                    <field name="name"/>
                 </search>
             </field>
         </record>
 
         <record model="ir.ui.view"
-            id="view_tko_hr_emp_categoria_habilitacao_tree">
+                id="view_tko_hr_emp_categoria_habilitacao_tree">
             <field name="name">Categoria Habilitação</field>
             <field name="model">categoria.habilitacao</field>
             <field name="arch" type="xml">
                 <tree string="Categoria Habilitação">
-                    <field name="name" />
+                    <field name="name"/>
                 </tree>
             </field>
         </record>
 
         <record model="ir.ui.view"
-            id="view_tko_hr_emp_categoria_habilitacao_form">
+                id="view_tko_hr_emp_categoria_habilitacao_form">
             <field name="name">Categoria Habilitação</field>
             <field name="model">categoria.habilitacao</field>
             <field name="arch" type="xml">
                 <form string="Categoria Habilitação" version="7.0">
                     <sheet>
                         <group col="4">
-                            <field name="name" />
+                            <field name="name"/>
                         </group>
                     </sheet>
                 </form>
@@ -875,63 +875,63 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="view_id"
-                ref="view_tko_hr_emp_categoria_habilitacao_tree" />
+                   ref="view_tko_hr_emp_categoria_habilitacao_tree"/>
         </record>
 
         <menuitem id="menu_tko_hr_emp_motive" string="Motive"
-            action="action_tko_hr_emp_motive" parent="hr.menu_hr_configuration"
-            sequence="35" />
+                  action="action_tko_hr_emp_motive" parent="hr.menu_hr_configuration"
+                  sequence="35"/>
         <menuitem id="menu_tko_hr_emp_religion" string="Religion"
-            action="action_tko_hr_emp_religion" parent="hr.menu_hr_configuration"
-            sequence="38" />
+                  action="action_tko_hr_emp_religion" parent="hr.menu_hr_configuration"
+                  sequence="38"/>
         <menuitem id="menu_tko_hr_emp_escolaridade" string="Escolaridade"
-            action="action_tko_hr_emp_escolaridade" parent="hr.menu_hr_configuration"
-            sequence="40" />
+                  action="action_tko_hr_emp_escolaridade" parent="hr.menu_hr_configuration"
+                  sequence="40"/>
         <menuitem id="menu_tko_hr_emp_cursos_certificacoes"
-            string="Cursos e Certificações" action="action_tko_hr_emp_cursos_certificacoes"
-            parent="hr.menu_hr_configuration" sequence="50" />
+                  string="Cursos e Certificações" action="action_tko_hr_emp_cursos_certificacoes"
+                  parent="hr.menu_hr_configuration" sequence="50"/>
         <menuitem id="menu_tko_hr_emp_grau_instrucao" string="Grau de Instrução"
-            action="action_tko_hr_emp_grau_instrucao" parent="hr.menu_hr_configuration"
-            sequence="60" />
+                  action="action_tko_hr_emp_grau_instrucao" parent="hr.menu_hr_configuration"
+                  sequence="60"/>
         <menuitem id="menu_tko_hr_emp_tipo_evento" string="Tipo Evento"
-            action="action_tko_hr_emp_tipo_evento" parent="hr.menu_hr_configuration"
-            sequence="70" />
+                  action="action_tko_hr_emp_tipo_evento" parent="hr.menu_hr_configuration"
+                  sequence="70"/>
         <menuitem id="menu_tko_hr_emp_emp_instituicao" string="Instituição"
-            action="action_tko_hr_emp_instituicao" parent="hr.menu_hr_configuration"
-            sequence="80" />
+                  action="action_tko_hr_emp_instituicao" parent="hr.menu_hr_configuration"
+                  sequence="80"/>
         <menuitem id="menu_tko_hr_emp_idioma" string="Idiomas"
-            action="action_tko_hr_emp_idioma" parent="hr.menu_hr_configuration"
-            sequence="90" />
+                  action="action_tko_hr_emp_idioma" parent="hr.menu_hr_configuration"
+                  sequence="90"/>
         <menuitem id="menu_tko_hr_emp_exame_medico" string="Exame Médico"
-            action="action_tko_hr_emp_exame_medico" parent="hr.menu_hr_configuration"
-            sequence="100" />
+                  action="action_tko_hr_emp_exame_medico" parent="hr.menu_hr_configuration"
+                  sequence="100"/>
         <menuitem id="menu_tko_hr_emp_tipo_exame" string="Tipo Exame"
-            action="action_tko_hr_emp_tipo_exame" parent="hr.menu_hr_configuration"
-            sequence="110" />
+                  action="action_tko_hr_emp_tipo_exame" parent="hr.menu_hr_configuration"
+                  sequence="110"/>
         <menuitem id="menu_tko_hr_emp_clinica" string="Clínica"
-            action="action_tko_hr_emp_clinica" parent="hr.menu_hr_configuration"
-            sequence="120" />
+                  action="action_tko_hr_emp_clinica" parent="hr.menu_hr_configuration"
+                  sequence="120"/>
         <menuitem id="menu_tko_hr_emp_medico" string="Médico"
-            action="action_tko_hr_emp_medico" parent="hr.menu_hr_configuration"
-            sequence="130" />
+                  action="action_tko_hr_emp_medico" parent="hr.menu_hr_configuration"
+                  sequence="130"/>
         <menuitem id="menu_tko_hr_emp_local" string="Local"
-            action="action_tko_hr_emp_local" parent="hr.menu_hr_configuration"
-            sequence="140" />
+                  action="action_tko_hr_emp_local" parent="hr.menu_hr_configuration"
+                  sequence="140"/>
         <menuitem id="menu_tko_hr_emp_dependente" string="Dependente"
-            action="action_tko_hr_emp_dependente" parent="hr.menu_hr_configuration"
-            sequence="150" />
+                  action="action_tko_hr_emp_dependente" parent="hr.menu_hr_configuration"
+                  sequence="150"/>
         <menuitem id="menu_tko_hr_emp_parentesco" string="Parentesco"
-            action="action_tko_hr_emp_parentesco" parent="hr.menu_hr_configuration"
-            sequence="160" />
+                  action="action_tko_hr_emp_parentesco" parent="hr.menu_hr_configuration"
+                  sequence="160"/>
         <menuitem id="menu_tko_hr_emp_conselho_regional"
-            string="Conselho Regional" action="action_tko_hr_emp_conselho_regional"
-            parent="hr.menu_hr_configuration" sequence="170" />
+                  string="Conselho Regional" action="action_tko_hr_emp_conselho_regional"
+                  parent="hr.menu_hr_configuration" sequence="170"/>
         <menuitem id="menu_tko_hr_emp_orgao_expedidor" string="Órgão Expedidor"
-            action="action_tko_hr_emp_orgao_expedidor" parent="hr.menu_hr_configuration"
-            sequence="180" />
+                  action="action_tko_hr_emp_orgao_expedidor" parent="hr.menu_hr_configuration"
+                  sequence="180"/>
         <menuitem id="menu_tko_hr_emp_categoria_habilitacao"
-            string="Categoria Habilitação" action="action_tko_hr_emp_categoria_habilitacao"
-            parent="hr.menu_hr_configuration" sequence="190" />
+                  string="Categoria Habilitação" action="action_tko_hr_emp_categoria_habilitacao"
+                  parent="hr.menu_hr_configuration" sequence="190"/>
 
     </data>
 </openerp>

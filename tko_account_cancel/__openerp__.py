@@ -37,8 +37,8 @@
                 'account_cancel',
                 ],
     'data': [
-             'invoice_cancel_view.xml',
-             ],
+        'invoice_cancel_view.xml',
+    ],
     'init': [],
     'demo': [],
     'update': [],

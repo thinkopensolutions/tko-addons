@@ -32,13 +32,13 @@
     'version': '1.001',
     'sequence': 8,
     'depends': [
-                'account',
-                'account_chart',
-                ],
+        'account',
+        'account_chart',
+    ],
     'data': [
-             'data/account.account.template.csv',
-             'data/account_chart_template.xml',
-             ],
+        'data/account.account.template.csv',
+        'data/account_chart_template.xml',
+    ],
     'init': [],
     'demo': [],
     'update': [],
@@ -48,4 +48,3 @@
     'auto_install': False,  # If it's True, the modules will be auto-installed when all dependencies are installed
     'certificate': '',
 }
-
