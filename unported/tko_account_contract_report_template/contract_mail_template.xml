@@ -8,14 +8,15 @@
         <record id="email_template_contract" model="email.template">
             <field name="name">Contract - Send by Email</field>
             <field name="email_from">${(object.user_id.email or
-                'noreply@localhost')|safe}</field>
+                'noreply@localhost')|safe}
+            </field>
             <field name="subject">Contract-${object.name}</field>
             <field name="email_recipients">${object.partner_id.id}</field>
-            <field name="model_id" ref="model_account_analytic_account" />
-            <field name="report_template" ref="report_tko_contract" />
+            <field name="model_id" ref="model_account_analytic_account"/>
+            <field name="report_template" ref="report_tko_contract"/>
             <field name="report_name">${(object.name or '').replace('/','_')}
             </field>
-            <field name="auto_delete" eval="True" />
+            <field name="auto_delete" eval="True"/>
             <field name="lang">${object.partner_id.lang}</field>
             <field name="body_html"><![CDATA[
 <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">

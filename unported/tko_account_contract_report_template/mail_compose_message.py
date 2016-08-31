@@ -22,8 +22,9 @@
 #
 ##############################################################################
 
-from openerp.osv import osv
 from datetime import datetime
+
+from openerp.osv import osv
 
 
 class mail_compose_message(osv.TransientModel):
@@ -42,8 +43,8 @@ class mail_compose_message(osv.TransientModel):
             active_ids = context.get('active_ids', [])
             if active_ids:
                 self.pool.get('account.analytic.account').write(cr, uid,
-                    active_ids, {
-                        'state': 'sent',
-                        'date_contract_sent': datetime.now()},
-                    context=context)
+                                                                active_ids, {
+                                                                    'state': 'sent',
+                                                                    'date_contract_sent': datetime.now()},
+                                                                context=context)
         return res

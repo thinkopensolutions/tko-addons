@@ -4,12 +4,12 @@
             <field name="name">Invoice</field>
             <field name="model">account.invoice</field>
             <field name="type">form</field>
-            <field name="inherit_id" ref="account.invoice_form" />
+            <field name="inherit_id" ref="account.invoice_form"/>
             <field name="arch" type="xml">
-            	<field name="payment_term" position="before">
-            		<field name="discount_on_order" readonly="1"/>
-            	</field>
+                <field name="payment_term" position="before">
+                    <field name="discount_on_order" readonly="1"/>
+                </field>
             </field>
-       </record>
+        </record>
     </data>
 </openerp>

@@ -4,27 +4,27 @@
         <record id="view_task_search_form" model="ir.ui.view">
             <field name="name">project.task.search.form</field>
             <field name="model">project.task</field>
-            <field name="inherit_id" ref="project.view_task_search_form" />
+            <field name="inherit_id" ref="project.view_task_search_form"/>
             <field name="arch" type="xml">
                 <field name="stage_id" position="after">
-                    <field name="task_type_id" />
+                    <field name="task_type_id"/>
                 </field>
                 <filter string="Stage" position="after">
                     <filter string="Type" name="Stage"
-                        context="{'group_by':'task_type_id'}" />
+                            context="{'group_by':'task_type_id'}"/>
                 </filter>
             </field>
         </record>
         <record id="view_task_form_with_pad" model="ir.ui.view">
             <field name="name">project.task.form.pad</field>
             <field name="model">project.task</field>
-            <field name="inherit_id" ref="project.view_task_form2" />
+            <field name="inherit_id" ref="project.view_task_form2"/>
             <field name="arch" type="xml">
                 <field name="name" position="before">
                     <field name="task_type_id" placeholder="task type"
-                        required="1" style="width:10%%;" />
-                    <field name="color" invisible="1" />
-                    <field name="type_name" invisible="1" />
+                           required="1" style="width:10%%;"/>
+                    <field name="color" invisible="1"/>
+                    <field name="type_name" invisible="1"/>
                 </field>
             </field>
         </record>
@@ -32,12 +32,12 @@
         <record model="ir.ui.view" id="view_task_kanban">
             <field name="name">project.task.kanban</field>
             <field name="model">project.task</field>
-            <field name="inherit_id" ref="project.view_task_kanban" />
+            <field name="inherit_id" ref="project.view_task_kanban"/>
             <field name="arch" type="xml">
                 <field name="name" position="before">
                     <t t-if="record.type_name.raw_value">
                         [
-                        <field name="type_name" />
+                        <field name="type_name"/>
                         ]
                     </t>
                 </field>
@@ -50,7 +50,7 @@
             <field name="model">task.type</field>
             <field name="arch" type="xml">
                 <tree string="Task Type" version="7.0">
-                    <field name="name" />
+                    <field name="name"/>
                 </tree>
             </field>
         </record>
@@ -61,8 +61,8 @@
             <field name="arch" type="xml">
                 <form string="Task Type" version="7.0">
                     <group>
-                        <field name="name" />
-                        <field name="color" />
+                        <field name="name"/>
+                        <field name="color"/>
                     </group>
                 </form>
             </field>
@@ -74,47 +74,47 @@
             <field name="model">task.type</field>
             <field name="arch" type="xml">
                 <kanban default_group_by="name">
-                    <field name="name" />
-                    <field name="color" />
+                    <field name="name"/>
+                    <field name="color"/>
                     <templates>
                         <t t-name="kanban-box">
                             <div
-                                t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
+                                    t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
                                 <div
-                                    class="oe_dropdown_toggle oe_dropdown_kanban"
-                                    groups="base.group_user">
+                                        class="oe_dropdown_toggle oe_dropdown_kanban"
+                                        groups="base.group_user">
                                     <span class="oe_e">í</span>
                                     <ul class="oe_dropdown_menu">
                                         <t
-                                            t-if="widget.view.is_action_enabled('edit')">
+                                                t-if="widget.view.is_action_enabled('edit')">
                                             <li>
                                                 <a type="edit">Edit...</a>
                                             </li>
                                         </t>
                                         <t
-                                            t-if="widget.view.is_action_enabled('delete')">
+                                                t-if="widget.view.is_action_enabled('delete')">
                                             <li>
                                                 <a type="delete">Delete</a>
                                             </li>
                                         </t>
-                                        <br />
+                                        <br/>
                                         <li>
                                             <ul class="oe_kanban_colorpicker"
-                                                data-field="color" />
+                                                data-field="color"/>
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="oe_kanban_content">
                                     <div>
                                         <b>
-                                            <field name="name" />
+                                            <field name="name"/>
                                         </b>
                                     </div>
                                     <div>
                                         [
-                                        <field name="name" />
+                                        <field name="name"/>
                                         ]
-                                        <br />
+                                        <br/>
                                     </div>
                                 </div>
                                 <div class="oe_clear"></div>
@@ -133,7 +133,7 @@
         </record>
 
         <menuitem id="task_type_menu" action="task_type_action"
-            parent="base.menu_definitions" groups="project.group_project_manager" />
+                  parent="base.menu_definitions" groups="project.group_project_manager"/>
 
     </data>
 </openerp>

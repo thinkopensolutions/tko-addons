@@ -33,8 +33,8 @@ Each type will have a colour. This makes easy to identify the tasks types in kan
     'author': 'ThinkOpen Solutions Brasil',
     'website': 'http://www.tkobr.com',
     'depends': [
-                'base',
-                'project',
+        'base',
+        'project',
     ],
     'data': [
         'security/ir.model.access.csv',

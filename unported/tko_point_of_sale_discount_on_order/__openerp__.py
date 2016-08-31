@@ -40,7 +40,7 @@
     'data': [
         'point_of_sale_view.xml',
         'account_invoice_view.xml',
-        #'wizard/pos_journal_fix_view.xml',
+        # 'wizard/pos_journal_fix_view.xml',
     ],
     'qweb': [],
     'init': [],

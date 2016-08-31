@@ -13,7 +13,7 @@
         </t>
         </div>
     </t>
-    	
+
     <!-- Add Category Shortcut Widget on ProductScreen-->
     
      <t t-extend="ProductScreenWidget">
@@ -26,6 +26,6 @@
 	    </t>
 	</t>
 
-<!-- Category shortcut End-->
+    <!-- Category shortcut End-->
     
 </templates>

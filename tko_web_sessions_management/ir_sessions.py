@@ -23,17 +23,8 @@
 ##############################################################################
 
 import logging
-import openerp
-from openerp import api
-from openerp.osv import fields, osv, orm
-from datetime import date, datetime, time, timedelta
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
-from openerp import SUPERUSER_ID
-from openerp.http import request
-from openerp.http import Response
-from openerp.http import root
-from openerp import http
-from openerp.tools.translate import _
+from datetime import datetime
+
 import werkzeug.contrib.sessions
 import werkzeug.datastructures
 import werkzeug.exceptions
@@ -41,7 +32,11 @@ import werkzeug.local
 import werkzeug.routing
 import werkzeug.wrappers
 import werkzeug.wsgi
-from werkzeug.wsgi import wrap_file
+from openerp import SUPERUSER_ID
+from openerp import api
+from openerp.http import root
+from openerp.osv import fields, osv
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 _logger = logging.getLogger(__name__)
 
@@ -67,10 +62,10 @@ class ir_sessions(osv.osv):
         'date_logout': fields.datetime('Logout'),
         'logout_type': fields.selection(LOGOUT_TYPES, 'Logout Type'),
         'session_duration': fields.char('Session Duration', size=8),
-        'user_kill_id': fields.many2one('res.users', 'Killed by',),
+        'user_kill_id': fields.many2one('res.users', 'Killed by', ),
         'unsuccessful_message': fields.char('Unsuccessful', size=252),
         'ip': fields.char('Remote IP', size=15),
-        'ip_location': fields.char('IP Location',),
+        'ip_location': fields.char('IP Location', ),
         'remote_tz': fields.char('Remote Time Zone', size=32, required=True),
         # Add other fields about the sessions from HEADER...
     }

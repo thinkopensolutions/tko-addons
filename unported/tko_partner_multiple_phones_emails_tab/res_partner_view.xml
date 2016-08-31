@@ -6,9 +6,9 @@
             <field name="name">res.partner.form</field>
             <field name="model">res.partner</field>
             <field name="inherit_id"
-                ref="tko_partner_multiple_phones.res_partner_inherited_form" />
+                   ref="tko_partner_multiple_phones.res_partner_inherited_form"/>
             <field name="arch" type="xml">
-                <page string="Phones" position="replace" />
+                <page string="Phones" position="replace"/>
             </field>
         </record>
 
@@ -16,64 +16,64 @@
             <field name="name">res.partner.form</field>
             <field name="model">res.partner</field>
             <field name="inherit_id"
-                ref="tko_partner_multiple_emails.res_partner_inherited_form" />
+                   ref="tko_partner_multiple_emails.res_partner_inherited_form"/>
             <field name="arch" type="xml">
-                <page string="Emails" position="replace" />
+                <page string="Emails" position="replace"/>
             </field>
         </record>
 
         <record id="res_partner_inherited_form" model="ir.ui.view">
             <field name="name">res.partner.form</field>
             <field name="model">res.partner</field>
-            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
                 <page string="Contacts" position="after">
                     <page string="Phones&amp;Emails">
                         <group col="4">
                             <field name="phone_ids" nolabel="1"
-                                class="oe_edit_only">
+                                   class="oe_edit_only">
                                 <tree editable="top"
-                                    colors="black:is_active == True">
-                                    <field name="type_id" />
-                                    <field name="phone" />
+                                      colors="black:is_active == True">
+                                    <field name="type_id"/>
+                                    <field name="phone"/>
                                     <field name="is_active"
-                                        invisible="1" />
+                                           invisible="1"/>
                                     <button name="set_partner_phone"
-                                        attrs="{'invisible' : [('is_active' ,'!=',False)]}"
-                                        type="object" string="Make it main" />
+                                            attrs="{'invisible' : [('is_active' ,'!=',False)]}"
+                                            type="object" string="Make it main"/>
                                 </tree>
                             </field>
                             <field name="email_ids" nolabel="1"
-                                class="oe_edit_only">
+                                   class="oe_edit_only">
                                 <tree editable="top"
-                                    colors="black:is_active == True">
-                                    <field name="email" />
+                                      colors="black:is_active == True">
+                                    <field name="email"/>
                                     <field name="is_active"
-                                        invisible="1" />
+                                           invisible="1"/>
                                     <button name="set_partner_email"
-                                        attrs="{'invisible' : [('is_active' ,'!=',False)]}"
-                                        type="object" string="Make it main" />
+                                            attrs="{'invisible' : [('is_active' ,'!=',False)]}"
+                                            type="object" string="Make it main"/>
                                 </tree>
                             </field>
                         </group>
                         <group col="4">
                             <field name="phone_ids_readonly"
-                                nolabel="1" class="oe_read_only">
+                                   nolabel="1" class="oe_read_only">
                                 <tree editable="top"
-                                    colors="black:is_active == True">
-                                    <field name="type_id" />
-                                    <field name="phone" />
+                                      colors="black:is_active == True">
+                                    <field name="type_id"/>
+                                    <field name="phone"/>
                                     <field name="is_active"
-                                        invisible="1" />
+                                           invisible="1"/>
                                 </tree>
                             </field>
                             <field name="email_ids_readonly"
-                                nolabel="1" class="oe_read_only">
+                                   nolabel="1" class="oe_read_only">
                                 <tree editable="top"
-                                    colors="black:is_active == True">
-                                    <field name="email" />
+                                      colors="black:is_active == True">
+                                    <field name="email"/>
                                     <field name="is_active"
-                                        invisible="1" />
+                                           invisible="1"/>
                                 </tree>
                             </field>
                         </group>
@@ -82,5 +82,5 @@
             </field>
         </record>
 
-        </data>
+    </data>
 </openerp>

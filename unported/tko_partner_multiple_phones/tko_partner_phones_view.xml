@@ -7,8 +7,8 @@
             <field name="model">res.partner.phone</field>
             <field name="arch" type="xml">
                 <tree string="Phones" editable="top">
-                    <field name="type_id" options="{'no_create':True}" />
-                    <field name="phone" />
+                    <field name="type_id" options="{'no_create':True}"/>
+                    <field name="phone"/>
                 </tree>
             </field>
         </record>
@@ -19,8 +19,8 @@
             <field name="arch" type="xml">
                 <form string="Phone Type" version="7.0">
                     <group col="4" colspan="4">
-                        <field name="name" />
-                        <field name="code" />
+                        <field name="name"/>
+                        <field name="code"/>
                     </group>
                 </form>
             </field>

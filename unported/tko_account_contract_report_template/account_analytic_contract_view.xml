@@ -5,7 +5,7 @@
         <record id="account_analytic_contract_tree_inherit" model="ir.ui.view">
             <field name="name">account.analytic.account</field>
             <field name="model">account.analytic.account</field>
-            <field name="inherit_id" ref="account.view_account_analytic_account_list" />
+            <field name="inherit_id" ref="account.view_account_analytic_account_list"/>
             <field name="arch" type="xml">
                 <field name="state" position="attributes">
                     <attribute name="invisible">0</attribute>
@@ -21,17 +21,20 @@
                 <form string="Account Analytic Contract Report" version="7.0">
                     <sheet>
                         <group>
-                            <field name="name" />
-                            <field name="signature" widget="image" class="oe_avatar" />
+                            <field name="name"/>
+                            <field name="signature" widget="image" class="oe_avatar"/>
                         </group>
                         <group col="4">
                             <div class="oe_grey oe_edit_only">
-                                You can add keywords in text to be replaced:<br/>
-                                Customer, for example:<ul>
+                                You can add keywords in text to be replaced:
+                                <br/>
+                                Customer, for example:
+                                <ul>
                                     <li>Name: $(partner_id.name)s</li>
                                     <li>Email: $(partner_id.email)s</li>
                                 </ul>
-                                Account Manager, for example:<ul>
+                                Account Manager, for example:
+                                <ul>
                                     <li>Street: $(manager_id.street)s</li>
                                     <li>Country: $(manager_id.country)s</li>
                                     <li>Function: $(manager_id.function)s</li>
@@ -39,18 +42,26 @@
                             </div>
                             <div class="oe_grey oe_edit_only">
                                 <br/>
-                                Company, for example:<ul>
+                                Company, for example:
+                                <ul>
                                     <li>Name: $(company_id.name)s</li>
                                     <li>Phone: $(company_id.phone)s</li>
-                                    <li><strong>Signature:</strong> $(contract_template_body_id.signature)s</li>
+                                    <li>
+                                        <strong>Signature:</strong>
+                                        $(contract_template_body_id.signature)s
+                                    </li>
                                 </ul>
-                                You can use <strong>any field that is related to the contract</strong>.<br/>
-                                <strong>Example:</strong> $(partner_id.property_payment_term.name)s<br />
-                                For images <strong>you can set width and height</strong> as $(ImageField,width,height)s. Example: $(partner_id.image,160,160)s
+                                You can use <strong>any field that is related to the contract</strong>.
+                                <br/>
+                                <strong>Example:</strong>
+                                $(partner_id.property_payment_term.name)s
+                                <br/>
+                                For images <strong>you can set width and height</strong> as $(ImageField,width,height)s.
+                                Example: $(partner_id.image,160,160)s
                                 You can also add a style type="text/css" to add CSS style rules to the document.
                             </div>
                         </group>
-                        <field name="contract_body" widget="html" />
+                        <field name="contract_body" widget="html"/>
                     </sheet>
                     <div class="oe_chatter">
                         <field name="message_follower_ids" widget="mail_followers"/>
@@ -65,8 +76,8 @@
             <field name="model">account.analytic.account.contract.report.body</field>
             <field name="arch" type="xml">
                 <tree string="Account Analytic Contract Report" version="7.0">
-                    <field name="name" />
-                    <field name="signature" />
+                    <field name="name"/>
+                    <field name="signature"/>
                 </tree>
             </field>
         </record>
@@ -76,23 +87,24 @@
             </field>
             <field name="model">account.analytic.account</field>
             <field name="inherit_id"
-                ref="hr_timesheet_invoice.account_analytic_account_form_form" />
+                   ref="hr_timesheet_invoice.account_analytic_account_form_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//button[@name='set_open']" position="attributes">
                     <attribute name="states">pending,close,cancelled,draft,sent
                     </attribute>
                 </xpath>
                 <xpath expr="//button[@name='set_cancel']"
-                    position="attributes">
+                       position="attributes">
                     <attribute name="states">open,pending,sent
                     </attribute>
                 </xpath>
                 <button name="set_pending" position="before">
                     <button name="%(contract_template_action)d"
-                        type="action" string="Generate Contract" attrs="{'invisible' : [('type','not in', ['contract', 'template'])]}"/>
+                            type="action" string="Generate Contract"
+                            attrs="{'invisible' : [('type','not in', ['contract', 'template'])]}"/>
                     <button name="action_contract_sent" type="object"
-                        string="Send by Email" class="oe_highlight"
-                        states="draft,sent,open,pending" />
+                            string="Send by Email" class="oe_highlight"
+                            states="draft,sent,open,pending"/>
                 </button>
             </field>
         </record>
@@ -101,15 +113,16 @@
             <field name="name">contract</field>
             <field name="model">account.analytic.account</field>
             <field name="inherit_id"
-                ref="analytic.view_account_analytic_account_form" />
+                   ref="analytic.view_account_analytic_account_form"/>
             <field name="arch" type="xml">
                 <page string="Contract Information" position="after">
-                    <page string="Contract Template" attrs="{'invisible' : [('type','not in', ['contract', 'template'])]}">
+                    <page string="Contract Template"
+                          attrs="{'invisible' : [('type','not in', ['contract', 'template'])]}">
                         <group>
-                            <field name="contract_template_body_id" />
+                            <field name="contract_template_body_id"/>
                             <field name="date_contract_sent"
-                                readonly="1"
-                                attrs="{'invisible' : [('type','not in', ['contract'])]}"/>
+                                   readonly="1"
+                                   attrs="{'invisible' : [('type','not in', ['contract'])]}"/>
                         </group>
                     </page>
                 </page>

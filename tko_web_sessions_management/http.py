@@ -24,8 +24,6 @@
 
 import logging
 import openerp
-from openerp.osv import fields, osv, orm
-from datetime import date, datetime, time, timedelta
 from dateutil.relativedelta import *
 from openerp import SUPERUSER_ID
 import werkzeug.contrib.sessions
@@ -35,20 +33,16 @@ import werkzeug.local
 import werkzeug.routing
 import werkzeug.wrappers
 import werkzeug.wsgi
-import simplejson
 from werkzeug.wsgi import wrap_file
 from openerp.http import request
-from openerp.tools.translate import _
-from openerp.http import Response
-from openerp import http
 from openerp.tools.func import lazy_property
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
+
 #
 _logger = logging.getLogger(__name__)
 
 
 class OpenERPSession(openerp.http.OpenERPSession):
-
     def logout(self, keep_db=False, logout_type=None, env=None):
         try:
             env = env or request.env
@@ -66,7 +60,6 @@ class OpenERPSession(openerp.http.OpenERPSession):
 
 
 class Root_tkobr(openerp.http.Root):
-
     @lazy_property
     def session_store(self):
         # Setup http sessions

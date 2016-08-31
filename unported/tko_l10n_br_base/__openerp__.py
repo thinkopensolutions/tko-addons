@@ -38,8 +38,8 @@ Também adiciona novos campos específicos, de cadastro de empresa:\n
     'license': 'AGPL-3',
     'website': 'http://www.tkobr.com',
     'depends': [
-                'base',
-                'l10n_br_base',
+        'base',
+        'l10n_br_base',
     ],
     'data': [
         'security/ir.model.access.csv',

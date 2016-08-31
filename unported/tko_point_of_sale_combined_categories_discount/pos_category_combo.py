@@ -21,10 +21,11 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import fields, models, api, _
-import openerp.addons.decimal_precision as dp
-from openerp.osv import osv, fields as fieldsv7
 import logging
+
+from openerp import fields, models, api, _
+from openerp.osv import osv
+
 _logger = logging.getLogger(__name__)
 
 
@@ -46,8 +47,8 @@ class pos_category_combo(models.Model):
          'unique(main_category_id, disc_category_id,company_id)',
          _('You already have a combo with current selected categories')),
     ]
-    
-   
+
+
 # adding field becuase we need to have values of combo ids even if no
 # internet connection
 

@@ -34,7 +34,7 @@ This will help to identify movements in payments.''',
     'license': 'AGPL-3',
     'website': 'http://www.tkobr.com',
     'depends': [
-                'account_voucher',
+        'account_voucher',
     ],
     'data': [
         'account_voucher_view.xml',

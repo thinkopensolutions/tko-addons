@@ -50,12 +50,12 @@ One can do following:\n
 NOTE: Admin has no restrictions""",
     'author': 'ThinkOpen Solutions Brasil',
     'website': 'http://www.tkobr.com',
-    #'price': 19.99,
-    #'currency': 'EUR',
+    # 'price': 19.99,
+    # 'currency': 'EUR',
     'depends': [
-                'base',
-                'resource',
-                'web',
+        'base',
+        'resource',
+        'web',
     ],
     'data': [
         'security/ir.model.access.csv',

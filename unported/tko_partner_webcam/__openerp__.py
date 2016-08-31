@@ -30,8 +30,8 @@ WebCam
 Capture partner pictures with an attached web cam.
     """,
     'author': "Michael Telahun Makonnen <mmakonnen@gmail.com>,"
-    "Odoo Community Association (OCA), "
-    "ThinkOpen Solutions Brasil",
+              "Odoo Community Association (OCA), "
+              "ThinkOpen Solutions Brasil",
     'website': 'http://tkobr.com',
     'license': 'AGPL-3',
     'depends': [

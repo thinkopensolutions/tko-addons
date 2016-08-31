@@ -32,9 +32,9 @@
     'version': '0.006',
     'sequence': 10,
     'depends': [
-                'base',
-                'mail',
-               # 'web_widget_one2many_tags',
+        'base',
+        'mail',
+        # 'web_widget_one2many_tags',
     ],
     'data': [
         'security/ir.model.access.csv',

@@ -77,7 +77,7 @@ class account_analytic_account(models.Model):
         template message loaded by default
         '''
         assert len(ids) == 1, \
-               'This option should only be used for a single id at a time.'
+            'This option should only be used for a single id at a time.'
         ir_model_data = self.pool.get('ir.model.data')
         contract_obj = self.browse(cr, uid, ids[0])
         attach_obj = self.pool.get('ir.attachment')

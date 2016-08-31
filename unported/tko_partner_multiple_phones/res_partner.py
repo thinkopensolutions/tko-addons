@@ -22,12 +22,11 @@
 #
 ##############################################################################
 
+import logging
+
 from openerp.osv import fields
 from openerp.osv import osv
-from openerp.tools.translate import _
-from openerp import api
-from openerp import SUPERUSER_ID
-import logging
+
 _logger = logging.getLogger(__name__)
 
 
@@ -103,9 +102,9 @@ class res_partner(osv.osv):
                                               ('type_id',
                                                '=',
                                                phone_type_id[0]),
-                                                 ('is_active',
-                                                  '=',
-                                                  True)],
+                                              ('is_active',
+                                               '=',
+                                               True)],
                                              order='id desc',
                                              limit=1,
                                              )
@@ -118,9 +117,9 @@ class res_partner(osv.osv):
                                                ('type_id',
                                                 '=',
                                                 mobile_type_id[0]),
-                                                  ('is_active',
-                                                   '=',
-                                                   True)],
+                                               ('is_active',
+                                                '=',
+                                                True)],
                                               order='id desc',
                                               limit=1,
                                               )
@@ -141,7 +140,8 @@ class res_partner(osv.osv):
                         cr, uid, [('code', '=', 'phone')])
                     phone_ids = phone_obj.search(
                         cr, uid, [
-                            ('res_partner_id', '=', record.id), ('phone', '=', value), ('type_id', '=', phone_type_id[0])])
+                            ('res_partner_id', '=', record.id), ('phone', '=', value),
+                            ('type_id', '=', phone_type_id[0])])
 
                 if phone_ids:
                     previous_phone_ids = phone_obj.search(
@@ -174,7 +174,8 @@ class res_partner(osv.osv):
                         cr, uid, [('code', '=', 'cel')])
                     phone_ids = phone_obj.search(
                         cr, uid, [
-                            ('res_partner_id', '=', record.id), ('phone', '=', value), ('type_id', '=', phone_type_id[0])])
+                            ('res_partner_id', '=', record.id), ('phone', '=', value),
+                            ('type_id', '=', phone_type_id[0])])
 
                 if phone_ids:
                     previous_phone_ids = phone_obj.search(
@@ -214,16 +215,17 @@ class res_partner(osv.osv):
 
     _columns = {
         'phone_ids': fields.one2many('res.partner.phone', 'res_partner_id', 'Phones'),
-        'phone_ids_readonly': fields.function(_get_phone_ids, type='one2many', relation='res.partner.phone', string='Phones'),
+        'phone_ids_readonly': fields.function(_get_phone_ids, type='one2many', relation='res.partner.phone',
+                                              string='Phones'),
         'phone': fields.function(_get_phones, fnct_inv=_set_phone_id, type='char', multi="phones", string='Phone',
                                  store={'res.partner': (lambda self, cr, uid, ids, c={}: ids, ['phone_ids'], 10),
-                                        'res.partner.phone': (_get_partner, ['type', 'phone', 'is_active'], 10), }
+                                        'res.partner.phone': (_get_partner, ['type', 'phone', 'is_active'], 10),}
 
                                  ),
 
         'mobile': fields.function(_get_phones, fnct_inv=_set_mobile_id, type='char', multi="phones", string='Mobile',
                                   store={'res.partner': (lambda self, cr, uid, ids, c={}: ids, ['phone_ids'], 10),
-                                         'res.partner.phone': (_get_partner, ['type', 'phone', 'is_active'], 10), }
+                                         'res.partner.phone': (_get_partner, ['type', 'phone', 'is_active'], 10),}
 
                                   ),
     }
@@ -247,7 +249,7 @@ class res_partner(osv.osv):
             _logger.info(
                 'Setting up multiple phones record for client %s .' %
                 partner.name)
-            
+
             if phone_number:
                 if part_phone_obj.search(cr, SUPERUSER_ID, [('phone', '=', phone_number)]):
                     part_phone_obj.create(cr, SUPERUSER_ID, {

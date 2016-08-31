@@ -36,7 +36,7 @@ This module don't break email functionality because it keeps the email char fiel
     'author': 'ThinkOpen Solutions Brasil',
     'website': 'http://www.tkobr.com',
     'depends': [
-                'base',
+        'base',
     ],
     'data': [
         'data/email_type_data.xml',

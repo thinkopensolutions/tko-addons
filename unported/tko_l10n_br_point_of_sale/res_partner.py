@@ -22,22 +22,23 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
+from openerp import models, api
+
 
 class res_partner(models.Model):
     _inherit = 'res.partner'
-    
+
     @api.model
-    def create(self,vals):
-        if 'cnpj_cpf'  in vals.keys():
+    def create(self, vals):
+        if 'cnpj_cpf' in vals.keys():
             if not vals['cnpj_cpf'] or vals['cnpj_cpf'] == 'false':
                 vals['cnpj_cpf'] = False
-        return super(res_partner,self).create(vals)
-    
+        return super(res_partner, self).create(vals)
+
     @api.multi
-    def write(self,vals):
+    def write(self, vals):
         for record in self:
-            if 'cnpj_cpf'  in vals.keys():
+            if 'cnpj_cpf' in vals.keys():
                 if not vals['cnpj_cpf'] or vals['cnpj_cpf'] == 'false':
-                    vals.pop('cnpj_cpf') 
-            return super(res_partner,record).write(vals)
+                    vals.pop('cnpj_cpf')
+            return super(res_partner, record).write(vals)

@@ -27,12 +27,12 @@ class pos_journal_fix(osv.osv_memory):
                             cr.execute(
                                 "update account_move_line set credit=%s where id=%s" %
                                 (order.amount_total, move_line.id))
-                            #move_line_obj.write(cr, uid, [move_line.id], {'credit' : order.amount_total} )
+                            # move_line_obj.write(cr, uid, [move_line.id], {'credit' : order.amount_total} )
                         if move_line.debit > 0:
                             cr.execute(
                                 "update account_move_line set debit=%s where id=%s" %
                                 (order.amount_total, move_line.id))
-                            #move_line_obj.write(cr, uid, [move_line.id], {'debit' : order.amount_total} )
+                            # move_line_obj.write(cr, uid, [move_line.id], {'debit' : order.amount_total} )
                     udpate_statement_ids = statement_obj.search(
                         cr, uid, [('pos_statement_id', '=', order.id), ('id', '!=', line.id)])
                     statement_obj.write(
@@ -50,7 +50,7 @@ class pos_journal_fix(osv.osv_memory):
                             move_obj.unlink(
                                 cr, uid, [
                                     statement.journal_entry_id.id])
-                #statement_obj.unlink(cr, uid, [line.id])
-                            #move_line_obj.write(cr, uid, [move_line.id], {'debit' : 0, 'credit' :0} )
+                            # statement_obj.unlink(cr, uid, [line.id])
+                            # move_line_obj.write(cr, uid, [move_line.id], {'debit' : 0, 'credit' :0} )
 
         return True
