@@ -4,11 +4,11 @@
         <record model="ir.ui.view" id="issue_form_view_inherit">
             <field name="name">Issue</field>
             <field name="model">project.issue</field>
-            <field name="inherit_id" ref="project_issue.project_issue_form_view" />
+            <field name="inherit_id" ref="project_issue.project_issue_form_view"/>
             <field name="arch" type="xml">
                 <field name="stage_id" position="before">
                     <button name="%(action_project_to_task)d"
-                        type="action" string="Convert To Task" />
+                            type="action" string="Convert To Task"/>
                 </field>
             </field>
         </record>

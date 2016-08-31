@@ -33,13 +33,13 @@
     'license': 'AGPL-3',
     'website': 'http://www.tkobr.com',
     'depends': [
-                'base',
-                ],
-                
+        'base',
+    ],
+
     'data': [
-             'partner_sequence.xml',
-             'res_partner_view.xml',
-             ],
+        'partner_sequence.xml',
+        'res_partner_view.xml',
+    ],
     'init': [],
     'demo': [],
     'update': [],

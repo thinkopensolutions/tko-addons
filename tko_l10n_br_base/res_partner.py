@@ -22,61 +22,56 @@
 #
 ##############################################################################
 
-import time
-from datetime import datetime, timedelta
-from lxml import etree 
-from openerp.osv import osv, fields
 from datetime import date, datetime
 
+from openerp.osv import osv, fields
 
 AVAILABLE_ZONES = [
-            ('n', 'Norte'),
-            ('s', 'Sul'),
-            ('c', 'Centro'),
-            ('l', 'Leste'),
-            ('o', 'Oeste')
-            ]
-
+    ('n', 'Norte'),
+    ('s', 'Sul'),
+    ('c', 'Centro'),
+    ('l', 'Leste'),
+    ('o', 'Oeste')
+]
 
 IS_COMPANY = [
-              ('f', u'Pessoa Física'),
-              ('j', u'Pessoa Jurídica'),
-              ]
-
+    ('f', u'Pessoa Física'),
+    ('j', u'Pessoa Jurídica'),
+]
 
 IS_MATRIZ = [
-             ('f', 'Filial'),
-             ('m', 'Matriz'),
-              ]
-
+    ('f', 'Filial'),
+    ('m', 'Matriz'),
+]
 
 GENDER = [
-          ('m', 'Masculino'),
-          ('f', 'Feminino'),
-          ]
+    ('m', 'Masculino'),
+    ('f', 'Feminino'),
+]
 
 
 class res_partner(osv.osv):
     _inherit = 'res.partner'
-    
+
     def _get_is_company(self, cr, uid, ids, name, arg, context=None):
         result = {}
-        convert = {True: 'j', False: 'f', }
+        convert = {True: 'j', False: 'f',}
         for partner in self.browse(cr, uid, ids, context=context):
             result[partner.id] = convert[partner.is_company]
         return result
-    
+
     def _save_is_company(self, cr, uid, id, name, value, arg, context=None):
         result = {}
-        convert = {'j': True, 'f': False, }
+        convert = {'j': True, 'f': False,}
         return convert[value]
-    
+
     def _age(self, birth_date):
         now = date.today()
         age_date = datetime.strptime(birth_date, '%Y-%m-%d').date()
-        age = now.year - age_date.year - (0 if (now.month > age_date.month or (now.month == age_date.month and now.day >= age_date.day)) else 1)
+        age = now.year - age_date.year - (
+        0 if (now.month > age_date.month or (now.month == age_date.month and now.day >= age_date.day)) else 1)
         return age
-   
+
     def _calculate_age(self, cr, uid, ids, field_name, arg, context):
         res = {}
         for partner in self.browse(cr, uid, ids):
@@ -85,17 +80,17 @@ class res_partner(osv.osv):
             else:
                 res[partner.id] = 0
         return res
-    
+
     _columns = {
         'is_company_selection': fields.function(
-                                              _get_is_company,
-                                              fnct_inv=_save_is_company,
-                                              method=True,
-                                              required=True,
-                                              translate=True,
-                                              type='selection',
-                                              selection=IS_COMPANY,
-                                              string=u'Main'),
+            _get_is_company,
+            fnct_inv=_save_is_company,
+            method=True,
+            required=True,
+            translate=True,
+            type='selection',
+            selection=IS_COMPANY,
+            string=u'Main'),
         'pabx': fields.char('Phones', size=32),
         'pabx_extension': fields.char('Extension', size=32),
         'fax': fields.char('FAX', size=32),
@@ -118,85 +113,88 @@ class res_partner(osv.osv):
         'departamento': fields.char('Departamento', size=128),
         'birth_date': fields.date('Birthdate'),
         'age': fields.function(_calculate_age, method=True, type='integer', string='Age'),
-        }
-    
+    }
+
     def onchange_is_company_selection(self, cr, uid, ids, is_company_selection, context=None):
         if is_company_selection:
-            return {'value': {'is_company': self._save_is_company(cr, uid, id, 'is_company_selection', is_company_selection, '', context)},
-                    'domain':{'title':[('is_fisica', '=', 'f')]}
-                   }
+            return {'value': {
+                'is_company': self._save_is_company(cr, uid, id, 'is_company_selection', is_company_selection, '',
+                                                    context)},
+                    'domain': {'title': [('is_fisica', '=', 'f')]}
+                    }
         else:
             return True
-    
+
     _defaults = {
-        'is_matriz':'f',
+        'is_matriz': 'f',
         'is_company_selection': 'f',
-        'country_id': lambda self, cr, uid, c: self.pool.get('res.users').browse(cr, uid, uid, c).company_id.country_id.id,
+        'country_id': lambda self, cr, uid, c: self.pool.get('res.users').browse(cr, uid, uid,
+                                                                                 c).company_id.country_id.id,
         'state_id': lambda self, cr, uid, c: self.pool.get('res.users').browse(cr, uid, uid, c).company_id.state_id.id,
-        'l10n_br_city_id': lambda self, cr, uid, c: self.pool.get('res.users').browse(cr, uid, uid, c).company_id.l10n_br_city_id.id,
-        }
-    
-    
+        'l10n_br_city_id': lambda self, cr, uid, c: self.pool.get('res.users').browse(cr, uid, uid,
+                                                                                      c).company_id.l10n_br_city_id.id,
+    }
+
+
 class district(osv.osv):
     _name = "district"
     _description = "District"
     _order = "name"
-    
+
     _columns = {
         'name': fields.char('District', size=128, required=True, translate=True),
     }
-    
-    
+
+
 class activity_branch(osv.osv):
     _name = "activity_branch"
     _description = "Activity Branch"
-    
+
     _columns = {
         'name': fields.char('Activity Branch', size=128, required=True, translate=True),
     }
-    
-    
+
+
 class business_size(osv.osv):
     _name = "business_size"
     _description = "Business Size"
-    
+
     _columns = {
         'name': fields.char('Business Size', size=128, required=True, translate=True),
     }
-    
-    
+
+
 class annual_income(osv.osv):
     _name = "annual_income"
     _description = "Annual Income"
-    
+
     _columns = {
         'name': fields.char('Annual Income', size=128, required=True, translate=True),
     }
-    
-    
+
+
 class economic_sector(osv.osv):
     _name = "economic_sector"
     _description = "Economic Sector"
-    
+
     _columns = {
         'name': fields.char('Economic Sector', size=128, required=True, translate=True),
     }
-    
-    
+
+
 class business_nationality(osv.osv):
     _name = "business_nationality"
     _description = "Business Nationality"
-    
+
     _columns = {
         'name': fields.char('Business nationality', size=128, required=True, translate=True),
     }
-    
-    
+
+
 class res_partner_title(osv.osv):
     _inherit = "res.partner.title"
-    
+
     _columns = {
-               'is_fisica' :  fields.boolean('Pessoa Fisica'),
-               'is_juridica' :  fields.boolean('Pessoa Juridica'),
-               }
-    
+        'is_fisica': fields.boolean('Pessoa Fisica'),
+        'is_juridica': fields.boolean('Pessoa Juridica'),
+    }
