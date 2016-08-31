@@ -5,13 +5,13 @@
         <record id="view_company_form" model="ir.ui.view">
             <field name="name">res.company.form</field>
             <field name="model">res.company</field>
-            <field name="inherit_id" ref="base.view_company_form" />
+            <field name="inherit_id" ref="base.view_company_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//page[@string='Configuration']/group"
-                    position="before">
+                       position="before">
                     <group name="pos_average_tax" string="Point of Sale Average Taxes" col="4">
-                        <field name="average_federal_tax" />
-                        <field name="average_state_tax" />
+                        <field name="average_federal_tax"/>
+                        <field name="average_state_tax"/>
                         <field name="order_reference"/>
                     </group>
                 </xpath>

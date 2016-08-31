@@ -1,4 +1,4 @@
-from openerp import fields, models, api, _
+from openerp import fields, models, api
 
 
 class account_invoice(models.Model):
@@ -16,4 +16,4 @@ class account_invoice(models.Model):
             line.price_subtotal for line in self.invoice_line)
         self.amount_tax = sum(line.amount for line in self.tax_line)
         self.amount_total = self.amount_untaxed + \
-            self.amount_tax - self.discount_on_order
+                            self.amount_tax - self.discount_on_order

@@ -22,7 +22,7 @@
 #
 ##############################################################################
 
-from openerp import models, api, fields, _
+from openerp import models, api, fields
 
 
 class contract_template_wizard(models.TransientModel):

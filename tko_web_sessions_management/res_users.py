@@ -22,16 +22,14 @@
 #
 ##############################################################################
 
-import openerp
-from openerp.osv import fields, osv, orm
-from datetime import date, datetime, time, timedelta
-from openerp.addons.base.ir.ir_cron import _intervalTypes
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from datetime import datetime
 from dateutil.relativedelta import *
-from openerp import models
-from openerp import http
-from openerp.http import root
+
+from openerp.addons.base.ir.ir_cron import _intervalTypes
 from openerp.http import request
+from openerp.http import root
+from openerp.osv import fields, osv
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 
 class res_users(osv.osv):
@@ -55,12 +53,12 @@ class res_users(osv.osv):
             session_ids = session_obj.search(cr, uid,
                                              [('session_id', '=', session.sid),
                                               ('expiration_date', '>', now),
-                                                 ('logged_in', '=', True)],
+                                              ('logged_in', '=', True)],
                                              order='expiration_date asc',
                                              context=request.context)
             if session_ids:
                 if request.httprequest.path[:5] == '/web/' or \
-                   request.httprequest.path[:9] == '/im_chat/':
+                                request.httprequest.path[:9] == '/im_chat/':
                     open_sessions = session_obj.read(cr, uid,
                                                      session_ids, ['logged_in',
                                                                    'date_login',
@@ -78,8 +76,8 @@ class res_users(osv.osv):
                                     (datetime.strptime(
                                         now,
                                         DEFAULT_SERVER_DATETIME_FORMAT) +
-                                        relativedelta(
-                                        seconds=seconds)),
+                                     relativedelta(
+                                         seconds=seconds)),
                                     DEFAULT_SERVER_DATETIME_FORMAT),
                                 'session_duration': str(
                                     datetime.strptime(

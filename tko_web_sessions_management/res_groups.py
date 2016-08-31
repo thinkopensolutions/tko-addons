@@ -22,8 +22,7 @@
 #
 ##############################################################################
 
-import openerp
-from openerp.osv import fields, osv, orm
+from openerp.osv import fields, osv
 
 
 class res_groups(osv.osv):

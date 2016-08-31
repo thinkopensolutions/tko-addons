@@ -22,8 +22,9 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
 from datetime import timedelta, datetime
+
+from openerp.osv import osv, fields
 
 
 class issue_to_task(osv.osv_memory):
@@ -79,8 +80,8 @@ class issue_to_task(osv.osv_memory):
                 'date_deadline': datetime.strptime(
                     self_obj.deadline,
                     '%Y-%m-%d %H:%M:%S') -
-                timedelta(
-                    hours=3)}
+                                 timedelta(
+                                     hours=3)}
 
             task_id = task_obj.create(cr, uid, vals, context=context)
             stage_id = self.pool.get('project.task.type').search(

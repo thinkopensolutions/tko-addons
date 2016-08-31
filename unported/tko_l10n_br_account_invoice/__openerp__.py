@@ -33,8 +33,8 @@
     'license': 'AGPL-3',
     'website': 'http://www.tkobr.com',
     'depends': [
-                'base',
-                'account',
+        'base',
+        'account',
     ],
     'data': [
         'views/report_invoice.xml',

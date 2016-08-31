@@ -22,19 +22,16 @@
 #
 ##############################################################################
 
-import time
-from datetime import datetime, timedelta, date
-from openerp.tools.translate import _
-from openerp.osv import osv, fields
-from openerp import tools
+from datetime import datetime, date
 
+from openerp import tools
+from openerp.osv import osv, fields
 
 AVAILABLE_STATUS = [
     ('concluido', u'Concluído'),
     ('cursando', u'Cursando'),
     ('trancado', u'Trancado'),
 ]
-
 
 AVAILABLE_LANGUAGE_STATUS = [
     ('concluido', u'Nativo'),
@@ -44,14 +41,12 @@ AVAILABLE_LANGUAGE_STATUS = [
     ('trancado', u'Básico'),
 ]
 
-
 AVAILABLE_EXAM_STATUS = [
     ('apto', u'Apto'),
     ('inapto', u'Inapto'),
     ('apto_outra', u'Apto a Outra Funcção'),
     ('inapto_outra', u'Inapto a Outra Função'),
 ]
-
 
 AVAILABLE_GENDER = [
     ('m', u'Masculino'),

@@ -1,46 +1,47 @@
 <?xml version="1.0"?>
 <openerp>
     <data>
-    	
-		<record model="ir.ui.view" id="view_pos_pos_extended_form">
+
+        <record model="ir.ui.view" id="view_pos_pos_extended_form">
             <field name="name">pos.order.extended</field>
             <field name="model">pos.order</field>
             <field name="type">form</field>
-            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form" />
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
             <field name="arch" type="xml">
-            	<field name="partner_id" position="after">
-            		<field name="cnpj_cpf"/>
-            	</field>
+                <field name="partner_id" position="after">
+                    <field name="cnpj_cpf"/>
+                </field>
             </field>
-       </record>
-       
-       
+        </record>
+
+
         <record model="ir.ui.view" id="view_pos_config_form">
             <field name="name">pos.config.form.view</field>
             <field name="model">pos.config</field>
-            <field name="inherit_id" ref="point_of_sale.view_pos_config_form" />
+            <field name="inherit_id" ref="point_of_sale.view_pos_config_form"/>
             <field name="arch" type="xml">
-            	<field name="journal_id" position="after">
-            		<field name="confirm_payment"/>
-            	</field>
-            	<field name="journal_ids" position="after">
-            		<separator string="Payment Methods with Fiscal Code"/>
-            		<label for ="default_fiscal_code"/>
-            		<field name="default_fiscal_code"/>
-            		<field name="tko_journal_ids" colspan="4" nolabel="1">
-            			<tree editable="bottom">
-            				<field name="journal_id" domain="[('id','in',parent.journal_ids[0][2])]" options="{'no_create' : True}"/>
-            				<field name="config_id" readonly="1" invisible="1"/>
-            				<field name="fiscal_code"/>
-            			</tree>
-            		</field>
-            	</field>
+                <field name="journal_id" position="after">
+                    <field name="confirm_payment"/>
+                </field>
+                <field name="journal_ids" position="after">
+                    <separator string="Payment Methods with Fiscal Code"/>
+                    <label for="default_fiscal_code"/>
+                    <field name="default_fiscal_code"/>
+                    <field name="tko_journal_ids" colspan="4" nolabel="1">
+                        <tree editable="bottom">
+                            <field name="journal_id" domain="[('id','in',parent.journal_ids[0][2])]"
+                                   options="{'no_create' : True}"/>
+                            <field name="config_id" readonly="1" invisible="1"/>
+                            <field name="fiscal_code"/>
+                        </tree>
+                    </field>
+                </field>
                 <group string="Features" position="after">
-                	<group string="Fiscal Printer Configurations" col="4">
-                		<field name="com_port"/>
-                		<field name="printer_model"/>
-                		<field name="baudrate"/>
-                	</group>
+                    <group string="Fiscal Printer Configurations" col="4">
+                        <field name="com_port"/>
+                        <field name="printer_model"/>
+                        <field name="baudrate"/>
+                    </group>
                 </group>
             </field>
         </record>

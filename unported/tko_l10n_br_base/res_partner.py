@@ -22,17 +22,14 @@
 #
 ##############################################################################
 
-import time
 import re
-from datetime import datetime, timedelta
-from lxml import etree
-from openerp.osv import osv, fields
 from datetime import date, datetime
-from openerp.addons.l10n_br_base.tools import fiscal
-from openerp.exceptions import Warning
+
 from openerp import _
 from openerp import api
-
+from openerp.addons.l10n_br_base.tools import fiscal
+from openerp.exceptions import Warning
+from openerp.osv import osv, fields
 
 AVAILABLE_ZONES = [
     ('n', 'Norte'),
@@ -63,14 +60,14 @@ class res_partner(osv.osv):
 
     def _get_is_company(self, cr, uid, ids, name, arg, context=None):
         result = {}
-        convert = {True: 'j', False: 'f', }
+        convert = {True: 'j', False: 'f',}
         for partner in self.browse(cr, uid, ids, context=context):
             result[partner.id] = convert[partner.is_company]
         return result
 
     def _save_is_company(self, cr, uid, id, name, value, arg, context=None):
         result = {}
-        convert = {'j': True, 'f': False, }
+        convert = {'j': True, 'f': False,}
         return convert[value]
 
     def _age(self, birth_date):
@@ -172,25 +169,25 @@ class res_partner(osv.osv):
         'is_matriz': 'f',
         'is_company_selection': 'f',
         'country_id': lambda self,
-        cr,
-        uid,
-        c: self.pool.get('res.users').browse(
+                             cr,
+                             uid,
+                             c: self.pool.get('res.users').browse(
             cr,
             uid,
             uid,
             c).company_id.country_id.id,
         'state_id': lambda self,
-        cr,
-        uid,
-        c: self.pool.get('res.users').browse(
+                           cr,
+                           uid,
+                           c: self.pool.get('res.users').browse(
             cr,
             uid,
             uid,
             c).company_id.state_id.id,
         'l10n_br_city_id': lambda self,
-        cr,
-        uid,
-        c: self.pool.get('res.users').browse(
+                                  cr,
+                                  uid,
+                                  c: self.pool.get('res.users').browse(
             cr,
             uid,
             uid,

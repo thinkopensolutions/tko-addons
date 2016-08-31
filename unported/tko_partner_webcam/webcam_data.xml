@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-        
+
         <record id="action_client_partner_menu" model="ir.actions.client">
             <field name="name">Open Partners Menu</field>
             <field name="tag">partner_webcam.menu</field>
             <field name="params" eval="{'menu_id': ref('base.menu_partner_form')}"/>
         </record>
-        
+
     </data>
 </openerp>

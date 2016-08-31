@@ -5,8 +5,8 @@
         <template id="tko_report_css" inherit_id="report.minimal_layout">
             <xpath expr="//head" position="inside">
                 <link
-                    href="/tko_account_contract_report_template/static/src/css/contract_style.css"
-                    rel="stylesheet" />
+                        href="/tko_account_contract_report_template/static/src/css/contract_style.css"
+                        rel="stylesheet"/>
             </xpath>
         </template>
 
@@ -15,7 +15,7 @@
                 <t t-foreach="docs" t-as="o">
                     <div class="page">
                         <div class="row">
-                            <span t-raw="compute_template_variables(o, o.contract_template_body_id.contract_body)" />
+                            <span t-raw="compute_template_variables(o, o.contract_template_body_id.contract_body)"/>
                         </div>
                     </div>
                 </t>

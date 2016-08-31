@@ -32,8 +32,8 @@
     'author': 'ThinkOpen Solutions Brasil',
     'website': 'http://www.tkobr.com',
     'depends': [
-                'base',
-                'tko_l10n_br_base',
+        'base',
+        'tko_l10n_br_base',
     ],
     'data': [
         'base_view.xml',

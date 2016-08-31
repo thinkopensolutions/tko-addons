@@ -4,17 +4,17 @@
 
         <record id="ecd_chart_template" model="account.chart.template">
             <field name="name">Brasil - Planilha de Contas ECD</field>
-            <field name="account_root_id" ref="ECD0" />
-            <field name="bank_account_view_id" ref="ECD10101" />
-            <field name="property_account_income" ref="ECD3010101010400" />
-            <field name="property_account_expense" ref="ECD3010103050000" />
-            <field name="property_account_receivable" ref="ECD101050200" />
-            <field name="property_account_payable" ref="ECD201010100" />
-            <field name="property_account_income_categ" ref="ECD3010101010400" />
-            <field name="property_account_expense_categ" ref="ECD3010103050000" />
-            <field name="property_account_income_opening" ref="ECD3010101010400" />
-            <field name="property_account_expense_opening" ref="ECD4010302040100" />
-            <field name="currency_id" ref="base.BRL" />
+            <field name="account_root_id" ref="ECD0"/>
+            <field name="bank_account_view_id" ref="ECD10101"/>
+            <field name="property_account_income" ref="ECD3010101010400"/>
+            <field name="property_account_expense" ref="ECD3010103050000"/>
+            <field name="property_account_receivable" ref="ECD101050200"/>
+            <field name="property_account_payable" ref="ECD201010100"/>
+            <field name="property_account_income_categ" ref="ECD3010101010400"/>
+            <field name="property_account_expense_categ" ref="ECD3010103050000"/>
+            <field name="property_account_income_opening" ref="ECD3010101010400"/>
+            <field name="property_account_expense_opening" ref="ECD4010302040100"/>
+            <field name="currency_id" ref="base.BRL"/>
         </record>
 
     </data>

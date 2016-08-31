@@ -7,7 +7,7 @@
             <field name="model">res.partner.email</field>
             <field name="arch" type="xml">
                 <tree string="Emails" editable="top">
-                    <field name="email" />
+                    <field name="email"/>
                 </tree>
             </field>
         </record>

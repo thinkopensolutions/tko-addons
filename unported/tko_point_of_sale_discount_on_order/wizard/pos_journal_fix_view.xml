@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-<data>
+    <data>
 
-<!-- Get partner from incoming phone call -->
-<record id="view_POS_journal_fix" model="ir.ui.view">
-    <field name="name">pos.journal.fix</field>
-    <field name="model">pos.journal.fix</field>
-    <field name="arch" type="xml">
-        <form string="POS Journal Fix" version="7.0">
-            <footer>
-            	<button name="pos_journal_fix" string="Fix Journals" type="object" class="oe_highlight"/>
-                <button special="cancel" string="Cancel" class="oe_link"/>
-            </footer>
-        </form>
-    </field>
-</record>
+        <!-- Get partner from incoming phone call -->
+        <record id="view_POS_journal_fix" model="ir.ui.view">
+            <field name="name">pos.journal.fix</field>
+            <field name="model">pos.journal.fix</field>
+            <field name="arch" type="xml">
+                <form string="POS Journal Fix" version="7.0">
+                    <footer>
+                        <button name="pos_journal_fix" string="Fix Journals" type="object" class="oe_highlight"/>
+                        <button special="cancel" string="Cancel" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
 
 
-<record id="action_pos_journal_fix" model="ir.actions.act_window">
-    <field name="name">POS Journal Fix</field>
-    <field name="res_model">pos.journal.fix</field>
-    <field name="view_type">form</field>
-    <field name="view_mode">form</field>
-    <field name="target">new</field>
-</record>
+        <record id="action_pos_journal_fix" model="ir.actions.act_window">
+            <field name="name">POS Journal Fix</field>
+            <field name="res_model">pos.journal.fix</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
 
-<menuitem id="menu_pos_journal_fix" parent="point_of_sale.menu_point_config_product" action="action_pos_journal_fix" sequence="150" />
+        <menuitem id="menu_pos_journal_fix" parent="point_of_sale.menu_point_config_product"
+                  action="action_pos_journal_fix" sequence="150"/>
 
-</data>
+    </data>
 </openerp>

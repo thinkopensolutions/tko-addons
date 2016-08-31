@@ -22,7 +22,7 @@
 #
 ##############################################################################
 
-from openerp import models, fields, api, _
+from openerp import models
 
 
 class purcahse_order_line(models.Model):

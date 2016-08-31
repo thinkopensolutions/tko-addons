@@ -22,10 +22,10 @@
 #
 ##############################################################################
 
-from openerp.osv import osv, fields
-from openerp import api
-from openerp import SUPERUSER_ID
 import logging
+
+from openerp.osv import osv, fields
+
 _logger = logging.getLogger(__name__)
 
 
@@ -133,9 +133,9 @@ class res_partner(osv.osv):
                 'res.partner': (
                     lambda self, cr, uid, ids, c={}: ids, ['email_ids'], 10), 'res.partner.email': (
                     _get_partner, [
-                        'email', 'is_active'], 10), }), 'email_ids': fields.one2many(
-                            'res.partner.email', 'res_partner_id', 'Emails'), 'email_ids_readonly': fields.function(
-                                _get_mail_ids, type='one2many', relation='res.partner.email', string='Emails')}
+                        'email', 'is_active'], 10),}), 'email_ids': fields.one2many(
+            'res.partner.email', 'res_partner_id', 'Emails'), 'email_ids_readonly': fields.function(
+            _get_mail_ids, type='one2many', relation='res.partner.email', string='Emails')}
 
     def _create_multiple_emails_at_first_install(
             self, cr, SUPERUSER_ID, ids=None, context=None):
