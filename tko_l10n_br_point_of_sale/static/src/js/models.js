@@ -72,7 +72,7 @@ function l10n_br_fields(instance, module){ //module is instance.point_of_sale
         get_tax_icms_tax_code: function(product){
         	var taxes_ids = this.get_product().taxes_id;
         	var taxes =  this.pos.taxes;
-        	var taxes_definations  = this.pos.tax_definitions;
+        	var taxes_definitions  = this.pos.tax_definitions;
         	var fiscal_classification_id = product.fiscal_classification_id[0];
         	var icms_tax_id = undefined; // set icms tax_id
         	var tax_amount = 0.0
@@ -90,13 +90,13 @@ function l10n_br_fields(instance, module){ //module is instance.point_of_sale
         	
         	if (icms_tax_id)
         		{
-					for (i = 0; i < taxes_definations.length; i++) 
+					for (i = 0; i < taxes_definitions.length; i++) 
 						{
-							if (taxes_definations[i].id == fiscal_classification_id && taxes_definations[i].tax_id[0] === icms_tax_id)
+							if (taxes_definitions[i].id === fiscal_classification_id && taxes_definitions[i].tax_id[0] === icms_tax_id)
 							{
 								// tax_code_id
-								var tax_code_id = this.get_tax_code(taxes_definations[i].tax_code_id[0]);
-								//return taxes_definations[i].tax_code_id
+								var tax_code_id = this.get_tax_code(taxes_definitions[i].tax_code_id[0]);
+								//return taxes_definitions[i].tax_code_id
 								break;
 							}
 						}
