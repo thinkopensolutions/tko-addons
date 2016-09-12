@@ -251,23 +251,19 @@ class res_partner(osv.osv):
                 partner.name)
 
             if phone_number:
-                if part_phone_obj.search(cr, SUPERUSER_ID, [('phone', '=', phone_number)]):
-                    part_phone_obj.create(cr, SUPERUSER_ID, {
-                        'phone': phone_number,
-                        'is_active': True,
-                        'res_partner_id': partner_id,
-                        'type_id': phone
-                    })
-                else:
-                    _logger.info('Unable to setup multiple phone record for client')
+                part_phone_obj.create(cr, SUPERUSER_ID, {
+                    'phone': phone_number,
+                    'is_active': True,
+                    'res_partner_id': partner_id,
+                    'type_id': phone
+                })
+                _logger.info('Set multiple phone %s for client %s' %(phone_number, partner.name))
             if mobile_number:
-                if part_phone_obj.search(cr, SUPERUSER_ID, [('mobile', '=', mobile_number)]):
-                    part_phone_obj.create(cr, SUPERUSER_ID, {
-                        'phone': mobile_number,
-                        'is_active': True,
-                        'res_partner_id': partner_id,
-                        'type_id': cel
-                    })
-                else:
-                    _logger.info('Unable to setup multiple mobile record for client')
+                part_phone_obj.create(cr, SUPERUSER_ID, {
+                    'phone': mobile_number,
+                    'is_active': True,
+                    'res_partner_id': partner_id,
+                    'type_id': cel
+                })
+                _logger.info('Set multiple mobile %s for client %s' %(mobile_number, partner.name))
         return True
