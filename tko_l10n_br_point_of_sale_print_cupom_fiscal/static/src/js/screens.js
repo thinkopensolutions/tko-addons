@@ -467,12 +467,29 @@ function tko_pos_print_screens(instance, module) { //module is instance.point_of
                         var order = self.pos.get('selectedOrder');
                         var orderlines_disc = order.get('orderLines').models;
                         var itemlines = [];
+
                         for (i = 0; i < orderlines.length; i++) {
+                            var aliquotaICMS = 'I';
                             var fixed_discount = orderlines_disc[i].discount
+                            var tax_code_id = orderlines[i].icms_tax_code;
+                            var icms_tax_value = orderlines[i].icms_tax_value;
+                            if (icms_tax_value === 0.0){
+                                tax_codes = self.pos.tax_codes;
+                                tax_code = _.filter(tax_codes, function(tax_code){
+                                    return tax_code.id  === tax_code_id;
+                                })
+                                if (tax_code.length > 0){
+                                    aliquotaICMS = tax_code[0].pos_fiscal_code
+                                }
+
+                            }
+                            else{
+                                aliquotaICMS = icms_tax_value.toString() + 'T'
+                            }
                             if (orderlines[i].quantity && orderlines[i].price_display) {
                                 itemlines.push({
                                     "codigo_item": orderlines_disc[i].default_code || "000",
-                                    "aliquotaICMS": "I",
+                                    "aliquotaICMS": aliquotaICMS,
                                     "descricao": orderlines[i].product_name || "",
                                     "unidade": orderlines[i].unit_name || 0,
                                     "tipoDescontoAcrescimo": "$",

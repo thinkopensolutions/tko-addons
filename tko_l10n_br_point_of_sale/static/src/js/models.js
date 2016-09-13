@@ -31,7 +31,7 @@ function l10n_br_fields(instance, module){ //module is instance.point_of_sale
 	// tax definition with tax codes
 	module.PosModel.prototype.models.push({
             model:  'l10n_br_tax.definition.sale',
-            fields: ['tax_id','tax_code_id','fiscal_classification_id'],
+            fields: ['tax_id','tax_code_id','tax_domain','fiscal_classification_id'],
            
             loaded: function(self, tax_definitions){
                 self.tax_definitions = tax_definitions;
@@ -68,42 +68,35 @@ function l10n_br_fields(instance, module){ //module is instance.point_of_sale
         		}
         	}
         },
-        
-        get_tax_icms_tax_code: function(product){
-        	var taxes_ids = this.get_product().taxes_id;
-        	var taxes =  this.pos.taxes;
-        	var taxes_definations  = this.pos.tax_definitions;
-        	var fiscal_classification_id = product.fiscal_classification_id[0];
-        	var icms_tax_id = undefined; // set icms tax_id
-        	var tax_amount = 0.0
-        	
-        	for (i = 0; i < taxes.length; i++) 
-        		{
-                // filter icms tax_id from product taxes
-                if (taxes_ids.indexOf(taxes[i].id) !== -1 && taxes[i].domain === 'icms') {
-                	icms_tax_id = taxes[i].id;
-                	// consider discount will always be percent type
-                	tax_amount = taxes[i].amount * 100
-                }
 
-            }
-        	
-        	if (icms_tax_id)
-        		{
-					for (i = 0; i < taxes_definations.length; i++) 
-						{
-							if (taxes_definations[i].id == fiscal_classification_id && taxes_definations[i].tax_id[0] === icms_tax_id)
-							{
-								// tax_code_id
-								var tax_code_id = this.get_tax_code(taxes_definations[i].tax_code_id[0]);
-								//return taxes_definations[i].tax_code_id
-								break;
-							}
-						}
-        	}
-        	
-        	return [tax_code_id,tax_amount]
-        	},
+		get_tax_icms_tax_code: function (product) {
+			// filter taxes with domain icms and ncm of current product
+			var fiscal_classification_id = product.fiscal_classification_id[0];
+			var icms_tax_line = _.filter(this.pos.tax_definitions, function (tax_line) {
+				return tax_line.fiscal_classification_id[0] == fiscal_classification_id && tax_line.tax_domain === 'icms';
+			})
+			var taxes = this.pos.taxes
+			var icms_tax_id = undefined; // set icms tax_id
+			var tax_code_id = undefined; // set tax_code_id
+			var tax_amount = 0.0;
+
+			if (icms_tax_line.length > 0) {
+				// id of icms tax associated in line
+				icms_tax_id = icms_tax_line[0].tax_id[0];
+				// id of tax code associated in line
+				tax_code_id = icms_tax_line[0].tax_code_id[0];
+
+			}
+			for (i = 0; i < taxes.length; i++) {
+				// filter icms tax_id from product taxes
+				if (taxes[i].id === icms_tax_id) {
+					// consider discount will always be percent type
+					tax_amount = taxes[i].amount * 100
+				}
+
+			}
+			return [tax_code_id, tax_amount]
+		},
         
         // commented because we will get taxes from sever while saving order
         // pass taxes from pos
