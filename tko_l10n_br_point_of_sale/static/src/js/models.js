@@ -64,12 +64,7 @@ function l10n_br_fields(instance, module){ //module is instance.point_of_sale
         	{
         		if (tax_codes[i].id === tax_code_id)
         		{
-        		    if (tax_codes[i].amount === 0.0)
-        		    {
-        			    return tax_codes[i].pos_fiscal_code;
-        		    } else {
-        			    return (tax_codes[i].amount * 100) + "T";
-        		    }
+        			return tax_codes[i].pos_fiscal_code;
         		}
         	}
         },

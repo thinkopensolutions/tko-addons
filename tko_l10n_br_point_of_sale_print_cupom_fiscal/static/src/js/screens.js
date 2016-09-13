@@ -472,7 +472,7 @@ function tko_pos_print_screens(instance, module) { //module is instance.point_of
                             if (orderlines[i].quantity && orderlines[i].price_display) {
                                 itemlines.push({
                                     "codigo_item": orderlines_disc[i].default_code || "000",
-                                    "aliquotaICMS": pos_data.icms_tax_code || "I",
+                                    "aliquotaICMS": "I",
                                     "descricao": orderlines[i].product_name || "",
                                     "unidade": orderlines[i].unit_name || 0,
                                     "tipoDescontoAcrescimo": "$",
