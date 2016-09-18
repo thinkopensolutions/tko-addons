@@ -35,6 +35,16 @@
         </div>
         <div class="oe_span12">
             <p class="oe_mt32">
+                <strong>New in 1.0:</strong>
+                The module set following HEADERS according to user SMTP server:
+                <ol>
+                    <li>FROM: UserName &lt;SMTP_Server_User_Name_Email&gt;</li>
+                    <li>REPLY-TO: UserName &lt;SMTP_Server_User_Name_Email&gt;</li>
+                    <li>RETURN-PATH: UserName &lt;SMTP_Server_User_Name_Email&gt;</li>
+                </ol>
+                This will fix a problem connecting to servers like for example Zoho.
+            </p>
+            <p class="oe_mt32">
                 <strong>Configuration:</strong>
             <ol>
                 <li>Go to "Settings --> Technical --> General Settings" and set your domain in "Alias Domain" (ex:
