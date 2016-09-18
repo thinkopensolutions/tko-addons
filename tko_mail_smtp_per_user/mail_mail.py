@@ -22,6 +22,7 @@
 #
 ##############################################################################
 
+from openerp.addons.base.ir.ir_mail_server import extract_rfc2822_addresses
 from openerp.osv import osv, fields
 
 
@@ -38,7 +39,11 @@ class ir_mail_server(osv.osv):
 
     def send_email(self, cr, uid, message, mail_server_id=None, smtp_server=None, smtp_port=None, smtp_user=None,
                    smtp_password=None, smtp_encryption=None, smtp_debug=False, context=None):
-        message['Return-Path'] = message['From']
+        from_rfc2822 = extract_rfc2822_addresses(message['From'])[-1]
+        server_id = self.pool.get('ir.mail_server').search(cr, uid, [('smtp_user', '=', from_rfc2822)],
+                                                           context=context)
+        if server_id and server_id[0]:
+            message['Return-Path'] = from_rfc2822
         return super(ir_mail_server, self).send_email(cr, uid, message, mail_server_id, smtp_server, smtp_port,
                                                       smtp_user, smtp_password, smtp_encryption, smtp_debug,
                                                       context=context)
@@ -49,18 +54,13 @@ class mail_mail(osv.Model):
 
     def send(self, cr, uid, ids, auto_commit=False, raise_exception=False, context=None):
         for email in self.pool.get('mail.mail').browse(cr, uid, ids, context=context):
-            user_id = email.mail_message_id.author_id.user_ids
-            if user_id:
-                server_id = self.pool.get('ir.mail_server').search(cr, uid, [('user_id', '=', user_id.id)],
-                                                                   context=context)
-                server_id = server_id and server_id[0] or False
-                server_obj = self.pool.get('ir.mail_server').browse(cr, uid, [server_id],
-                                                                    context=context)
-                if server_id:
-                    email_from = '%s <%s>' % (email.mail_message_id.author_id.name, server_obj.smtp_user)
-                    self.write(cr, uid, ids, {'mail_server_id': server_id,
-                                              'email_from': email_from,
-                                              'reply_to': email_from},
-                               context=context)
+            from_rfc2822 = extract_rfc2822_addresses(email.email_from)[-1]
+            server_id = self.pool.get('ir.mail_server').search(cr, uid, [('smtp_user', '=', from_rfc2822)],
+                                                               context=context)
+            server_id = server_id and server_id[0] or False
+            if server_id:
+                self.write(cr, uid, ids, {'mail_server_id': server_id,
+                                          'reply_to': email.email_from, },
+                           context=context)
         return super(mail_mail, self).send(cr, uid, ids, auto_commit=auto_commit, raise_exception=raise_exception,
                                            context=context)

@@ -35,14 +35,36 @@
         </div>
         <div class="oe_span12">
             <p class="oe_mt32">
-                <strong>New in 1.0:</strong>
+                <strong>New in 1.0 --> 2.0:</strong><br/>
+                <u>Automatic outgoing SMTP mail server detection</u>: Through the [From] address of outgoing message,
+                Odoo will select correct outgoing SMTP mail server to send email. This way if there is a SMTP mail
+                server equal to the current user email, Odoo will use that outgoing email server to send the email.<br/>
+                <u>Template compatibility</u>: If one sets From field in the email template Odoo will send that email
+                from that outgoing SMTP server, if defined, if not it will use standard system parameter and outgoing
+                email servers priority.<br/>
+                <strong>NOTE</strong>: Don't forget, now you need to set explicitly the From and Reply-to fields in all
+                email templates. And create always the incoming mail server of the respective outgoing one.<br/>
+                The Reply-to will always be equal to From email (even if defined in template Reply-to field) if an
+                outgoing email server is defined, if not it will use standard system parameter, like in standard
+                Odoo.<br/>
+                <u>Backward compatibility</u>:
+            <ol>
+                <li>All fields are kept in database, although not shown in forms, until new version is released.
+                    <strong>No data will be lost</strong>, and one can revert to older module version. NOTE: They will
+                    be removed in 3.0 version.
+                </li>
+            </ol>
+            </p>
+            <p class="oe_mt32">
+                <strong>New in 0.006 --> 1.0:</strong><br/>
                 The module set following HEADERS according to user SMTP server:
-                <ol>
-                    <li>FROM: UserName &lt;SMTP_Server_User_Name_Email&gt;</li>
-                    <li>REPLY-TO: UserName &lt;SMTP_Server_User_Name_Email&gt;</li>
-                    <li>RETURN-PATH: UserName &lt;SMTP_Server_User_Name_Email&gt;</li>
-                </ol>
-                This will fix a problem connecting to servers like for example Zoho.
+            <ol>
+                <li>From: UserName &lt;SMTP_Server_User_Name_Email&gt;</li>
+                <li>Reply-To: UserName &lt;SMTP_Server_User_Name_Email&gt;</li>
+                <li>Return-Path: UserName &lt;SMTP_Server_User_Name_Email&gt;</li>
+            </ol>
+            This will fix a problem connecting to servers like for example Zoho. But will override email templates
+            From and Reply-to definitions.
             </p>
             <p class="oe_mt32">
                 <strong>Configuration:</strong>
