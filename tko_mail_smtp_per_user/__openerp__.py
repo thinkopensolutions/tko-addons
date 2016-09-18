@@ -25,7 +25,7 @@
 {
     'name': 'SMTP Server Per User',
     'category': 'Mail',
-    'description': "Send emails server account by user.",
+    'description': "Configure one SMTP server account by user.",
     'author': 'ThinkOpen Solutions Brasil',
     'license': 'AGPL-3',
     'website': 'http://tkobr.com',
