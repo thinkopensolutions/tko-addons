@@ -44,8 +44,9 @@
                 parameter and outgoing email servers priority.<br/>
                 <strong>NOTE</strong>: Don't forget, now you need to set explicitly the From and Reply-to fields in all
                 email templates. And create always the incoming mail server of the respective outgoing one.<br/>
-                The Reply-to will always be equal to From email if an outgoing email server is defined, if not it will
-                use standard mail.catchall.alias system parameter, like in standard Odoo.<br/>
+                The Reply-to will always be equal to From email (even if defined in template Reply-to field) if an
+                outgoing email server is defined, if not it will use standard mail.catchall.alias system parameter, like
+                in standard Odoo.<br/>
                 <u>Backward compatibility</u>:
             <ol>
                 <li>All fields are kept in database, although not shown in forms, until new version is released.
