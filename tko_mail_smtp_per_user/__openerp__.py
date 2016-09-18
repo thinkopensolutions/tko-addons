@@ -25,11 +25,11 @@
 {
     'name': 'SMTP Server Per User',
     'category': 'Mail',
-    'description': "Configure one SMTP server account by user.",
+    'description': "Send emails server account by user.",
     'author': 'ThinkOpen Solutions Brasil',
     'license': 'AGPL-3',
     'website': 'http://tkobr.com',
-    'version': '1.0',
+    'version': '1.1',
     'sequence': 10,
     'depends': [
         'base',
@@ -38,8 +38,6 @@
     ],
     'data': [
         'security/ir.model.access.csv',
-        'res_users_view.xml',
-        'ir_mail_server_view.xml',
     ],
     'init': [],
     'demo': [],
