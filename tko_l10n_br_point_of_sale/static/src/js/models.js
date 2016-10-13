@@ -67,7 +67,7 @@ function l10n_br_fields(instance, module){ //module is instance.point_of_sale
     // inherit Orderline to update product and taxes detail on line
 	var OrderlineSuper = module.Orderline;
 	module.Orderline = module.Orderline.extend({
-		
+
 		get_ncm: function(){
             return this.get_product().fiscal_classification_id[0];
         },
@@ -114,20 +114,20 @@ function l10n_br_fields(instance, module){ //module is instance.point_of_sale
 
         // commented because we will get taxes from sever while saving order
         // pass taxes from pos
-    	//export_as_json: function() {
-    	//	var res = orderlinesuper.prototype.export_as_json.call(this);
+    	//export_as_JSON: function() {
+    	//	var res = OrderlineSuper.prototype.export_as_JSON.call(this);
     	//	res.taxes = this.get_tax_details();
     	//	return res;
         //},
 
 
         export_for_printing: function(){
-        	var res = orderlinesuper.prototype.export_for_printing.call(this);
+        	var res = OrderlineSuper.prototype.export_for_printing.call(this);
         	res.product = this.get_product();
         	res.taxes = this.get_tax_details();
         	var tax_detail = this.get_tax_icms_tax_code(res.product);
         	res.icms_tax_code = tax_detail[0]
-        	res.icms_tax_value = number(parsefloat(tax_detail[1]).tofixed(2))
+        	res.icms_tax_value = Number(parseFloat(tax_detail[1]).toFixed(2))
         	res.ncm = this.get_ncm();
         	return res;
             },
