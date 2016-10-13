@@ -49,6 +49,20 @@ function l10n_br_fields(instance, module){ //module is instance.point_of_sale
             },
         
 	});
+
+	// sort products loaded by display name
+	module.PosModel.prototype.models.push({
+            model:  'product.product',
+            fields: ['display_name', 'list_price','price','pos_categ_id', 'taxes_id', 'ean13', 'default_code',
+                     'to_weight', 'uom_id', 'uos_id', 'uos_coeff', 'mes_type', 'description_sale', 'description',
+                     'product_tmpl_id'],
+            domain: [['sale_ok','=',true],['available_in_pos','=',true]],
+            context: function(self){ return { pricelist: self.pricelist.id, display_default_code: false }; },
+            loaded: function(self, products){
+                products = _.sortBy( products, 'display_name');
+                self.db.add_products(products);
+            },
+	});
 	
     // inherit Orderline to update product and taxes detail on line
 	var OrderlineSuper = module.Orderline;
@@ -57,7 +71,7 @@ function l10n_br_fields(instance, module){ //module is instance.point_of_sale
 		get_ncm: function(){
             return this.get_product().fiscal_classification_id[0];
         },
-        
+
         get_tax_code: function(tax_code_id){
         	var tax_codes = this.pos.tax_codes;
         	for (i=0; i<tax_codes.length; i++)
@@ -97,23 +111,23 @@ function l10n_br_fields(instance, module){ //module is instance.point_of_sale
 			}
 			return [tax_code_id, tax_amount]
 		},
-        
+
         // commented because we will get taxes from sever while saving order
         // pass taxes from pos
-    	//export_as_JSON: function() {
-    	//	var res = OrderlineSuper.prototype.export_as_JSON.call(this);
+    	//export_as_json: function() {
+    	//	var res = orderlinesuper.prototype.export_as_json.call(this);
     	//	res.taxes = this.get_tax_details();
     	//	return res;
         //},
-        
-	
+
+
         export_for_printing: function(){
-        	var res = OrderlineSuper.prototype.export_for_printing.call(this);
+        	var res = orderlinesuper.prototype.export_for_printing.call(this);
         	res.product = this.get_product();
         	res.taxes = this.get_tax_details();
         	var tax_detail = this.get_tax_icms_tax_code(res.product);
         	res.icms_tax_code = tax_detail[0]
-        	res.icms_tax_value = Number(parseFloat(tax_detail[1]).toFixed(2))
+        	res.icms_tax_value = number(parsefloat(tax_detail[1]).tofixed(2))
         	res.ncm = this.get_ncm();
         	return res;
             },
