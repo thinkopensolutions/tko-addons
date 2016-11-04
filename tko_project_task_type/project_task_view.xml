@@ -8,6 +8,7 @@
             <field name="arch" type="xml">
                 <field name="stage_id" position="after">
                     <field name="task_type_id"/>
+                    <field name="company_id"/>
                 </field>
                 <filter string="Stage" position="after">
                     <filter string="Type" name="Stage"
@@ -40,6 +41,9 @@
                         <field name="type_name"/>
                         ]
                     </t>
+                </field>
+                <field name="project_id" position="before">
+                    <field name="company_id"/><br/>
                 </field>
             </field>
         </record>
