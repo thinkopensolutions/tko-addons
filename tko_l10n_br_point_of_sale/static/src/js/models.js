@@ -23,13 +23,6 @@ function l10n_br_fields(instance, module) { //module is instance.point_of_sale
         return m.fields.push('domain', 'tax_code_id_tax_discount'),
             m;
     });
-    // load NCM of product
-    module.PosModel.prototype.models.filter(function (m) {
-        return m.model === 'product.product';
-    }).map(function (m) {
-        return m.fields.push('fiscal_classification_id'),
-            m;
-    });
 
     // tax definition with tax codes
     module.PosModel.prototype.models.push({
@@ -50,15 +43,14 @@ function l10n_br_fields(instance, module) { //module is instance.point_of_sale
         loaded: function (self, tax_codes) {
             self.tax_codes = tax_codes;
         },
-
     });
-
+    // load NCM of product
     // sort products loaded by display name
     module.PosModel.prototype.models.push({
         model: 'product.product',
         fields: ['display_name', 'list_price', 'price', 'pos_categ_id', 'taxes_id', 'ean13', 'default_code',
             'to_weight', 'uom_id', 'uos_id', 'uos_coeff', 'mes_type', 'description_sale', 'description',
-            'product_tmpl_id'],
+            'product_tmpl_id','fiscal_classification_id'],
         domain: [['sale_ok', '=', true], ['available_in_pos', '=', true]],
         context: function (self) {
             return {pricelist: self.pricelist.id, display_default_code: false};
