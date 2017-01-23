@@ -3,43 +3,48 @@ language: python
 python:
   - "2.7"
 
+sudo: false
 cache: pip
 
 addons:
   apt:
+    sources:
+      - pov-wkhtmltopdf
     packages:
       - expect-dev  # provides unbuffer utility
       - python-lxml  # because pip installation is slow
-      - libxml2-dev
-      - libxmlsec1-dev
-      - libxslt-dev
+      - python-simplejson
+      - python-serial
+      - python-yaml
+      - wkhtmltopdf
 
 env:
-  - VERSION="10.0" LINT_CHECK="1"
-  - VERSION="10.0" ODOO_REPO="odoo/odoo" LINT_CHECK="0"
-  - VERSION="10.0" ODOO_REPO="OCA/OCB" LINT_CHECK="0"
+  global:
+  - VERSION="10.0" TESTS="0" LINT_CHECK="0" TRANSIFEX="0"
+  - TRANSIFEX_USER='transbot@odoo-community.org'
+  - secure: "OCZHnpmr+dvwVzAHmfeOUa2/VuvepsdguW129zR7jEO5HJupI8imqq3D8JKStUVnAgpA+Igpni+mfFsmhvr7K6pdk9w15zWlO+ml/7EwRflnyWAdtLNv44PTfaOcuCkzf73HPKRiW+LLUOeDqSqF1BLdb7mgSpLFWMuO7pJK0aI="
+  matrix:
+  - LINT_CHECK="1"
+  - TESTS="1" ODOO_REPO="odoo/odoo"
+  - TESTS="1" ODOO_REPO="odoo/odoo" UNIT_TEST="1"
+  - TESTS="1" ODOO_REPO="OCA/OCB"
+  - TRANSIFEX="1"
 
 virtualenv:
   system_site_packages: true
 
+before_install:
+  - "export DISPLAY=:910.0"
+  - "sh -e /etc/init.d/xvfb start"
+
 install:
-  - git clone https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
+  - git clone --depth=1 https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
-  - pip install reportlab
-  - pip install unidecode
-  - pip install suds
-  - pip install http://xmlsoft.org/sources/python/libxml2-python-2.6.21.tar.gz
-  - pip install https://github.com/odoo-brazil/pyxmlsec/archive/master.zip
-  - pip install https://github.com/odoo-brazil/geraldo/archive/master.zip
-  - pip install https://github.com/odoo-brazil/PySPED/archive/8.0.zip --allow-external PyXMLSec --allow-insecure PyXMLSec
   - travis_install_nightly
 
-before_script:
-  - chmod +x configure_locale.sh
-
 script:
-  - sudo ./configure_locale.sh
   - travis_run_tests
 
 after_success:
-  coveralls
+  - travis_after_tests_success
+
