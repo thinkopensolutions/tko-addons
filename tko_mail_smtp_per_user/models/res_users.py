@@ -11,4 +11,5 @@ from odoo import models, fields
 class ResUser(models.Model):
     _inherit = 'res.users'
 
-    smtp_server_id = fields.One2many('ir.mail_server', 'user_id', 'Email Server')
+    smtp_server_id = fields.One2many('ir.mail_server', 'user_id',
+                                     'Email Server')

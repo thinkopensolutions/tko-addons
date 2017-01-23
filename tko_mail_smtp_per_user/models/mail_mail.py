@@ -8,9 +8,6 @@
 from odoo import models, fields
 from odoo.addons.base.ir.ir_mail_server import extract_rfc2822_addresses
 
-01234567
-890123456789012345678901234567890123456789012345678901234567890123456789
-
 
 class IrMailServer(models.Model):
     _inherit = 'ir.mail_server'
