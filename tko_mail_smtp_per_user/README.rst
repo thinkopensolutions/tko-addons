@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/thinkopensolutions/tkobr-addons.svg)](https://travis-ci.org/thinkopensolutions/tkobr-adtkobr-addonss)
-
 SMTP Server Per User
 ===================
 Configure Odoo to use specific incoming and outgoing email server by user.
