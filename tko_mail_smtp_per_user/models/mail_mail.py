@@ -8,6 +8,9 @@
 from odoo import models, fields
 from odoo.addons.base.ir.ir_mail_server import extract_rfc2822_addresses
 
+01234567
+890123456789012345678901234567890123456789012345678901234567890123456789
+
 
 class IrMailServer(models.Model):
     _inherit = 'ir.mail_server'
@@ -15,17 +18,24 @@ class IrMailServer(models.Model):
     user_id = fields.Many2one('res.users', string='Owner')
 
     _sql_constraints = [
-        ('smtp_user_uniq', 'unique(user_id)', 'That user already has a SMTP server.')
+        ('smtp_user_uniq', 'unique(user_id)',
+         'That user already has a SMTP server.')
     ]
 
-    def send_email(self, message, mail_server_id=None, smtp_server=None, smtp_port=None, smtp_user=None,
-                   smtp_password=None, smtp_encryption=None, smtp_debug=False):
+    def send_email(self, message, mail_server_id=None,
+                   smtp_server=None, smtp_port=None, smtp_user=None,
+                   smtp_password=None, smtp_encryption=None,
+                   smtp_debug=False):
         from_rfc2822 = extract_rfc2822_addresses(message['From'])[-1]
-        server_id = self.env['ir.mail_server'].search([('smtp_user', '=', from_rfc2822)])
+        server_id = self.env['ir.mail_server'].search([
+            ('smtp_user', '=', from_rfc2822)])
         if server_id and server_id[0]:
             message['Return-Path'] = from_rfc2822
-        return super(IrMailServer, self).send_email(message, mail_server_id, smtp_server, smtp_port,
-                                                    smtp_user, smtp_password, smtp_encryption, smtp_debug)
+        return super(IrMailServer, self).send_email(message, mail_server_id,
+                                                    smtp_server, smtp_port,
+                                                    smtp_user, smtp_password,
+                                                    smtp_encryption,
+                                                    smtp_debug)
 
 
 class MailMail(models.Model):
@@ -34,8 +44,12 @@ class MailMail(models.Model):
     def send(self, auto_commit=False, raise_exception=False):
         for email in self.env['mail.mail'].browse(self.ids):
             from_rfc2822 = extract_rfc2822_addresses(email.email_from)[-1]
-            server_id = self.env['ir.mail_server'].search([('smtp_user', '=', from_rfc2822)])
+            server_id = self.env['ir.mail_server'].search([
+                ('smtp_user', '=', from_rfc2822)])
             server_id = server_id and server_id[0] or False
             if server_id:
-                self.write({'mail_server_id': server_id[0].id, 'reply_to': email.email_from})
-        return super(MailMail, self).send(auto_commit=auto_commit, raise_exception=raise_exception)
+                self.write(
+                    {'mail_server_id': server_id[0].id,
+                     'reply_to': email.email_from})
+        return super(MailMail, self).send(auto_commit=auto_commit,
+                                          raise_exception=raise_exception)
