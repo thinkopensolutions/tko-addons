@@ -41,10 +41,10 @@ from openerp.tools.translate import _
 _logger = logging.getLogger(__name__)
 
 
-class Home_tkobr(openerp.addons.web.controllers.main.Home):
-    @http.route('/web/login', type='http', auth="none")
-    def web_login(self, redirect=None, **kw):
-        openerp.addons.web.controllers.main.ensure_db()
+class TkobrSessionMixin(object):
+
+    def check_session(self, db, login, password):
+        _logger.debug('Authentication method: TkobrSessionMixin.check_session !')
         multi_ok = True
         calendar_set = 0
         calendar_ok = False
@@ -52,115 +52,92 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
         unsuccessful_message = ''
         now = datetime.now()
 
-        if request.httprequest.method == 'GET' and redirect and request.session.uid:
-            return http.redirect_with_hash(redirect)
+        uid = db and login and password and request.session.authenticate(db, login, password)
+        if uid is not False:
+            user = request.registry.get('res.users').browse(
+                request.cr, request.uid, uid, request.context)
+            if not uid is SUPERUSER_ID:
+                # check for multiple sessions block
+                sessions = request.registry.get('ir.sessions').search(
+                    request.cr, request.uid, [
+                        ('user_id', '=', uid), ('logged_in', '=', True)], context=request.context)
 
-        if not request.uid:
-            request.uid = openerp.SUPERUSER_ID
+                if sessions and user.multiple_sessions_block:
+                    multi_ok = False
 
-        values = request.params.copy()
-        if not redirect:
-            redirect = '/web?' + request.httprequest.query_string
-        values['redirect'] = redirect
+                if multi_ok:
+                    # check calendars
+                    calendar_obj = request.registry.get(
+                        'resource.calendar')
+                    attendance_obj = request.registry.get(
+                        'resource.calendar.attendance')
 
-        try:
-            values['databases'] = http.db_list()
-        except openerp.exceptions.AccessDenied:
-            values['databases'] = None
-
-        if request.httprequest.method == 'POST':
-            old_uid = request.uid
-            uid = False
-            if 'login' in request.params and 'password' in request.params:
-                uid = request.session.authenticate(request.session.db, request.params[
-                    'login'], request.params['password'])
-            if uid is not False:
-                user = request.registry.get('res.users').browse(
-                    request.cr, request.uid, uid, request.context)
-                if not uid is SUPERUSER_ID:
-                    # check for multiple sessions block
-                    sessions = request.registry.get('ir.sessions').search(
-                        request.cr, request.uid, [
-                            ('user_id', '=', uid), ('logged_in', '=', True)], context=request.context)
-
-                    if sessions and user.multiple_sessions_block:
-                        multi_ok = False
-
-                    if multi_ok:
-                        # check calendars
-                        calendar_obj = request.registry.get(
-                            'resource.calendar')
-                        attendance_obj = request.registry.get(
-                            'resource.calendar.attendance')
-
-                        # GET USER LOCAL TIME
-                        if user.tz:
-                            tz = pytz.timezone(user.tz)
-                        else:
-                            tz = pytz.timezone('GMT')
-                        tzoffset = tz.utcoffset(now)
-                        now = now + tzoffset
-
-                        if user.login_calendar_id:
-                            calendar_set += 1
-                            # check user calendar
-                            attendances = attendance_obj.search(request.cr,
-                                                                request.uid,
-                                                                [('calendar_id', '=', user.login_calendar_id.id),
-                                                                 ('dayofweek', '=', str(now.weekday())),
-                                                                 ('hour_from', '<=', now.hour + now.minute / 60.0),
-                                                                 ('hour_to', '>=', now.hour + now.minute / 60.0)],
-                                                                context=request.context)
-                            if attendances:
-                                calendar_ok = True
-                            else:
-                                unsuccessful_message = "unsuccessful login from '%s', user time out of allowed calendar defined in user" % \
-                                                       request.params[
-                                                           'login']
-                        else:
-                            # check user groups calendar
-                            for group in user.groups_id:
-                                if group.login_calendar_id:
-                                    calendar_set += 1
-                                    attendances = attendance_obj.search(request.cr,
-                                                                        request.uid, [('calendar_id', '=',
-                                                                                       group.login_calendar_id.id),
-                                                                                      ('dayofweek', '=',
-                                                                                       str(now.weekday())),
-                                                                                      ('hour_from', '<=',
-                                                                                       now.hour + now.minute / 60.0),
-                                                                                      ('hour_to', '>=',
-                                                                                       now.hour + now.minute / 60.0)],
-                                                                        context=request.context)
-                                    if attendances:
-                                        calendar_ok = True
-                                    else:
-                                        calendar_group = group.name
-                                if sessions and group.multiple_sessions_block and multi_ok:
-                                    multi_ok = False
-                                    unsuccessful_message = _(
-                                        "unsuccessful login from '%s', multisessions block defined in group '%s'") % (
-                                                               request.params['login'], group.name)
-                                    break
-                            if calendar_set > 0 and calendar_ok == False:
-                                unsuccessful_message = _(
-                                    "unsuccessful login from '%s', user time out of allowed calendar defined in group '%s'") % (
-                                                           request.params['login'], calendar_group)
+                    # GET USER LOCAL TIME
+                    if user.tz:
+                        tz = pytz.timezone(user.tz)
                     else:
-                        unsuccessful_message = _("unsuccessful login from '%s', multisessions block defined in user") % \
-                                               request.params[
-                                                   'login']
-            else:
-                unsuccessful_message = _("unsuccessful login from '%s', wrong username or password") % request.params[
-                    'login']
-            if not unsuccessful_message or uid is SUPERUSER_ID:
-                self.save_session(
-                    request.cr,
-                    uid,
-                    user.tz,
-                    request.httprequest.session.sid,
-                    context=request.context)
-                return http.redirect_with_hash(redirect)
+                        tz = pytz.timezone('GMT')
+                    tzoffset = tz.utcoffset(now)
+                    now = now + tzoffset
+
+                    if user.login_calendar_id:
+                        calendar_set += 1
+                        # check user calendar
+                        attendances = attendance_obj.search(request.cr,
+                                                            request.uid,
+                                                            [('calendar_id', '=', user.login_calendar_id.id),
+                                                             ('dayofweek', '=', str(now.weekday())),
+                                                             ('hour_from', '<=', now.hour + now.minute / 60.0),
+                                                             ('hour_to', '>=', now.hour + now.minute / 60.0)],
+                                                            context=request.context)
+                        if attendances:
+                            calendar_ok = True
+                        else:
+                            unsuccessful_message = "unsuccessful login from '%s', user time out of allowed calendar defined in user" % \
+                                                   login
+                    else:
+                        # check user groups calendar
+                        for group in user.groups_id:
+                            if group.login_calendar_id:
+                                calendar_set += 1
+                                attendances = attendance_obj.search(request.cr,
+                                                                    request.uid, [('calendar_id', '=',
+                                                                                   group.login_calendar_id.id),
+                                                                                  ('dayofweek', '=',
+                                                                                   str(now.weekday())),
+                                                                                  ('hour_from', '<=',
+                                                                                   now.hour + now.minute / 60.0),
+                                                                                  ('hour_to', '>=',
+                                                                                   now.hour + now.minute / 60.0)],
+                                                                    context=request.context)
+                                if attendances:
+                                    calendar_ok = True
+                                else:
+                                    calendar_group = group.name
+                            if sessions and group.multiple_sessions_block and multi_ok:
+                                multi_ok = False
+                                unsuccessful_message = _(
+                                    "unsuccessful login from '%s', multisessions block defined in group '%s'") % (
+                                                           login, group.name)
+                                break
+                        if calendar_set > 0 and calendar_ok == False:
+                            unsuccessful_message = _(
+                                "unsuccessful login from '%s', user time out of allowed calendar defined in group '%s'") % (
+                                                       login, calendar_group)
+                else:
+                    unsuccessful_message = _("unsuccessful login from '%s', multisessions block defined in user") % \
+                                           login
+        else:
+            unsuccessful_message = _("unsuccessful login from '%s', wrong username or password") % login
+        access_granted = not unsuccessful_message or uid is SUPERUSER_ID
+        if access_granted:
+            self.save_session(
+                request.cr,
+                uid,
+                user.tz,
+                request.httprequest.session.sid,
+                context=request.context)
+        else:
             user = request.registry.get('res.users').browse(
                 request.cr, SUPERUSER_ID, SUPERUSER_ID, request.context)
             self.save_session(
@@ -171,13 +148,7 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
                 unsuccessful_message,
                 request.context)
             _logger.error(unsuccessful_message)
-            request.uid = old_uid
-            values['error'] = _('Login failed due to one of the following reasons:')
-            values['reason1'] = _('- Wrong login/password')
-            values['reason2'] = _('- User not allowed to have multiple logins')
-            values[
-                'reason3'] = _('- User not allowed to login at this specific time or day')
-        return request.render('web.login', values)
+        return access_granted, uid, unsuccessful_message
 
     def save_session(
             self,
@@ -255,6 +226,69 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
             cr.commit()
         cr.close()
         return True
+
+
+class Session_tkobr(openerp.addons.web.controllers.main.Session, TkobrSessionMixin):
+
+    @http.route('/web/session/authenticate', type='json', auth="none")
+    def authenticate(self, db, login, password, base_location=None):
+        _logger.debug('Authentication method: Session_tkobr.authenticate !')
+        old_uid = request.uid
+        (access_granted, uid, unsuccessful_message) = self.check_session(db, login, password)
+        if not access_granted:
+            password = None
+            request.uid = old_uid
+            # TODO: custom fail message
+        return super(Session_tkobr, self).authenticate(db, login, password, base_location=base_location)
+
+
+class Home_tkobr(openerp.addons.web.controllers.main.Home, TkobrSessionMixin):
+
+    @http.route('/web/login', type='http', auth="none")
+    def web_login(self, redirect=None, **kw):
+        _logger.debug('Authentication method: Home_tkobr.web_login !')
+        openerp.addons.web.controllers.main.ensure_db()
+        multi_ok = True
+        calendar_set = 0
+        calendar_ok = False
+        calendar_group = ''
+        unsuccessful_message = ''
+        now = datetime.now()
+
+        if request.httprequest.method == 'GET' and redirect and request.session.uid:
+            return http.redirect_with_hash(redirect)
+
+        if not request.uid:
+            request.uid = openerp.SUPERUSER_ID
+
+        values = request.params.copy()
+        if not redirect:
+            redirect = '/web?' + request.httprequest.query_string
+        values['redirect'] = redirect
+
+        try:
+            values['databases'] = http.db_list()
+        except openerp.exceptions.AccessDenied:
+            values['databases'] = None
+
+        if request.httprequest.method == 'POST':
+            old_uid = request.uid
+            uid = False
+            db = request.session.db
+            login = request.params.get('login', None)
+            password = request.params.get('password', None)
+            (access_granted, uid, unsuccessful_message) = self.check_session(db, login, password)
+            if access_granted:
+                return http.redirect_with_hash(redirect)
+            else:
+                request.uid = old_uid
+                values['error'] = _('Login failed due to one of the following reasons:')
+                values['reason1'] = _('- Wrong login/password')
+                values['reason2'] = _('- User not allowed to have multiple logins')
+                values[
+                    'reason3'] = _('- User not allowed to login at this specific time or day')
+        return request.render('web.login', values)
+
 
     @http.route('/web/session/logout', type='http', auth="none")
     def logout(self, redirect='/web'):
