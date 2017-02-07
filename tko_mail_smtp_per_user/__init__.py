@@ -24,3 +24,4 @@
 
 import mail_mail
 import res_users
+import fetchmail

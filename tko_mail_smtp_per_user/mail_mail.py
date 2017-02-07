@@ -64,3 +64,7 @@ class mail_mail(osv.Model):
                            context=context)
         return super(mail_mail, self).send(cr, uid, ids, auto_commit=auto_commit, raise_exception=raise_exception,
                                            context=context)
+
+
+class fetchmail_server(osv.Model):
+    _inherit = 'fetchmail.server'
