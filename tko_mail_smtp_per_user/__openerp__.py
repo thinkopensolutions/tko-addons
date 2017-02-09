@@ -38,6 +38,7 @@
     ],
     'data': [
         'security/ir.model.access.csv',
+        'fetchmail_view.xml',
     ],
     'init': [],
     'demo': [],

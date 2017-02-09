@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_users_tree" model="ir.ui.view">
+            <field name="name">fetchmail.server</field>
+            <field name="model">fetchmail.server</field>
+            <field name="inherit_id" ref="fetchmail.view_email_server_form"/>
+            <field name="arch" type="xml">
+                <field name="date" position="after">
+                    <field name="only_replies"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
