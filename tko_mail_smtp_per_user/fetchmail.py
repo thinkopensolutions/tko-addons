@@ -33,8 +33,10 @@ _logger = logging.getLogger(__name__)
 class fetchmail_server(osv.osv):
     """Incoming POP/IMAP mail server account"""
     _inherit = 'fetchmail.server'
-
-
+    _columns = {
+        'only_replies': fields.boolean('Only Receive replies over messages sent from Odoo',
+                                  help='Select this box to receive only replies', default=False),
+    }
 
     # Fetch only email replies
     # use this class to filter because inheritance is not working for
@@ -51,7 +53,7 @@ class fetchmail_server(osv.osv):
             context.update({'fetchmail_server_id': server.id, 'server_type': server.type})
             count, failed = 0, 0
             imap_server = False
-            if server.type == 'imap':
+            if server.type == 'imap'and server.only_replies:
                 try:
                     imap_server = server.connect()
                     imap_server.select()
