@@ -1,0 +1,55 @@
+<openerp>
+    <data>
+
+        <record id="view_task_form_inherit" model="ir.ui.view">
+            <field name="name">project.task.form.pad</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <page name="description_page" position="after">
+                    <page string="Task Status" name="task_status">
+                        <field name="status_ids" nolable="1"/>
+                    </page>
+                </page>
+            </field>
+        </record>
+
+
+        <!--tree view -->
+        <record id="task_status_tree_view" model="ir.ui.view">
+            <field name="name">Task Status</field>
+            <field name="model">project.task.status</field>
+            <field name="arch" type="xml">
+                <tree string="Task Type" version="7.0">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--form view -->
+        <record id="task_status_form_view" model="ir.ui.view">
+            <field name="model">project.task.status</field>
+            <field name="arch" type="xml">
+                <form string="Task Type" version="7.0">
+                    <group>
+                        <field name="name"/>
+                        <field name="expected_duration"/>
+                        <field name="expected_duration_unit"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="task_status_action" model="ir.actions.act_window">
+            <field name="name">Task Status</field>
+            <field name="res_model">project.task.status</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="task_status_action_menu" action="task_status_action" sequence="40"
+                  parent="project.menu_project_config"/>
+
+    </data>
+</openerp>
