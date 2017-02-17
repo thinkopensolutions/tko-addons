@@ -22,29 +22,4 @@
 #
 ##############################################################################
 
-{
-    'name': 'tko_project_task_status',
-    'version': '0.001',
-    'category': 'Customizations',
-    'sequence': 14,
-    'complexity': 'medium',
-    'description': '''  This module sets the status deadline based on status  ''',
-    'author': 'ThinkOpen Solutions Brasil',
-    'website': 'http://www.tkobr.com',
-    'depends': [
-        'base',
-        'project',
-    ],
-    'data': [
-        'security/ir.model.access.csv',
-        'views/project_task_view.xml',
-    ],
-    'init': [],
-    'demo': [],
-    'update': [],
-    'test': [],  # YAML files with tests
-    'installable': True,
-    'application': False,
-    'auto_install': False,
-    'certificate': '',
-}
+import project_task
