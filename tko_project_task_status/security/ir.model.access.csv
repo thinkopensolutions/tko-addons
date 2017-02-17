@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_project_task_status_user,project.task.status user,model_project_task_status,project.group_project_user,1,1,0,0
+access_project_task_status_manager,project.task.status manager,model_project_task_status,project.group_project_manager,1,1,1,1
+access_project_task_status_line_user,project.task.status Line user,model_project_task_status_line,project.group_project_user,1,1,0,0
+access_project_task_status_line_manager,project.task.status Line manager,model_project_task_status_line,project.group_project_manager,1,1,1,1
