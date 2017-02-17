@@ -23,20 +23,46 @@
 ##############################################################################
 
 from odoo import models, api, fields
+from datetime import datetime
+from  dateutil.relativedelta import relativedelta
 
 
 class ProjectTaskStatus(models.Model):
     _name = 'project.task.status'
 
     name = fields.Char(string='Name', required=True)
-    expected_duration = fields.Integer(u'Expected Time')
-    expected_duration_unit= fields.Selection([('d','Day'),('w','Week'),('m','Month'),('y','Year')],u'Expected Time Unit')
-    task_id = fields.Many2one('project.task','Task')
+    expected_duration = fields.Integer(u'Expected Time', required=True)
+    expected_duration_unit = fields.Selection([('d','Day'),('w','Week'),('m','Month'),('y','Year')], defaults='d',required=True, string=u'Expected Time Unit')
+
+
+class ProjectTaskStatusLine(models.Model):
+    _name = 'project.task.status.line'
+
+    status_id = fields.Many2one('project.task.status',u'Status')
+    expected_date = fields.Date(u'Expected Date')
+    task_id = fields.Many2one('project.task', 'Task')
+
+    @api.onchange('status_id')
+    def onchange_status(self):
+        if self.status_id:
+            days = weeks = months = years = 0
+            if self.status_id.expected_duration_unit == 'd':
+                days = self.status_id.expected_duration
+            if self.status_id.expected_duration_unit == 'w':
+                weeks = self.status_id.expected_duration
+            if self.status_id.expected_duration_unit == 'm':
+                months = self.status_id.expected_duration
+            if self.status_id.expected_duration_unit == 'y':
+                years = self.status_id.expected_duration
+            print  ".......................................",datetime.today() + relativedelta(years=years, months=months, weeks=weeks, days =days)
+            self.expected_date = datetime.today() + relativedelta(years=years, months=months, weeks=weeks, days =days)
+
+
 
 class ProjectTask(models.Model):
     _inherit = 'project.task'
 
-    status_ids = fields.One2many('project.task.status','task_id','Status')
+    status_line_ids = fields.One2many('project.task.status.line','task_id','Status')
 
 
 

@@ -2,13 +2,18 @@
     <data>
 
         <record id="view_task_form_inherit" model="ir.ui.view">
-            <field name="name">project.task.form.pad</field>
+            <field name="name">project.task.form</field>
             <field name="model">project.task</field>
             <field name="inherit_id" ref="project.view_task_form2"/>
             <field name="arch" type="xml">
                 <page name="description_page" position="after">
                     <page string="Task Status" name="task_status">
-                        <field name="status_ids" nolable="1"/>
+                        <field name="status_line_ids" nolable="1">
+                            <tree editable="bottom">
+                                <field name="status_id" options="{'no_create': True}"/>
+                                <field name="expected_date"/>
+                            </tree>
+                        </field>
                     </page>
                 </page>
             </field>
