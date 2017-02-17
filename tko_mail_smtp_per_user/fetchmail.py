@@ -34,7 +34,7 @@ class fetchmail_server(osv.osv):
     """Incoming POP/IMAP mail server account"""
     _inherit = 'fetchmail.server'
     _columns = {
-        'only_replies': fields.boolean('Only Receive replies over messages sent from Odoo',
+        'only_replies': fields.boolean('Fetch only messages sent from Odoo',
                                   help='Select this box to receive only replies', default=False),
     }
 
