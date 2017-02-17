@@ -23,20 +23,19 @@
 ##############################################################################
 
 {
-    'name': 'tko_project_task_status',
+    'name': 'Project task type status',
     'version': '0.001',
     'category': 'Customizations',
     'sequence': 14,
     'complexity': 'medium',
-    'description': '''  This module sets the status deadline based on status  ''',
+    'description': '''This module applies restriction to task status shown in the task based on task type''',
     'author': 'ThinkOpen Solutions Brasil',
     'website': 'http://www.tkobr.com',
     'depends': [
-        'base',
-        'project',
+        'tko_project_task_type',
+        'tko_project_task_status'
     ],
     'data': [
-        'security/ir.model.access.csv',
         'views/project_task_view.xml',
     ],
     'init': [],

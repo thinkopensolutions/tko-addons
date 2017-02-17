@@ -54,7 +54,6 @@ class ProjectTaskStatusLine(models.Model):
                 months = self.status_id.expected_duration
             if self.status_id.expected_duration_unit == 'y':
                 years = self.status_id.expected_duration
-            print  ".......................................",datetime.today() + relativedelta(years=years, months=months, weeks=weeks, days =days)
             self.expected_date = datetime.today() + relativedelta(years=years, months=months, weeks=weeks, days =days)
 
 
