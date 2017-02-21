@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+         <record model="ir.ui.view" id="template_form_inherit">
+            <field name="name">mail.template</field>
+            <field name="model">mail.template</field>
+            <field name="inherit_id" ref="mail.email_template_form"/>
+            <field name="arch" type="xml">
+                <field name="report_template" position="after">
+                    <field name="group_ids" widget="many2many_tags" options="{'no_create':True}"/>
+                    <field name="template_user_ids"  invisible="1" widget="many2many_tags" options="{'no_create':True}"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>
