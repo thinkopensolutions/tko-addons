@@ -1,0 +1,124 @@
+<openerp>
+    <data>
+
+        <record id="view_task_search_form" model="ir.ui.view">
+            <field name="name">project.task.search.form</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_search_form"/>
+            <field name="arch" type="xml">
+                <field name="stage_id" position="after">
+                    <field name="task_type_id"/>
+                </field>
+                <filter name="Stage" position="after">
+                    <filter string="Type" name="Stage"
+                            context="{'group_by':'task_type_id'}"/>
+                </filter>
+            </field>
+        </record>
+        <record id="view_task_form_with_pad" model="ir.ui.view">
+            <field name="name">project.task.form.pad</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="task_type_id" placeholder="task type"
+                           required="1" style="width:10%%;"/>
+                    <field name="color" invisible="1"/>
+                    <field name="type_name" invisible="1"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_task_kanban">
+            <field name="name">project.task.kanban</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_kanban"/>
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <t t-if="record.type_name.raw_value">
+                        [
+                        <field name="type_name"/>
+                        ]
+                    </t>
+                </field>
+            </field>
+        </record>
+
+        <!--tree view -->
+        <record id="task_type_tree_view" model="ir.ui.view">
+            <field name="name">Task Type</field>
+            <field name="model">task.type</field>
+            <field name="arch" type="xml">
+                <tree string="Task Type" version="7.0">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--form view -->
+        <record id="task_type_form_view" model="ir.ui.view">
+            <field name="model">task.type</field>
+            <field name="arch" type="xml">
+                <form string="Task Type" version="7.0">
+                    <group>
+                        <field name="name"/>
+                        <field name="color"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!-- Project Task Kanban View -->
+        <record model="ir.ui.view" id="view_type_kanban">
+            <field name="name">project.task.kanban</field>
+            <field name="model">task.type</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="name">
+                    <field name="name"/>
+                    <field name="color"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
+                                <div class="o_dropdown_kanban dropdown" groups="base.group_user">
+                                    <a class="dropdown-toggle btn" data-toggle="dropdown" href="#" >
+                                        <span class="fa fa-bars fa-lg"/>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                        <t t-if="widget.editable"><li><a type="edit">Edit Task</a></li></t>
+                                        <t t-if="widget.deletable"><li><a type="delete">Delete</a></li></t>
+                                        <li><ul class="oe_kanban_colorpicker" data-field="color"/></li>
+                                    </ul>
+                                </div>
+                                <div class="oe_kanban_content">
+                                    <div>
+                                        <b>
+                                            <field name="name"/>
+                                        </b>
+                                    </div>
+                                    <div>
+                                        [
+                                        <field name="name"/>
+                                        ]
+                                        <br/>
+                                    </div>
+                                </div>
+                                <div class="oe_clear"></div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="task_type_action" model="ir.actions.act_window">
+            <field name="name">Task Type</field>
+            <field name="res_model">task.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+
+        <menuitem id="task_type_menu" action="task_type_action" sequence="30"
+                  parent="project.menu_project_config"/>
+
+    </data>
+</openerp>
