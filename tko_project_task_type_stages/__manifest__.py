@@ -32,8 +32,7 @@
     'author': 'ThinkOpen Solutions Brasil',
     'website': 'http://www.tkobr.com',
     'depends': [
-        'base',
-        'project',
+        'tko_project_task_type',
     ],
     'data': [
         'views/project_task_view.xml',
