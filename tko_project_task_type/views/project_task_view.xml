@@ -1,20 +1,6 @@
 <openerp>
     <data>
 
-         <record id="task_type_edit_inherit" model="ir.ui.view">
-            <field name="name">project.task.type</field>
-            <field name="model">project.task.type</field>
-            <field name="inherit_id" ref="project.task_type_edit"/>
-            <field name="arch" type="xml">
-                <field name="project_ids" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                </field>
-                <field name="project_ids" position="after">
-                    <field name="task_type_ids" invisible="1" widget="many2many_tags"/>
-                </field>
-            </field>
-        </record>
-
         <record id="view_task_search_form" model="ir.ui.view">
             <field name="name">project.task.search.form</field>
             <field name="model">project.task</field>
@@ -77,9 +63,6 @@
                     <group>
                         <field name="name"/>
                         <field name="color"/>
-                    </group>
-                    <group name="stages" string="Stages">
-                        <field name="stage_ids" nolabel="1" widget="many2many_tags" options="{'no_create':True}"/>
                     </group>
                 </form>
             </field>
