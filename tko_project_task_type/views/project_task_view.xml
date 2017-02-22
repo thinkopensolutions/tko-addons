@@ -22,7 +22,7 @@
             <field name="arch" type="xml">
                 <field name="name" position="before">
                     <field name="task_type_id" placeholder="task type"
-                           required="1" style="width:10%%;"/>
+                           style="width:10%%;"/>
                     <field name="color" invisible="1"/>
                     <field name="type_name" invisible="1"/>
                 </field>
