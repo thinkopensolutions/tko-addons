@@ -24,17 +24,44 @@
 
 from openerp import models, api, fields
 
+class ProjectTaskType(models.Model):
+    _inherit = 'project.task.type'
 
-class task_type(models.Model):
+    task_type_ids = fields.Many2many('task.type','project_task_type_task_type_rel','task_type_id','type_id', store=True, string="Task Types")
+
+    @api.one
+    def get_task_type_ids(self):
+        all_task_types = self.env['task.type'].search([])
+        selected_types = []
+        for type in all_task_types:
+            if self in type.stage_ids:
+                selected_types.append(type.id)
+        self.write({'task_type_ids' : [(6,0, selected_types)]})
+
+class TaskType(models.Model):
     _name = 'task.type'
 
     name = fields.Char(string='Name', required=True)
     color = fields.Integer('Color Index', size=1)
     task_id = fields.Many2one('project.task', string='Task')
+    stage_ids = fields.Many2many('project.task.type','task_type_task_stage_rel','type_id', 'stage_id', string='Stages')
 
+    @api.multi
+    def write(self, vals):
+        stages = []
+        [stages.append(stage) for stage in self.stage_ids]
+        result= super(TaskType, self).write(vals)
+        [stages.append(stage) for stage in self.stage_ids]
+        stages = list(set(stages))
+        for stage in stages:
+            stage.get_task_type_ids()
+        return result
 
-class project_task(models.Model):
+class ProjectTask(models.Model):
     _inherit = 'project.task'
+
+    def _get_default_stage_id(self):
+        return super(ProjectTask,self)._get_default_stage_id()
 
     type_name = fields.Char(
         compute='_get_type_name',
@@ -42,6 +69,9 @@ class project_task(models.Model):
         string='Name')
     task_type_id = fields.Many2one('task.type', string='Type')
     color = fields.Integer(compute='_get_color', string='Color', store=False)
+    stage_id = fields.Many2one('project.task.type', string='Stage', track_visibility='onchange', index=True,
+                               default=_get_default_stage_id, group_expand='_read_group_stage_ids',
+                               domain="[('task_type_ids', '=', task_type_id)]", copy=False)
 
     @api.multi
     def name_get(self):
