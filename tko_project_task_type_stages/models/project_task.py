@@ -65,4 +65,18 @@ class ProjectTask(models.Model):
                                default=_get_default_stage_id, group_expand='_read_group_stage_ids',
                                domain="[('task_type_ids', '=', task_type_id),('task_type_ids', '!=', False)]", copy=False)
 
+    @api.onchange('task_type_id')
+    def _change_task_type(self):
+        result = super(ProjectTask,self)._change_task_type()
+        default_stage = False
+        if self.task_type_id:
+            for stage in self.task_type_id.stage_ids:
+                if not default_stage:
+                    default_stage = stage
+                elif stage.sequence < default_stage.sequence:
+                    default_stage = stage
+        if default_stage:
+            result['value'].update({'stage_id' : default_stage.id})
+        return result
+
 
