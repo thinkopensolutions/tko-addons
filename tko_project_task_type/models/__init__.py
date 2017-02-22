@@ -23,3 +23,4 @@
 ##############################################################################
 
 import project_task
+import task_type_configuration
