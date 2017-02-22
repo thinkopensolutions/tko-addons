@@ -68,6 +68,11 @@ class project_task(models.Model):
 
     @api.onchange('task_type_id')
     def _change_task_type(self):
+        result = {'value': {}}
         if self.task_type_id:
-            self.color = str(self.task_type_id.color)[-1]
-            self.type_name = self.task_type_id.name
+            result['value'].update({
+                'color': str(self.task_type_id.color)[-1],
+                'type_name': self.task_type_id.name,
+
+            })
+        return result
