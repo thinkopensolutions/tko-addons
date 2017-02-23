@@ -9,6 +9,9 @@
                 <field name="partner_id" position="after">
                     <field name="issue_id"/>
                 </field>
+                <field name="description" position="after">
+                    <field name="email_body" invisible="1"/>
+                </field>
             </field>
         </record>
 

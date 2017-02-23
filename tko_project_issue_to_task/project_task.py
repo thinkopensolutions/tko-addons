@@ -29,5 +29,6 @@ class project_task(osv.osv):
     _inherit = "project.task"
 
     _columns = {
-        'issue_id': fields.many2one('project.issue', 'Issue')
+        'issue_id': fields.many2one('project.issue', u'Issue'),
+        'email_body': fields.text(u'E-mail Body')
     }
