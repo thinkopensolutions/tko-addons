@@ -1,0 +1,30 @@
+<openerp>
+    <data>
+        <record id="task_type_edit_inherit" model="ir.ui.view">
+            <field name="name">project.task.type</field>
+            <field name="model">project.task.type</field>
+            <field name="inherit_id" ref="project.task_type_edit"/>
+            <field name="arch" type="xml">
+                <field name="project_ids" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="sequence" position="replace">
+                    <field name="sequence"/>
+                </field>
+
+            </field>
+        </record>
+
+        <record id="task_type_form_view" model="ir.ui.view">
+            <field name="model">task.type</field>
+            <field name="inherit_id" ref="tko_project_task_type.task_type_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group" position="after">
+                    <group name="stages" string="Stages">
+                        <field name="stage_ids" nolabel="1" widget="many2many_tags" options="{'no_create':True}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

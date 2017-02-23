@@ -22,31 +22,4 @@
 #
 ##############################################################################
 
-{
-    'name': 'Project task type with colours',
-    'version': '0.001',
-    'category': 'Customizations',
-    'sequence': 14,
-    'complexity': 'medium',
-    'description': '''== This module adds a task type field ==\n
-    Each type will have a colour. This makes easy to identify the tasks types in kanban through their colours.''',
-    'author': 'ThinkOpen Solutions Brasil',
-    'website': 'http://www.tkobr.com',
-    'depends': [
-        'base',
-        'project',
-    ],
-    'data': [
-        'security/ir.model.access.csv',
-        'views/project_task_view.xml',
-        'views/task_type_configuration_view.xml',
-    ],
-    'init': [],
-    'demo': [],
-    'update': [],
-    'test': [],  # YAML files with tests
-    'installable': True,
-    'application': False,
-    'auto_install': False,
-    'certificate': '',
-}
+import project_task
