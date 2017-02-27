@@ -63,15 +63,12 @@ class res_users(models.Model):
                         seconds = s['session_seconds']
                         expiration_date = now + relativedelta(seconds= seconds)
                         session_duration = str(now - datetime.strptime(s['date_login'],DEFAULT_SERVER_DATETIME_FORMAT))
-                        # TODO: not writing on the object
-                        #Asertion error uid is None
-                        # odoo/odoo/workflow / helpers.py ", line 6, in __init__
-                        # assert isinstance(uid, (int, long))
-                        # session_obj.browse(s['id']).write(
-                        #     {
-                        #     'expiration_date': expiration_date,
-                        #     'session_duration': session_duration,
-                        #     })
+                        #write as superuser
+                        session_obj.browse(s['id']).sudo().write(
+                            {
+                            'expiration_date': expiration_date,
+                            'session_duration': session_duration,
+                            })
                     cr.commit()
             else:
                 session.logout(logout_type='to', keep_db=True)
@@ -83,6 +80,8 @@ class res_users(models.Model):
         res = super(res_users, cls).check(db, uid, passwd)
         cr = cls.pool.cursor()
         self = api.Environment(cr, uid, {})[cls._name]
+        cr.commit()
+        cr.close()
         self.browse(uid)._check_session_validity(db, uid, passwd)
         return res
 
