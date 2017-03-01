@@ -28,14 +28,16 @@ from openerp.tools.translate import _
 import xmlrpclib
 import email
 import logging
+
 _logger = logging.getLogger(__name__)
+
 
 class fetchmail_server(osv.osv):
     """Incoming POP/IMAP mail server account"""
     _inherit = 'fetchmail.server'
     _columns = {
         'only_replies': fields.boolean('Fetch only messages sent from Odoo',
-                                  help='Select this box to receive only replies', default=False),
+                                       help='Select this box to receive only replies', default=False),
     }
 
     # Fetch only email replies
@@ -53,14 +55,14 @@ class fetchmail_server(osv.osv):
             context.update({'fetchmail_server_id': server.id, 'server_type': server.type})
             count, failed = 0, 0
             imap_server = False
-            if server.type == 'imap'and server.only_replies:
+            if server.type == 'imap' and server.only_replies:
                 try:
                     imap_server = server.connect()
                     imap_server.select()
                     result, data = imap_server.search(None, '(UNSEEN)')
                     for num in data[0].split():
                         result, data = imap_server.fetch(num, '(RFC822)')
-                        #check if message is a reply, with 'parent_id' skey
+                        # check if message is a reply, with 'parent_id' skey
                         message = data[0][1]
                         if isinstance(message, xmlrpclib.Binary):
                             message = str(message.data)
@@ -69,8 +71,9 @@ class fetchmail_server(osv.osv):
                         if isinstance(message, unicode):
                             message = message.encode('utf-8')
                         msg_txt = email.message_from_string(message)
-                        msg = self.pool.get('mail.thread').message_parse(cr, uid, msg_txt, save_original=server.original)
-                        #parent_id will be set only for replies
+                        msg = self.pool.get('mail.thread').message_parse(cr, uid, msg_txt,
+                                                                         save_original=server.original)
+                        # parent_id will be set only for replies
                         parent_id = msg.get('parent_id')
                         if parent_id:
                             imap_server.store(num, '-FLAGS', '\\Seen')
@@ -97,18 +100,20 @@ class fetchmail_server(osv.osv):
                             _logger.info('Skipped to process mail without parent_id from %s server %s.', server.type,
                                          server.name,
                                          exc_info=True)
+                            # set email unseen if not copied in odoo
+                            imap_server.store(num, '-FLAGS', '\Seen')
                     _logger.info("Fetched %d email(s) on %s server %s; %d succeeded, %d failed.", count,
                                  server.type,
                                  server.name, (count - failed), failed)
 
                 except Exception:
-                    _logger.info("General failure when trying to fetch mail from %s server %s.", server.type, server.name, exc_info=True)
+                    _logger.info("General failure when trying to fetch mail from %s server %s.", server.type,
+                                 server.name, exc_info=True)
                 finally:
                     if imap_server:
                         imap_server.close()
                         imap_server.logout()
             else:
-                return super(fetchmail_server,self).fetch_mail( cr, uid, ids, context=context)
-
+                return super(fetchmail_server, self).fetch_mail(cr, uid, ids, context=context)
 
         return True
