@@ -52,8 +52,47 @@ class tko_contract_report(report_sxw.rml_parse):
         })
 
     def compute_template_variables(self, object, text):
-        pattern = re.compile('\$\((.*?)\)s')
-        matches = pattern.findall(str(text.encode('utf-8')))
+        if text:
+            # user can use o instead of object to access fields of object
+            o = object
+            pattern = re.compile('\$\{(.+?)\}s')
+            expression_matches = pattern.findall(str(text.encode('utf-8')))
+            for expression in expression_matches:
+                error_label = 'Invalid Variable or Python Expression'
+                try:
+                    value = eval(expression)
+                    text = text.replace(
+                        '${' + expression + '}s',
+                        value)
+                except:
+                    try:
+                        value = (
+                                    '<font color="red"><strong>[ERROR: %s : %s]<strong></font>') % (
+                                    error_label, expression)
+                    except Exception as err:
+                        value = err
+                    text = text.replace(
+                        '${' + expression + '}s',
+                        value)
+                    _logger.error(
+                        ("ERROR: %s %s") %
+                        (error_label, expression))
+        # evaluate object variables
+        # this case will be used only for image, above method can't print images with binary data
+        # evaluate python expression
+        # python expression would use {}
+        # eg: ${time.strftime("%d de %B de %Y").decode("utf-8")}s
+        # we can't use same bracket
+        # because we need to match variables and expressions separately
+        # because we need to treat them differently
+        # in case of we use same bracket for both of them
+        # there is a chance we start matching with the $( of variable and ending
+        # on )s or )p of expression
+        # which is wrong
+
+        variable_patterns = re.compile('\$\((.*?)\)s')
+
+        matches = variable_patterns.findall(str(text.encode('utf-8')))
         while len(matches):
             value = ''
             type = ''
@@ -79,7 +118,7 @@ class tko_contract_report(report_sxw.rml_parse):
                         except Exception as err:
                             value = (
                                         '<font color="red"><strong>[ERROR: Field %s doesn\'t exist  in %s]<strong></font>') % (
-                                    err, value)
+                                        err, value)
                             _logger.error(
                                 ("Field %s doesn't exist  in %s") %
                                 (err, value))
@@ -110,7 +149,7 @@ class tko_contract_report(report_sxw.rml_parse):
 
                     if not value:
                         text = text.replace('$(' + match + ')s', '')
-            matches = pattern.findall(str(text.encode('utf-8')))
+            matches = variable_patterns.findall(str(text.encode('utf-8')))
         return text
 
 
