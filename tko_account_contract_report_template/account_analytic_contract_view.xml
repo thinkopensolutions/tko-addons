@@ -60,6 +60,27 @@
                                 Example: $(partner_id.image,160,160)s
                                 You can also add a style type="text/css" to add CSS style rules to the document.
                             </div>
+                             <div class="oe_grey oe_edit_only">
+                                <br/>
+                                <b>Python Expressions</b>
+                                <ul>
+                                     ${time.strftime("%d de %B de %Y").decode("utf-8")}s
+                                    <li><b>Note: </b> For python expression we use ${}s not $()s</li>
+                                </ul>
+                                <b>Python If Condition</b>
+                                <b>Method 1</b><br/>
+                                <ul>
+                                    <li>Condition: ${'true' if True else 'false'}s</li>
+                                     <li>clausula: ${", some text" + object.field_name if object.field_name else "."}s</li>
+                                    <li>type: ${"Some Text" if object.field_name == "value" else "Other Text"}s</li>
+                                </ul>
+                                <b>Method 2</b><br/>
+                                <ul>
+                                    <li>type: ${object.field_name == "Value" and "Print This" or "Print That"}s</li>
+                                    <li>CPF: ${o.cpf and o.cpf or "Not Found"}s</li>
+                                </ul>
+
+                            </div>
                         </group>
                         <field name="contract_body" widget="html"/>
                     </sheet>
