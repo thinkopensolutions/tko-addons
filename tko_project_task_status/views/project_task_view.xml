@@ -12,6 +12,10 @@
                             <tree editable="bottom">
                                 <field name="status_id" options="{'no_create': True}"/>
                                 <field name="expected_date"/>
+                                <field name="done_date"/>
+                                <field name="state" readonly="1"/>
+                                <button name="set_done" icon="fa fa-check" string="Done" type="object"/>
+                                <button name="set_cancel" icon="fa fa-times" string="Cancel" type="object"/>
                             </tree>
                         </field>
                     </page>
@@ -40,6 +44,10 @@
                         <field name="name"/>
                         <field name="expected_duration"/>
                         <field name="expected_duration_unit"/>
+                        <field name="filter_id" domain="[('model_id','=','project.task')]"/>
+                        <field name="done_server_action_id"/>
+                        <field name="cancel_server_action_id"/>
+
                     </group>
                 </form>
             </field>

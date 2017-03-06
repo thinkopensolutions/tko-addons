@@ -34,6 +34,7 @@
     'depends': [
         'base',
         'project',
+        'tko_project_push_pull_stages_rules',
     ],
     'data': [
         'security/ir.model.access.csv',
