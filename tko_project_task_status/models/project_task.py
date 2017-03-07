@@ -69,7 +69,7 @@ class ProjectTaskActionsLine(models.Model):
         eval_context = self._eval_context()
         active_id = self.task_id.id
         if active_id and model_name:
-            domain = self.action_id.filter_id
+            domain = self.action_id.filter_id.domain
             rule = expression.normalize_domain(safe_eval(domain, eval_context))
             Query = self.env[model_name].sudo()._where_calc(rule, active_test=False)
             from_clause, where_clause, where_clause_params = Query.get_sql()
@@ -82,13 +82,16 @@ class ProjectTaskActionsLine(models.Model):
         return False
 
     def set_done(self):
+        validate = True
         if self.action_id.filter_id:
             # validate filter here
-            if self.validate_action_filter():
+            if  not self.validate_action_filter():
+                validate = False
                 #set to done and execute server action
-                self.write({'state': 'd', 'done_date':fields.Date.today()})
-                if self.action_id.done_server_action_id:
-                    self.action_id.done_server_action_id.run()
+        if validate:
+            self.write({'state': 'd', 'done_date':fields.Date.today()})
+            if self.action_id.done_server_action_id:
+                self.action_id.done_server_action_id.run()
 
     def set_cancel(self):
         self.state = 'c'
