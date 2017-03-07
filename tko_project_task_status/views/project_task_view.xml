@@ -7,11 +7,15 @@
             <field name="inherit_id" ref="project.view_task_form2"/>
             <field name="arch" type="xml">
                 <page name="description_page" position="after">
-                    <page string="Task Status" name="task_status">
-                        <field name="status_line_ids" nolable="1">
+                    <page string="Task Action" name="task_action">
+                        <field name="action_line_ids" nolable="1">
                             <tree editable="bottom">
-                                <field name="status_id" options="{'no_create': True}"/>
+                                <field name="action_id" options="{'no_create': True}"/>
                                 <field name="expected_date"/>
+                                <field name="done_date"/>
+                                <field name="state" readonly="1"/>
+                                <button name="set_done" icon="fa fa-check" string="Done" type="object"/>
+                                <button name="set_cancel" icon="fa fa-times" string="Cancel" type="object"/>
                             </tree>
                         </field>
                     </page>
@@ -21,9 +25,9 @@
 
 
         <!--tree view -->
-        <record id="task_status_tree_view" model="ir.ui.view">
-            <field name="name">Task Status</field>
-            <field name="model">project.task.status</field>
+        <record id="task_action_tree_view" model="ir.ui.view">
+            <field name="name">Task Action</field>
+            <field name="model">project.task.action</field>
             <field name="arch" type="xml">
                 <tree string="Task Type" version="7.0">
                     <field name="name"/>
@@ -32,28 +36,57 @@
         </record>
 
         <!--form view -->
-        <record id="task_status_form_view" model="ir.ui.view">
-            <field name="model">project.task.status</field>
+        <record id="task_action_form_view" model="ir.ui.view">
+            <field name="model">project.task.action</field>
             <field name="arch" type="xml">
                 <form string="Task Type" version="7.0">
                     <group>
                         <field name="name"/>
                         <field name="expected_duration"/>
                         <field name="expected_duration_unit"/>
+                        <field name="filter_id" domain="[('model_id','=','project.task')]"/>
+                        <field name="done_server_action_id"/>
+                        <field name="cancel_server_action_id"/>
+
                     </group>
                 </form>
             </field>
         </record>
 
 
-        <record id="task_status_action" model="ir.actions.act_window">
-            <field name="name">Task Status</field>
-            <field name="res_model">project.task.status</field>
+        <record id="task_action_action" model="ir.actions.act_window">
+            <field name="name">Task Action</field>
+            <field name="res_model">project.task.action</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem id="task_status_action_menu" action="task_status_action" sequence="40"
+        <menuitem id="task_action_action_menu" action="task_action_action" sequence="40"
+                  parent="project.menu_project_config"/>
+
+
+
+        <record id="task_action_line_tree_view" model="ir.ui.view">
+            <field name="name">Task Action</field>
+            <field name="model">project.task.action.line</field>
+            <field name="arch" type="xml">
+                <tree string="Task Type" version="7.0">
+                    <field name="action_id"/>
+                    <field name="expected_date"/>
+                    <field name="done_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="task_action_line_action" model="ir.actions.act_window">
+            <field name="name">Task Action Line</field>
+            <field name="res_model">project.task.action.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+         <menuitem id="task_action_action_menu" action="task_action_line_action" sequence="50"
                   parent="project.menu_project_config"/>
 
     </data>
