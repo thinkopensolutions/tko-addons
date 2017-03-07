@@ -61,7 +61,7 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem id="task_action_action_menu" action="task_action_action" sequence="40"
+        <menuitem id="task_action_menu" action="task_action_action" sequence="40"
                   parent="project.menu_project_config"/>
 
 
@@ -86,7 +86,7 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-         <menuitem id="task_action_action_menu" action="task_action_line_action" sequence="50"
+         <menuitem id="task_action_line_menu" action="task_action_line_action" sequence="50"
                   parent="project.menu_project_config"/>
 
     </data>
