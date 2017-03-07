@@ -52,6 +52,12 @@ class ProjectTaskActionsLine(models.Model):
     state = fields.Selection([('i', u'In Progress'), ('d', u'Done'), ('c', u'Cancelled')], default='i', required=True,
                              string='State')
 
+    @api.model
+    def _eval_context(self):
+        """Returns a dictionary to use as evaluation context for
+           ir.rule domains."""
+        return {'user': self.env.user, 'time': time}
+
     #Validate action filter
     def validate_action_filter(self):
         """
