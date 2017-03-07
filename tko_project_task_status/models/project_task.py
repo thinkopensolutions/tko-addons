@@ -28,7 +28,7 @@ from  dateutil.relativedelta import relativedelta
 from odoo.osv import expression
 from odoo.tools.safe_eval import safe_eval
 import time
-
+from odoo.exceptions import Warning
 
 class ProjectTaskActions(models.Model):
     _name = 'project.task.action'
@@ -38,6 +38,7 @@ class ProjectTaskActions(models.Model):
     expected_duration_unit = fields.Selection([('d', 'Day'), ('w', 'Week'), ('m', 'Month'), ('y', 'Year')],
                                               default='d', required=True, string=u'Expected Time Unit')
     filter_id = fields.Many2one('ir.filters','Filter')
+    filter_warning_message = fields.Text("Warning Message")
     done_server_action_id = fields.Many2one('ir.actions.server', string='Done Server Rule', help=u'This server action will be executed when Actions is set to done')
     cancel_server_action_id = fields.Many2one('ir.actions.server', string='Cancel Server Rule', help=u'This server action will be executed when Actions is set to cancel')
 
@@ -82,16 +83,19 @@ class ProjectTaskActionsLine(models.Model):
         return False
 
     def set_done(self):
-        validate = True
         if self.action_id.filter_id:
             # validate filter here
             if  not self.validate_action_filter():
-                validate = False
+                raise Warning(self.action_id.filter_warning_message or "Warning message not set")
                 #set to done and execute server action
-        if validate:
-            self.write({'state': 'd', 'done_date':fields.Date.today()})
-            if self.action_id.done_server_action_id:
-                self.action_id.done_server_action_id.run()
+
+        self.write({'state': 'd', 'done_date':fields.Date.today()})
+        if self.action_id.done_server_action_id:
+            new_context = dict(self.env.context)
+            if 'active_id' not in new_context.keys():
+                new_context.update({'active_id': self.task_id.id,'active_model':'project.task'})
+            recs = self.action_id.done_server_action_id.with_context(new_context)
+            recs.run()
 
     def set_cancel(self):
         self.state = 'c'
