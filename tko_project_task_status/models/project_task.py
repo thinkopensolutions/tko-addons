@@ -34,7 +34,7 @@ class ProjectTaskActions(models.Model):
     _name = 'project.task.action'
 
     name = fields.Char(string='Name', required=True)
-    expected_duration = fields.Integer(u'Expected Time', required=True)
+    expected_duration = fields.Integer(u'Expected Time', default=1, required=True)
     expected_duration_unit = fields.Selection([('d', 'Day'), ('w', 'Week'), ('m', 'Month'), ('y', 'Year')],
                                               default='d', required=True, string=u'Expected Time Unit')
     filter_id = fields.Many2one('ir.filters','Filter')
