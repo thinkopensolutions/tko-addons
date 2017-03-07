@@ -54,9 +54,15 @@ class ProjectTaskActionsLine(models.Model):
         if self.status_id.filter_id:
             #validate filter here
             self.write({'state': 'd', 'done_date':fields.Date.today()})
+        if self.status_id.done_server_action_id:
+            self.status_id.done_server_action_id.run()
+
 
     def set_cancel(self):
         self.state = 'c'
+        if self.status_id.cancel_server_action_id:
+            self.status_id.cancel_server_action_id.run()
+
 
     @api.onchange('status_id')
     def onchange_status(self):
