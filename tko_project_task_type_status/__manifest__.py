@@ -23,17 +23,17 @@
 ##############################################################################
 
 {
-    'name': 'Project task type status',
+    'name': 'Project task type action',
     'version': '0.001',
     'category': 'Customizations',
     'sequence': 14,
     'complexity': 'medium',
-    'description': '''This module applies restriction to task status shown in the task based on task type''',
+    'description': '''This module applies restriction to task action shown in the task based on task type''',
     'author': 'ThinkOpen Solutions Brasil',
     'website': 'http://www.tkobr.com',
     'depends': [
         'tko_project_task_type',
-        'tko_project_task_status'
+        'tko_project_task_action'
     ],
     'data': [
         'views/project_task_view.xml',
