@@ -28,12 +28,12 @@ from odoo import models, api, fields
 class task_type(models.Model):
     _inherit = 'task.type'
 
-    status_line_ids = fields.Many2many('project.task.status', 'project_task_type_status_rel', 'type_id', 'status_id',
-                                       'Status')
+    action_line_ids = fields.Many2many('project.task.action', 'project_task_type_action_rel', 'type_id', 'action_id',
+                                       'Action')
 
 
 class ProjectTask(models.Model):
     _inherit = 'project.task'
 
-    related_status_line_ids = fields.Many2many('project.task.status', 'project_task_status_rel', 'task_id', 'status_id',
-                                               related='task_type_id.status_line_ids', string='Status')
+    related_action_line_ids = fields.Many2many('project.task.action', 'project_task_action_rel', 'task_id', 'action_id',
+                                               related='task_type_id.action_line_ids', string='Action')

@@ -23,18 +23,17 @@
 ##############################################################################
 
 {
-    'name': 'tko_project_task_status',
+    'name': 'tko_project_task_action',
     'version': '0.001',
     'category': 'Customizations',
     'sequence': 14,
     'complexity': 'medium',
-    'description': '''  This module sets the status deadline based on status  ''',
+    'description': '''  This module sets the action deadline based on action  ''',
     'author': 'ThinkOpen Solutions Brasil',
     'website': 'http://www.tkobr.com',
     'depends': [
         'base',
         'project',
-        'tko_project_push_pull_stages_rules',
     ],
     'data': [
         'security/ir.model.access.csv',

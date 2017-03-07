@@ -25,10 +25,13 @@
 from odoo import models, api, fields
 from datetime import datetime
 from  dateutil.relativedelta import relativedelta
+from odoo.osv import expression
+from odoo.tools.safe_eval import safe_eval
+import time
 
 
 class ProjectTaskActions(models.Model):
-    _name = 'project.task.status'
+    _name = 'project.task.action'
 
     name = fields.Char(string='Name', required=True)
     expected_duration = fields.Integer(u'Expected Time', required=True)
@@ -40,46 +43,69 @@ class ProjectTaskActions(models.Model):
 
 
 class ProjectTaskActionsLine(models.Model):
-    _name = 'project.task.status.line'
+    _name = 'project.task.action.line'
 
-    status_id = fields.Many2one('project.task.status', u'Actions')
+    action_id = fields.Many2one('project.task.action', u'Actions')
     expected_date = fields.Date(u'Expected Date')
     done_date = fields.Date(u'Done Date', readonly=True)
     task_id = fields.Many2one('project.task', 'Task')
     state = fields.Selection([('i', u'In Progress'), ('d', u'Done'), ('c', u'Cancelled')], default='i', required=True,
                              string='State')
 
+    #Validate action filter
+    def validate_action_filter(self):
+        """
+
+        Context must have active_id
+        :return:
+        """
+        model_name = 'project.task'
+        eval_context = self._eval_context()
+        active_id = self.task_id.id
+        if active_id and model_name:
+            domain = self.action_id.filter_id
+            rule = expression.normalize_domain(safe_eval(domain, eval_context))
+            Query = self.env[model_name].sudo()._where_calc(rule, active_test=False)
+            from_clause, where_clause, where_clause_params = Query.get_sql()
+            where_str = where_clause and (" WHERE %s" % where_clause) or ''
+            query_str = 'SELECT id FROM ' + from_clause + where_str
+            self._cr.execute(query_str, where_clause_params)
+            result = self._cr.fetchall()
+            if active_id in [id[0] for id in result]:
+                return True
+        return False
 
     def set_done(self):
-        if self.status_id.filter_id:
-            #validate filter here
-            self.write({'state': 'd', 'done_date':fields.Date.today()})
-        if self.status_id.done_server_action_id:
-            self.status_id.done_server_action_id.run()
-
+        if self.action_id.filter_id:
+            # validate filter here
+            if self.validate_action_filter():
+                #set to done and execute server action
+                self.write({'state': 'd', 'done_date':fields.Date.today()})
+                if self.action_id.done_server_action_id:
+                    self.action_id.done_server_action_id.run()
 
     def set_cancel(self):
         self.state = 'c'
-        if self.status_id.cancel_server_action_id:
-            self.status_id.cancel_server_action_id.run()
+        if self.action_id.cancel_server_action_id:
+            self.action_id.cancel_server_action_id.run()
 
 
-    @api.onchange('status_id')
-    def onchange_status(self):
-        if self.status_id:
+    @api.onchange('action_id')
+    def onchange_action(self):
+        if self.action_id:
             days = weeks = months = years = 0
-            if self.status_id.expected_duration_unit == 'd':
-                days = self.status_id.expected_duration
-            if self.status_id.expected_duration_unit == 'w':
-                weeks = self.status_id.expected_duration
-            if self.status_id.expected_duration_unit == 'm':
-                months = self.status_id.expected_duration
-            if self.status_id.expected_duration_unit == 'y':
-                years = self.status_id.expected_duration
+            if self.action_id.expected_duration_unit == 'd':
+                days = self.action_id.expected_duration
+            if self.action_id.expected_duration_unit == 'w':
+                weeks = self.action_id.expected_duration
+            if self.action_id.expected_duration_unit == 'm':
+                months = self.action_id.expected_duration
+            if self.action_id.expected_duration_unit == 'y':
+                years = self.action_id.expected_duration
             self.expected_date = datetime.today() + relativedelta(years=years, months=months, weeks=weeks, days=days)
 
 
 class ProjectTask(models.Model):
     _inherit = 'project.task'
 
-    status_line_ids = fields.One2many('project.task.status.line', 'task_id', 'Actions')
+    action_line_ids = fields.One2many('project.task.action.line', 'task_id', 'Actions')
