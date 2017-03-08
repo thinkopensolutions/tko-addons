@@ -209,6 +209,7 @@ class Home_tkobr(odoo.addons.web.controllers.main.Home):
         cr.autocommit(True)
         user = user = request.env.user
         logged_in = True
+        uid = user.id
         if unsuccessful_message:
             uid = SUPERUSER_ID
             logged_in = False
@@ -216,14 +217,14 @@ class Home_tkobr(odoo.addons.web.controllers.main.Home):
         else:
             sessions = session_obj.search([('session_id', '=', sid),
                                                     ('ip', '=', ip),
-                                                    ('user_id', '=', user.id),
+                                                    ('user_id', '=', uid),
                                                     ('logged_in', '=', True)],
                                           )
         if not sessions:
             expriy_date = now + relativedelta(seconds= user.session_default_seconds)
 
             values = {
-                'user_id': user.id,
+                'user_id': uid,
                 'logged_in': logged_in,
                 'session_id': sid,
                 'session_seconds': user.session_default_seconds,
@@ -235,7 +236,11 @@ class Home_tkobr(odoo.addons.web.controllers.main.Home):
                 'remote_tz': tz or 'GMT',
                 'unsuccessful_message': unsuccessful_message,
             }
-            session_obj.create(values)
+            # create session record for unsuccessful login with sudo
+            if uid == SUPERUSER_ID:
+                session_obj.sudo().create(values)
+            else:
+                session_obj.create(values)
             cr.commit()
         cr.close()
         return True
