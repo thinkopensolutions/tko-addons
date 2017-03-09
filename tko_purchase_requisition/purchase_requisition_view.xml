@@ -1,0 +1,14 @@
+<openerp>
+    <data>
+        <record id="purchase_requisition_form_inherit" model="ir.ui.view">
+            <field name="name">purchase.requisition</field>
+            <field name="model">purchase.requisition</field>
+            <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form"/>
+            <field name="arch" type="xml">
+                <field name="picking_type_id" position="after">
+                    <field name="parent_id" attrs="{'invisible': [('parent_id','=',False)]}"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
