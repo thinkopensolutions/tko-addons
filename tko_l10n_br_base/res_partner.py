@@ -27,7 +27,10 @@ from datetime import date, datetime
 
 from openerp import _
 from openerp import api
-from openerp.addons.l10n_br_base.tools import fiscal
+try:
+    from openerp.addons.l10n_br_base.tools import fiscal
+except:
+    pass
 from openerp.exceptions import Warning
 from openerp.osv import osv, fields
 

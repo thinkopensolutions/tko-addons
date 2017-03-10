@@ -49,8 +49,8 @@ class project_task(models.Model):
         for task in self:
             task_type = task.task_type_id and task.task_type_id.name or ''
             result.append(
-                (task.id, "%s %s" %
-                 ('[' + str(task_type) + ']', task.name or ' ')))
+                (task.id, "[%s] %s" %
+                 (task_type, task.name or ' ')))
         return result
 
     @api.depends('task_type_id.name')
