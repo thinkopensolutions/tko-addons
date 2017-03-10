@@ -1,5 +1,5 @@
 SMTP Server Per User
-===================
+====================
 Configure Odoo to use specific incoming and outgoing email server by user.
 
 ## New in v2.0:
@@ -15,6 +15,7 @@ Configure Odoo to use specific incoming and outgoing email server by user.
 ## **New in v1.0**:
 
 The module set following email HEADERS according to user SMTP server:
+
 - From: UserName SMTP_Server_User_Name_Email
 - Reply-To: UserName SMTP_Server_User_Name_Email
 - Return-Path: UserName SMTP_Server_User_Name_Email
@@ -24,12 +25,16 @@ This will fix a problem connecting to servers like for example Zoho. But will ov
 ## **Configuration**:
 
 To configure Odoo email gateway please consider this steps:
+
 - Go to "Settings --> Technical --> General Settings" and set your domain in "Alias Domain" (ex: mydomain.com).
 - Go to "Settings --> Technical --> Parameters --> System Parameters" and check if you have:
- - Parameter key "mail.catchall.domain" must be same domain you give above (ex: mydomain.com).
- - Parameter key "mail.catchall.alias" this is the catchall alias email (ex: catchall).
- - Parameter key "mail.bounce.alias" this is the bounce alias email (ex: bounce). The default bounce address is used to set the envelop address if no envelop address is provided in the message. It is formed by properly joining the parameters "mail.catchall.alias" and "mail.catchall.domain". If "mail.catchall.alias" is not set it defaults to "postmaster-odoo".
- - **NOTE:** use with care, some relay servers will not forward emails with no bounce email account configured and Odoo does this dynamically (ex: bounce-16-res_partner34@yourdomain.com). Catchall and bounce parameters can be the equal.
+
+  - Parameter key "mail.catchall.domain" must be same domain you give above (ex: mydomain.com).
+  - Parameter key "mail.catchall.alias" this is the catchall alias email (ex: catchall).
+  - Parameter key "mail.bounce.alias" this is the bounce alias email (ex: bounce). The default bounce address is used to set the envelop address if no envelop address is provided in the message. It is formed by properly joining the parameters "mail.catchall.alias" and "mail.catchall.domain". If "mail.catchall.alias" is not set it defaults to "postmaster-odoo".
+
+**NOTE:** use with care, some relay servers will not forward emails with no bounce email account configured and Odoo does this dynamically (ex: bounce-16-res_partner34@yourdomain.com). Catchall and bounce parameters can be the equal.
+
 - Go to "Settings --> Technical --> Email --> Incoming Mail Servers", create catchall mail server (ex: catchall@mydomain.com)
 - If you have bounce parameter, go to "Settings --> Technical --> Email --> Incoming Mail Servers", create bounce mail server (ex: bounce@mydomain.com)
 - Go to "Settings --> Technical --> Email --> Incoming Mail Servers", create user mail server (ex: newuser@mydomain.com)
