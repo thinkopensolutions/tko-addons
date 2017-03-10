@@ -27,7 +27,8 @@ class IrMailServer(models.Model):
         server_id = self.env['ir.mail_server'].search([
             ('smtp_user', '=', from_rfc2822)])
         if server_id and server_id[0]:
-            message.replace_header('Return-Path', from_rfc2822)
+            if 'Return-Path' in message:
+                message.replace_header('Return-Path', from_rfc2822)
         return super(IrMailServer, self).send_email(message, mail_server_id,
                                                     smtp_server, smtp_port,
                                                     smtp_user, smtp_password,
