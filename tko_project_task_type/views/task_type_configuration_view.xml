@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+        <record id="project_config_settings_view_form_inherit_project_issue" model="ir.ui.view">
+        <field name="name">project.config.settings.view.form.inherit.project.issue</field>
+        <field name="model">project.config.settings</field>
+        <field name="inherit_id" ref="project.view_config_settings"/>
+        <field name="arch" type="xml">
+            <field name="module_rating_project" position="after">
+                 <field name="module_tko_project_task_type_stages"/>
+            </field>
+        </field>
+    </record>
+
+    </data>
+</odoo>
+

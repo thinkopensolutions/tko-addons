@@ -22,6 +22,27 @@
 #
 ##############################################################################
 
-import project_task
-import ir_model_fields
-import task_type_configuration
+{
+    'name': 'Project Task Stages with Task Type',
+    'version': '0.001',
+    'category': 'Customizations',
+    'sequence': 14,
+    'complexity': 'medium',
+    'description': '''== This module allows to manage Task Stages based on task type''',
+    'author': 'ThinkOpen Solutions Brasil',
+    'website': 'http://www.tkobr.com',
+    'depends': [
+        'tko_project_task_type',
+    ],
+    'data': [
+        'views/project_task_view.xml',
+    ],
+    'init': [],
+    'demo': [],
+    'update': [],
+    'test': [],  # YAML files with tests
+    'installable': True,
+    'application': False,
+    'auto_install': False,
+    'certificate': '',
+}

@@ -23,5 +23,3 @@
 ##############################################################################
 
 import project_task
-import ir_model_fields
-import task_type_configuration

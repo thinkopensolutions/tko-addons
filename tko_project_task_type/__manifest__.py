@@ -39,6 +39,7 @@
     'data': [
         'security/ir.model.access.csv',
         'views/project_task_view.xml',
+        'views/task_type_configuration_view.xml',
     ],
     'init': [],
     'demo': [],

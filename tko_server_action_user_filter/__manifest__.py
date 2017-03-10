@@ -22,6 +22,27 @@
 #
 ##############################################################################
 
-import project_task
-import ir_model_fields
-import task_type_configuration
+{
+    'name': 'Server Action with Filter',
+    'version': '0.001',
+    'category': 'Customizations',
+    'sequence': 14,
+    'complexity': 'medium',
+    'description': ''' Evaluate server action based on filter''',
+    'author': 'ThinkOpen Solutions Brasil',
+    'website': 'http://www.tkobr.com',
+    'depends': [
+        'base',
+    ],
+    'data': [
+        'views/ir_server_actions_view.xml',
+    ],
+    'init': [],
+    'demo': [],
+    'update': [],
+    'test': [],  # YAML files with tests
+    'installable': True,
+    'application': False,
+    'auto_install': False,
+    'certificate': '',
+}
