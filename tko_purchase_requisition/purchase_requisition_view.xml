@@ -1,0 +1,18 @@
+<openerp>
+    <data>
+        <record id="purchase_requisition_form_inherit" model="ir.ui.view">
+            <field name="name">purchase.requisition</field>
+            <field name="model">purchase.requisition</field>
+            <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form"/>
+            <field name="arch" type="xml">
+                <field name="picking_type_id" position="after">
+                    <field name="parent_id" attrs="{'invisible': [('parent_id','=',False)]}"/>
+                </field>
+                <button string="Request a Quotation" position="after">
+                    <button name="send_mail_to_all_quotations" type="object" string="Send mail to All"
+                     attrs="{'invisible': ['|', ('purchase_ids','=',[]),('state', 'in', ('draft' ,'open','done'))]}"/>
+                </button>
+            </field>
+        </record>
+    </data>
+</openerp>
