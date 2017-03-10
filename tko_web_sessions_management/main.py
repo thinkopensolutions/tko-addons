@@ -158,6 +158,7 @@ class TkobrSessionMixin(object):
             sid,
             unsuccessful_message='',
             context=None):
+        return True
         now = fields.datetime.now()
         session_obj = request.registry.get('ir.sessions')
         cr = request.registry.cursor()

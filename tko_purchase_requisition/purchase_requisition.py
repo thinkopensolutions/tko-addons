@@ -29,3 +29,33 @@ class PurchaseRequisition(models.Model):
     _inherit = 'purchase.requisition'
 
     parent_id = fields.Many2one('purchase.requisition', string='Merged Into', readonly=True)
+
+    @api.multi
+    def send_mail_to_all_quotations(self):
+        email_template_obj = self.env['email.template']
+        ir_model_data = self.env['ir.model.data']
+        template_id = ir_model_data.get_object_reference('purchase', 'email_template_edi_purchase')[1]
+        if template_id:
+            for rfq in self.purchase_ids:
+                if rfq.partner_id.email:
+                    template_obj = self.env['email.template']
+                    values = template_obj.generate_email(template_id, rfq.id)
+                    values['email_to'] = rfq.partner_id.email
+                    values['email_from'] = self.env.user.email
+                    mail = self.env['mail.mail'].create(values)
+                    attachment_ids = []
+                    # create attachments
+                    for attachment in values['attachments']:
+                        attachment_data = {
+                            'name': attachment[0],
+                            'datas_fname': attachment[0],
+                            'datas': attachment[1],
+                            'res_model': 'mail.message',
+                            'res_id': mail.mail_message_id.id,
+                        }
+                        attachment_ids.append(self.env['ir.attachment'].create(attachment_data).id)
+                    if attachment_ids:
+                        mail.write({'attachment_ids': [(6, 0, attachment_ids)]})
+                    # send mail
+                    mail.send()
+        return True
