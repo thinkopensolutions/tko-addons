@@ -207,7 +207,7 @@ class Home_tkobr(odoo.addons.web.controllers.main.Home):
         # interleaving their cr.execute()..cr.commit() calls and have one
         # of them rolled back due to a concurrent access.)
         cr.autocommit(True)
-        user = user = request.env.user
+        user = request.env.user
         logged_in = True
         uid = user.id
         if unsuccessful_message:
