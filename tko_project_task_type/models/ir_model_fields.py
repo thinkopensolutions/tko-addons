@@ -27,5 +27,5 @@ from openerp import models, api, fields
 class IrModelFields(models.Model):
     _inherit = 'ir.model.fields'
 
-    dynamic_view_field = fields.Boolean('Dynamic View on Tasks',select=True)
+    dynamic_view_field = fields.Boolean('Dynamic View on Tasks')
 
