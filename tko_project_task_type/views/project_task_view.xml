@@ -26,6 +26,25 @@
                     <field name="color" invisible="1"/>
                     <field name="type_name" invisible="1"/>
                 </field>
+                <notebook position="inside">
+                    <page name="dynamic_fields" string="Dynamic Fields">
+                        <group>
+                            <field name="field1_test" attrs="{'invisible': [('field1_test_show','!=',True)]}"/>
+                            <field name="field2_test" attrs="{'invisible': [('field2_test_show','!=',True)]}"/>
+                            <field name="field3_test" attrs="{'invisible': [('field3_test_show','!=',True)]}"/>
+                            <field name="field4_test" attrs="{'invisible': [('field4_test_show','!=',True)]}"/>
+                            <field name="field5_test" attrs="{'invisible': [('field5_test_show','!=',True)]}"/>
+                            <field name="field6_test" attrs="{'invisible': [('field6_test_show','!=',True)]}"/>
+                            <field name="field1_test_show" invisible="1"/>
+                            <field name="field2_test_show" invisible="1"/>
+                            <field name="field3_test_show" invisible="1"/>
+                            <field name="field4_test_show" invisible="1"/>
+                            <field name="field5_test_show" invisible="1"/>
+                            <field name="field6_test_show" invisible="1"/>
+                        </group>
+
+                    </page>
+                </notebook>
             </field>
         </record>
 
@@ -63,6 +82,8 @@
                     <group>
                         <field name="name"/>
                         <field name="color"/>
+                        <separator string="Fields"/>
+                        <field name="field_ids" colspan="4" nolabel="1" options="{'no_create':True}" widget="many2many_tags"/>
                     </group>
                 </form>
             </field>
@@ -80,13 +101,23 @@
                         <t t-name="kanban-box">
                             <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
                                 <div class="o_dropdown_kanban dropdown" groups="base.group_user">
-                                    <a class="dropdown-toggle btn" data-toggle="dropdown" href="#" >
+                                    <a class="dropdown-toggle btn" data-toggle="dropdown" href="#">
                                         <span class="fa fa-bars fa-lg"/>
                                     </a>
                                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                        <t t-if="widget.editable"><li><a type="edit">Edit Task</a></li></t>
-                                        <t t-if="widget.deletable"><li><a type="delete">Delete</a></li></t>
-                                        <li><ul class="oe_kanban_colorpicker" data-field="color"/></li>
+                                        <t t-if="widget.editable">
+                                            <li>
+                                                <a type="edit">Edit Task</a>
+                                            </li>
+                                        </t>
+                                        <t t-if="widget.deletable">
+                                            <li>
+                                                <a type="delete">Delete</a>
+                                            </li>
+                                        </t>
+                                        <li>
+                                            <ul class="oe_kanban_colorpicker" data-field="color"/>
+                                        </li>
                                     </ul>
                                 </div>
                                 <div class="oe_kanban_content">
