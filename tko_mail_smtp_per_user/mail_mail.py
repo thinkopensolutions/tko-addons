@@ -43,7 +43,8 @@ class ir_mail_server(osv.osv):
         server_id = self.pool.get('ir.mail_server').search(cr, uid, [('smtp_user', '=', from_rfc2822)],
                                                            context=context)
         if server_id and server_id[0]:
-            message['Return-Path'] = from_rfc2822
+            if 'Return-Path' in message:
+                message.replace_header('Return-Path', from_rfc2822)
         return super(ir_mail_server, self).send_email(cr, uid, message, mail_server_id, smtp_server, smtp_port,
                                                       smtp_user, smtp_password, smtp_encryption, smtp_debug,
                                                       context=context)
