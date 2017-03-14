@@ -69,7 +69,9 @@ class PurchaseRequisitionWizard(models.TransientModel):
                 {'product_id': product_id, 'product_qty': qty, 'requisition_id': order.id})
         # cancel selected orders
         self.requisition_order_ids.write({'parent_id': order.id})
-        self.requisition_order_ids.tender_cancel()
+        #cancel orders
+        for tender in self.requisition_order_ids:
+            tender.tender_cancel()
         model, view_id = self.env['ir.model.data'].get_object_reference('purchase_requisition',
                                                                         'view_purchase_requisition_form')
         # return target form
