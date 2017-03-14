@@ -56,20 +56,21 @@ class PurchaseRequisitionWizard(models.TransientModel):
         requisition_line_vals = {}
         for order in self.requisition_order_ids:
             for line in order.line_ids:
+                uom_id = line.product_uom_id.id or False
                 if line.product_id.id not in requisition_line_vals.keys():
-                    requisition_line_vals.update({line.product_id.id: line.product_qty})
+                    requisition_line_vals.update({line.product_id.id: (line.product_qty, uom_id)})
                 else:
-                    requisition_line_vals[line.product_id.id] = requisition_line_vals[
-                                                                    line.product_id.id] + line.product_qty
-        source_doc = ','.join([order.name for order in self.requisition_order_ids])
+                    requisition_line_vals[line.product_id.id] = (requisition_line_vals[
+                                                                     line.product_id.id][0] + line.product_qty, uom_id)
         # create requisition_order
-        order = self.requisition_order_ids[0].copy(default={'line_ids': False, 'origin': source_doc})
-        for product_id, qty in requisition_line_vals.iteritems():
+        order = self.requisition_order_ids[0].copy(default={'line_ids': False})
+        for product_id, qty_uom in requisition_line_vals.iteritems():
             self.env['purchase.requisition.line'].create(
-                {'product_id': product_id, 'product_qty': qty, 'requisition_id': order.id})
+                {'product_id': product_id, 'product_qty': qty_uom[0], 'requisition_id': order.id,
+                 'product_uom_id': qty_uom[1]})
         # cancel selected orders
         self.requisition_order_ids.write({'parent_id': order.id})
-        #cancel orders
+        # cancel orders
         for tender in self.requisition_order_ids:
             tender.tender_cancel()
         model, view_id = self.env['ir.model.data'].get_object_reference('purchase_requisition',
