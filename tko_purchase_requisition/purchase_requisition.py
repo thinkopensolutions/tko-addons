@@ -29,6 +29,8 @@ class PurchaseRequisition(models.Model):
     _inherit = 'purchase.requisition'
 
     parent_id = fields.Many2one('purchase.requisition', string='Merged Into', readonly=True)
+    child_ids = fields.One2many('purchase.requisition','parent_id','Children')
+
 
     @api.multi
     def send_mail_to_all_quotations(self):

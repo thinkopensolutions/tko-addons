@@ -12,6 +12,11 @@
                     <button name="send_mail_to_all_quotations" type="object" string="Send mail to All"
                      attrs="{'invisible': ['|', ('purchase_ids','=',[]),('state', 'in', ('draft' ,'open','done'))]}"/>
                 </button>
+                <notebook position="inside">
+                    <page name="child_ids" string="Origin" attrs="{'invisible':[('child_ids','=',[])]}">
+                        <field name="child_ids" nolabel="1" readonly="1"/>
+                    </page>
+                </notebook>
             </field>
         </record>
     </data>
