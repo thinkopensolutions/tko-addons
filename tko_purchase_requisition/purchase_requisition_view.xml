@@ -14,7 +14,13 @@
                 </button>
                 <notebook position="inside">
                     <page name="child_ids" string="Origin" attrs="{'invisible':[('child_ids','=',[])]}">
-                        <field name="child_ids" nolabel="1" readonly="1"/>
+                        <field name="child_ids" nolabel="1" readonly="1">
+                            <tree>
+                                <field name="name"/>
+                                <field name="origin"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
                     </page>
                 </notebook>
             </field>
