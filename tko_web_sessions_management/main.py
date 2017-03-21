@@ -160,72 +160,71 @@ class TkobrSessionMixin(object):
             context=None):
         now = fields.datetime.now()
         session_obj = request.registry.get('ir.sessions')
-        if session_obj:
-            cr = request.registry.cursor()
+        cr = request.registry.cursor()
 
-            # Get IP, check if it's behind a proxy
-            ip = request.httprequest.headers.environ['REMOTE_ADDR']
-            forwarded_for = ''
-            if 'HTTP_X_FORWARDED_FOR' in request.httprequest.headers.environ and request.httprequest.headers.environ[
-                'HTTP_X_FORWARDED_FOR']:
-                forwarded_for = request.httprequest.headers.environ['HTTP_X_FORWARDED_FOR'].split(', ')
-                if forwarded_for and forwarded_for[0]:
-                    ip = forwarded_for[0]
+        # Get IP, check if it's behind a proxy
+        ip = request.httprequest.headers.environ['REMOTE_ADDR']
+        forwarded_for = ''
+        if 'HTTP_X_FORWARDED_FOR' in request.httprequest.headers.environ and request.httprequest.headers.environ[
+            'HTTP_X_FORWARDED_FOR']:
+            forwarded_for = request.httprequest.headers.environ['HTTP_X_FORWARDED_FOR'].split(', ')
+            if forwarded_for and forwarded_for[0]:
+                ip = forwarded_for[0]
 
-            # for GeoIP
-            geo_ip_resolver = None
-            ip_location = ''
-            try:
-                import GeoIP
-                geo_ip_resolver = GeoIP.open(
-                    '/usr/share/GeoIP/GeoIP.dat',
-                    GeoIP.GEOIP_STANDARD)
-            except ImportError:
-                geo_ip_resolver = False
-            if geo_ip_resolver:
-                ip_location = (str(geo_ip_resolver.country_name_by_addr(ip)) or '')
+        # for GeoIP
+        geo_ip_resolver = None
+        ip_location = ''
+        try:
+            import GeoIP
+            geo_ip_resolver = GeoIP.open(
+                '/usr/share/GeoIP/GeoIP.dat',
+                GeoIP.GEOIP_STANDARD)
+        except ImportError:
+            geo_ip_resolver = False
+        if geo_ip_resolver:
+            ip_location = (str(geo_ip_resolver.country_name_by_addr(ip)) or '')
 
-            # autocommit: our single update request will be performed atomically.
-            # (In this way, there is no opportunity to have two transactions
-            # interleaving their cr.execute()..cr.commit() calls and have one
-            # of them rolled back due to a concurrent access.)
-            cr.autocommit(True)
-            user = request.registry.get('res.users').browse(
-                cr, request.uid, uid, request.context)
-            logged_in = True
-            if unsuccessful_message:
-                uid = SUPERUSER_ID
-                logged_in = False
-                sessions = False
-            else:
-                sessions = session_obj.search(cr, uid, [('session_id', '=', sid),
-                                                        ('ip', '=', ip),
-                                                        ('user_id', '=', uid),
-                                                        ('logged_in', '=', True)],
-                                              context=context)
-            if not sessions:
-                values = {
-                    'user_id': uid,
-                    'logged_in': logged_in,
-                    'session_id': sid,
-                    'session_seconds': user.session_default_seconds,
-                    'multiple_sessions_block': user.multiple_sessions_block,
-                    'date_login': now,
-                    'expiration_date': datetime.strftime(
-                        (datetime.strptime(
-                            now,
-                            DEFAULT_SERVER_DATETIME_FORMAT) +
-                         relativedelta(
-                             seconds=user.session_default_seconds)),
-                        DEFAULT_SERVER_DATETIME_FORMAT),
-                    'ip': ip,
-                    'ip_location': ip_location,
-                    'remote_tz': tz or 'GMT',
-                    'unsuccessful_message': unsuccessful_message,
-                }
-                session_obj.create(cr, uid, values, context=context)
-                cr.commit()
-                cr.close()
+        # autocommit: our single update request will be performed atomically.
+        # (In this way, there is no opportunity to have two transactions
+        # interleaving their cr.execute()..cr.commit() calls and have one
+        # of them rolled back due to a concurrent access.)
+        cr.autocommit(True)
+        user = request.registry.get('res.users').browse(
+            cr, request.uid, uid, request.context)
+        logged_in = True
+        if unsuccessful_message:
+            uid = SUPERUSER_ID
+            logged_in = False
+            sessions = False
+        else:
+            sessions = session_obj.search(cr, uid, [('session_id', '=', sid),
+                                                    ('ip', '=', ip),
+                                                    ('user_id', '=', uid),
+                                                    ('logged_in', '=', True)],
+                                          context=context)
+        if not sessions:
+            values = {
+                'user_id': uid,
+                'logged_in': logged_in,
+                'session_id': sid,
+                'session_seconds': user.session_default_seconds,
+                'multiple_sessions_block': user.multiple_sessions_block,
+                'date_login': now,
+                'expiration_date': datetime.strftime(
+                    (datetime.strptime(
+                        now,
+                        DEFAULT_SERVER_DATETIME_FORMAT) +
+                     relativedelta(
+                         seconds=user.session_default_seconds)),
+                    DEFAULT_SERVER_DATETIME_FORMAT),
+                'ip': ip,
+                'ip_location': ip_location,
+                'remote_tz': tz or 'GMT',
+                'unsuccessful_message': unsuccessful_message,
+            }
+            session_obj.create(cr, uid, values, context=context)
+            cr.commit()
+            cr.close()
         return True
 
 
@@ -247,6 +246,8 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home, TkobrSessionMixin):
 
     @http.route('/web/login', type='http', auth="none")
     def web_login(self, redirect=None, **kw):
+        if not request.registry.get('ir.sessions'):
+            return super(Home_tkobr,self).web_login(redirect=redirect, **kw)
         _logger.debug('Authentication method: Home_tkobr.web_login !')
         openerp.addons.web.controllers.main.ensure_db()
         multi_ok = True
