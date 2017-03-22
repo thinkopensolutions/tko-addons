@@ -59,7 +59,6 @@ class project_task(models.Model):
     field5_test_show = fields.Boolean(compute='_get_field_show', string='Show Field5')
     field6_test_show = fields.Boolean(compute='_get_field_show', string='Show Field6')
 
-
     @api.depends('task_type_id','task_type_id.field_ids')
     @api.one
     def _get_field_show(self):
@@ -73,20 +72,6 @@ class project_task(models.Model):
                 field_name += '_show'
                 setattr(self,field_name, True)
         return True
-
-    # set dynamic_view_field True in fields
-    # # dynamic_view_field is custom property
-    # @api.model_cr_context
-    # def _field_create(self):
-    #     result = super(project_task,self)._field_create()
-    #     model_fields = sorted(self._fields.itervalues(), key=lambda field: field.type == 'sparse')
-    #     for field in model_fields:
-    #         if field._attrs.get('dynamic_view_field'):
-    #             field_id = self.env['ir.model.fields'].search([('name','=',field.name)], limit=1)
-    #             # can't use write becuase manual fields are not allowed to write
-    #             if field_id:
-    #                 self._cr.execute("update ir_model_fields set dynamic_view_field='t' where id='%s'"%field_id.id)
-    #     return result
 
     @api.model
     def fields_view_get(self, view_id=None, view_type='form',
