@@ -23,6 +23,7 @@
 ##############################################################################
 
 from odoo import fields, models
+
 class TaskTypeConfiguration(models.TransientModel):
     _inherit = 'project.config.settings'
 
