@@ -26,25 +26,6 @@
                     <field name="color" invisible="1"/>
                     <field name="type_name" invisible="1"/>
                 </field>
-                <notebook position="inside">
-                    <page name="dynamic_fields" string="Dynamic Fields">
-                        <group>
-                            <field name="field1_test" attrs="{'invisible': [('field1_test_show','!=',True)]}"/>
-                            <field name="field2_test" attrs="{'invisible': [('field2_test_show','!=',True)]}"/>
-                            <field name="field3_test" attrs="{'invisible': [('field3_test_show','!=',True)]}"/>
-                            <field name="field4_test" attrs="{'invisible': [('field4_test_show','!=',True)]}"/>
-                            <field name="field5_test" attrs="{'invisible': [('field5_test_show','!=',True)]}"/>
-                            <field name="field6_test" attrs="{'invisible': [('field6_test_show','!=',True)]}"/>
-                            <field name="field1_test_show" invisible="1"/>
-                            <field name="field2_test_show" invisible="1"/>
-                            <field name="field3_test_show" invisible="1"/>
-                            <field name="field4_test_show" invisible="1"/>
-                            <field name="field5_test_show" invisible="1"/>
-                            <field name="field6_test_show" invisible="1"/>
-                        </group>
-
-                    </page>
-                </notebook>
             </field>
         </record>
 
