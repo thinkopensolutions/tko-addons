@@ -63,8 +63,6 @@
                     <group>
                         <field name="name"/>
                         <field name="color"/>
-                        <separator string="Fields"/>
-                        <field name="field_ids" colspan="4" nolabel="1" options="{'no_create':True}" widget="many2many_tags"/>
                     </group>
                 </form>
             </field>
