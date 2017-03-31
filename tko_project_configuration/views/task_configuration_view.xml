@@ -6,7 +6,11 @@
         <field name="inherit_id" ref="project.view_config_settings"/>
         <field name="arch" type="xml">
             <field name="module_rating_project" position="after">
-                 <field name="module_tko_project_task_type_stages"/>
+                 <field name="module_tko_project_task_type"/>
+                <field name="module_tko_project_task_type_stages"/>
+                <field name="module_tko_project_task_actions"/>
+                <field name="module_tko_project_task_status"/>
+                <field name="module_tko_project_task_reviewer"/>
             </field>
         </field>
     </record>
