@@ -22,9 +22,4 @@
 #
 ##############################################################################
 
-from odoo import fields, models
-
-class TaskTypeConfiguration(models.TransientModel):
-    _inherit = 'project.config.settings'
-
-    module_tko_project_task_type_stages = fields.Boolean(string="Manage task stages with task type")
+import models
