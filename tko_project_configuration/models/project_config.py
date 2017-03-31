@@ -31,4 +31,4 @@ class TaskTypeConfiguration(models.TransientModel):
     module_tko_project_task_type_stages = fields.Boolean(string="Manage task stages with task type")
     module_tko_project_task_actions = fields.Boolean(string="Manage action on tasks")
     module_tko_project_task_status = fields.Boolean(string="Manage status on tasks")
-    module_tko_project_task_reviewer = fields.Boolean(string="Manage reviwer on tasks")
+    module_tko_project_task_reviewer = fields.Boolean(string="Manage reviewer on tasks")
