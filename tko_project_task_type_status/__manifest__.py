@@ -33,7 +33,7 @@
     'website': 'http://www.tkobr.com',
     'depends': [
         'tko_project_task_type',
-        'tko_project_task_status'
+        'tko_project_task_actions'
     ],
     'data': [
         'views/project_task_view.xml',
