@@ -64,6 +64,7 @@
                                 <br/>
                                 <b>Python Expressions</b>
                                 <ul>
+                                     Two decimal places : ${"%0.2f" % (o.quantity_max)}s
                                      ${time.strftime("%d de %B de %Y").decode("utf-8")}s
                                     <li><b>Note: </b> For python expression we use ${}s not $()s</li>
                                 </ul>
