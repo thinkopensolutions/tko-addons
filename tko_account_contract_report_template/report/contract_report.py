@@ -60,7 +60,7 @@ class tko_contract_report(report_sxw.rml_parse):
             for expression in expression_matches:
                 error_label = 'Invalid Variable or Python Expression'
                 try:
-                    value = eval(expression)
+                    value = str(eval(expression))
                     text = text.replace(
                         '${' + expression + '}s',
                         value)
