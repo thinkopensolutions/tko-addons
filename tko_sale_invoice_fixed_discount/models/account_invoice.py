@@ -23,8 +23,8 @@ class AccountInvoice(models.Model):
         self.amount_total_signed = self.amount_total * sign
         self.amount_untaxed_signed = amount_untaxed_signed * sign
 
-    discount_type = fields.Selection([('percent', 'Percentage'), ('amount', 'Amount')], string='Discount Type',
-                                     readonly=True, states={'draft': [('readonly', False)]}, default='percent')
+    discount_type = fields.Selection([('fi', 'Fixed'), ('p', 'Percentage')], string='Discount Type',
+                                     readonly=True, states={'draft': [('readonly', False)]}, default='p')
     discount_rate = fields.Float('Discount Amount', digits=(16, 2), readonly=True, states={'draft': [('readonly', False)]})
     amount_discount = fields.Monetary(string='Discount', store=True, readonly=True, compute='_compute_amount',
                                       track_visibility='always')
@@ -32,42 +32,18 @@ class AccountInvoice(models.Model):
     @api.onchange('discount_type', 'discount_rate', 'invoice_line_ids')
     def supply_rate(self):
         for inv in self:
-            if inv.discount_type == 'percent':
+            total = 0.0
+            for line in inv.invoice_line_ids:
+                total += round((line.quantity * line.price_unit))
+            if inv.discount_type == 'p':
                 for line in inv.invoice_line_ids:
                     line.discount = inv.discount_rate
             else:
-                total = discount = 0.0
-                for line in inv.invoice_line_ids:
-                    total += (line.quantity * line.price_unit)
+                discount = 0.0
                 if inv.discount_rate != 0:
-                    discount = (inv.discount_rate / total) * 100
-                else:
-                    discount = inv.discount_rate
+                    discount = (inv.discount_rate * 100) / total
                 for line in inv.invoice_line_ids:
                     line.discount = discount
-
-    @api.multi
-    def compute_invoice_totals(self, company_currency, invoice_move_lines):
-        total = 0
-        total_currency = 0
-        for line in invoice_move_lines:
-            if self.currency_id != company_currency:
-                currency = self.currency_id.with_context(date=self.date_invoice or fields.Date.context_today(self))
-                line['currency_id'] = currency.id
-                line['amount_currency'] = currency.round(line['price'])
-                line['price'] = currency.compute(line['price'], company_currency)
-            else:
-                line['currency_id'] = False
-                line['amount_currency'] = False
-                line['price'] = line['price']
-            if self.type in ('out_invoice', 'in_refund'):
-                total += line['price']
-                total_currency += line['amount_currency'] or line['price']
-                line['price'] = - line['price']
-            else:
-                total -= line['price']
-                total_currency -= line['amount_currency'] or line['price']
-        return total, total_currency, invoice_move_lines
 
     @api.multi
     def button_dummy(self):
