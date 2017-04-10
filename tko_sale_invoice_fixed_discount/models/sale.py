@@ -53,12 +53,3 @@ class SaleOrder(models.Model):
                     discount = (order.discount_rate * 100) / total
                 for line in order.order_line:
                     line.discount = discount
-
-    # @api.multi
-    # def _prepare_invoice(self):
-    #     invoice_vals = super(SaleOrder, self)._prepare_invoice()
-    #     invoice_vals.update({
-    #         'discount_type': self.discount_type,
-    #         'discount_rate': self.discount_rate
-    #     })
-    #     return invoice_vals
