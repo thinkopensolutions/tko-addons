@@ -33,7 +33,7 @@
     'license': 'AGPL-3',
     'website': 'http://www.tkobr.com',
     'depends': [
-        'br_account',
+        'br_account','account_voucher'
     ],
     'data': [
         'wizard/account_voucher_view.xml',
@@ -43,7 +43,7 @@
     'demo': [],
     'update': [],
     'test': [],  # YAML files with tests
-    'installable': False,
+    'installable': True,
     'application': False,
     'auto_install': False,  # If it's True, the modules will be auto-installed when all dependencies are installed
     'certificate': '',

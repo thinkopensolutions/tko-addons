@@ -58,13 +58,15 @@ class account_voucher(models.Model):
         else:
             self.amount = self.move_line_id.remaining_amount
 
-    def button_proforma_voucher(self, cr, uid, ids, context=None):
+    @api.multi
+    def post(self):
         context = context or {}
-        for voucher in self.browse(cr, uid, ids, context):
+        for voucher in self:
             if voucher.amount > voucher.move_line_id.remaining_amount:
                 raise Warning('Maximum amount to be paid is %s' % voucher.move_line_id.remaining_amount)
-        return super(account_voucher, self).button_proforma_voucher(cr, uid, ids, context=context)
+        return super(account_voucher, self).post()
 
+    @api.onchange('line_dr_ids', 'line_cr_ids','amount', 'currency_id', 'type')
     def onchange_line_ids(self, cr, uid, ids, line_dr_ids, line_cr_ids, amount, voucher_currency, type, context=None):
         context = context or {}
         if not line_dr_ids and not line_cr_ids:
@@ -104,11 +106,12 @@ class account_move_line(models.Model):
     remaining_amount = fields.Float(string='Remaining Amount', compute='get_move_line_amount')
     paid_amount = fields.Float(string='Paid Amount', compute='get_move_line_amount')
 
-    def name_get(self, cr, uid, ids, context=None):
+    @api.multi
+    def name_get(self):
         if not ids:
             return []
         result = []
-        for line in self.browse(cr, uid, ids, context=context):
+        for line in self:
             result.append((line.id, line.name))
         return result
 
@@ -120,7 +123,7 @@ class account_move_line(models.Model):
                 if record.reconcile_partial_id:
                     debit = 0.0
                     credit = 0.0
-                    for line in record.reconcile_partial_id.line_partial_ids:
+                    for line in record.reconcile_partial_id.reconciled_line_ids:
                         debit += line.debit
                         credit += line.credit
                     record.remaining_amount = debit - credit
@@ -136,7 +139,7 @@ class account_move_line(models.Model):
                 if record.reconcile_partial_id:
                     debit = 0.0
                     credit = 0.0
-                    for line in record.reconcile_partial_id.line_partial_ids:
+                    for line in record.reconcile_partial_id.reconciled_line_ids:
                         debit += line.debit
                         credit += line.credit
                     record.remaining_amount = credit - debit
@@ -149,17 +152,18 @@ class account_move_line(models.Model):
                     record.paid_amount = 0.0
 
 
-class account_move_reconcile(models.Model):
-    _inherit = "account.move.reconcile"
+class AccountFullReconcile(models.Model):
+    _inherit = "account.full.reconcile"
     _description = "Account Reconciliation"
 
     remaining_amount = fields.Float(string='Remaining Amount', compute='get_remaining_amount')
 
     @api.multi
-    @api.depends('line_partial_ids')
+    @api.depends('reconciled_line_ids')
     def get_remaining_amount(self):
         for record in self:
-            print "reduce(lambda y,t: (t.debit or 0.0) - (t.credit or 0.0) + y, record.line_partial_ids, 0.0)............", reduce(
-                lambda y, t: (t.debit or 0.0) - (t.credit or 0.0) + y, record.line_partial_ids, 0.0)
-            total = reduce(lambda y, t: (t.debit or 0.0) - (t.credit or 0.0) + y, record.line_partial_ids, 0.0)
+            print "reduce(lambda y,t: (t.debit or 0.0) - (t.credit or 0.0) + y, record.reconciled_line_ids, 0.0)............", reduce(
+                lambda y, t: (t.debit or 0.0) - (t.credit or 0.0) + y, record.reconciled_line_ids, 0.0)
+            total = reduce(lambda y, t: (t.debit or 0.0) - (t.credit or 0.0) + y, record.reconciled_line_ids, 0.0)
+
             record.remaining_amount = total
