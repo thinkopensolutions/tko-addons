@@ -37,10 +37,12 @@ class ProjectTaskActions(models.Model):
     expected_duration = fields.Integer(u'Expected Time', default=1, required=True)
     expected_duration_unit = fields.Selection([('d', 'Day'), ('w', 'Week'), ('m', 'Month'), ('y', 'Year')],
                                               default='d', required=True, string=u'Expected Time Unit')
-    filter_id = fields.Many2one('ir.filters','Filter')
-    filter_warning_message = fields.Text("Warning Message")
-    done_server_action_id = fields.Many2one('ir.actions.server', string='Done Server Rule', help=u'This server action will be executed when Actions is set to done')
-    cancel_server_action_id = fields.Many2one('ir.actions.server', string='Cancel Server Rule', help=u'This server action will be executed when Actions is set to cancel')
+    done_filter_id = fields.Many2one('ir.filters','Done Filter')
+    done_filter_warning_message = fields.Text("Done Warning Message")
+    done_server_action_id = fields.Many2one('ir.actions.server', string='Done Server Action', help=u'This server action will be executed when Actions is set to done')
+    cancel_filter_id = fields.Many2one('ir.filters', 'Cancel Filter')
+    cancel_filter_warning_message = fields.Text("Cancel Warning Message")
+    cancel_server_action_id = fields.Many2one('ir.actions.server', string='Cancel Server Action', help=u'This server action will be executed when Actions is set to cancel')
 
 
 class ProjectTaskActionsLine(models.Model):
@@ -59,8 +61,8 @@ class ProjectTaskActionsLine(models.Model):
            ir.rule domains."""
         return {'user': self.env.user, 'time': time}
 
-    #Validate action filter
-    def validate_action_filter(self):
+    #Validate action done filter
+    def validate_action_done_filter(self):
         """
 
         Context must have active_id
@@ -70,7 +72,7 @@ class ProjectTaskActionsLine(models.Model):
         eval_context = self._eval_context()
         active_id = self.task_id.id
         if active_id and model_name:
-            domain = self.action_id.filter_id.domain
+            domain = self.action_id.done_filter_id.domain
             rule = expression.normalize_domain(safe_eval(domain, eval_context))
             Query = self.env[model_name].sudo()._where_calc(rule, active_test=False)
             from_clause, where_clause, where_clause_params = Query.get_sql()
@@ -82,11 +84,34 @@ class ProjectTaskActionsLine(models.Model):
                 return True
         return False
 
+        # Validate action cancel filter
+        def validate_action_cancel_filter(self):
+            """
+
+            Context must have active_id
+            :return:
+            """
+            model_name = 'project.task'
+            eval_context = self._eval_context()
+            active_id = self.task_id.id
+            if active_id and model_name:
+                domain = self.action_id.cancel_filter_id.domain
+                rule = expression.normalize_domain(safe_eval(domain, eval_context))
+                Query = self.env[model_name].sudo()._where_calc(rule, active_test=False)
+                from_clause, where_clause, where_clause_params = Query.get_sql()
+                where_str = where_clause and (" WHERE %s" % where_clause) or ''
+                query_str = 'SELECT id FROM ' + from_clause + where_str
+                self._cr.execute(query_str, where_clause_params)
+                result = self._cr.fetchall()
+                if active_id in [id[0] for id in result]:
+                    return True
+            return False
+
     def set_done(self):
-        if self.action_id.filter_id:
+        if self.action_id.done_filter_id:
             # validate filter here
-            if  not self.validate_action_filter():
-                raise Warning(self.action_id.filter_warning_message or "Warning message not set")
+            if  not self.validate_action_done_filter():
+                raise Warning(self.action_id.filter_warning_message or "Warning message not set for done filter")
                 #set to done and execute server action
 
         self.write({'state': 'd', 'done_date':fields.Date.today()})
@@ -98,6 +123,10 @@ class ProjectTaskActionsLine(models.Model):
             recs.run()
 
     def set_cancel(self):
+        if self.action_id.cancel_filter_id:
+            # validate filter here
+            if  not self.validate_action_cancel_filter():
+                raise Warning(self.action_id.cancel_filter_warning_message or "Warning message not set for cancel filter")
         self.state = 'c'
         if self.action_id.cancel_server_action_id:
             self.action_id.cancel_server_action_id.run()

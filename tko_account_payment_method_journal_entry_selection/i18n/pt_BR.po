@@ -1,0 +1,58 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* tko_account_payment_method_journal_entry_selection
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0-20150926\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-12-22 18:12+0000\n"
+"PO-Revision-Date: 2015-12-22 18:12+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: tko_account_payment_method_journal_entry_selection
+#: model:ir.model,name:tko_account_payment_method_journal_entry_selection.model_account_move_reconcile
+msgid "Account Reconciliation"
+msgstr "Reconciliação da Conta"
+
+#. module: tko_account_payment_method_journal_entry_selection
+#: model:ir.model,name:tko_account_payment_method_journal_entry_selection.model_account_voucher
+msgid "Accounting Voucher"
+msgstr "Comprovante Contábil"
+
+#. module: tko_account_payment_method_journal_entry_selection
+#: field:account.voucher,move_line_id:0
+msgid "Installment"
+msgstr "Vencimentos"
+
+#. module: tko_account_payment_method_journal_entry_selection
+#: view:account.voucher:tko_account_payment_method_journal_entry_selection.account_voucher_form
+msgid "Installments"
+msgstr "Vencimentos"
+
+#. module: tko_account_payment_method_journal_entry_selection
+#: model:ir.model,name:tko_account_payment_method_journal_entry_selection.model_account_invoice
+msgid "Invoice"
+msgstr "Fatura"
+
+#. module: tko_account_payment_method_journal_entry_selection
+#: model:ir.model,name:tko_account_payment_method_journal_entry_selection.model_account_move_line
+msgid "Journal Items"
+msgstr "Itens do Diário"
+
+#. module: tko_account_payment_method_journal_entry_selection
+#: view:account.invoice:tko_account_payment_method_journal_entry_selection.l10n_br_account_invoice_supplier_form
+#: view:account.invoice:tko_account_payment_method_journal_entry_selection.view_l10n_br_account_invoice_form
+msgid "Vencimentos"
+msgstr "Vencimentos"
+
+#. module: tko_account_payment_method_journal_entry_selection
+#: view:account.voucher:tko_account_payment_method_journal_entry_selection.account_voucher_form
+msgid "{'move_line_id' :move_line_id}"
+msgstr "{'move_line_id' :move_line_id}"
+
