@@ -12,7 +12,7 @@ class account_invoice(models.Model):
         if self.move_id:
             data_lines = [x for x in self.move_id.line_ids if (
                 x.account_id.id == self.account_id.id
-                and x.account_id.type in ('receivable', 'payable')
+                and x.account_id.user_type_id.type in ('receivable', 'payable')
                 and self.journal_id.revenue_expense)]
             New_ids = []
             for line in data_lines:

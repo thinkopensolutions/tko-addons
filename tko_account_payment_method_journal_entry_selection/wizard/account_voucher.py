@@ -52,7 +52,6 @@ class account_voucher(models.Model):
     @api.onchange('move_line_id')
     def change_move_line_id(self):
         inv_id = self.env.context.get('active_id', False)
-
         if not self.move_line_id:
             self.amount = 0.0
         else:
@@ -66,16 +65,17 @@ class account_voucher(models.Model):
                 raise Warning('Maximum amount to be paid is %s' % voucher.move_line_id.remaining_amount)
         return super(account_voucher, self).post()
 
-    @api.onchange('line_dr_ids', 'line_cr_ids','amount', 'currency_id', 'type')
-    def onchange_line_ids(self, cr, uid, ids, line_dr_ids, line_cr_ids, amount, voucher_currency, type, context=None):
-        context = context or {}
-        if not line_dr_ids and not line_cr_ids:
+    @api.onchange('line_ids','amount', 'currency_id')
+    # def onchange_line_ids(self, cr, uid, ids, line_dr_ids, line_cr_ids, amount, voucher_currency, type, context=None):
+    def onchange_line_ids(self):
+        # context = context or {}
+        if not self.line_ids :#and not self.line_cr_ids:
             return {'value': {'writeoff_amount': 0.0}}
         # resolve lists of commands into lists of dicts
-        line_dr_ids = self.resolve_2many_commands(cr, uid, 'line_dr_ids', line_dr_ids, ['amount'], context)
-        line_cr_ids = self.resolve_2many_commands(cr, uid, 'line_cr_ids', line_cr_ids, ['amount'], context)
+        # self.line_ids = self.resolve_2many_commands('line_ids', self.line_ids, ['amount'])
+        # self.line_cr_ids = self.resolve_2many_commands('line_cr_ids', self.line_cr_ids, ['amount'])
         # set correct move_id in line
-        move_line_id = context.get('move_line_id', False)
+        move_line_id = self._context.get('move_line_id', False)
         for line in line_cr_ids[1:]:
             if line['move_line_id'] == move_line_id:
                 line['amount'] = amount
@@ -85,16 +85,14 @@ class account_voucher(models.Model):
         # compute the field is_multi_currency that is used to hide/display options linked to secondary currency on the voucher
         is_multi_currency = False
         # loop on the voucher lines to see if one of these has a secondary currency. If yes, we need to see the options
-        for voucher_line in line_dr_ids + line_cr_ids:
-            line_id = voucher_line.get('id') and self.pool.get('account.voucher.line').browse(cr, uid,
-                                                                                              voucher_line['id'],
-                                                                                              context=context).move_line_id.id or voucher_line.get(
-                'move_line_id')
-            if line_id and self.pool.get('account.move.line').browse(cr, uid, line_id, context=context).currency_id:
+        for voucher_line in self.line_ids:# + line_cr_ids:
+            line_id = voucher_line.get('id') and self.env['account.voucher.line'].browse(voucher_line['id']).move_line_id.id or voucher_line.get('move_line_id')
+            if line_id and self.env['account.move.line'].browse(line_id).currency_id:
                 is_multi_currency = True
                 break
+                # self._compute_writeoff_amount(self.line_dr_ids, line_cr_ids, amount, type),
         return {
-            'value': {'writeoff_amount': self._compute_writeoff_amount(cr, uid, line_dr_ids, line_cr_ids, amount, type),
+            'value': {'writeoff_amount': self._compute_writeoff_amount(self.line_ids, amount, type),
                       'is_multi_currency': is_multi_currency,
                       'line_cr_ids': line_cr_ids,
                       }}
@@ -108,7 +106,7 @@ class account_move_line(models.Model):
 
     @api.multi
     def name_get(self):
-        if not ids:
+        if not self._ids:
             return []
         result = []
         for line in self:
@@ -119,34 +117,34 @@ class account_move_line(models.Model):
     def get_move_line_amount(self):
         for record in self:
             # customer invoices
-            if record.invoice.type == 'out_invoice':
-                if record.reconcile_partial_id:
+            if record.invoice_id.type == 'out_invoice':
+                if record.full_reconcile_id:
                     debit = 0.0
                     credit = 0.0
-                    for line in record.reconcile_partial_id.reconciled_line_ids:
+                    for line in record.full_reconcile_id.reconciled_line_ids:
                         debit += line.debit
                         credit += line.credit
                     record.remaining_amount = debit - credit
                     record.paid_amount = credit
-                elif record.reconcile_id:
-                    record.remaining_amount = 0.0
-                    record.paid_amount = record.debit
+                # elif record.reconcile_id:
+                #     record.remaining_amount = 0.0
+                #     record.paid_amount = record.debit
                 else:
                     record.remaining_amount = record.debit
                     record.paid_amount = 0.0
             # supplier invoices
-            if record.invoice.type == 'in_invoice':
-                if record.reconcile_partial_id:
+            if record.invoice_id.type == 'in_invoice':
+                if record.full_reconcile_id:
                     debit = 0.0
                     credit = 0.0
-                    for line in record.reconcile_partial_id.reconciled_line_ids:
+                    for line in record.full_reconcile_id.reconciled_line_ids:
                         debit += line.debit
                         credit += line.credit
                     record.remaining_amount = credit - debit
                     record.paid_amount = debit
-                elif record.reconcile_id:
-                    record.remaining_amount = 0.0
-                    record.paid_amount = record.credit
+                # elif record.reconcile_id:
+                #     record.remaining_amount = 0.0
+                #     record.paid_amount = record.credit
                 else:
                     record.remaining_amount = record.credit
                     record.paid_amount = 0.0
