@@ -40,7 +40,7 @@ class AccountInvoice(models.Model):
                     line.discount = inv.discount_rate
             else:
                 discount = 0.0
-                if inv.discount_rate != 0:
+                if inv.discount_rate != 0 and total !=0:
                     discount = (inv.discount_rate * 100) / total
                 for line in inv.invoice_line_ids:
                     line.discount = discount
@@ -50,7 +50,43 @@ class AccountInvoice(models.Model):
         self.supply_rate()
         return True
 
+    @api.model
+    def create(self, vals):
+        res = super(AccountInvoice, self).create(vals)
+        #Calculate a discount when it is fixed and set on line as a percentage
+        if res.discount_type == 'fi':
+            self.add_fixed_amount_percentage(res)
+        return res
+
+    @api.multi
+    def write(self, vals):
+        res = super(AccountInvoice, self).write(vals)
+        #Calculate a discount when it is fixed and set on line as a percentage
+        if self.discount_type == 'fi':
+            self.add_fixed_amount_percentage(self)
+        return res
+
+    @api.multi
+    def add_fixed_amount_percentage(self,res):
+        total = 0.0
+        for line in res.invoice_line_ids:
+            total += round((line.quantity * line.price_unit))
+        if total:
+            discount = (res.discount_rate *100)/ total
+            for line in res.invoice_line_ids:
+                line.write({'discount':discount})
+
+    @api.onchange('discount_type')
+    def onchange_discount_type(self):
+        self.discount_rate = 0
+
 class AccountInvoiceLine(models.Model):
     _inherit = "account.invoice.line"
 
     discount = fields.Float(string='Discount (%)', digits=(16, 20), default=0.0)
+
+    @api.onchange('quantity','price_unit')
+    def onchange_discount(self):
+        if self.invoice_id:
+            if self.invoice_id.discount_type == 'p':
+                self.discount = self.invoice_id.discount_rate
