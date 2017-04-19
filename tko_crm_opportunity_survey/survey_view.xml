@@ -1,0 +1,15 @@
+<openerp>
+    <data>
+        <record id="tko_survey_inherit_form" model="ir.ui.view">
+            <field name="name">Opportunity</field>
+            <field name="model">survey.user_input</field>
+            <field name="inherit_id" ref="survey.survey_user_input_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="opportunity_id"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
