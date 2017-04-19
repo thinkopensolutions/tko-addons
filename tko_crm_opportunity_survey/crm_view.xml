@@ -1,0 +1,116 @@
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="survey_email_compose_message2">
+            <field name="name">survey.mail.compose.message.form</field>
+            <field name="model">survey.mail.compose.message</field>
+            <field name="priority">200</field>
+            <field name="arch" type="xml">
+                <form string="Compose Email" version="7.0">
+                    <field name="composition_mode" invisible="1"/>
+                    <field name="model" invisible="1"/>
+                    <field name="res_id" invisible="1"/>
+                    <field name="parent_id" invisible="1"/>
+                    <group col="2">
+                        <field name="survey_id" readonly="context.get('default_survey_id')"
+                               on_change="onchange_survey_id(survey_id)"/>
+                        <field name="public" widget="radio" invisible="1"/>
+                    </group>
+                    <group col="1" invisible="context.get('survey_resent_token')"
+                           attrs="{'invisible':[('public','in',['email_private', 'email_public_link'])]}"
+                           class="oe_survey_email_public">
+                        <div>
+                            You can share your survey web public link and/or send private invitations to your audience.
+                            People can answer once per invitation, and whenever they want with the public web link (in
+                            this case, the "Public in website" setting must be enabled).
+                        </div>
+                        <div>Copy, paste and share the web link below to your audience.</div>
+                        <code>
+                            <field name="public_url"/>
+                        </code>
+                        <div>Copy and paste the HTML code below to add this web link to any webpage.</div>
+                        <code>
+                            <field name="public_url_html"/>
+                        </code>
+                    </group>
+                    <group col="1" attrs="{'invisible':['|',('public','=',False),('public','in',['public_link'])]}">
+                        <group col="2">
+                            <field invisible="context.get('survey_resent_token')" name="partner_ids"
+                                   widget="many2many_tags_email" placeholder="Add list of existing contacts..."
+                                   context="{'force_email':True, 'show_email':True}"/>
+                            <field invisible="1" name="multi_email"
+                                   placeholder="Add list of email of recipients (will not converted in partner), separated by commas, semicolons or newline..."
+                                   on_change="onchange_multi_email(multi_email)" no_resize="1"/>
+                            <field name="subject" placeholder="Subject..."/>
+                        </group>
+                        <field name="body"/>
+                        <group col="2">
+                            <div>
+                                <label for="attachment_ids"/>
+                                <field name="attachment_ids" widget="many2many_binary"/>
+                            </div>
+                            <div class="oe_survey_date_deadline">
+                                <label for="date_deadline"/>
+                                <field name="date_deadline"/>
+                            </div>
+                        </group>
+                    </group>
+                    <footer attrs="{'invisible':[('public','in',['email_private', 'email_public_link'])]}">
+                        <button string="Close" class="oe_link" special="cancel"/>
+                    </footer>
+                    <footer attrs="{'invisible':['|',('public','=',False),('public','in',['public_link'])]}">
+                        <button string="Send" name="send_mail" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                        <group class="oe_right" col="1">
+                            <div>
+                                Use template
+                                <field name="template_id" nolabel="1"
+                                       on_change="onchange_template_id(template_id, composition_mode, model, res_id, context)"/>
+                            </div>
+                            <button icon="/email_template/static/src/img/email_template_save.png" type="object"
+                                    name="save_as_template" string="Save as new template" class="oe_link"
+                                    help="Save as a new template"/>
+                        </group>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_opportunity_survey_form">
+            <field name="name">Surveys</field>
+            <field name="res_model">survey.mail.compose.message</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="survey_email_compose_message2"/>
+            <field name="context">{'default_public':'email_private'}</field>
+        </record>
+
+        <record id="tko_crm_survey_form" model="ir.ui.view">
+            <field name="name">Opportunity</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/group/group[4]" position="after">
+                    <group col="4">
+                        <field name="survey_id"/>
+                        <field name="answer_state" nolabel="1" colspan="2"/>
+                        <field name="survey_ans_id" colspan="4" attrs="{'invisible':[('answer_state','!=','done')]}"/>
+                        <!--<button name="%(action_opportunity_survey_form)d" type="action" string="Send Survey" class="oe_right" style="width: 120%%;" attrs="{'invisible':[('answer_state','!=','done')]}"/>-->
+                        <label for="answer_survey" string=""/>
+                        <button name="answer_survey" string="View Answers"
+                                attrs="{'invisible':[('answer_state','not in',('done') )]}" type="object"
+                                class="oe_right" style="width: 100%%;"/>
+                        <button name="answer_survey" string="Answer Survey"
+                                attrs="{'invisible':[('answer_state','in',('done') )]}" type="object" class="oe_right"
+                                style="width: 100%%;"/>
+                        <button name="%(action_opportunity_survey_form)d" type="action" string="Send Survey"
+                                class="oe_right" style="width: 100%%;"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>
