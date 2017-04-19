@@ -142,3 +142,5 @@ class account_analytic_account_contract_report_body(models.Model):
     contract_body = fields.Text(string='Contract Body',
                                 track_visibility='onchange', required=True,
                                 translate=True)
+    report_header = fields.Text(u'Header', translate=True)
+    report_footer = fields.Text(u'Footer', translate=True)
