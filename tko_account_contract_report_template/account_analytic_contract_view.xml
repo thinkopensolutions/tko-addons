@@ -24,66 +24,94 @@
                             <field name="name"/>
                             <field name="signature" widget="image" class="oe_avatar"/>
                         </group>
-                        <group col="4">
-                            <div class="oe_grey oe_edit_only">
-                                You can add keywords in text to be replaced:
-                                <br/>
-                                Customer, for example:
-                                <ul>
-                                    <li>Name: $(partner_id.name)s</li>
-                                    <li>Email: $(partner_id.email)s</li>
-                                </ul>
-                                Account Manager, for example:
-                                <ul>
-                                    <li>Street: $(manager_id.street)s</li>
-                                    <li>Country: $(manager_id.country)s</li>
-                                    <li>Function: $(manager_id.function)s</li>
-                                </ul>
-                            </div>
-                            <div class="oe_grey oe_edit_only">
-                                <br/>
-                                Company, for example:
-                                <ul>
-                                    <li>Name: $(company_id.name)s</li>
-                                    <li>Phone: $(company_id.phone)s</li>
-                                    <li>
-                                        <strong>Signature:</strong>
-                                        $(contract_template_body_id.signature)s
-                                    </li>
-                                </ul>
-                                You can use <strong>any field that is related to the contract</strong>.
-                                <br/>
-                                <strong>Example:</strong>
-                                $(partner_id.property_payment_term.name)s
-                                <br/>
-                                For images <strong>you can set width and height</strong> as $(ImageField,width,height)s.
-                                Example: $(partner_id.image,160,160)s
-                                You can also add a style type="text/css" to add CSS style rules to the document.
-                            </div>
-                             <div class="oe_grey oe_edit_only">
-                                <br/>
-                                <b>Python Expressions</b>
-                                <ul>
-                                     Two decimal places : ${"%0.2f" % (o.quantity_max)}s
-                                     ${time.strftime("%d de %B de %Y").decode("utf-8")}s
-                                    <li><b>Note: </b> For python expression we use ${}s not $()s</li>
-                                </ul>
-                                <b>Python If Condition</b>
-                                <b>Method 1</b><br/>
-                                <ul>
-                                    <li>Condition: ${'true' if True else 'false'}s</li>
-                                     <li>clausula: ${", some text" + object.field_name if object.field_name else "."}s</li>
-                                    <li>type: ${"Some Text" if object.field_name == "value" else "Other Text"}s</li>
-                                </ul>
-                                <b>Method 2</b><br/>
-                                <ul>
-                                    <li>type: ${object.field_name == "Value" and "Print This" or "Print That"}s</li>
-                                    <li>CPF: ${o.cpf and o.cpf or "Not Found"}s</li>
-                                </ul>
+                        <notebook>
+                            <page string="Content">
+                                <field name="contract_body" widget="html"/>
+                            </page>
+                            <page string="Header / Footer">
+                                <separator string="Header"/>
+                                <field name="report_header" widget="html"/>
+                                <separator string="Footer"/>
+                                <field name="report_footer" widget="html"/>
+                            </page>
+                            <page string="Help">
+                                <group col="4">
+                                    <div class="oe_grey oe_edit_only">
+                                        You can add keywords in text to be replaced:
+                                        <br/>
+                                        Customer, for example:
+                                        <ul>
+                                            <li>Name: $(partner_id.name)s</li>
+                                            <li>Email: $(partner_id.email)s</li>
+                                        </ul>
+                                        Account Manager, for example:
+                                        <ul>
+                                            <li>Street: $(manager_id.street)s</li>
+                                            <li>Country: $(manager_id.country)s</li>
+                                            <li>Function: $(manager_id.function)s</li>
+                                        </ul>
+                                    </div>
+                                    <div class="oe_grey oe_edit_only">
+                                        <br/>
+                                        Company, for example:
+                                        <ul>
+                                            <li>Name: $(company_id.name)s</li>
+                                            <li>Phone: $(company_id.phone)s</li>
+                                            <li>
+                                                <strong>Signature:</strong>
+                                                $(contract_template_body_id.signature)s
+                                            </li>
+                                        </ul>
+                                        You can use <strong>any field that is related to the contract</strong>.
+                                        <br/>
+                                        <strong>Example:</strong>
+                                        $(partner_id.property_payment_term.name)s
+                                        <br/>
+                                        For images <strong>you can set width and height</strong> as
+                                        $(ImageField,width,height)s.
+                                        Example: $(partner_id.image,160,160)s
+                                        You can also add a style type="text/css" to add CSS style rules to the document.
+                                    </div>
+                                    <div class="oe_grey oe_edit_only">
+                                        <br/>
+                                        <b>Python Expressions</b>
+                                        <ul>
+                                            Two decimal places : ${"%0.2f" % (o.quantity_max)}s
+                                            ${time.strftime("%d de %B de %Y").decode("utf-8")}s
+                                            <li>
+                                                <b>Note:</b>
+                                                For python expression we use ${}s not $()s
+                                            </li>
+                                        </ul>
+                                        <b>Python If Condition</b>
+                                        <b>Method 1</b>
+                                        <br/>
+                                        <ul>
+                                            <li>Condition: ${'true' if True else 'false'}s</li>
+                                            <li>clausula:
+                                                ${", some text" + object.field_name if object.field_name else "."}s
+                                            </li>
+                                            <li>type:
+                                                ${"Some Text" if object.field_name == "value" else "Other Text"}s
+                                            </li>
+                                        </ul>
+                                        <b>Method 2</b>
+                                        <br/>
+                                        <ul>
+                                            <li>type:
+                                                ${object.field_name == "Value" and "Print This" or "Print That"}s
+                                            </li>
+                                            <li>CPF: ${o.cpf and o.cpf or "Not Found"}s</li>
+                                        </ul>
 
-                            </div>
-                        </group>
-                        <field name="contract_body" widget="html"/>
+                                    </div>
+                                </group>
+                            </page>
+
+                        </notebook>
+
+
+
                     </sheet>
                     <div class="oe_chatter">
                         <field name="message_follower_ids" widget="mail_followers"/>
