@@ -1,0 +1,81 @@
+<openerp>
+    <data>
+        <!--form view -->
+        <record id="view_task_form_inherit" model="ir.ui.view">
+            <field name="name">project.task.form</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="tko_project_task_actions.view_task_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='action_line_ids']/tree/field[@name='state']" position='before'>
+                    <field name="estimated_time"/>
+                    <field name="spent_time"/>
+                    <field name="is_open" invisible="True"/>
+                    <field name="progress_time" widget="progressbar"/>
+                </xpath>
+                <xpath expr="//field[@name='action_line_ids']/tree/field[@name='state']" position='after'>
+                    <button name="open_wizard" icon="fa fa-clock-o" string="Cancel" type="object" attrs="{'invisible':[('is_open','=',False)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="task_action_form_view_inherit" model="ir.ui.view">
+            <field name="model">project.task.action</field>
+            <field name="inherit_id" ref="tko_project_task_actions.task_action_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="replace">
+                    <form string="Task Type" version="7.0">
+                        <sheet>
+                            <group>
+                                <field name="name"/>
+                                <field name="expected_duration"/>
+                                <field name="expected_duration_unit"/>
+                                <field name="filter_id" domain="[('model_id','=','project.task')]"/>
+                                <field name="done_server_action_id"/>
+                                <field name="cancel_server_action_id"/>
+                                <field name="filter_warning_message" placeholder="Warning message if filter not validated" attrs="{'required' : [('filter_id','!=',False)]}" nolable="1"/>
+                                <field name="estimated_time"/>
+                                <field name="is_wizard_open"/>
+                            </group>
+                        </sheet>                    
+                    </form>                  
+                </xpath>
+            </field>
+        </record>
+        <record id="task_action_line_tree_view_inherit" model="ir.ui.view">
+            <field name="name">Task Action</field>
+            <field name="model">project.task.action.line</field>
+            <field name="inherit_id" ref="tko_project_task_actions.task_action_line_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="editable">True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='state']" position="before">
+                    <field name="estimated_time"/>
+                    <field name="spent_time"/>
+                    <field name="progress_time" widget="progressbar"/>
+                </xpath>
+                <xpath expr="//field[@name='state']" position="after">
+                    <field name="is_open" invisible="True"/>
+                   <button name="open_wizard" icon="fa fa-clock-o" string="Cancel" type="object" attrs="{'invisible':[('is_open','=',False)]}"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="timesheet_time_view" model="ir.ui.view">
+            <field name="name">Timesheet Time</field>
+            <field name="model">timesheet.time</field>
+            <field name="arch" type="xml">
+                <form string="Task Type" version="7.0">
+                    <sheet>
+                        <group>
+                            <field name="time"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string='conclude' name="add_time" type="object" class="btn-primary"/>
+                        <button string="cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>
