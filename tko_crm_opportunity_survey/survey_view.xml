@@ -10,6 +10,16 @@
                 </field>
             </field>
         </record>
+        <record id="survey_form" model="ir.ui.view">
+            <field name="name">survey.survey</field>
+            <field name="model">survey.survey</field>
+            <field name="inherit_id" ref="survey.survey_form"/>
+            <field name="arch" type="xml">
+                <field name="quizz_mode" position="after">
+                    <field name="default_template_id"/>
+                </field>
+            </field>
+        </record>
 
     </data>
 </openerp>

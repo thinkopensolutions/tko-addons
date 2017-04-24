@@ -27,6 +27,15 @@ from datetime import datetime, timedelta
 from openerp.osv import osv, fields
 
 
+class survey_user(osv.Model):
+    _inherit = 'survey.survey'
+
+    _columns = {
+        'default_template_id' : fields.many2one('email.template', 'Default Template'),
+    }
+
+
+
 class survey_user_input(osv.Model):
     _inherit = "survey.user_input"
     _rec_name = "date_write"
@@ -78,3 +87,14 @@ class survey_mail_compose_message(osv.TransientModel):
             self.pool.get('crm.lead').write(cr, uid, active_ids, {
                 'partner_id': [partner.id for partner in self.browse(cr, uid, ids[0]).partner_ids][0]})
         return super(survey_mail_compose_message, self).send_mail(cr, uid, ids, context=context)
+
+
+    def onchange_survey_id(self, cr, uid, ids, survey_id, context=None):
+        """ Compute if the message is unread by the current user. """
+
+        res = super(survey_mail_compose_message,self).onchange_survey_id(cr, uid, ids, survey_id, context)
+        if survey_id:
+            survey = self.pool.get('survey.survey').browse(cr, uid, survey_id, context=context)
+            if survey.default_template_id:
+                res['value'].update({'template_id' : survey.default_template_id.id})
+        return res
