@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+        <record id="account_config_settings_view_form_inherit_account_issue" model="ir.ui.view">
+        <field name="name">account.config.settings.view.form.inherit.account.issue</field>
+        <field name="model">account.config.settings</field>
+        <field name="inherit_id" ref="account.view_account_config_settings"/>
+        <field name="arch" type="xml">
+            <label for="module_account_tax_cash_basis" position="after">
+                <div>
+                 <field name="module_tko_account_moves_in_draft"/>
+                <label for="module_tko_account_moves_in_draft"/>
+                </div>
+            </label>
+        </field>
+    </record>
+
+    </data>
+</odoo>
+
