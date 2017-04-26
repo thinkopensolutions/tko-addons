@@ -1,6 +1,17 @@
 <openerp>
     <data>
 
+        <record id="project_project_task_type_id" model="ir.ui.view">
+            <field name="name">project.project.form.view</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <field name="user_id" position="before">
+                    <field name="task_type_ids" widget="many2many_tags"/>
+                </field>
+            </field>
+        </record>
+
         <record id="view_task_search_form" model="ir.ui.view">
             <field name="name">project.task.search.form</field>
             <field name="model">project.task</field>
@@ -15,6 +26,7 @@
                 </filter>
             </field>
         </record>
+
         <record id="view_task_form_with_pad" model="ir.ui.view">
             <field name="name">project.task.form.pad</field>
             <field name="model">project.task</field>
