@@ -23,6 +23,7 @@ class SaleOrder(models.Model):
                 'amount_total': amount_untaxed + amount_tax,
             })
 
+
     discount_type = fields.Selection([ ('fi', 'Fixed'), ('p', 'Percentage')], string='Discount type',
                                      readonly=True,states={'draft': [('readonly', False)], 'sent': [('readonly', False)]},
                                      default='p')
@@ -36,6 +37,10 @@ class SaleOrder(models.Model):
                                    track_visibility='always')
     amount_discount = fields.Monetary(string='Discount', store=True, readonly=True, compute='_amount_all',
                                       digits_compute=dp.get_precision('Account'), track_visibility='always')
+
+    @api.onchange('discount_type')
+    def onchange_discount_type(self):
+        self.discount_rate = 0
 
     @api.onchange('discount_type', 'discount_rate')
     def supply_rate(self):
@@ -53,3 +58,53 @@ class SaleOrder(models.Model):
                     discount = (order.discount_rate * 100) / total
                 for line in order.order_line:
                     line.discount = discount
+
+    @api.multi
+    def _prepare_invoice(self,):
+        invoice_vals = super(SaleOrder, self)._prepare_invoice()
+        invoice_vals.update({
+            'discount_type': self.discount_type,
+            'discount_rate': self.discount_rate
+        })
+        return invoice_vals
+
+    @api.model
+    def create(self, vals):
+        res = super(SaleOrder, self).create(vals)
+        #Calculate a discount when it is fixed and set on line as a percentage
+        if res.discount_type == 'fi':
+            self.add_fixed_amount_percentage(res)
+        return res
+
+    @api.multi
+    def write(self, vals):
+        res = super(SaleOrder, self).write(vals)
+        #Calculate a discount when it is fixed and set on line as a percentage
+        if self.discount_type == 'fi':
+            self.add_fixed_amount_percentage(self)
+        return res
+
+    @api.multi
+    def add_fixed_amount_percentage(self,res):
+        total = 0.0
+        for line in res.order_line:
+            total += round((line.product_uom_qty * line.price_unit))
+        if total:
+            discount = (res.discount_rate *100)/ total
+            for line in res.order_line:
+                line.write({'discount':discount})
+
+class SaleOrderLine(models.Model):
+    _inherit = 'sale.order.line'
+
+    @api.onchange('product_id', 'price_unit', 'product_uom', 'product_uom_qty', 'tax_id')
+    def _onchange_discount(self):
+        super(SaleOrderLine, self)._onchange_discount()
+        if self.order_id:
+            if self.order_id.discount_type == 'p':
+                self.discount = self.order_id.discount_rate
+            else:
+                if self.price_unit == 0:
+                    if self.order_id.amount_discount and self.order_id.amount_total and self.order_id.amount_discount:
+                        discount = (self.order_id.amount_discount * 100) / (self.order_id.amount_total + self.order_id.amount_discount)
+                        self.discount = discount
