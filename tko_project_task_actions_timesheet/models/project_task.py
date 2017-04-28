@@ -42,7 +42,7 @@ class ProjectTaskActionsLine(models.Model):
     @api.multi
     def calculate_spent_time(self):
         for action_line in self:
-            account_analytic_ids = self.env['account.analytic.line'].search([('action_id','=',action_line.id)])
+            account_analytic_ids = self.env['account.analytic.line'].search([('action_line_id','=',action_line.id)])
             total_time = 0.0
             for timesheet in account_analytic_ids:
                 total_time += timesheet.unit_amount
@@ -125,9 +125,9 @@ class Timesheet_time(models.Model):
                                 'unit_amount':self.time,'account_id':action_line.task_id.project_id.id,
                                 'task_id':action_line.task_id.id,
                                 'project_id':action_line.task_id.project_id.id,
-                                'action_id':action_line.id  or False})
+                                'action_line_id':action_line.id  or False})
 
 class AccountAnalyticLine(models.Model):
     _inherit = 'account.analytic.line'
 
-    action_id = fields.Many2one('project.task.action.line',string='Action')
+    action_line_id = fields.Many2one('project.task.action.line',string='Action Line')
