@@ -10,7 +10,7 @@
                     <page string="Task Action" name="task_action">
                         <field name="action_line_ids" nolable="1">
                             <tree editable="bottom">
-                                <field name="action_id" options="{'no_create': True}"/>
+                                <field name="action_id" options="{'no_create': True}" required="1"/>
                                 <field name="expected_date"/>
                                 <field name="done_date"/>
                                 <field name="state" readonly="1"/>
@@ -40,17 +40,19 @@
             <field name="model">project.task.action</field>
             <field name="arch" type="xml">
                 <form string="Task Type" version="7.0">
-                    <group>
-                        <field name="name"/>
-                        <field name="expected_duration"/>
-                        <field name="expected_duration_unit"/>
-                        <field name="done_filter_id" domain="[('model_id','=','project.task')]"/>
-                        <field name="done_filter_warning_message" placeholder="Warning message if done filter not validated" attrs="{'required' : [('done_filter_id','!=',False)]}" nolable="1"/>
-                        <field name="done_server_action_id"/>
-                        <field name="cancel_filter_id" domain="[('model_id','=','project.task')]"/>
-                        <field name="cancel_server_action_id"/>
-                        <field name="cancel_filter_warning_message" placeholder="Warning message if cancel filter not validated" attrs="{'required' : [('cancel_filter_id','!=',False)]}" nolable="1"/>
-                    </group>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="expected_duration"/>
+                            <field name="expected_duration_unit"/>
+                            <field name="done_filter_id" domain="[('model_id','=','project.task')]"/>
+                            <field name="done_filter_warning_message" placeholder="Warning message if done filter not validated" attrs="{'required' : [('done_filter_id','!=',False)]}" nolable="1"/>
+                            <field name="done_server_action_id"/>
+                            <field name="cancel_filter_id" domain="[('model_id','=','project.task')]"/>
+                            <field name="cancel_server_action_id"/>
+                            <field name="cancel_filter_warning_message" placeholder="Warning message if cancel filter not validated" attrs="{'required' : [('cancel_filter_id','!=',False)]}" nolable="1"/>
+                        </group>
+                    </sheet>
                 </form>
             </field>
         </record>
@@ -72,11 +74,13 @@
             <field name="name">Task Action</field>
             <field name="model">project.task.action.line</field>
             <field name="arch" type="xml">
-                <tree string="Task Type" version="7.0">
-                    <field name="action_id"/>
+                <tree string="Task Type" version="7.0" create="false">
+                    <field name="action_id" required="1"/>
                     <field name="expected_date"/>
                     <field name="done_date"/>
                     <field name="state"/>
+                    <button name="set_done" icon="fa fa-check" string="Done" type="object" attrs="{'invisible':[('state','!=','i')]}"/>
+                                <button name="set_cancel" icon="fa fa-times" string="Cancel" type="object" attrs="{'invisible':[('state','!=','i')]}"/>
                 </tree>
             </field>
         </record>

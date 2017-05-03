@@ -1,0 +1,25 @@
+<openerp>
+    <data>
+
+        <record id="project_project_view_state_inherit" model="ir.ui.view">
+            <field name="name">project.project.form</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="before">
+                    <header>
+                        <field name="state" widget="statusbar" clickable="True"/>
+                        <button name="set_open" type="object" string="Open" attrs="{'invisible':[('state','!=','draft')]}"/>
+                        <button name="set_pending" type="object" string="Suspend" attrs="{'invisible':[('state','!=','open')]}"/>
+                        <button name="set_reopen" type="object" string="Reopen" attrs="{'invisible':[('state','not in',['done','cancelled','pending'])]}"/>
+                        <button name="set_done" type="object" string="Close" attrs="{'invisible':[('state','!=','open')]}"/>
+                        <button name="set_cancelled" type="object" string="Cancel" attrs="{'invisible':[('state','not in',['pending','open'])]}"/>
+                    </header>
+                </xpath>
+                <xpath expr="//field[@name='message_follower_ids']" position="after">
+                    <field name="message_ids" widget="mail_thread"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
