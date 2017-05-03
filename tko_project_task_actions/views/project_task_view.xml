@@ -10,7 +10,7 @@
                     <page string="Task Action" name="task_action">
                         <field name="action_line_ids" nolable="1">
                             <tree editable="bottom">
-                                <field name="action_id" options="{'no_create': True}"/>
+                                <field name="action_id" options="{'no_create': True}" required="1"/>
                                 <field name="expected_date"/>
                                 <field name="done_date"/>
                                 <field name="state" readonly="1"/>
@@ -73,7 +73,7 @@
             <field name="model">project.task.action.line</field>
             <field name="arch" type="xml">
                 <tree string="Task Type" version="7.0" create="false">
-                    <field name="action_id"/>
+                    <field name="action_id" required="1"/>
                     <field name="expected_date"/>
                     <field name="done_date"/>
                     <field name="state"/>
