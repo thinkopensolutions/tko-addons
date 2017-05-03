@@ -29,7 +29,7 @@ class Project(models.Model):
 	_inherit = 'project.project'
 
 	state = fields.Selection(related='analytic_account_id.state', string='Status',
-								defult='draft',track_visibility='onchange')
+								default='draft',track_visibility='onchange',store=True)
 
 	@api.multi
 	def set_open(self):
