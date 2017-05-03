@@ -126,7 +126,7 @@ class ProjectTaskActionsLine(models.Model):
         if self.action_id.done_filter_id:
             # validate filter here
             if  not self.validate_action_done_filter():
-                raise Warning(self.action_id.filter_warning_message or "Warning message not set for done filter")
+                raise Warning(self.action_id.done_filter_warning_message or "Warning message not set for done filter")
                 #set to done and execute server action
 
         self.write({'state': 'd', 'done_date':fields.Date.today()})
