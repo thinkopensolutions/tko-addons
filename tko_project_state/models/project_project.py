@@ -28,7 +28,7 @@ from odoo import models, api, fields
 class Project(models.Model):
 	_inherit = 'project.project'
 
-	status = fields.Selection(related='analytic_account_id.state', string='Status',
+	state = fields.Selection(related='analytic_account_id.state', string='Status',
 								defult='draft',track_visibility='onchange')
 
 	@api.multi
