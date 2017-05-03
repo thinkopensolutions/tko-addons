@@ -72,7 +72,7 @@
             <field name="name">Task Action</field>
             <field name="model">project.task.action.line</field>
             <field name="arch" type="xml">
-                <tree string="Task Type" version="7.0">
+                <tree string="Task Type" version="7.0" create="false">
                     <field name="action_id"/>
                     <field name="expected_date"/>
                     <field name="done_date"/>
