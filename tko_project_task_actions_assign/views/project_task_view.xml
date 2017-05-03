@@ -1,0 +1,33 @@
+<openerp>
+    <data>
+
+         <record id="view_task_form_inherit_envolved_users" model="ir.ui.view">
+            <field name="name">project.task.form</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="tko_project_task_actions.view_task_form_inherit"/>
+            <field name="arch" type="xml">
+                <page name="task_action" position="after">
+                    <page string="Envolved Users" name="task_action">
+                        <group>
+                            <field name="user_ids" widget="many2many_tags"/>
+                        </group>
+                    </page>
+                </page>
+                <xpath expr="//field[@name='action_line_ids']/tree/field[@name='state']" position="before">
+                    <field name="user_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="task_action_form_view_users" model="ir.ui.view">
+            <field name="name">project.task.action.form</field>
+            <field name="model">project.task.action</field>
+            <field name="inherit_id" ref="tko_project_task_actions.task_action_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='cancel_filter_warning_message']" position="after">
+                    <field name="user_id"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -78,3 +78,14 @@ class project_task(models.Model):
 
             })
         return result
+    @api.onchange('project_id')
+    def _onchange_project(self):
+        self.task_type_id = False
+        res = super(project_task, self)._onchange_project()
+        task_type_ids = self.project_id and self.project_id.task_type_ids and self.project_id.task_type_ids.ids or []
+        return {'domain':{'task_type_id':[('id','in',task_type_ids)]}}
+
+class ProjectProject(models.Model):
+    _inherit = 'project.project'
+
+    task_type_ids = fields.Many2many('task.type', string="Task Type")

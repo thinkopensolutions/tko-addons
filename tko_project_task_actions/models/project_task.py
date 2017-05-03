@@ -49,7 +49,7 @@ class ProjectTaskActionsLine(models.Model):
     _name = 'project.task.action.line'
 
     action_id = fields.Many2one('project.task.action', u'Actions')
-    expected_date = fields.Date(u'Expected Date')
+    expected_date = fields.Date(u'Expected Date', compute='onchange_action', store=True)
     done_date = fields.Date(u'Done Date', readonly=True)
     task_id = fields.Many2one('project.task', 'Task')
     state = fields.Selection([('i', u'In Progress'), ('d', u'Done'), ('c', u'Cancelled')], default='i', required=True,
@@ -60,6 +60,20 @@ class ProjectTaskActionsLine(models.Model):
         """Returns a dictionary to use as evaluation context for
            ir.rule domains."""
         return {'user': self.env.user, 'time': time}
+
+    @api.depends('action_id')
+    def onchange_action(self):
+        if self.action_id:
+            days = weeks = months = years = 0
+            if self.action_id.expected_duration_unit == 'd':
+                days = self.action_id.expected_duration
+            if self.action_id.expected_duration_unit == 'w':
+                weeks = self.action_id.expected_duration
+            if self.action_id.expected_duration_unit == 'm':
+                months = self.action_id.expected_duration
+            if self.action_id.expected_duration_unit == 'y':
+                years = self.action_id.expected_duration
+            self.expected_date = datetime.today() + relativedelta(years=years, months=months, weeks=weeks, days=days)
 
     #Validate action done filter
     def validate_action_done_filter(self):
