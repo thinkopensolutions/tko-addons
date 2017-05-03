@@ -34,9 +34,10 @@ class ProjectTaskActions(models.Model):
 class ProjectTaskActionsLine(models.Model):
 	_inherit = 'project.task.action.line'
 
-	user_id = fields.Many2one('res.users',string="Assigned To")
+	user_id = fields.Many2one('res.users',string="Assigned To", compute='onchange_action', store=True)
 
-	@api.onchange('action_id')
+	@api.one
+	@api.depends('action_id')
 	def onchange_action(self):
 		res = super(ProjectTaskActionsLine, self).onchange_action()
 		flag =False
