@@ -33,6 +33,7 @@
     'website': 'http://www.tkobr.com',
     'depends': [
         'hr_timesheet',
+        'tko_project_state',
         'tko_project_task_actions',
     ],
     'data': [
