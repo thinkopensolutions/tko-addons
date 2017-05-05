@@ -27,7 +27,6 @@
     'demo_xml': [],
     'test': [],
     'data': [
-        'security/ir.model.access.csv',
-        'views/project_task_view.xml',
+        'views/project_view.xml',
     ],
 }
