@@ -12,7 +12,7 @@
     'version': '10.0.0.0.0',
     'application': False,
     'installable': True,
-    'auto_install': True,
+    'auto_install': False,
     'depends': [
                 'tko_project_task_actions',
     ],
