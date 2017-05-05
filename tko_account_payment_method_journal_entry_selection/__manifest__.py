@@ -2,11 +2,11 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    'name': 'Project Task Actions Timesheet',
+    'name': 'Pagamento por Parcela',
     'summary': '',
-    'description': 'Create worklogs based on actions. Restrict the need for input based on action.',
+    'description': 'Ao registrar um pagamento na fatura, permite escolher a parcela.',
     'author': 'TKO',
-    'category': 'Project',
+    'category': 'l10n_br',
     'license': 'AGPL-3',
     'website': 'http://tko.tko-br.com',
     'version': '10.0.0.0.0',
@@ -14,8 +14,7 @@
     'installable': True,
     'auto_install': True,
     'depends': [
-                'hr_timesheet',
-                'tko_project_task_actions',
+                'br_account',
     ],
     'external_dependencies': {
                                 'python': [],
@@ -27,6 +26,7 @@
     'demo_xml': [],
     'test': [],
     'data': [
-             'views/project_task_view.xml',
+             'wizard/account_voucher_view.xml',
+             'account_invoice_view.xml',
     ],
 }
