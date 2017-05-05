@@ -1,10 +1,11 @@
+# -*- encoding: utf-8 -*-
 # © 2017 TKO <http://tko.tko-br.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
     'name': 'Project Task Reviewer',
     'summary': '',
-    'description': 'Adds Reviewer field on task.',
+    'description': 'Adds Reviewer field on task form view.',
     'author': 'TKO',
     'category': 'Project',
     'license': 'AGPL-3',
@@ -14,18 +15,18 @@
     'installable': True,
     'auto_install': False,
     'depends': [
-                'project',
+        'project',
     ],
     'external_dependencies': {
-                                'python': [],
-                                'bin': [],
-                                },
+        'python': [],
+        'bin': [],
+    },
     'init_xml': [],
     'update_xml': [],
     'css': [],
     'demo_xml': [],
     'test': [],
     'data': [
-             'views/project_task_view.xml',
+        'views/project_task_view.xml',
     ],
 }

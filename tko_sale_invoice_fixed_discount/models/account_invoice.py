@@ -1,3 +1,7 @@
+# -*- encoding: utf-8 -*-
+# © 2017 TKO <http://tko.tko-br.com>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
 from odoo import api, fields, models
 import odoo.addons.decimal_precision as dp
 
@@ -11,7 +15,8 @@ class AccountInvoice(models.Model):
         self.amount_untaxed = sum(line.price_subtotal for line in self.invoice_line_ids)
         self.amount_tax = sum(line.amount for line in self.tax_line_ids)
         self.amount_total = self.amount_untaxed + self.amount_tax
-        self.amount_discount = sum((line.quantity * line.price_unit * line.discount)/100 for line in self.invoice_line_ids)
+        self.amount_discount = sum(
+            (line.quantity * line.price_unit * line.discount) / 100 for line in self.invoice_line_ids)
         amount_total_company_signed = self.amount_total
         amount_untaxed_signed = self.amount_untaxed
         if self.currency_id and self.currency_id != self.company_id.currency_id:
@@ -25,7 +30,8 @@ class AccountInvoice(models.Model):
 
     discount_type = fields.Selection([('fi', 'Fixed'), ('p', 'Percentage')], string='Discount Type',
                                      readonly=True, states={'draft': [('readonly', False)]}, default='p')
-    discount_rate = fields.Float('Discount Amount', digits=(16, 2), readonly=True, states={'draft': [('readonly', False)]})
+    discount_rate = fields.Float('Discount Amount', digits=(16, 2), readonly=True,
+                                 states={'draft': [('readonly', False)]})
     amount_discount = fields.Monetary(string='Discount', store=True, readonly=True, compute='_compute_amount',
                                       track_visibility='always')
 
@@ -40,7 +46,7 @@ class AccountInvoice(models.Model):
                     line.discount = inv.discount_rate
             else:
                 discount = 0.0
-                if inv.discount_rate != 0 and total !=0:
+                if inv.discount_rate != 0 and total != 0:
                     discount = (inv.discount_rate * 100) / total
                 for line in inv.invoice_line_ids:
                     line.discount = discount
@@ -53,7 +59,7 @@ class AccountInvoice(models.Model):
     @api.model
     def create(self, vals):
         res = super(AccountInvoice, self).create(vals)
-        #Calculate a discount when it is fixed and set on line as a percentage
+        # Calculate a discount when it is fixed and set on line as a percentage
         if res.discount_type == 'fi':
             self.add_fixed_amount_percentage(res)
         return res
@@ -61,31 +67,32 @@ class AccountInvoice(models.Model):
     @api.multi
     def write(self, vals):
         res = super(AccountInvoice, self).write(vals)
-        #Calculate a discount when it is fixed and set on line as a percentage
+        # Calculate a discount when it is fixed and set on line as a percentage
         if self.discount_type == 'fi':
             self.add_fixed_amount_percentage(self)
         return res
 
     @api.multi
-    def add_fixed_amount_percentage(self,res):
+    def add_fixed_amount_percentage(self, res):
         total = 0.0
         for line in res.invoice_line_ids:
             total += round((line.quantity * line.price_unit))
         if total:
-            discount = (res.discount_rate *100)/ total
+            discount = (res.discount_rate * 100) / total
             for line in res.invoice_line_ids:
-                line.write({'discount':discount})
+                line.write({'discount': discount})
 
     @api.onchange('discount_type')
     def onchange_discount_type(self):
         self.discount_rate = 0
+
 
 class AccountInvoiceLine(models.Model):
     _inherit = "account.invoice.line"
 
     discount = fields.Float(string='Discount (%)', digits=(16, 20), default=0.0)
 
-    @api.onchange('quantity','price_unit')
+    @api.onchange('quantity', 'price_unit')
     def onchange_discount(self):
         if self.invoice_id:
             if self.invoice_id.discount_type == 'p':

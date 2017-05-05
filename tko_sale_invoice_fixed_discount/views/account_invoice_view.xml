@@ -11,7 +11,7 @@
                     <attribute name="digits">(16, 2)</attribute>
                 </xpath>
                 <xpath expr="//field[@name='amount_untaxed']" position="after">
-                        <field name="amount_discount"/>
+                    <field name="amount_discount"/>
                 </xpath>
                 <xpath expr="//field[@name='comment']" position="before">
                     <div>

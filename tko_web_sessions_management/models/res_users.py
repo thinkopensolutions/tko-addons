@@ -1,26 +1,7 @@
 # -*- encoding: utf-8 -*-
-##############################################################################
-#
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#
-#    ThinkOpen Solutions Brasil
-#    Copyright (C) Thinkopen Solutions <http://www.tkobr.com>.
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# © 2017 TKO <http://tko.tko-br.com>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
 
 from datetime import datetime
 from dateutil.relativedelta import *
@@ -28,7 +9,7 @@ from dateutil.relativedelta import *
 from odoo.addons.base.ir.ir_cron import _intervalTypes
 from odoo.http import request
 from odoo.http import root
-from odoo import  fields, models, api
+from odoo import fields, models, api
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 
@@ -56,18 +37,18 @@ class res_users(models.Model):
                 if request.httprequest.path[:5] == '/web/' or \
                                 request.httprequest.path[:9] == '/im_chat/':
                     open_sessions = session_ids.read(['logged_in',
-                                                                   'date_login',
-                                                                   'session_seconds',
-                                                                   'expiration_date'])
+                                                      'date_login',
+                                                      'session_seconds',
+                                                      'expiration_date'])
                     for s in open_sessions:
                         seconds = s['session_seconds']
-                        expiration_date = now + relativedelta(seconds= seconds)
-                        session_duration = str(now - datetime.strptime(s['date_login'],DEFAULT_SERVER_DATETIME_FORMAT))
-                        #write as superuser
+                        expiration_date = now + relativedelta(seconds=seconds)
+                        session_duration = str(now - datetime.strptime(s['date_login'], DEFAULT_SERVER_DATETIME_FORMAT))
+                        # write as superuser
                         session_obj.browse(s['id']).sudo().write(
                             {
-                            'expiration_date': expiration_date,
-                            'session_duration': session_duration,
+                                'expiration_date': expiration_date,
+                                'session_duration': session_duration,
                             })
                     cr.commit()
             else:
@@ -85,8 +66,7 @@ class res_users(models.Model):
         self.browse(uid)._check_session_validity(db, uid, passwd)
         return res
 
-
-    @api.depends('interval_number','interval_type','groups_id.interval_number','groups_id.interval_type')
+    @api.depends('interval_number', 'interval_type', 'groups_id.interval_number', 'groups_id.interval_type')
     def _get_session_default_seconds(self):
         now = datetime.now()
         seconds = (now + _intervalTypes['weeks'](1) - now).total_seconds()
@@ -115,18 +95,17 @@ class res_users(models.Model):
             user.session_default_seconds = seconds
 
     login_calendar_id = fields.Many2one('resource.calendar',
-                                         'Allowed Login Calendar', company_dependent=True,
-                                         help='The user will be only allowed to login in the calendar defined here.\nNOTE:The calendar defined here will overlap all defined in groups.')
+                                        'Allowed Login Calendar', company_dependent=True,
+                                        help='The user will be only allowed to login in the calendar defined here.\nNOTE:The calendar defined here will overlap all defined in groups.')
     multiple_sessions_block = fields.Boolean('Block Multiple Sessions', company_dependent=True, default=False,
-                                              help='Select this to prevent user to start more than one session.')
+                                             help='Select this to prevent user to start more than one session.')
     interval_number = fields.Integer('Default Session Duration', company_dependent=True,
-                                      help='This is the timeout for this user.\nNOTE: The timeout defined here will overlap all the timeouts defined in groups.')
-    interval_type  = fields.Selection([('minutes', 'Minutes'),
-                                       ('hours', 'Hours'), ('work_days', 'Work Days'),
-                                       ('days', 'Days'), ('weeks', 'Weeks'), ('months', 'Months')],
-                                      'Interval Unit', company_dependent=True)
+                                     help='This is the timeout for this user.\nNOTE: The timeout defined here will overlap all the timeouts defined in groups.')
+    interval_type = fields.Selection([('minutes', 'Minutes'),
+                                      ('hours', 'Hours'), ('work_days', 'Work Days'),
+                                      ('days', 'Days'), ('weeks', 'Weeks'), ('months', 'Months')],
+                                     'Interval Unit', company_dependent=True)
     session_default_seconds = fields.Integer(compute=_get_session_default_seconds,
-                                               string='Session Seconds',)
+                                             string='Session Seconds', )
     session_ids = fields.One2many('ir.sessions', 'user_id', 'User Sessions')
     ip = fields.Char(related='session_ids.ip', string='Latest ip adress')
-

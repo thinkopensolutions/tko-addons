@@ -1,5 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <openerp>
     <data>
+
         <record id="task_type_edit_inherit" model="ir.ui.view">
             <field name="name">project.task.type</field>
             <field name="model">project.task.type</field>
@@ -26,5 +28,6 @@
                 </xpath>
             </field>
         </record>
+
     </data>
 </openerp>

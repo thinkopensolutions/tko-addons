@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 # © 2017 TKO <http://tko.tko-br.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
@@ -15,15 +16,15 @@
     'auto_install': True,
     'depends': ['account'],
     'external_dependencies': {
-                                'python': [],
-                                'bin': [],
-                                },
+        'python': [],
+        'bin': [],
+    },
     'init_xml': [],
     'update_xml': [],
     'css': [],
     'demo_xml': [],
     'test': [],
     'data': [
-             'views/account_configuration_view.xml',
+        'views/account_configuration_view.xml',
     ],
 }

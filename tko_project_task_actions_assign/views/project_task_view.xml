@@ -1,7 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <openerp>
     <data>
 
-         <record id="view_task_form_inherit_envolved_users" model="ir.ui.view">
+        <record id="view_task_form_inherit_envolved_users" model="ir.ui.view">
             <field name="name">project.task.form</field>
             <field name="model">project.task</field>
             <field name="inherit_id" ref="tko_project_task_actions.view_task_form_inherit"/>

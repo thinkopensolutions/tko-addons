@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <openerp>
     <data>
 
@@ -6,16 +7,16 @@
             <field name="model">task.type</field>
             <field name="inherit_id" ref="tko_project_task_type.task_type_form_view"/>
             <field name="arch" type="xml">
-               <xpath expr="//group" position="after">
-                   <separator string="Action"/>
-                   <field name="action_line_ids" nolable="1" options="{'no_create': True}">
+                <xpath expr="//group" position="after">
+                    <separator string="Action"/>
+                    <field name="action_line_ids" nolable="1" options="{'no_create': True}">
                         <tree>
-                            <field name="name" />
-                            <field name="expected_duration" />
-                            <field name="expected_duration_unit" />
+                            <field name="name"/>
+                            <field name="expected_duration"/>
+                            <field name="expected_duration_unit"/>
                         </tree>
-                   </field>
-               </xpath>
+                    </field>
+                </xpath>
             </field>
         </record>
 

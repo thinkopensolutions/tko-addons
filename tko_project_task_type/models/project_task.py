@@ -1,30 +1,9 @@
 # -*- encoding: utf-8 -*-
-##############################################################################
-#
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#
-#    ThinkOpen Solutions Brasil
-#    Copyright (C) Thinkopen Solutions <http://www.tkobr.com>.
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# © 2017 TKO <http://tko.tko-br.com>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from openerp import models, api, fields
 from lxml import etree
-
 
 
 class task_type(models.Model):
@@ -78,12 +57,14 @@ class project_task(models.Model):
 
             })
         return result
+
     @api.onchange('project_id')
     def _onchange_project(self):
         self.task_type_id = False
         res = super(project_task, self)._onchange_project()
         task_type_ids = self.project_id and self.project_id.task_type_ids and self.project_id.task_type_ids.ids or []
-        return {'domain':{'task_type_id':[('id','in',task_type_ids)]}}
+        return {'domain': {'task_type_id': [('id', 'in', task_type_ids)]}}
+
 
 class ProjectProject(models.Model):
     _inherit = 'project.project'

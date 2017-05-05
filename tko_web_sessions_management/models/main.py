@@ -1,26 +1,6 @@
 # -*- encoding: utf-8 -*-
-##############################################################################
-#
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#
-#    ThinkOpen Solutions Brasil
-#    Copyright (C) Thinkopen Solutions <http://www.tkobr.com>.
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# © 2017 TKO <http://tko.tko-br.com>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import logging
 import pytz
@@ -33,7 +13,7 @@ from odoo import SUPERUSER_ID
 from odoo import http
 from odoo.http import request
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
-from odoo import  fields, models, _
+from odoo import fields, models, _
 
 # from odoo import pooler
 
@@ -79,7 +59,7 @@ class Home_tkobr(odoo.addons.web.controllers.main.Home):
                 if not uid is SUPERUSER_ID:
                     # check for multiple sessions block
                     sessions = session_obj.search(
-                            [('user_id', '=', uid), ('logged_in', '=', True)])
+                        [('user_id', '=', uid), ('logged_in', '=', True)])
 
                     if sessions and user.multiple_sessions_block:
                         multi_ok = False
@@ -175,7 +155,7 @@ class Home_tkobr(odoo.addons.web.controllers.main.Home):
             tz,
             sid,
             unsuccessful_message='',
-            ):
+    ):
         now = fields.datetime.now()
         session_obj = request.env['ir.sessions']
         cr = request.registry.cursor()
@@ -216,12 +196,12 @@ class Home_tkobr(odoo.addons.web.controllers.main.Home):
             sessions = False
         else:
             sessions = session_obj.search([('session_id', '=', sid),
-                                                    ('ip', '=', ip),
-                                                    ('user_id', '=', uid),
-                                                    ('logged_in', '=', True)],
+                                           ('ip', '=', ip),
+                                           ('user_id', '=', uid),
+                                           ('logged_in', '=', True)],
                                           )
         if not sessions:
-            expriy_date = now + relativedelta(seconds= user.session_default_seconds)
+            expriy_date = now + relativedelta(seconds=user.session_default_seconds)
 
             values = {
                 'user_id': uid,
