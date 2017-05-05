@@ -14,8 +14,9 @@
     'installable': True,
     'auto_install': True,
     'depends': [
-                'hr_timesheet',
-                'tko_project_task_actions',
+        'hr_timesheet',
+        'tko_project_state',
+        'tko_project_task_actions',
     ],
     'external_dependencies': {
                                 'python': [],
