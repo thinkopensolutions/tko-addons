@@ -11,7 +11,7 @@
     'website': 'http://tko.tko-br.com',
     'version': '10.0.0.0.0',
     'application': False,
-    'installable': True,
+    'installable': False,
     'auto_install': True,
     'depends': [
                 'br_account',
