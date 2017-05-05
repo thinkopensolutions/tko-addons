@@ -63,7 +63,7 @@
                 </xpath>
                 <xpath expr="//field[@name='state']" position="after">
                     <field name="is_open" invisible="True"/>
-                   <button name="open_wizard" icon="fa fa-clock-o" string="Cancel" type="object"/>
+                   <button name="open_wizard" icon="fa fa-clock-o" string="Input Time" type="object"/>
                 </xpath>
             </field>
         </record>
