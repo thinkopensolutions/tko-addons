@@ -22,14 +22,14 @@
 #
 ##############################################################################
 
-from odoo import models, api, fields
+from odoo import models, fields
 
 
 class task_type(models.Model):
     _inherit = 'task.type'
 
     action_line_ids = fields.Many2many('project.task.action', 'project_task_type_action_rel', 'type_id', 'action_id',
-                                       'Action')
+                                       'Actions')
 
 
 class ProjectTask(models.Model):
@@ -37,3 +37,10 @@ class ProjectTask(models.Model):
 
     related_action_line_ids = fields.Many2many('project.task.action', 'project_task_action_rel', 'task_id', 'action_id',
                                                related='task_type_id.action_line_ids', string='Action')
+
+
+class ProjectTaskActionsLine(models.Model):
+    _inherit = 'project.task.action.line'
+
+
+    task_type_id = fields.Many2one(u'Task Type', related='task_id.task_type_id', readonly=True)
