@@ -39,7 +39,7 @@
                     <field name="is_open" invisible="True"/>
                 </xpath>
                 <xpath expr="//field[@name='action_line_ids']/tree/field[@name='state']" position='after'>
-                    <button name="open_wizard" icon="fa fa-clock-o" type="object"/>
+                    <button name="open_wizard" icon="fa fa-clock-o" type="object" attrs="{'invisible':[('is_open','=', False)]}"/>
                 </xpath>
             </field>
         </record>
@@ -69,7 +69,7 @@
                 </xpath>
                 <xpath expr="//field[@name='state']" position="after">
                     <field name="is_open" invisible="True"/>
-                   <button name="open_wizard" icon="fa fa-clock-o" type="object"/>
+                   <button name="open_wizard" icon="fa fa-clock-o" type="object" attrs="{'invisible':[('is_open','=', False)]}"/>
                 </xpath>
             </field>
         </record>
@@ -80,7 +80,8 @@
             <field name="inherit_id" ref="tko_project_task_actions.task_action_line_form_view"/>
             <field name="arch" type="xml">
                 <xpath expr="//button[@name='set_done']" position="before">
-                    <button name="open_wizard" type="object" string="Input Time"/>
+                    <field name="is_open" invisible="True"/>
+                    <button name="open_wizard" type="object" string="Input Time" attrs="{'invisible':[('is_open','=', False)]}"/>
                 </xpath>
                 <xpath expr="//group[@name='dates']" position="after">
                         <group>
