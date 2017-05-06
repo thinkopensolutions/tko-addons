@@ -54,6 +54,7 @@ class ProjectTaskActionsLine(models.Model):
     task_id = fields.Many2one('project.task', 'Task')
     state = fields.Selection([('i', u'In Progress'), ('d', u'Done'), ('c', u'Cancelled')], default='i', required=True,
                              string='State')
+    task_description = fields.Html(string='Task Description', related='task_id.description', readonly=True)
 
     @api.model
     def _eval_context(self):
