@@ -22,7 +22,7 @@
 #
 ##############################################################################
 
-from odoo import models, fields
+from odoo import models, fields, api
 
 
 class task_type(models.Model):
@@ -42,5 +42,11 @@ class ProjectTask(models.Model):
 class ProjectTaskActionsLine(models.Model):
     _inherit = 'project.task.action.line'
 
+    task_type_id = fields.Many2one(u'Task Type', related='task_id.task_type_id', stored=True)
 
-    task_type_id = fields.Many2one(u'Task Type', related='task_id.task_type_id', readonly=True)
+    #task_type_id = fields.Many2one(u'Task Type', compute='_get_task_type', stored=True)
+
+    #@api.depends('task_id.task_type_id')
+    #def _get_task_type(self):
+    #    self.task_type_id = self.task_id.task_type_id.id
+    #    return True
