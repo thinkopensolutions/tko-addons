@@ -51,9 +51,10 @@ class ProjectTaskActionsLine(models.Model):
     action_id = fields.Many2one('project.task.action', u'Actions')
     expected_date = fields.Date(u'Expected Date', compute='onchange_action', store=True)
     done_date = fields.Date(u'Done Date', readonly=True)
-    task_id = fields.Many2one('project.task', 'Task')
+    task_id = fields.Many2one('project.task', u'Task')
     state = fields.Selection([('i', u'In Progress'), ('d', u'Done'), ('c', u'Cancelled')], default='i', required=True,
                              string='State')
+    task_description = fields.Html(u'Task Description', related='task_id.description', readonly=True)
 
     @api.model
     def _eval_context(self):
