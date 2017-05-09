@@ -38,6 +38,7 @@
     'data': [
         'security/ir.model.access.csv',
         'views/project_task_view.xml',
+        'views/configure_tasks_in_stages_view.xml',
     ],
     'init': [],
     'demo': [],
