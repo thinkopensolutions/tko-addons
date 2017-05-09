@@ -1,26 +1,23 @@
-<openerp>
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
     <data>
 
-        <!--form view -->
+        <!-- type form view -->
         <record id="task_type_form_view" model="ir.ui.view">
+            <field name="name">Project Task Type</field>
             <field name="model">task.type</field>
             <field name="inherit_id" ref="tko_project_task_type.task_type_form_view"/>
             <field name="arch" type="xml">
-               <xpath expr="//group" position="after">
-                   <separator string="Action"/>
-                   <field name="action_line_ids" nolable="1" options="{'no_create': True}">
-                        <tree>
-                            <field name="name" />
-                            <field name="expected_duration" />
-                            <field name="expected_duration_unit" />
-                        </tree>
+               <xpath expr="//field[@name='color']" position="attributes">
+                   <field name="action_line_ids" options="{'no_create': True}">
                    </field>
                </xpath>
             </field>
         </record>
 
+        <!-- task form view -->
         <record id="view_task_form_inherit" model="ir.ui.view">
-            <field name="name">project.task.form</field>
+            <field name="name">Project Task Form</field>
             <field name="model">project.task</field>
             <field name="inherit_id" ref="tko_project_task_actions.view_task_form_inherit"/>
             <field name="arch" type="xml">
@@ -33,5 +30,6 @@
                 </field>
             </field>
         </record>
+
     </data>
-</openerp>
+</odoo>

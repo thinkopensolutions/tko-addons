@@ -85,4 +85,3 @@ class ProjectTask(models.Model):
             if len(task_ids):
                 stage.task_ids = [(6, 0, task_ids)]
 
-
