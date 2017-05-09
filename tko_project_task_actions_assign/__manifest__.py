@@ -12,20 +12,21 @@
     'version': '10.0.0.0.0',
     'application': False,
     'installable': True,
+
     'auto_install': False,
     'depends': [
-                'tko_project_task_actions',
+        'tko_project_task_actions',
     ],
     'external_dependencies': {
-                                'python': [],
-                                'bin': [],
-                                },
+        'python': [],
+        'bin': [],
+    },
     'init_xml': [],
     'update_xml': [],
     'css': [],
     'demo_xml': [],
     'test': [],
     'data': [
-             'views/project_task_view.xml',
+        'views/project_task_view.xml',
     ],
 }
