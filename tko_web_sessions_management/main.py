@@ -224,7 +224,7 @@ class TkobrSessionMixin(object):
             }
             session_obj.create(cr, uid, values, context=context)
             cr.commit()
-            cr.close()
+        cr.close()
         return True
 
 
