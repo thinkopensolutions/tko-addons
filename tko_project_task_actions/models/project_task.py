@@ -84,3 +84,4 @@ class ProjectTask(models.Model):
             task_ids = self.search([('stage_id','=',stage.id)]).ids
             if len(task_ids):
                 stage.task_ids = [(6, 0, task_ids)]
+
