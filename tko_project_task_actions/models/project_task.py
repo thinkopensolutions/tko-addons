@@ -39,13 +39,15 @@ class ProjectTaskType(models.Model):
     # add task in stage
     @api.multi
     def remove_task_from_stage(self, task):
-        self.task_ids = [(3, task.id)]
+        for task in self:
+            task.task_ids = [(3, task.id)]
         return True
 
     # remove task from stage
     @api.multi
     def add_task_in_stage(self, task):
-        self.task_ids = [(4,task.id)]
+        for task in self:
+            task.task_ids = [(4,task.id)]
         return True
 
 
