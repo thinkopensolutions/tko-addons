@@ -22,30 +22,4 @@
 #
 ##############################################################################
 
-{
-    'name': 'tko_project_task_action',
-    'version': '0.001',
-    'category': 'Customizations',
-    'sequence': 14,
-    'complexity': 'medium',
-    'description': '''  This module sets the action deadline based on action  ''',
-    'author': 'ThinkOpen Solutions Brasil',
-    'website': 'http://www.tkobr.com',
-    'depends': [
-        'base',
-        'project',
-    ],
-    'data': [
-        'security/ir.model.access.csv',
-        'views/project_task_view.xml',
-        'wizard/cancel_conclude_view.xml'
-    ],
-    'init': [],
-    'demo': [],
-    'update': [],
-    'test': [],  # YAML files with tests
-    'installable': True,
-    'application': False,
-    'auto_install': False,
-    'certificate': '',
-}
+import cancel_conclude
