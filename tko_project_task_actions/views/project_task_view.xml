@@ -133,11 +133,6 @@
                                 <field name="done_date"/>
                             </group>
                         </group>
-                        <group colspan="4" col="1">
-                            <group>
-                                <field name="task_description"/>
-                            </group>
-                        </group>
                     </sheet>
                 </form>
             </field>
