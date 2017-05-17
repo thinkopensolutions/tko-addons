@@ -24,6 +24,43 @@
 
 from odoo import models, api, fields, _
 
+class Project(models.Model):
+    _inherit = "project.project"
+
+    estimated_time_limit = fields.Float(string="Estimated Time Limit")
+    estimated_time = fields.Float(compute='get_estimated_time_task',string="Estimated Time", store=True)
+    
+    @api.depends('task_ids.estimated_time')
+    @api.multi
+    def get_estimated_time_task(self):
+        for project in self:
+            task_ids =  self.env['project.task'].search([('project_id','=',project.id)])
+            total_task_time = 0.0
+            for task in task_ids:
+                total_task_time += task.estimated_time
+            project.estimated_time = total_task_time
+
+class ProjectTask(models.Model):
+    _inherit = "project.task"
+
+    estimated_time = fields.Float(compute='get_estimated_time',string="Estimated Time", store=True)
+
+    @api.multi
+    @api.depends('action_line_ids.estimated_time')
+    def get_estimated_time(self):
+        for task in self:
+            estimated_time = 0.0
+            for action_line in task.action_line_ids:
+                estimated_time += action_line.estimated_time
+            task.estimated_time = estimated_time
+
+    @api.multi
+    def write(self, vals):
+        res =  super(ProjectTask, self).write(vals)
+        if (self.project_id.estimated_time > self.project_id.estimated_time_limit) and (self.project_id.estimated_time_limit > 0.0):
+                self.project_id.state = 'pending'
+        return res
+
 class ProjectTaskActions(models.Model):
     _inherit = 'project.task.action'
 
@@ -34,11 +71,9 @@ class ProjectTaskActionsLine(models.Model):
     _inherit = 'project.task.action.line'
 
     @api.onchange('action_id')
-    def onchange_action(self):
-        res = super(ProjectTaskActionsLine, self).onchange_action()
+    def onchange_action_id(self):
         self.estimated_time = self.action_id.estimated_time
-        return res
-
+        
     @api.multi
     def calculate_spent_time(self):
         for action_line in self:
