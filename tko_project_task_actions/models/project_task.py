@@ -31,12 +31,6 @@ import time
 from odoo.exceptions import Warning
 
 
-class ProjectTaskType(models.Model):
-    _inherit = 'project.task.type'
-
-    task_ids = fields.Many2many("project.task", "task_stage_project_task_rel", "stage_id", "project_id", string="tasks")
-
-
 class ProjectTaskActionsLine(models.Model):
     _name = 'project.task.action.line'
 
@@ -148,5 +142,3 @@ class ProjectTask(models.Model):
     _inherit = 'project.task'
 
     action_line_ids = fields.One2many('project.task.action.line', 'task_id', 'Actions')
-
-
