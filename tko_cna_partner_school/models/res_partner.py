@@ -21,5 +21,10 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import account_invoice
-import wizard	
+
+from openerp import models, fields, api
+
+class ResPartner(models.Model):
+    _inherit = 'res.partner'
+
+    is_school = fields.Boolean(string='School')

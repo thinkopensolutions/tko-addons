@@ -150,4 +150,3 @@ class ProjectTask(models.Model):
     action_line_ids = fields.One2many('project.task.action.line', 'task_id', 'Actions')
 
 
-
