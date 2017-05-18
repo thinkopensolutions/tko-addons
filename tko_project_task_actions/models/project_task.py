@@ -34,7 +34,7 @@ from odoo.exceptions import Warning
 class ProjectTaskType(models.Model):
     _inherit = 'project.task.type'
 
-    task_ids = fields.Many2many("project.task", "task_stage_project_task_rel", "stage_id","project_id", string="tasks")
+    task_ids = fields.Many2many("project.task", "task_stage_project_task_rel", "stage_id", "project_id", string="tasks")
 
     # add task in stage
     @api.multi
@@ -45,8 +45,9 @@ class ProjectTaskType(models.Model):
     # remove task from stage
     @api.multi
     def add_task_in_stage(self, task):
-        self.task_ids = [(4,task.id)]
+        self.task_ids = [(4, task.id)]
         return True
+
 
 class ProjectTaskActionsLine(models.Model):
     _name = 'project.task.action.line'
@@ -79,7 +80,7 @@ class ProjectTaskActionsLine(models.Model):
                 years = self.action_id.expected_duration
             self.expected_date = datetime.today() + relativedelta(years=years, months=months, weeks=weeks, days=days)
 
-    #Validate action done filter
+    # Validate action done filter
     def validate_action_done_filter(self):
         """
 
@@ -128,25 +129,31 @@ class ProjectTaskActionsLine(models.Model):
     def set_done(self):
         if self.action_id.done_filter_id:
             # validate filter here
-            if  not self.validate_action_done_filter():
+            if not self.validate_action_done_filter():
                 raise Warning(self.action_id.done_filter_warning_message or "Warning message not set for done filter")
-                #set to done and execute server action
+                # set to done and execute server action
 
-        self.write({'state': 'd', 'done_date':fields.Date.today()})
+        self.write({'state': 'd', 'done_date': fields.Date.today()})
         if self.action_id.done_server_action_id:
             new_context = dict(self.env.context)
             if 'active_id' not in new_context.keys():
-                new_context.update({'active_id': self.id,'active_model':'project.task.action.line'})
+                new_context.update({'active_id': self.id, 'active_model': 'project.task.action.line'})
             recs = self.action_id.done_server_action_id.with_context(new_context)
             recs.run()
 
     def set_cancel(self):
         if self.action_id.cancel_filter_id:
             # validate filter here
-            if  not self.validate_action_cancel_filter():
-                raise Warning(self.action_id.cancel_filter_warning_message or "Warning message not set for cancel filter")
+            if not self.validate_action_cancel_filter():
+                raise Warning(
+                    self.action_id.cancel_filter_warning_message or "Warning message not set for cancel filter")
         self.state = 'c'
         if self.action_id.cancel_server_action_id:
+            new_context = dict(self.env.context)
+            if 'active_id' not in new_context.keys():
+                new_context.update({'active_id': self.id, 'active_model': 'project.task.action.line'})
+            recs = self.action_id.done_server_action_id.with_context(new_context)
+            recs.run()
 
 
 class ProjectTask(models.Model):
@@ -156,7 +163,7 @@ class ProjectTask(models.Model):
 
     @api.model
     def create(self, vals):
-        task =  super(ProjectTask, self).create(vals)
+        task = super(ProjectTask, self).create(vals)
         if task.stage_id:
             task.stage_id.add_task_in_stage(task)
         return task
@@ -174,13 +181,12 @@ class ProjectTask(models.Model):
         else:
             return super(ProjectTask, self).write(vals)
 
-
     # This method is to set already
     # create tasks in stages
     @api.model
     def _set_tasks_in_stages(self):
         stages = self.env['project.task.type'].search([])
         for stage in stages:
-            task_ids = self.search([('stage_id','=',stage.id)]).ids
+            task_ids = self.search([('stage_id', '=', stage.id)]).ids
             if len(task_ids):
                 stage.task_ids = [(6, 0, task_ids)]

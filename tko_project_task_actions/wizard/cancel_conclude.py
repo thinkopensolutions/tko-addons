@@ -35,10 +35,6 @@ class ActionLinesCancel(models.TransientModel):
         for active_id in active_ids:
             line = line_obj.browse(active_id)
             line.with_context(active_id = active_id).set_cancel()
-            if line.action_id.done_server_action_id:
-                line.action_id.done_server_action_id.run()
-            if line.action_id.cancel_server_action_id:
-                line.action_id.cancel_server_action_id.run()
         return True
 
 class ActionLinesConclude(models.TransientModel):
@@ -51,8 +47,4 @@ class ActionLinesConclude(models.TransientModel):
         for active_id in active_ids:
             line = line_obj.browse(active_id)
             line.with_context(active_id = active_id).set_done()
-            if line.action_id.done_server_action_id:
-                line.action_id.done_server_action_id.run()
-            if line.action_id.cancel_server_action_id:
-                line.action_id.cancel_server_action_id.run()
         return True
