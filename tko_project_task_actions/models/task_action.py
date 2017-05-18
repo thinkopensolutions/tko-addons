@@ -51,12 +51,18 @@ class ProjectTaskActions(models.Model):
 class ProjectTaskActionsLine(models.Model):
     _name = 'project.task.action.line'
 
+    name = fields.Char('Name', compute='_get_action_line_name')
     action_id = fields.Many2one('project.task.action', u'Actions')
     expected_date = fields.Date(u'Expected Date', compute='onchange_action', store=True)
     done_date = fields.Date(u'Done Date', readonly=True)
     task_id = fields.Many2one('project.task', 'Task', ondelete='cascade')
     state = fields.Selection([('i', u'In Progress'), ('d', u'Done'), ('c', u'Cancelled')], default='i', required=True,
                              string='State')
+
+
+    @api.one
+    def _get_action_line_name(self):
+        self.name = self.action_id.name + ' - ' + self.task_id.name
 
     @api.model
     def _eval_context(self):
@@ -102,28 +108,28 @@ class ProjectTaskActionsLine(models.Model):
                 return True
         return False
 
-        # Validate action cancel filter
-        def validate_action_cancel_filter(self):
-            """
+    # Validate action cancel filter
+    def validate_action_cancel_filter(self):
+        """
 
-            Context must have active_id
-            :return:
-            """
-            model_name = 'project.task'
-            eval_context = self._eval_context()
-            active_id = self.task_id.id
-            if active_id and model_name:
-                domain = self.action_id.cancel_filter_id.domain
-                rule = expression.normalize_domain(safe_eval(domain, eval_context))
-                Query = self.env[model_name].sudo()._where_calc(rule, active_test=False)
-                from_clause, where_clause, where_clause_params = Query.get_sql()
-                where_str = where_clause and (" WHERE %s" % where_clause) or ''
-                query_str = 'SELECT id FROM ' + from_clause + where_str
-                self._cr.execute(query_str, where_clause_params)
-                result = self._cr.fetchall()
-                if active_id in [id[0] for id in result]:
-                    return True
-            return False
+        Context must have active_id
+        :return:
+        """
+        model_name = 'project.task'
+        eval_context = self._eval_context()
+        active_id = self.task_id.id
+        if active_id and model_name:
+            domain = self.action_id.cancel_filter_id.domain
+            rule = expression.normalize_domain(safe_eval(domain, eval_context))
+            Query = self.env[model_name].sudo()._where_calc(rule, active_test=False)
+            from_clause, where_clause, where_clause_params = Query.get_sql()
+            where_str = where_clause and (" WHERE %s" % where_clause) or ''
+            query_str = 'SELECT id FROM ' + from_clause + where_str
+            self._cr.execute(query_str, where_clause_params)
+            result = self._cr.fetchall()
+            if active_id in [id[0] for id in result]:
+                return True
+        return False
 
     def set_done(self):
         if self.action_id.done_filter_id:
@@ -148,4 +154,8 @@ class ProjectTaskActionsLine(models.Model):
                     self.action_id.cancel_filter_warning_message or "Warning message not set for cancel filter")
         self.state = 'c'
         if self.action_id.cancel_server_action_id:
-            self.action_id.cancel_server_action_id.run()
+            new_context = dict(self.env.context)
+            if 'active_id' not in new_context.keys():
+                new_context.update({'active_id': self.id, 'active_model': 'project.task.action.line'})
+            recs = self.action_id.done_server_action_id.with_context(new_context)
+            recs.run()
