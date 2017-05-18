@@ -1,46 +1,31 @@
-# -*- encoding: utf-8 -*-
-##############################################################################
-#
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#
-#    ThinkOpen Solutions Brasil
-#    Copyright (C) Thinkopen Solutions <http://www.tkobr.com>.
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# © 2017 TKO <http://tko.tko-br.com>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    'name': 'tko_base_partner_nickname',
-    'version': '0.001',
-    'category': 'Customizations',
-    'sequence': 14,
-    'description': '''  This module add a nickname of partner''',
-    'author': 'ThinkOpen Solutions Brasil',
-    'website': 'http://www.tkobr.com',
-    'depends': [
-        'base',
-    ],
-    'data': [
-        'views/res_partner_view.xml',
-    ],
-    'init': [],
-    'demo': [],
-    'update': [],
-    'installable': True,
+    'name': 'Partner Nickname',
+    'summary': '',
+    'description': 'Adds nickname field on partner allowing you to search by nickname or name in objects like tasks or invoices.',
+    'author': 'TKO',
+    'category': 'Extra Tools',
+    'license': 'AGPL-3',
+    'website': 'http://tko.tko-br.com',
+    'version': '10.0.0.0.0',
     'application': False,
-    'auto_install': False,
-    'certificate': '',
+    'installable': True,
+    'auto_install': True,
+    'depends': [
+                'base',
+    ],
+    'external_dependencies': {
+                                'python': [],
+                                'bin': [],
+                                },
+    'init_xml': [],
+    'update_xml': [],
+    'css': [],
+    'demo_xml': [],
+    'test': [],
+    'data': [
+             'views/res_partner_view.xml',
+    ],
 }

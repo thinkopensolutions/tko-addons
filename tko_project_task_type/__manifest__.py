@@ -1,51 +1,33 @@
-# -*- encoding: utf-8 -*-
-##############################################################################
-#
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#
-#    ThinkOpen Solutions Brasil
-#    Copyright (C) Thinkopen Solutions <http://www.tkobr.com>.
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# © 2017 TKO <http://tko.tko-br.com>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    'name': 'Project task type with colours',
-    'version': '0.001',
-    'category': 'Customizations',
-    'sequence': 14,
-    'complexity': 'medium',
-    'description': '''== This module adds a task type field ==\n
-    Each type will have a colour. This makes easy to identify the tasks types in kanban through their colours.''',
-    'author': 'ThinkOpen Solutions Brasil',
-    'website': 'http://www.tkobr.com',
+    'name': 'Project Task Type',
+    'summary': '',
+    'description': 'Adds field type on task. Associate a color to each type to have an easy look in kanban view. Types can be restricted by project.',
+    'author': 'TKO',
+    'category': 'Project',
+    'license': 'AGPL-3',
+    'website': 'http://tko.tko-br.com',
+    'version': '10.0.0.0.0',
+    'application': False,
+    'installable': True,
+    'auto_install': False,
     'depends': [
-        'base',
-        'project',
+                'base',
+                'project',
     ],
+    'external_dependencies': {
+                                'python': [],
+                                'bin': [],
+                                },
+    'init_xml': [],
+    'update_xml': [],
+    'css': [],
+    'demo_xml': [],
+    'test': [],
     'data': [
         'security/ir.model.access.csv',
         'views/project_task_view.xml',
     ],
-    'init': [],
-    'demo': [],
-    'update': [],
-    'test': [],  # YAML files with tests
-    'installable': True,
-    'application': False,
-    'auto_install': False,
-    'certificate': '',
 }
