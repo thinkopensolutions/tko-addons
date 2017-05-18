@@ -21,5 +21,26 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import account_invoice
-import wizard	
+
+{
+    'name': 'tko_cna_partner_school',
+    'version': '0.001',
+    'category': 'Customizations',
+    'sequence': 150,
+    'description': '''  This module add School on partner''',
+    'author': 'ThinkOpen Solutions Brasil',
+    'website': 'http://www.tkobr.com',
+    'depends': [
+        'base',
+    ],
+    'data': [
+        'views/res_partner_view.xml',
+    ],
+    'init': [],
+    'demo': [],
+    'update': [],
+    'installable': True,
+    'application': False,
+    'auto_install': False,
+    'certificate': '',
+}
