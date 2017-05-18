@@ -1,4 +1,5 @@
-<openerp>
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
     <data>
         <record id="view_task_form_inherit_estimated" model="ir.ui.view">
             <field name="name">project.task.form</field>
@@ -6,10 +7,13 @@
             <field name="inherit_id" ref="project.view_task_form2"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='user_id']" position="after">
-                    <field name="estimated_time"/>
+
+                    <field name="estimated_time" widget="float_time"/>
                 </xpath>
             </field>
         </record>
+
+        <!-- project form view-->       
         <record id="view_project_form_inherit_estimated" model="ir.ui.view">
             <field name="name">project.project.form</field>
             <field name="model">project.project</field>
@@ -21,63 +25,85 @@
                 </xpath>
             </field>
         </record>
-        <!--form view -->
+
+
+        <!-- task form view -->
+
         <record id="view_task_form_inherit" model="ir.ui.view">
             <field name="name">project.task.form</field>
             <field name="model">project.task</field>
             <field name="inherit_id" ref="tko_project_task_actions.view_task_form_inherit"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='action_line_ids']/tree/field[@name='state']" position='before'>
-                    <field name="estimated_time" sum="Estimated Time"/>
+                    <field name="estimated_time" sum="Estimated Time" widget="float_time"/>
                     <field name="spent_time" sum="Time Spent" widget="float_time"/>
                     <field name="remaining_time" sum="Remaining Time" widget="float_time"/>
                     <field name="is_open" invisible="True"/>
-                    <field name="progress_time" widget="progressbar"/>
                 </xpath>
                 <xpath expr="//field[@name='action_line_ids']/tree/field[@name='state']" position='after'>
-                    <button name="open_wizard" icon="fa fa-clock-o" string="Cancel" type="object"/>
+                    <button name="open_wizard" icon="fa fa-clock-o" type="object" attrs="{'invisible':[('is_open','=', False)]}"/>
                 </xpath>
             </field>
         </record>
 
+        <!-- action form view -->
         <record id="task_action_form_view_inherit" model="ir.ui.view">
             <field name="model">project.task.action</field>
             <field name="inherit_id" ref="tko_project_task_actions.task_action_form_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='cancel_filter_warning_message']" position="after">
-                    <field name="estimated_time"/>
-                    <field name="is_wizard_open"/>
+                <xpath expr="//field[@name='expected_duration_unit']" position="after">
+                    <field name="is_wizard_open" string="Requires Time Input"/>
+                    <field name="estimated_time" widget="float_time"/>
                 </xpath>
             </field>
         </record>
+
+        <!-- action line tree view -->
         <record id="task_action_line_tree_view_inherit" model="ir.ui.view">
-            <field name="name">Task Action</field>
+            <field name="name">Task Action Lines</field>
             <field name="model">project.task.action.line</field>
             <field name="inherit_id" ref="tko_project_task_actions.task_action_line_tree_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//tree" position="attributes">
-                    <attribute name="editable">True</attribute>
-                </xpath>
                 <xpath expr="//field[@name='state']" position="before">
-                    <field name="estimated_time" sum="Estimated Time"/>
+                    <field name="estimated_time" sum="Estimated Time" widget="float_time"/>
                     <field name="spent_time" sum="Time Spent" widget="float_time"/>
                     <field name="remaining_time" sum="Remaining Time" widget="float_time"/>
-                    <field name="progress_time" widget="progressbar"/>
                 </xpath>
                 <xpath expr="//field[@name='state']" position="after">
                     <field name="is_open" invisible="True"/>
-                   <button name="open_wizard" icon="fa fa-clock-o" string="Cancel" type="object"/>
+                   <button name="open_wizard" icon="fa fa-clock-o" type="object" attrs="{'invisible':[('is_open','=', False)]}"/>
                 </xpath>
             </field>
         </record>
+
+         <record id="task_action_line_form_view_inherit" model="ir.ui.view">
+            <field name="name">Task Action Lines</field>
+            <field name="model">project.task.action.line</field>
+            <field name="inherit_id" ref="tko_project_task_actions.task_action_line_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='set_done']" position="before">
+                    <field name="is_open" invisible="True"/>
+                    <button name="open_wizard" type="object" string="Input Time" attrs="{'invisible':[('is_open','=', False)]}"/>
+                </xpath>
+                <xpath expr="//group[@name='dates']" position="after">
+                        <group>
+                        <field name="estimated_time" sum="Estimated Time" widget="float_time"/>
+                        <field name="spent_time" sum="Time Spent" widget="float_time"/>
+                        <field name="remaining_time" sum="Remaining Time" widget="float_time"/>
+                        </group>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- timesheet form view -->
         <record id="timesheet_time_view" model="ir.ui.view">
             <field name="name">Timesheet Time</field>
             <field name="model">timesheet.time</field>
             <field name="arch" type="xml">
-                <form string="Task Type" version="7.0">
+                <form string="Timesheet Input" version="7.0">
                     <sheet>
                         <group>
-                            <field name="time"/>
+                            <field name="time" string="Input Time" widget="float_time"/>
                         </group>
                     </sheet>
                     <footer>
@@ -88,4 +114,4 @@
             </field>
         </record>
     </data>
-</openerp>
+</odoo>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data>
+
+
+        <record id="action_lines_cancel_form" model="ir.ui.view">
+            <field name="name">action.lines.cancel.form</field>
+            <field name="model">action.lines.cancel</field>
+            <field name="arch" type="xml">
+                <form>
+                    <footer>
+                        <button string="Cancel" name="cancel_lines" type="object" class="btn-primary"/>
+                        <button string="Close" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_lines_conclude_form" model="ir.ui.view">
+            <field name="name">action.lines.conclude.form</field>
+            <field name="model">action.lines.conclude</field>
+            <field name="arch" type="xml">
+                <form>
+                    <footer>
+                        <button string="Conclude" name="conclude_lines" type="object" class="btn-primary"/>
+                        <button string="Close" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window name="Conclude Lines"
+                    res_model="action.lines.conclude"
+                    src_model="project.task.action.line"
+                    view_mode="form"
+                    view_id="action_lines_conclude_form"
+                    target="new"
+                    multi="True"
+                    key2="client_action_multi"
+                    id="action_lines_conclude_form_action"/>
+
+        <act_window name="Cancel Lines"
+                    res_model="action.lines.cancel"
+                    src_model="project.task.action.line"
+                    view_mode="form"
+                    view_id="action_lines_cancel_form"
+                    target="new"
+                    multi="True"
+                    key2="client_action_multi"
+                    id="action_lines_cancel_form_action"/>
+
+
+        "/>
+    </data>
+</openerp>
