@@ -146,9 +146,6 @@ class ProjectTaskActionsLine(models.Model):
         if self.action_id.cancel_server_action_id:
             self.action_id.cancel_server_action_id.run()
 
-
-
-
 class ProjectTask(models.Model):
     _inherit = 'project.task'
 
