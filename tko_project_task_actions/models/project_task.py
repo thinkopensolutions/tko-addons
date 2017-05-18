@@ -36,18 +36,6 @@ class ProjectTaskType(models.Model):
 
     task_ids = fields.Many2many("project.task", "task_stage_project_task_rel", "stage_id", "project_id", string="tasks")
 
-    # add task in stage
-    @api.multi
-    def remove_task_from_stage(self, task):
-        self.task_ids = [(3, task.id)]
-        return True
-
-    # remove task from stage
-    @api.multi
-    def add_task_in_stage(self, task):
-        self.task_ids = [(4, task.id)]
-        return True
-
 
 class ProjectTaskActionsLine(models.Model):
     _name = 'project.task.action.line'
@@ -161,33 +149,4 @@ class ProjectTask(models.Model):
 
     action_line_ids = fields.One2many('project.task.action.line', 'task_id', 'Actions')
 
-    @api.model
-    def create(self, vals):
-        task = super(ProjectTask, self).create(vals)
-        if task.stage_id:
-            task.stage_id.add_task_in_stage(task)
-        return task
-
-    @api.multi
-    def write(self, vals):
-        if 'stage_id' in vals:
-            for task in self:
-                # remove task from stage
-                task.stage_id.remove_task_from_stage(task)
-                res = super(ProjectTask, task).write(vals)
-                # add task to new stage
-                task.stage_id.add_task_in_stage(task)
-            return res
-        else:
-            return super(ProjectTask, self).write(vals)
-
-    # This method is to set already
-    # create tasks in stages
-    @api.model
-    def _set_tasks_in_stages(self):
-        stages = self.env['project.task.type'].search([])
-        for stage in stages:
-            task_ids = self.search([('stage_id', '=', stage.id)]).ids
-            if len(task_ids):
-                stage.task_ids = [(6, 0, task_ids)]
 
