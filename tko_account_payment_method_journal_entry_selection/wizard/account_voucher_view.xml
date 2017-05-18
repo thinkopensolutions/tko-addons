@@ -4,7 +4,7 @@
         <record id="account_voucher_form" model="ir.ui.view">
             <field name="name">Account Voucher</field>
             <field name="model">account.voucher</field>
-            <field name="inherit_id" ref="account_voucher.view_vendor_receipt_dialog_form"/>
+            <field name="inherit_id" ref="account_voucher.view_purchase_receipt_form"/>
             <field name="arch" type="xml">
                 <field name="partner_id" position="after">
                     <field name="move_line_id" required="1"
@@ -36,7 +36,7 @@
             </field>
         </record>
 
-        <record id="view_move_line_tree_reconcile" model="ir.ui.view">
+        <!-- <record id="view_move_line_tree_reconcile" model="ir.ui.view">
             <field name="model">account.move.line</field>
             <field name="inherit_id" ref="account.view_move_line_tree_reconcile"/>
             <field name="arch" type="xml">
@@ -44,7 +44,7 @@
                     <field name="paid_amount"/>
                 </field>
             </field>
-        </record>
+        </record> -->
 
         <record id="view_move_line_form" model="ir.ui.view">
             <field name="name">Account Move Line</field>

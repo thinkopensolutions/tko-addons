@@ -22,4 +22,4 @@
 #
 ##############################################################################
 import account_invoice
-import wizard
+import wizard	

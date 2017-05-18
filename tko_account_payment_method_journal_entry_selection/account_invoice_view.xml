@@ -1,15 +1,15 @@
 <openerp>
     <data>
-        <record id="view_l10n_br_account_invoice_form" model="ir.ui.view">
+        <record id="l10n_br_account_invoice_form" model="ir.ui.view">
             <field name="name">Account Invoice</field>
             <field name="model">account.invoice</field>
-            <field name="inherit_id" ref="l10n_br_account.view_l10n_br_account_invoice_form"/>
+            <field name="inherit_id" ref="br_account.view_br_account_invoice_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='move_line_receivable_id']" position="replace">
+                <xpath expr="//field[@name='receivable_move_line_ids']" position="replace">
                     <field colspan="4" nolabel="1" name="move_line_receivable_id" readonly="1">
                         <tree string="Vencimentos">
                             <field name="journal_id"/>
-                            <field name="period_id"/>
+                            <!-- <field name="period_id"/> -->
                             <field name="date"/>
                             <field name="date_maturity"/>
                             <field name="name"/>
@@ -18,23 +18,23 @@
                             <field name="move_id"/>
                             <field name="debit"/>
                             <field name="paid_amount"/>
-                            <field name="reconcile_ref"/>
+                            <field name="ref"/>
                         </tree>
                     </field>
                 </xpath>
             </field>
         </record>
 
-        <record id="l10n_br_account_invoice_supplier_form" model="ir.ui.view">
+        <record id="br_account_invoice_supplier_form" model="ir.ui.view">
             <field name="name">Account Invoice</field>
             <field name="model">account.invoice</field>
-            <field name="inherit_id" ref="l10n_br_account.l10n_br_account_invoice_supplier_form"/>
+            <field name="inherit_id" ref="br_account.view_br_account_invoice_supplier_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='move_line_receivable_id']" position="replace">
+                <xpath expr="//field[@name='payable_move_line_ids']" position="replace">
                     <field colspan="4" nolabel="1" name="move_line_receivable_id" readonly="1">
                         <tree string="Vencimentos">
                             <field name="journal_id"/>
-                            <field name="period_id"/>
+                            <!-- <field name="period_id"/> -->
                             <field name="date"/>
                             <field name="date_maturity"/>
                             <field name="name"/>
@@ -43,7 +43,7 @@
                             <field name="move_id"/>
                             <field name="credit"/>
                             <field name="paid_amount"/>
-                            <field name="reconcile_ref"/>
+                            <field name="ref"/>
                         </tree>
                     </field>
                 </xpath>

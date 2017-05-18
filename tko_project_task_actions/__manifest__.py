@@ -31,6 +31,5 @@
         'security/ir.model.access.csv',
         'views/project_task_view.xml',
         'wizard/cancel_conclude_view.xml'
-        'views/configure_tasks_in_stages_view.xml',
     ],
 }

@@ -21,30 +21,4 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-{
-    'name': 'tko_account_payment_method_journal_entry_selection',
-    'version': '0.012',
-    'category': 'Localisation',
-    'sequence': 3,
-    'complexity': 'normal',
-    'description': '''tko_account_payment_method_journal_entry_selection''',
-    'author': 'ThinkOpen Solutions Brasil',
-    'license': 'AGPL-3',
-    'website': 'http://www.tkobr.com',
-    'depends': [
-        'br_account',
-    ],
-    'data': [
-        'wizard/account_voucher_view.xml',
-        'account_invoice_view.xml',
-    ],
-    'init': [],
-    'demo': [],
-    'update': [],
-    'test': [],  # YAML files with tests
-    'installable': False,
-    'application': False,
-    'auto_install': False,  # If it's True, the modules will be auto-installed when all dependencies are installed
-    'certificate': '',
-}
+import res_partner
