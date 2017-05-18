@@ -61,6 +61,7 @@ class ProjectTaskActionsLine(models.Model):
            ir.rule domains."""
         return {'user': self.env.user, 'time': time}
 
+    @api.one
     @api.depends('action_id')
     def onchange_action(self):
         if self.action_id:
@@ -125,14 +126,14 @@ class ProjectTaskActionsLine(models.Model):
         if self.action_id.done_filter_id:
             # validate filter here
             if  not self.validate_action_done_filter():
-                raise Warning(self.action_id.filter_warning_message or "Warning message not set for done filter")
+                raise Warning(self.action_id.done_filter_warning_message or "Warning message not set for done filter")
                 #set to done and execute server action
 
         self.write({'state': 'd', 'done_date':fields.Date.today()})
         if self.action_id.done_server_action_id:
             new_context = dict(self.env.context)
             if 'active_id' not in new_context.keys():
-                new_context.update({'active_id': self.task_id.id,'active_model':'project.task'})
+                new_context.update({'active_id': self.id,'active_model':'project.task.action.line'})
             recs = self.action_id.done_server_action_id.with_context(new_context)
             recs.run()
 
@@ -144,8 +145,6 @@ class ProjectTaskActionsLine(models.Model):
         self.state = 'c'
         if self.action_id.cancel_server_action_id:
             self.action_id.cancel_server_action_id.run()
-
-
 
 class ProjectTask(models.Model):
     _inherit = 'project.task'

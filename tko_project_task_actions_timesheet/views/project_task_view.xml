@@ -7,13 +7,14 @@
             <field name="inherit_id" ref="tko_project_task_actions.view_task_form_inherit"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='action_line_ids']/tree/field[@name='state']" position='before'>
-                    <field name="estimated_time"/>
-                    <field name="spent_time"/>
+                    <field name="estimated_time" sum="Estimated Time"/>
+                    <field name="spent_time" sum="Time Spent" widget="float_time"/>
+                    <field name="remaining_time" sum="Remaining Time" widget="float_time"/>
                     <field name="is_open" invisible="True"/>
                     <field name="progress_time" widget="progressbar"/>
                 </xpath>
                 <xpath expr="//field[@name='action_line_ids']/tree/field[@name='state']" position='after'>
-                    <button name="open_wizard" icon="fa fa-clock-o" string="Cancel" type="object" attrs="{'invisible':[('is_open','=',False)]}"/>
+                    <button name="open_wizard" icon="fa fa-clock-o" string="Cancel" type="object"/>
                 </xpath>
             </field>
         </record>
@@ -37,13 +38,14 @@
                     <attribute name="editable">True</attribute>
                 </xpath>
                 <xpath expr="//field[@name='state']" position="before">
-                    <field name="estimated_time"/>
-                    <field name="spent_time"/>
+                    <field name="estimated_time" sum="Estimated Time"/>
+                    <field name="spent_time" sum="Time Spent" widget="float_time"/>
+                    <field name="remaining_time" sum="Remaining Time" widget="float_time"/>
                     <field name="progress_time" widget="progressbar"/>
                 </xpath>
                 <xpath expr="//field[@name='state']" position="after">
                     <field name="is_open" invisible="True"/>
-                   <button name="open_wizard" icon="fa fa-clock-o" string="Cancel" type="object" attrs="{'invisible':[('is_open','=',False)]}"/>
+                   <button name="open_wizard" icon="fa fa-clock-o" string="Cancel" type="object"/>
                 </xpath>
             </field>
         </record>
