@@ -72,13 +72,13 @@ class IrActionsServer(models.Model):
     def run(self):
         if self.filter_id.domain:
             result = self.validate_server_action()
-            if result:
-                return super(IrActionsServer,self).run()
-        else:
-            return False
+            if not result:
+                return False
+        return super(IrActionsServer,self).run()
 
 
-    # # Method 1
+
+    # # Method 1 commented because we are using Method2
     # def validate_server_action(self):
     #     """
     #
