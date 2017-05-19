@@ -29,6 +29,7 @@ from odoo.osv import expression
 from odoo.tools.safe_eval import safe_eval
 import time
 from odoo.exceptions import Warning
+from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DT
 
 
 class ProjectTaskActions(models.Model):
@@ -58,11 +59,26 @@ class ProjectTaskActionsLine(models.Model):
     task_id = fields.Many2one('project.task', 'Task', ondelete='cascade')
     state = fields.Selection([('i', u'In Progress'), ('d', u'Done'), ('c', u'Cancelled')], default='i', required=True,
                              string='State')
+    remaining_days = fields.Integer("Remaining Days", compute='get_remaining_days')
 
+    @api.one
+    def get_remaining_days(self):
+        days = 0
+        if self.expected_date and not self.done_date:
+            days = (datetime.strptime(self.expected_date, DT) - datetime.today()).days
+        self.remaining_days = days
 
     @api.one
     def _get_action_line_name(self):
-        self.name = self.action_id.name + ' - ' + self.task_id.name
+        name = ' '
+        if self.action_id.name and self.task_id.name:
+            name = self.action_id.name + ' - ' + self.task_id.name
+        elif self.action_id.name:
+            name = self.action_id.name
+        elif self.task_id.name:
+            name = self.task_id.name
+
+        self.name = name
 
     @api.model
     def _eval_context(self):
