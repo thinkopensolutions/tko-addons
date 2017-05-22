@@ -48,12 +48,13 @@ class IrActionsServer(models.Model):
         """
         for record in self:
             found = False
-            for field in record.model_id.field_id:
-                if field.ttype == 'many2one' and field.name == record.field_id.name:
-                    found = True
-                    break
-            if not found:
-                raise Warning(u"Model %s has no field %s" % (record.model_id.name, record.field_id.field_description))
+            if record.model_id.field_id:
+                for field in record.model_id.field_id:
+                    if field.ttype == 'many2one' and field.name == record.field_id.name:
+                        found = True
+                        break
+                if not found:
+                    raise Warning(u"Model %s has no field %s" % (record.model_id.name, record.field_id.field_description))
         return True
 
     # return True if object is same
