@@ -34,4 +34,8 @@
              'views/ir_sessions_view.xml',
              'views/webclient_templates.xml',
     ],
+    'installable': True,
+    'application': False,
+    'auto_install': False,
 }
+
