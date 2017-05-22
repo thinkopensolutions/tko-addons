@@ -1,0 +1,20 @@
+<openerp>
+    <data>
+        <record id="purchase_order_2_stock_picking" model="ir.ui.view">
+            <field name="name">Purchase Picking Inherited</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <button name="purchase_approve" position="replace">
+                     <button name="%(nfe_xml_validate_wizard_action)d" type="action" states="confirmed" string="Approve Order" class="oe_highlight" groups="purchase.group_purchase_manager"/>
+                </button>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="after">
+                    <field name="supplier_product_name"/>
+                    <field name="supplier_product_code" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>
