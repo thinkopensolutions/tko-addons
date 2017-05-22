@@ -1,0 +1,64 @@
+<openerp>
+    <data>
+        <record id="nfe_xml_validate_wizard_form" model="ir.ui.view">
+            <field name="name">nfe.xml.validate</field>
+            <field name="model">nfe.xml.validate</field>
+            <field name="arch" type="xml">
+                <form string="Update Entries">
+                    <group colspan="4" col="4">
+                        <field name="xml_file" filename="xml_file_name"/>
+                        <field name="xml_file_name"/>
+                        <field name="supplier_po"/>
+                        <field name="supplier_nfe"/>
+                        <field name="partner_legal_name"/>
+                        <field name="xml_legal_name"/>
+                        <field name="partner_cnpj_cpf"/>
+                        <field name="xml_cnpj_cpf"/>
+                        <field name="partner_ie"/>
+                        <field name="xml_ie"/>
+
+                    </group>
+                    <group colspan="4">
+                        <group colspan="2" string="PO Info">
+                            <field name="po_line_info" nolabel="1">
+                                <tree create="false" delete="false" editable="top">
+                                    <field name="product_name" readonly="1"/>
+                                    <field name="supplier_product_name" readonly="1"/>
+                                    <field name="product_default_code" readonly="1"/>
+                                    <field name="nfe_default_code" readonly="1"/>
+                                    <field name="product_qty" readonly="1"/>
+                                    <field name="unit_price" readonly="1"/>
+                                    <field name="product_uom" readonly="1"/>
+                                    <field name="nfe_product_name" readonly="1"/>
+                                    <field name="nfe_product_qty" readonly="1"/>
+                                    <field name="nfe_unit_price" readonly="1"/>
+                                    <field name="nfe_product_uom" readonly="1"/>
+                                    <field name="ignore"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="validate_nfe_xml" string="Validate" class="oe_highlight" type="object"/>
+                        or
+                        <button name="approve_purchase_order" string="Approve" class="oe_highlight"
+                                type="object"/>
+                        or
+                        <button name="cancel_purchase_order" string="Cancel Order" class="oe_highlight" type="object"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="nfe_xml_validate_wizard_action">
+            <field name="name">Validate XML</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">nfe.xml.validate</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="nfe_xml_validate_wizard_form"/>
+        </record>
+
+    </data>
+</openerp>

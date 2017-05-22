@@ -1,0 +1,166 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* tko_l10n_br_purchase_nfe_validator
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-24 16:01+0000\n"
+"PO-Revision-Date: 2017-03-24 16:01+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: tko_l10n_br_purchase_nfe_validator
+#: view:nfe.xml.validate:tko_l10n_br_purchase_nfe_validator.nfe_xml_validate_wizard_form
+msgid "Approve"
+msgstr "Aprovar"
+
+#. module: tko_l10n_br_purchase_nfe_validator
+#: view:purchase.order:tko_l10n_br_purchase_nfe_validator.purchase_order_2_stock_picking
+msgid "Approve Order"
+msgstr "Aprovar Ordem"
+
+#. module: tko_l10n_br_purchase_nfe_validator
+#: view:nfe.xml.validate:tko_l10n_br_purchase_nfe_validator.nfe_xml_validate_wizard_form
+msgid "Cancel Order"
+msgstr "Cancelar Ordem"
+
+#. module: tko_l10n_br_purchase_nfe_validator
+#: field:nfe.xml.validate,create_uid:0
+#: field:poline.info,create_uid:0
+msgid "Created by"
+msgstr "Criado Por"
+
+#. module: tko_l10n_br_purchase_nfe_validator
+#: field:nfe.xml.validate,create_date:0
+#: field:poline.info,create_date:0
+msgid "Created on"
+msgstr "Criado em"
+
+#. module: tko_l10n_br_purchase_nfe_validator
+#: field:nfe.xml.validate,xml_file:0
+msgid "File"
+msgstr "Arquivo XML"
+
+#. module: tko_l10n_br_purchase_nfe_validator
+#: field:nfe.xml.validate,xml_file_name:0
+msgid "File Name"
+msgstr "Nome do Arquivo"
+
+#. module: tko_l10n_br_purchase_nfe_validator
+#: field:nfe.xml.validate,id:0
+#: field:poline.info,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: tko_l10n_br_purchase_nfe_validator
+#: field:poline.info,ignore:0
+msgid "Ignore"
+msgstr "Ignorar"
+
+#. module: tko_l10n_br_purchase_nfe_validator
+#: field:nfe.xml.validate,write_uid:0
+#: field:poline.info,write_uid:0
+msgid "Last Updated by"
+msgstr "Última atualização por"
+
+#. module: tko_l10n_br_purchase_nfe_validator
+#: field:nfe.xml.validate,write_date:0
+#: field:poline.info,write_date:0
+msgid "Last Updated on"
+msgstr "Última atualização em"
+
+#. module: tko_l10n_br_purchase_nfe_validator
+#: field:poline.info,nfe_product_name:0
+msgid "NFe Product Name"
+msgstr "NFe | Produto"
+
+#. module: tko_l10n_br_purchase_nfe_validator
+#: field:poline.info,nfe_product_qty:0
+msgid "NFe Qty"
+msgstr "NFe | Qtd"
+
+#. module: tko_l10n_br_purchase_nfe_validator
+#: field:poline.info,nfe_unit_price:0
+msgid "NFe Unit Price"
+msgstr "NFe | Preço"
+
+#. module: tko_l10n_br_purchase_nfe_validator
+#: field:poline.info,nfe_product_uom:0
+msgid "NFe UoM"
+msgstr "NFe | UdM"
+
+#. module: tko_l10n_br_purchase_nfe_validator
+#: view:nfe.xml.validate:tko_l10n_br_purchase_nfe_validator.nfe_xml_validate_wizard_form
+msgid "PO Info"
+msgstr "Informações da OC"
+
+#. module: tko_l10n_br_purchase_nfe_validator
+#: field:nfe.xml.validate,po_line_info:0
+msgid "PO Lines"
+msgstr "Linhas da OC"
+
+#. module: tko_l10n_br_purchase_nfe_validator
+#: field:poline.info,product_name:0
+msgid "Product Name"
+msgstr "OC | Nome"
+
+#. module: tko_l10n_br_purchase_nfe_validator
+#: model:ir.model,name:tko_l10n_br_purchase_nfe_validator.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Linha do Pedido de Compra"
+
+#. module: tko_l10n_br_purchase_nfe_validator
+#: field:poline.info,product_qty:0
+msgid "Qty"
+msgstr "OC | Qtd"
+
+#. module: tko_l10n_br_purchase_nfe_validator
+#: field:nfe.xml.validate,supplier_nfe:0
+msgid "Supplier NFe"
+msgstr "NFe do Fornecedor"
+
+#. module: tko_l10n_br_purchase_nfe_validator
+#: field:nfe.xml.validate,supplier_po:0
+msgid "Supplier PO"
+msgstr "OC do Fornecedor"
+
+#. module: tko_l10n_br_purchase_nfe_validator
+#: field:poline.info,unit_price:0
+msgid "Unit Price"
+msgstr "OC | Preço"
+
+#. module: tko_l10n_br_purchase_nfe_validator
+#: field:poline.info,product_uom:0
+msgid "UoM"
+msgstr "OC | UoM"
+
+#. module: tko_l10n_br_purchase_nfe_validator
+#: view:nfe.xml.validate:tko_l10n_br_purchase_nfe_validator.nfe_xml_validate_wizard_form
+msgid "Update Entries"
+msgstr "Atualizar Informações"
+
+#. module: tko_l10n_br_purchase_nfe_validator
+#: view:nfe.xml.validate:tko_l10n_br_purchase_nfe_validator.nfe_xml_validate_wizard_form
+msgid "Validate"
+msgstr "Validar"
+
+#. module: tko_l10n_br_purchase_nfe_validator
+#: model:ir.actions.act_window,name:tko_l10n_br_purchase_nfe_validator.nfe_xml_validate_wizard_action
+msgid "Validate XML"
+msgstr "Validar XML"
+
+#. module: tko_l10n_br_purchase_nfe_validator
+#: field:poline.info,wizard_id:0
+msgid "Wizard"
+msgstr "Assistente de Validação"
+
+#. module: tko_l10n_br_purchase_nfe_validator
+#: view:nfe.xml.validate:tko_l10n_br_purchase_nfe_validator.nfe_xml_validate_wizard_form
+msgid "or"
+msgstr "ou"
