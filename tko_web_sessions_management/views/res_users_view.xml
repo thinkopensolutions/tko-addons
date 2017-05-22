@@ -22,18 +22,16 @@
             <field name="model">res.users</field>
             <field name="inherit_id" ref="base.view_users_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//page[@string='Preferences']" position="before">
+                <xpath expr="//page[@name='access_rights']" position="after">
                     <page string="Sessions">
-                        <group col="6">
-                            <group string="Session Timeout">
-                                <field name="interval_number"/>
-                                <field name="interval_type"/>
-                                <newline/>
-                                <field name="multiple_sessions_block"/>
-                            </group>
-                            <group string="Login Calendar">
-                                <field name="login_calendar_id"/>
-                            </group>
+                        <group string="Session Timeout">
+                            <field name="interval_number"/>
+                            <field name="interval_type"/>
+                            <newline/>
+                            <field name="multiple_sessions_block"/>
+                        </group>
+                        <group string="Login Calendar">
+                            <field name="login_calendar_id"/>
                         </group>
                         <group string="Sessions">
                             <field name="session_ids" readonly="1"
@@ -83,7 +81,7 @@
             <field name="model">res.users</field>
             <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
             <field name="arch" type="xml">
-                <xpath expr="//group[@string='Email Preferences']"
+                <xpath expr="//group[2]"
                        position="replace">
                     <notebook col="4">
                         <page string="Email Preferences">
