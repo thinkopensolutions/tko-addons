@@ -9,6 +9,10 @@
                 <field name="condition" position="after">
                     <field name="filter_id"/>
                     <field name="model" invisible="1"/>
+                    <field name="validate_filter_obj" invisible="1"/>
+                    <field name="field_id"
+                           attrs="{'required' : [('validate_filter_obj','=', False)], 'invisible': [('validate_filter_obj','=', True)]}"
+                           domain="[('ttype','=','many2one'),('model_id','=',model_id)]"/>
                 </field>
             </field>
         </record>
