@@ -1,6 +1,13 @@
 <openerp>
     <data>
 
+        <template id="assets_backend_session" name="session assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" 
+                src="/tko_web_sessions_management/static/src/js/customize_session.js"></script>
+            </xpath>
+        </template>
+
         <template id="web_login" inherit_id="web.login">
             <xpath expr="//p[@t-if='error']" position="replace">
                 <p class="alert alert-danger" t-if="error">
