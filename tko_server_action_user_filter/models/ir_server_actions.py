@@ -28,6 +28,7 @@ from odoo.tools.safe_eval import safe_eval
 import time
 import logging
 from odoo.exceptions import Warning
+
 _logger = logging.getLogger(__name__)
 
 
@@ -38,7 +39,7 @@ class IrActionsServer(models.Model):
                                 help='If the domain is set, Server action will run only if domain is satisfied')
     model = fields.Char(related='model_id.model', string='Model')
     validate_filter_obj = fields.Boolean("Filter Object", compute='validate_filter_object')
-    field_id = fields.Many2one('ir.model.fields','Fields')
+    field_id = fields.Many2one('ir.model.fields', 'Fields')
 
     @api.constrains('model_id', 'field_id')
     def validate_field(self):
@@ -48,11 +49,11 @@ class IrActionsServer(models.Model):
         for record in self:
             found = False
             for field in record.model_id.field_id:
-                if field.ttype=='many2one' and field.name == record.field_id.name:
+                if field.ttype == 'many2one' and field.name == record.field_id.name:
                     found = True
                     break
             if not found:
-                raise Warning(u"Model %s has no field %s" %(record.model_id.name, record.field_id.field_description))
+                raise Warning(u"Model %s has no field %s" % (record.model_id.name, record.field_id.field_description))
         return True
 
     # return True if object is same
@@ -85,10 +86,10 @@ class IrActionsServer(models.Model):
             model_name = self.field_id.relation
             field_name = self.field_id.name
             object = self.env[original_model].browse(active_id)
-            record = getattr(object, field_name )
+            record = getattr(object, field_name)
 
             if not record.id:
-                _logger.error("Field %s not set, server action not executed" %self.field_id.field_description)
+                _logger.error("Field %s not set, server action not executed" % self.field_id.field_description)
                 return False
             active_id = record.id
         if active_id and model_name:
