@@ -1,0 +1,781 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="l10n_br.tax_code_template_icmsst" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010302"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050505"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_irpj" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201011000"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050501"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_ir" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201011000"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050501"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_issqn" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010303"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050506"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030500"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030500"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_csll" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010900"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050504"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_ipi" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010301"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050502"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_icms" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010302"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050505"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+        </record>
+
+        <!-- COFINS -->
+        <record id="l10n_br.tax_code_template_cofins_01" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins_02" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins_03" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins_04" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins_05" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins_06" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins_07" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins_08" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins_09" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins_49" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins_50" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins_51" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins_52" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins_53" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins_54" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins_55" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins_56" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins_60" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins_61" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins_62" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins_63" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins_64" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins_65" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins_66" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins_67" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins_70" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins_71" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins_72" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins_73" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins_74" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins_75" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins_98" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_cofins_99" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030300"/>
+        </record>
+
+        <!-- PIS -->
+        <record id="l10n_br.tax_code_template_pis_01" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis_02" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis_03" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis_04" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis_05" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis_06" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis_07" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis_08" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis_09" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis_49" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis_50" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis_51" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis_52" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis_53" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis_54" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis_55" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis_56" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis_60" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis_61" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis_62" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis_63" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis_64" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis_65" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis_66" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis_67" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis_70" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis_71" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis_72" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis_73" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis_74" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis_75" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis_98" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_pis_99" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010500"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050503"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030400"/>
+        </record>
+
+        <!-- IPI -->
+        <record id="l10n_br.tax_code_template_ipi_00" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010301"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050502"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_ipi_01" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010301"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050502"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_ipi_02" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010301"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050502"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_ipi_03" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010301"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050502"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_ipi_04" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010301"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050502"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_ipi_05" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010301"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050502"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_ipi_49" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010301"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050502"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_ipi_50" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010301"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050502"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_ipi_51" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010301"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050502"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_ipi_52" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010301"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050502"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_ipi_53" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010301"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050502"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_ipi_54" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010301"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050502"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_ipi_55" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010301"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050502"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_ipi_99" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010301"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050502"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030600"/>
+        </record>
+
+        <!-- ICMS -->
+        <record id="l10n_br.tax_code_template_icms_00" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010302"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050505"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_icms_10" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010302"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050505"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_icms_20" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010302"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050505"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_icms_30" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010302"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050505"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_icms_40" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010302"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050505"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_icms_41" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010302"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050505"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_icms_50" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010302"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050505"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_icms_51" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010302"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050505"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_icms_60" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010302"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050505"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_icms_70" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010302"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050505"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_icms_90" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010302"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050505"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_icms_101" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010302"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050505"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_icms_102" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010302"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050505"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_icms_103" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010302"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050505"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_icms_201" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010302"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050505"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_icms_202" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010302"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050505"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_icms_203" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010302"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050505"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_icms_300" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010302"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050505"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_icms_400" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010302"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050505"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_icms_500" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010302"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050505"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+        </record>
+
+        <record id="l10n_br.tax_code_template_icms_900" model="account.tax.code.template">
+            <field name="account_collected_id" ref="l10n_br.account_template_201010302"/>
+            <field name="account_paid_id" ref="l10n_br.account_template_101050505"/>
+            <field name="account_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+            <field name="account_paid_deduced_id" ref="l10n_br.account_template_3010101030200"/>
+        </record>
+
+    </data>
+</openerp>
+

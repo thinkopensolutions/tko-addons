@@ -1,0 +1,42 @@
+<openerp>
+    <data>
+        <record id="account_tax_code_form_inherit" model="ir.ui.view">
+            <field name="name">account.tax.code</field>
+            <field name="model">account.tax.code</field>
+            <field name="inherit_id" ref="account.view_tax_code_form"/>
+            <field name="arch" type="xml">
+                <group string="Reporting Configuration" position="before">
+                    <group string="Account Configuraion">
+                        <field name="account_collected_id"
+                               domain="[('type','&lt;&gt;','view'),('type','&lt;&gt;','consolidation')]"/>
+                        <field name="account_paid_id"
+                               domain="[('type','&lt;&gt;','view'),('type','&lt;&gt;','consolidation')]"/>
+                        <field name="account_deduced_id"
+                               domain="[('type','&lt;&gt;','view'),('type','&lt;&gt;','consolidation')]"/>
+                        <field name="account_paid_deduced_id"
+                               domain="[('type','&lt;&gt;','view'),('type','&lt;&gt;','consolidation')]"/>
+                    </group>
+                </group>
+            </field>
+        </record>
+        <record id="account_tax_code_tempate_form_inherit" model="ir.ui.view">
+            <field name="name">account.tax.code.template</field>
+            <field name="model">account.tax.code.template</field>
+            <field name="inherit_id" ref="account.view_tax_code_template_form"/>
+            <field name="arch" type="xml">
+                <separator string="Description" position="before">
+                    <group string="Account Configuraion">
+                        <field name="account_collected_id"
+                               domain="[('type','&lt;&gt;','view'),('type','&lt;&gt;','consolidation')]"/>
+                        <field name="account_paid_id"
+                               domain="[('type','&lt;&gt;','view'),('type','&lt;&gt;','consolidation')]"/>
+                        <field name="account_deduced_id"
+                               domain="[('type','&lt;&gt;','view'),('type','&lt;&gt;','consolidation')]"/>
+                        <field name="account_paid_deduced_id"
+                               domain="[('type','&lt;&gt;','view'),('type','&lt;&gt;','consolidation')]"/>
+                    </group>
+                </separator>
+            </field>
+        </record>
+    </data>
+</openerp>
