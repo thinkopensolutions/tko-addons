@@ -1,0 +1,176 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* tko_l10n_br_account_supplier_xml_import
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0-20150926\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-02-18 13:41+0000\n"
+"PO-Revision-Date: 2016-02-18 13:41+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: tko_l10n_br_account_supplier_xml_import
+#: field:nfe.attachment,nfe_attachment_id:0
+msgid "Attachment"
+msgstr "Attachment"
+
+#. module: tko_l10n_br_account_supplier_xml_import
+#: view:nfe.attachment.wizard:tko_l10n_br_account_supplier_xml_import.nfe_attachment_wizard
+msgid "Attachments"
+msgstr "Attachments"
+
+#. module: tko_l10n_br_account_supplier_xml_import
+#: field:nfe.attachment.wizard,attachment_ids:0
+msgid "Attachments2"
+msgstr "Attachments2"
+
+#. module: tko_l10n_br_account_supplier_xml_import
+#: field:account.invoice,nfe_access_key:0
+msgid "Chave de Acesso NFE"
+msgstr "Chave de Acesso NFE"
+
+#. module: tko_l10n_br_account_supplier_xml_import
+#: field:nfe.attachment,create_uid:0
+#: field:nfe.attachment.wizard,create_uid:0
+msgid "Created by"
+msgstr "Created by"
+
+#. module: tko_l10n_br_account_supplier_xml_import
+#: field:nfe.attachment,create_date:0
+#: field:nfe.attachment.wizard,create_date:0
+msgid "Created on"
+msgstr "Created on"
+
+#. module: tko_l10n_br_account_supplier_xml_import
+#: code:addons/tko_l10n_br_account_supplier_xml_import/account_invoice.py:53
+#: code:addons/tko_l10n_br_account_supplier_xml_import/nfe_attachment.py:65
+#, python-format
+msgid "Creating supplier %s"
+msgstr "Creating supplier %s"
+
+#. module: tko_l10n_br_account_supplier_xml_import
+#: selection:nfe.attachment,state:0
+msgid "Done"
+msgstr "Done"
+
+#. module: tko_l10n_br_account_supplier_xml_import
+#: selection:nfe.attachment,state:0
+msgid "Draft"
+msgstr "Draft"
+
+#. module: tko_l10n_br_account_supplier_xml_import
+#: selection:nfe.attachment,state:0
+msgid "Error"
+msgstr "Error"
+
+#. module: tko_l10n_br_account_supplier_xml_import
+#: field:nfe.attachment,error_message:0
+msgid "Error Message"
+msgstr "Error Message"
+
+#. module: tko_l10n_br_account_supplier_xml_import
+#: field:nfe.attachment,id:0
+#: field:nfe.attachment.wizard,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: tko_l10n_br_account_supplier_xml_import
+#: view:account.invoice:tko_l10n_br_account_supplier_xml_import.account_invoice_inherited_form
+#: view:nfe.attachment.wizard:tko_l10n_br_account_supplier_xml_import.nfe_attachment_wizard
+msgid "Import"
+msgstr "Import"
+
+#. module: tko_l10n_br_account_supplier_xml_import
+#: model:ir.model,name:tko_l10n_br_account_supplier_xml_import.model_account_invoice
+msgid "Invoice"
+msgstr "Fatura"
+
+#. module: tko_l10n_br_account_supplier_xml_import
+#: field:nfe.attachment,write_uid:0
+#: field:nfe.attachment.wizard,write_uid:0
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: tko_l10n_br_account_supplier_xml_import
+#: field:nfe.attachment,write_date:0
+#: field:nfe.attachment.wizard,write_date:0
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: tko_l10n_br_account_supplier_xml_import
+#: view:account.invoice:tko_l10n_br_account_supplier_xml_import.account_invoice_inherited_form
+msgid "NFe XML"
+msgstr "NFe XML"
+
+#. module: tko_l10n_br_account_supplier_xml_import
+#: model:ir.actions.act_window,name:tko_l10n_br_account_supplier_xml_import.nfe_attachment_wizard_action
+#: model:ir.ui.menu,name:tko_l10n_br_account_supplier_xml_import.nfe_xml_import_menu
+msgid "NFe XML Import"
+msgstr "NFe XML Import"
+
+#. module: tko_l10n_br_account_supplier_xml_import
+#: field:nfe.attachment.wizard,name:0
+msgid "Name"
+msgstr "Name"
+
+#. module: tko_l10n_br_account_supplier_xml_import
+#: code:addons/tko_l10n_br_account_supplier_xml_import/nfe_attachment.py:141
+#, python-format
+msgid "No tax found with below info : \n"
+" Account Base Code: %s \n"
+" Company : %s \n"
+" Domain : %s, \n"
+" Amount : %s"
+msgstr "No tax found with below info : \n"
+" Account Base Code: %s \n"
+" Company : %s \n"
+" Domain : %s, \n"
+" Amount : %s"
+
+#. module: tko_l10n_br_account_supplier_xml_import
+#: view:nfe.attachment.wizard:tko_l10n_br_account_supplier_xml_import.nfe_attachment_wizard
+msgid "Note"
+msgstr "Note"
+
+#. module: tko_l10n_br_account_supplier_xml_import
+#: code:addons/tko_l10n_br_account_supplier_xml_import/account_invoice.py:119
+#: code:addons/tko_l10n_br_account_supplier_xml_import/nfe_attachment.py:217
+#, python-format
+msgid "Product %s not found in database"
+msgstr "Product %s not found in database"
+
+#. module: tko_l10n_br_account_supplier_xml_import
+#: code:addons/tko_l10n_br_account_supplier_xml_import/account_invoice.py:52
+#: code:addons/tko_l10n_br_account_supplier_xml_import/nfe_attachment.py:64
+#, python-format
+msgid "Supplier %s with CNPJ %s not found in database"
+msgstr "Supplier %s with CNPJ %s not found in database"
+
+#. module: tko_l10n_br_account_supplier_xml_import
+#: code:addons/tko_l10n_br_account_supplier_xml_import/account_invoice.py:98
+#: code:addons/tko_l10n_br_account_supplier_xml_import/nfe_attachment.py:196
+#, python-format
+msgid "UoM %s not found in database"
+msgstr "UoM %s not found in database"
+
+#. module: tko_l10n_br_account_supplier_xml_import
+#: field:nfe.attachment,wizard_id:0
+msgid "Wizard"
+msgstr "Wizard"
+
+#. module: tko_l10n_br_account_supplier_xml_import
+#: field:account.invoice,xml_data:0
+msgid "XML"
+msgstr "XML"
+
+#. module: tko_l10n_br_account_supplier_xml_import
+#: field:nfe.attachment,state:0
+msgid "state"
+msgstr "state"
+

@@ -1,0 +1,59 @@
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="nfe_attachment_wizard">
+            <field name="name">nfe.attachment.wizard</field>
+            <field name="model">nfe.attachment.wizard</field>
+            <field name="arch" type="xml">
+                <form version="7.0">
+                    <header>
+                        <button name="import_nfe_xml" type="object" string="Import" class="oe_highlight"/>
+                    </header>
+                    <group>
+                        <field name="name" required="1"/>
+                        <field name="active_model" invisible="1"/>
+                        <field name="active_id" invisible="1"/>
+                        <field name="create_taxes"/>
+                        <field name="invoice_type" required="1"/>
+                        <separator string="Attachments" colspan="4"/>
+                        <field name="attachment_ids" colspan="4" nolabel="1">
+                            <tree colors="red:state == 'e'">
+                                <field name="name"/>
+                                <field name="state" invisible="1"/>
+                                <field name="error_message"/>
+                            </tree>
+                            <form>
+                                <group>
+                                    <field name="name"/>
+                                    <field name="datas"/>
+                                    <separator string="Note" colspan="4"/>
+                                    <field name="error_message" placeholer="Error message...." colspan="4"/>
+                                </group>
+                            </form>
+                        </field>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="nfe_attachment_wizard_tree">
+            <field name="name">nfe.attachment.wizard</field>
+            <field name="model">nfe.attachment.wizard</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="nfe_attachment_wizard_action" model="ir.actions.act_window">
+            <field name="name">NFe XML Import</field>
+            <field name="res_model">nfe.attachment.wizard</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+        </record>
+
+        <menuitem id="nfe_xml_import_menu" action="nfe_attachment_wizard_action"
+                  parent="account.menu_finance_payables" name="NFe XML Import"
+                  sequence="130"/>
+
+    </data>
+</openerp>
