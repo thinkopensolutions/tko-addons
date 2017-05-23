@@ -1,0 +1,27 @@
+<openerp>
+    <data>
+        <record id="purchase_order_2_stock_picking" model="ir.ui.view">
+            <field name="name">Purchase Picking Inherited</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <field name="invoice_method" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="invoice_method" position="after">
+                    <field name="invoice_control"/>
+                </field>
+                <button name="view_invoice" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </button>
+                <button name="view_picking" position="before">
+                    <button name="import_supplier_nfe"
+                            attrs="{'invisible' : ['|',('state','!=', 'approved'), ('invoiced','=',True)]}"
+                            type="object" string="Receive Invoice" class="oe_highlight"/>
+                </button>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

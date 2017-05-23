@@ -1,0 +1,48 @@
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="nfe_attachment_wizard">
+            <field name="name">nfe.attachment.wizard</field>
+            <field name="model">nfe.attachment.wizard</field>
+            <field name="inherit_id" ref="tko_l10n_br_account_invoice_nfe_xml_import.nfe_attachment_wizard"/>
+            <field name="arch" type="xml">
+                <button name="import_nfe_xml" position="after">
+                    <button name="cancel" type="special" string="Close" class="oe_highlight"/>
+                    <button name="cancel_po_picking" string="Cancel PO &amp; Picking" class="oe_highlight" type="object"
+                            attrs="{'invisible' : [('active_model','!=','purchase.order')]}"/>
+                </button>
+                <field name="create_taxes" position="after">
+                    <field name="show_difference"/>
+                    <label string="Os valores unitários ou subtotais são diferentes"
+                           attrs="{'invisible' : [('show_difference','=',False)]}"/>
+                    <newline/>
+                    <field name="correct_po_from_xml" attrs="{'invisible' : [('show_difference','=',False)]}"/>
+                    <group colspan="4" attrs="{'invisible' : [('show_difference','=',False)]}">
+                        <group colspan="2" string="PO Info">
+                            <field name="po_line_info" nolabel="1">
+                                <tree create="false">
+                                    <field name="product_name"/>
+                                    <field name="product_qty"/>
+                                    <field name="product_uom"/>
+                                    <field name="unit_price"/>
+                                    <field name="tax_ids"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group colspan="2" string="NFe Info">
+                            <field name="xml_line_info" nolabel="1">
+                                <tree create="false">
+                                    <field name="product_name"/>
+                                    <field name="product_qty"/>
+                                    <field name="product_uom"/>
+                                    <field name="unit_price"/>
+                                    <field name="tax_ids"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </group>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
