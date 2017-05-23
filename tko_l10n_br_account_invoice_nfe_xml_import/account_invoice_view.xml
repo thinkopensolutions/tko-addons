@@ -1,0 +1,17 @@
+<openerp>
+    <data>
+        <record id="account_invoice_inherited_form" model="ir.ui.view">
+            <field name="name">account.invoice</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="NFe XML">
+                        <button name="import_nfe_xml" string="Import" type="object" invisible="1"/>
+                        <field name="xml_data" nolabel="1" readonly="1"/>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+    </data>
+</openerp>
