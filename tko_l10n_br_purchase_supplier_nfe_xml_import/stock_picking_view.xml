@@ -1,0 +1,29 @@
+<openerp>
+    <data>
+        <record id="nfe_attachment_wizard_action" model="ir.actions.act_window">
+            <field name="name">NFe XML Import</field>
+            <field name="res_model">nfe.attachment.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_type">form</field>
+        </record>
+
+
+        <record id="view_picking_inherit_form2" model="ir.ui.view">
+            <field name="name">stock.picking.form.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock_account.view_picking_inherit_form2"/>
+            <field name="arch" type="xml">
+                <button string="Create Invoice" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|',('picking_type_code', '=', 'incoming'),'|',('state','&lt;&gt;','done'),('invoice_state','&lt;&gt;','2binvoiced')]}</attribute>
+                </button>
+                <button string="Create Invoice" position="after">
+                    <button name="%(nfe_attachment_wizard_action)d" type="action" string="Create Invoice"
+                            attrs="{'invisible': ['|',('picking_type_code', '!=', 'incoming'),'|',('state','&lt;&gt;','done'),('invoice_state','&lt;&gt;','2binvoiced')]}"
+                            class="oe_highlight" groups="base.group_user"/>
+                </button>
+
+            </field>
+        </record>
+    </data>
+</openerp>
