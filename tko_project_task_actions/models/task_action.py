@@ -61,6 +61,12 @@ class ProjectTaskActionsLine(models.Model):
                              string='State')
     remaining_days = fields.Integer("Remaining Days", compute='get_remaining_days')
 
+    @api.multi
+    def copy(self, default=None):
+        default = dict(default or {})
+        default['done_date'] = False
+        return super(ProjectTaskActionsLine, self).copy(default)
+
     @api.one
     def get_remaining_days(self):
         days = 0
