@@ -72,7 +72,7 @@ class ir_sessions(models.Model):
 
     # scheduler function to validate users session
     def validate_sessions(self):
-        sessions = self.search([('expiration_date', '<=', fields.datetime.now().strftime(DEFAULT_SERVER_DATETIME_FORMAT)),
+        sessions = self.sudo().search([('expiration_date', '<=', fields.datetime.now().strftime(DEFAULT_SERVER_DATETIME_FORMAT))
                            ('logged_in', '=', True)])
         if sessions:
             sessions._close_session(logout_type='to')
@@ -101,13 +101,13 @@ class ir_sessions(models.Model):
             session_duration = now - datetime.strptime(
                             session.date_login,
                             DEFAULT_SERVER_DATETIME_FORMAT)
-            session.write(
+            session.sudo().write(
                 {
                     'logged_in': False,
                     'date_logout': now,
                     'logout_type': logout_type,
                     'user_kill_id': SUPERUSER_ID,
-                    'session_duration':session_duration,
+                    'session_duration': session_duration,
                 })
         cr.commit()
         cr.close()
