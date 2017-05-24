@@ -13,3 +13,4 @@ class websession(http.Controller):
             session.append({'result':'true'})
             content = simplejson.dumps(session)
             return request.make_response(content, [('Content-Type', 'application/json;charset=utf-8')])
+
