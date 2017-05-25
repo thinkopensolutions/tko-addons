@@ -1,0 +1,100 @@
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_claim_kanban">
+            <field name="name">CRM Claim Kanban</field>
+            <field name="model">crm.claim</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="stage_id">
+                    <field name="name"/>
+                    <field name="color"/>
+                    <field name="priority"/>
+                    <field name="stage_id"/>
+                    <field name="date"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div
+                                    t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
+                                <div
+                                        class="oe_dropdown_toggle oe_dropdown_kanban"
+                                        groups="base.group_user">
+                                    <span class="oe_e">í</span>
+                                    <ul class="oe_dropdown_menu">
+                                        <t
+                                                t-if="widget.view.is_action_enabled('edit')">
+                                            <li>
+                                                <a type="edit">Edit...</a>
+                                            </li>
+                                        </t>
+                                        <t
+                                                t-if="widget.view.is_action_enabled('delete')">
+                                            <li>
+                                                <a type="delete">Delete</a>
+                                            </li>
+                                        </t>
+                                        <br/>
+                                    </ul>
+                                </div>
+
+                                <div class="oe_kanban_content">
+                                    <div>
+                                        <b>
+                                            <field name="name"/>
+                                        </b>
+                                    </div>
+                                    <div>
+                                        <b>
+                                            <field name="partner_id"/>
+                                        </b>
+                                    </div>
+                                    <div>
+                                        [
+                                        <field name="date"/>
+                                        ]
+                                        <br/>
+                                    </div>
+                                    <div class="oe_kanban_list_many2many" style="max-width:300px">
+                                        <field name="tag_ids"/>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <field name="priority" widget="priority"/>
+                                    </div>
+
+                                </div>
+
+                                <div class="oe_clear"></div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <!-- override action for crm.claim -->
+
+        <record model="ir.actions.act_window" id="crm_case_categ_claim">
+            <field name="name">Claims</field>
+            <field name="res_model">crm.claim</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record>
+
+        <!--This action open the view we specify.-->
+        <record model="ir.actions.act_window" id="crm_claim.crm_case_categ_claim0">
+            <field name="name">Claims</field>
+            <field name="res_model">crm.claim</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form,calendar</field>
+            <field name="view_id" ref="view_claim_kanban"/>
+        </record>
+
+        <!-- system is not creating by itself create manually -->
+        <record id="claim_kanban_view_id" model="ir.actions.act_window.view">
+            <field name="sequence">0</field>
+            <field name="view_id" ref="view_claim_kanban"></field>
+            <field name="act_window_id" ref="crm_claim.crm_case_categ_claim0"></field>
+            <field name="view_mode">kanban</field>
+        </record>
+
+
+    </data>
+</openerp>

@@ -1,0 +1,15 @@
+<openerp>
+    <data noupdate="1">
+        <record id="claim_sequence_type" model="ir.sequence.type">
+            <field name="name">Crm claim</field>
+            <field name="code">crm.claim</field>
+        </record>
+
+        <record id="claim_sequence" model="ir.sequence">
+            <field name="name">Claim Sequence</field>
+            <field name="code">crm.claim</field>
+            <field name="prefix">C-</field>
+            <field name="padding">4</field>
+        </record>
+    </data>
+</openerp>
