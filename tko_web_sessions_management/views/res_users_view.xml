@@ -22,7 +22,7 @@
             <field name="model">res.users</field>
             <field name="inherit_id" ref="base.view_users_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//page[@name='access_rights']" position="after">
+                <xpath expr="//page[@string='Preferences']" position="before">
                     <page string="Sessions">
                         <group col="6">
                             <group string="Session Timeout">
