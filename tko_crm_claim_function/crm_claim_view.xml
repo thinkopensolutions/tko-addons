@@ -1,0 +1,16 @@
+<openerp>
+    <data>
+        <record id="crm_claim_form_inherit" model="ir.ui.view">
+            <field name="name">CRM Claim</field>
+            <field name="model">crm.claim</field>
+            <field name="inherit_id" ref="crm_claim.crm_case_claims_form_view"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="function" readonly="1" invisible="1"/>
+                    <field name="function_id"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
