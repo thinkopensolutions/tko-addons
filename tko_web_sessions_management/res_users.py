@@ -27,20 +27,18 @@ from dateutil.relativedelta import *
 
 from odoo.addons.base.ir.ir_cron import _intervalTypes
 from odoo.http import request
-from odoo.http import root
 from odoo import  fields, models, api
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
-
 
 class res_users(models.Model):
     _inherit = 'res.users'
 
+    @api.model
     def _check_session_validity(self, db, uid, passwd):
         if not request:
             return
         now = fields.datetime.now()
         session = request.session
-
         if session.db and session.uid:
             session_obj = request.env['ir.sessions']
             cr = self.pool.cursor()
@@ -50,25 +48,28 @@ class res_users(models.Model):
             # of them rolled back due to a concurrent access.)
             cr.autocommit(True)
             session_ids = session_obj.search([('session_id', '=', session.sid),
-                                              ('expiration_date', '>', now.strftime(DEFAULT_SERVER_DATETIME_FORMAT)),
-                                              ('logged_in', '=', True)], order='expiration_date asc')
+                              ('expiration_date', '>', now.strftime(DEFAULT_SERVER_DATETIME_FORMAT)),
+                              ('logged_in', '=', True)], order='expiration_date asc')
             if session_ids:
                 if request.httprequest.path[:5] == '/web/' or \
-                                request.httprequest.path[:9] == '/im_chat/':
+                                request.httprequest.path[:9] == '/im_chat/' or \
+                                request.httprequest.path[:6] == '/ajax/':
                     open_sessions = session_ids.read(['logged_in',
-                                                                   'date_login',
-                                                                   'session_seconds',
-                                                                   'expiration_date'])
+                                                      'date_login',
+                                                      'session_seconds',
+                                                      'expiration_date'])
                     for s in open_sessions:
-                        seconds = s['session_seconds']
-                        expiration_date = now + relativedelta(seconds= seconds)
-                        session_duration = str(now - datetime.strptime(s['date_login'],DEFAULT_SERVER_DATETIME_FORMAT))
-                        #write as superuser
-                        session_obj.browse(s['id']).sudo().write(
-                            {
-                            'expiration_date': expiration_date,
-                            'session_duration': session_duration,
-                            })
+                        session_id = session_obj.browse(s['id'])
+                        expiration_date = now + relativedelta(seconds=session_id.session_seconds)
+                        session_duration = str(now - datetime.strptime(
+                                        session_id.date_login,
+                                        DEFAULT_SERVER_DATETIME_FORMAT))
+                        cr.execute('UPDATE ir_sessions '\
+                                   'SET expiration_date=%s, '\
+                                   'session_duration=%s '\
+                                   'WHERE id= %s', (expiration_date,
+                                                session_duration.split('.')[0],
+                                                session_id.id,))
                     cr.commit()
             else:
                 session.logout(logout_type='to', keep_db=True)
@@ -84,7 +85,6 @@ class res_users(models.Model):
         cr.close()
         self.browse(uid)._check_session_validity(db, uid, passwd)
         return res
-
 
     @api.depends('interval_number','interval_type','groups_id.interval_number','groups_id.interval_type')
     def _get_session_default_seconds(self):
