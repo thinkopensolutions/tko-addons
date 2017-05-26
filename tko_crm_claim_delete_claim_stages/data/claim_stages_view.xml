@@ -1,0 +1,8 @@
+<openerp>
+    <data noupdate="1">
+        <delete model="crm.claim.stage" search="[('id','=',ref('crm_claim.stage_claim1'))]"/>
+        <delete model="crm.claim.stage" search="[('id','=',ref('crm_claim.stage_claim2'))]"/>
+        <delete model="crm.claim.stage" search="[('id','=',ref('crm_claim.stage_claim3'))]"/>
+        <delete model="crm.claim.stage" search="[('id','=',ref('crm_claim.stage_claim5'))]"/>
+    </data>
+</openerp>
