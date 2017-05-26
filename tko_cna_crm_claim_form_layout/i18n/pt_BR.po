@@ -1,0 +1,94 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* tko_cna_crm_claim_form_layout
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0-20150704\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-27 04:57+0000\n"
+"PO-Revision-Date: 2015-08-27 04:57+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: tko_cna_crm_claim_form_layout
+#: view:crm.claim:tko_cna_crm_claim_form_layout.crm_claim_form_inherit
+msgid "Administrativo"
+msgstr "Administrativo"
+
+#. module: tko_cna_crm_claim_form_layout
+#: view:crm.claim:tko_cna_crm_claim_form_layout.crm_claim_form_inherit
+msgid "Answer Survey"
+msgstr "Responder a Formulário"
+
+#. module: tko_cna_crm_claim_form_layout
+#: view:crm.claim:tko_cna_crm_claim_form_layout.crm_claim_form_inherit
+msgid "Claim Reporter"
+msgstr "Solicitante"
+
+#. module: tko_cna_crm_claim_form_layout
+#: view:crm.claim:tko_cna_crm_claim_form_layout.crm_claim_form_inherit
+msgid "Claim/Action Description"
+msgstr "Descrição da Solicitação / Ação"
+
+#. module: tko_cna_crm_claim_form_layout
+#: view:crm.claim:tko_cna_crm_claim_form_layout.crm_claim_form_inherit
+msgid "Comercial"
+msgstr "Comercial"
+
+#. module: tko_cna_crm_claim_form_layout
+#: view:crm.claim:tko_cna_crm_claim_form_layout.crm_claim_form_inherit
+msgid "Company"
+msgstr "Escola"
+
+#. module: tko_crm_claim
+#: field:crm.claim,partner_id:0
+#: model:ir.ui.menu,name:tko_crm_claim.crm_claim_form_inherit
+msgid "Claimer"
+msgstr "Nome"
+
+#. module: tko_cna_crm_claim_form_layout
+#: view:crm.claim:tko_cna_crm_claim_form_layout.crm_claim_form_inherit
+msgid "Financeiro"
+msgstr "Financeiro"
+
+#. module: tko_cna_crm_claim_form_layout
+#: view:crm.claim:tko_cna_crm_claim_form_layout.crm_claim_form_inherit
+msgid "Follow Up"
+msgstr "Lembrete"
+
+#. module: tko_cna_crm_claim_form_layout
+#: view:crm.claim:tko_cna_crm_claim_form_layout.crm_claim_form_inherit
+msgid "Name"
+msgstr "Nome"
+
+#. module: tko_crm_claim_company
+#: view:crm.claim:tko_crm_claim_company.crm_claim_form_inherit
+#: field:crm.claim,parent_id:0
+msgid "Company"
+msgstr "Escola"
+
+#. module: tko_cna_crm_claim_form_layout
+#: view:crm.claim:tko_cna_crm_claim_form_layout.crm_claim_form_inherit
+msgid "Pedagógico"
+msgstr "Pedagógico"
+
+#. module: tko_cna_crm_claim_form_layout
+#: view:crm.claim:tko_cna_crm_claim_form_layout.crm_claim_form_inherit
+msgid "Point of Contact"
+msgstr "Point of Contact"
+
+#. module: tko_cna_crm_claim_form_layout
+#: view:crm.claim:tko_cna_crm_claim_form_layout.crm_claim_form_inherit
+msgid "Send Survey"
+msgstr "Enviar Formulário"
+
+#. module: tko_cna_crm_claim_form_layout
+#: view:crm.claim:tko_cna_crm_claim_form_layout.crm_claim_form_inherit
+msgid "View Answers"
+msgstr "Ver Respostas"
+

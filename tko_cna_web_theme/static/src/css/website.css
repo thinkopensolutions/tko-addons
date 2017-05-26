@@ -1,0 +1,28 @@
+nav#oe_main_menu_navbar {
+    background-color: #da291c;
+}
+
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus
+{
+	background-color : #da291c;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #da291c;
+    border-color: #da291c;
+}
+
+.dropdown-toggle hidden-xs:hover{
+	border-color: #CE0E0E;
+}
+.btn-primary:hover {
+    color: #fff;
+    background-color: #da291c;
+    border-color: #CE0E0E;
+}
+
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form{
+	 background-color: #da291c;
+	
+}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="assets_backend" name="petstore_assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/tko_cna_web_theme/static/src/css/style.css"/>
+            </xpath>
+        </template>
+
+
+        <template id="assets_frontend" inherit_id="website.assets_frontend" name="Shop Stock State">
+            <xpath expr="/t" position="inside">
+                <link href="/tko_cna_web_theme/static/src/css/website.css" rel="stylesheet" type="text/css"/>
+            </xpath>
+        </template>
+
+    </data>
+</openerp>
