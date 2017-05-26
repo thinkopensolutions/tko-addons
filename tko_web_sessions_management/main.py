@@ -238,10 +238,6 @@ class Home_tkobr(odoo.addons.web.controllers.main.Home):
                 'remote_tz': tz or 'GMT',
                 'unsuccessful_message': unsuccessful_message,
             }
-            # create session record for unsuccessful login with sudo
-#             if uid == SUPERUSER_ID:
-#                 session_obj.sudo().create(values)
-#             else:
             session_obj.sudo().create(values)
             cr.commit()
         cr.close()
