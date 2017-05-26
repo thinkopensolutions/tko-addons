@@ -43,6 +43,9 @@ _logger = logging.getLogger(__name__)
 class Home_tkobr(odoo.addons.web.controllers.main.Home):
     @http.route('/web/login', type='http', auth="none")
     def web_login(self, redirect=None, **kw):
+        if not request.registry.get('ir.sessions'):
+            return super(Home_tkobr,self).web_login(redirect=redirect, **kw)
+        _logger.debug('Authentication method: Home_tkobr.web_login !')
         odoo.addons.web.controllers.main.ensure_db()
         multi_ok = True
         calendar_set = 0
@@ -222,7 +225,6 @@ class Home_tkobr(odoo.addons.web.controllers.main.Home):
                                           )
         if not sessions:
             expriy_date = now + relativedelta(seconds= user.session_default_seconds)
-
             values = {
                 'user_id': uid,
                 'logged_in': logged_in,
@@ -236,11 +238,7 @@ class Home_tkobr(odoo.addons.web.controllers.main.Home):
                 'remote_tz': tz or 'GMT',
                 'unsuccessful_message': unsuccessful_message,
             }
-            # create session record for unsuccessful login with sudo
-            if uid == SUPERUSER_ID:
-                session_obj.sudo().create(values)
-            else:
-                session_obj.create(values)
+            session_obj.sudo().create(values)
             cr.commit()
         cr.close()
         return True

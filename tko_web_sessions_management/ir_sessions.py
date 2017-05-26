@@ -72,7 +72,8 @@ class ir_sessions(models.Model):
 
     # scheduler function to validate users session
     def validate_sessions(self):
-        sessions = self.sudo().search([('expiration_date', '<=', fields.datetime.now().strftime(DEFAULT_SERVER_DATETIME_FORMAT))
+        sessions = self.sudo().search([('expiration_date', '<=', 
+                fields.datetime.now().strftime(DEFAULT_SERVER_DATETIME_FORMAT)),
                            ('logged_in', '=', True)])
         if sessions:
             sessions._close_session(logout_type='to')
@@ -89,7 +90,6 @@ class ir_sessions(models.Model):
     @api.multi
     def _on_session_logout(self, logout_type=None):
         now = fields.datetime.now()
-        session_obj = self.pool['ir.sessions']
         cr = self.pool.cursor()
         # autocommit: our single update request will be performed atomically.
         # (In this way, there is no opportunity to have two transactions
@@ -98,16 +98,16 @@ class ir_sessions(models.Model):
         cr.autocommit(True)
 
         for session in self:
-            session_duration = now - datetime.strptime(
+            session_duration = str(now - datetime.strptime(
                             session.date_login,
-                            DEFAULT_SERVER_DATETIME_FORMAT)
+                            DEFAULT_SERVER_DATETIME_FORMAT))
             session.sudo().write(
                 {
                     'logged_in': False,
                     'date_logout': now,
                     'logout_type': logout_type,
                     'user_kill_id': SUPERUSER_ID,
-                    'session_duration': session_duration,
+                    'session_duration': session_duration.split('.')[0],
                 })
         cr.commit()
         cr.close()
