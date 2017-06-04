@@ -1,0 +1,38 @@
+<odoo>
+    <data>
+        <record id="view_task_form_inherit" model="ir.ui.view">
+            <field name="name">project.task.form</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="tko_project_task_actions_timesheet.view_task_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='action_line_ids']/tree/field[@name='state']" position='after'>
+                    <field name="date_start_timer"
+                           attrs="{'invisible':['|', ('date_start_timer','=', False), ('state','!=','i')]}"/>
+                    <field name="current_time" widget="float_time"
+                           attrs="{'invisible':['|', ('date_start_timer','=', False), ('state','!=','i')]}"/>
+                    <button name="button_start_timer" icon="fa fa-play" string="Start Timer" type="object"
+                            attrs="{'invisible':['|', ('date_start_timer','!=', False), ('state','not in',('n','i'))]}"/>
+                    <button name="button_stop_timer" icon="fa fa-stop" string="Stop Timer" type="object"
+                            attrs="{'invisible':['|', ('date_start_timer','=', False), ('state','!=','i')]}"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="task_action_line_tree_view_inherit" model="ir.ui.view">
+            <field name="name">Task Action</field>
+            <field name="model">project.task.action.line</field>
+            <field name="inherit_id" ref="tko_project_task_actions_timesheet.task_action_line_tree_view_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='state']" position="after">
+                    <field name="date_start_timer"
+                           attrs="{'invisible':['|', ('date_start_timer','=', False), ('state','!=','i')]}"/>
+                    <field name="current_time" widget="float_time"
+                           attrs="{'invisible':['|', ('date_start_timer','=', False), ('state','!=','i')]}"/>
+                    <button name="button_start_timer" icon="fa fa-play" string="Start Timer" type="object"
+                            attrs="{'invisible':['|', ('date_start_timer','!=', False), ('state','not in',('n','i'))]}"/>
+                    <button name="button_stop_timer" icon="fa fa-stop" string="Stop Timer" type="object"
+                            attrs="{'invisible':['|', ('date_start_timer','=', False), ('state','!=','i')]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
