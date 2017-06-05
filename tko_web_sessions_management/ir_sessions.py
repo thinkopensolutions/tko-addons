@@ -57,7 +57,8 @@ class ir_sessions(models.Model):
     multiple_sessions_block = fields.Boolean('Block Multiple Sessions')
     date_login = fields.Datetime('Login', required=True)
     date_logout = fields.Datetime('Logout')
-    date_expiration = fields.Datetime('Expiration Date', required=True, index=True)
+    date_expiration = fields.Datetime('Expiration Date', required=True, index=True,
+                                      default=lambda *a: fields.Datetime.now())
     logout_type = fields.Selection(LOGOUT_TYPES, 'Logout Type')
     session_duration = fields.Char('Session Duration', size=8)
     user_kill_id = fields.Many2one('res.users', 'Killed by', )
