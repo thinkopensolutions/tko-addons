@@ -60,15 +60,15 @@ class res_users(models.Model):
                                                       'expiration_date'])
                     for s in open_sessions:
                         session_id = session_obj.browse(s['id'])
-                        expiration_date = now + relativedelta(seconds=session_id.session_seconds)
+                        expiration_date = (now + relativedelta(seconds=session_id.session_seconds)).strftime(DEFAULT_SERVER_DATETIME_FORMAT)
                         session_duration = str(now - datetime.strptime(
                                         session_id.date_login,
-                                        DEFAULT_SERVER_DATETIME_FORMAT))
+                                        DEFAULT_SERVER_DATETIME_FORMAT)).split('.')[0]
                         cr.execute('UPDATE ir_sessions '\
                                    'SET expiration_date=%s, '\
                                    'session_duration=%s '\
                                    'WHERE id= %s', (expiration_date,
-                                                session_duration.split('.')[0],
+                                                session_duration,
                                                 session_id.id,))
                     cr.commit()
             else:

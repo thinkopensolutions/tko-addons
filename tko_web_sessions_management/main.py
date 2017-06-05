@@ -224,14 +224,14 @@ class Home_tkobr(odoo.addons.web.controllers.main.Home):
                                                     ('logged_in', '=', True)],
                                           )
         if not sessions:
-            expriy_date = now + relativedelta(seconds= user.session_default_seconds)
+            expriy_date = (now + relativedelta(seconds= user.session_default_seconds)).strftime(DEFAULT_SERVER_DATETIME_FORMAT)
             values = {
                 'user_id': uid,
                 'logged_in': logged_in,
                 'session_id': sid,
                 'session_seconds': user.session_default_seconds,
                 'multiple_sessions_block': user.multiple_sessions_block,
-                'date_login': now,
+                'date_login': now.strftime(DEFAULT_SERVER_DATETIME_FORMAT),
                 'expiration_date': expriy_date,
                 'ip': ip,
                 'ip_location': ip_location,
@@ -241,7 +241,6 @@ class Home_tkobr(odoo.addons.web.controllers.main.Home):
             session_obj.sudo().create(values)
             cr.commit()
         cr.close()
-        return True
 
     @http.route('/web/session/logout', type='http', auth="none")
     def logout(self, redirect='/web'):

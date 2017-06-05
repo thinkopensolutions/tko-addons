@@ -100,14 +100,14 @@ class ir_sessions(models.Model):
         for session in self:
             session_duration = str(now - datetime.strptime(
                             session.date_login,
-                            DEFAULT_SERVER_DATETIME_FORMAT))
+                            DEFAULT_SERVER_DATETIME_FORMAT)).split('.')[0]
             session.sudo().write(
                 {
                     'logged_in': False,
-                    'date_logout': now,
+                    'date_logout': now.strftime(DEFAULT_SERVER_DATETIME_FORMAT),
                     'logout_type': logout_type,
                     'user_kill_id': SUPERUSER_ID,
-                    'session_duration': session_duration.split('.')[0],
+                    'session_duration': session_duration,
                 })
         cr.commit()
         cr.close()
