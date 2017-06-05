@@ -34,8 +34,8 @@ import werkzeug.wrappers
 import werkzeug.wsgi
 from odoo import SUPERUSER_ID
 from odoo import api
+from odoo import fields, models
 from odoo.http import root
-from odoo import  fields, models
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 _logger = logging.getLogger(__name__)
@@ -49,32 +49,32 @@ class ir_sessions(models.Model):
     _name = 'ir.sessions'
     _description = "Sessions"
 
-    user_id= fields.Many2one('res.users', 'User', ondelete='cascade',
-                               required=True)
-    logged_in= fields.Boolean('Logged in', required=True, index=True)
-    session_id= fields.Char('Session ID', size=100, required=True)
-    session_seconds= fields.Integer('Session duration in seconds')
-    multiple_sessions_block= fields.Boolean('Block Multiple Sessions')
-    date_login= fields.Datetime('Login', required=True)
-    expiration_date= fields.Datetime('Expiration Date', required=True,
-                                       index=True)
-    date_logout= fields.Datetime('Logout')
-    logout_type= fields.Selection(LOGOUT_TYPES, 'Logout Type')
-    session_duration= fields.Char('Session Duration', size=8)
-    user_kill_id= fields.Many2one('res.users', 'Killed by', )
-    unsuccessful_message= fields.Char('Unsuccessful', size=252)
+    user_id = fields.Many2one('res.users', 'User', ondelete='cascade',
+                              required=True)
+    logged_in = fields.Boolean('Logged in', required=True, index=True)
+    session_id = fields.Char('Session ID', size=100, required=True)
+    session_seconds = fields.Integer('Session duration in seconds')
+    multiple_sessions_block = fields.Boolean('Block Multiple Sessions')
+    date_login = fields.Datetime('Login', required=True)
+    date_logout = fields.Datetime('Logout')
+    date_expiration = fields.Datetime('Expiration Date', required=True, index=True,
+                                      default=lambda *a: fields.Datetime.now())
+    logout_type = fields.Selection(LOGOUT_TYPES, 'Logout Type')
+    session_duration = fields.Char('Session Duration', size=8)
+    user_kill_id = fields.Many2one('res.users', 'Killed by', )
+    unsuccessful_message = fields.Char('Unsuccessful', size=252)
     ip = fields.Char('Remote IP', size=15)
-    ip_location= fields.Char('IP Location', )
-    remote_tz= fields.Char('Remote Time Zone', size=32, required=True)
+    ip_location = fields.Char('IP Location', )
+    remote_tz = fields.Char('Remote Time Zone', size=32, required=True)
     # Add other fields about the sessions from HEADER...
 
-    _order = 'logged_in desc, expiration_date desc'
+    _order = 'logged_in desc, date_expiration desc'
 
     # scheduler function to validate users session
     def validate_sessions(self):
-        sessions = self.sudo().search([('expiration_date', '<=', 
-                fields.datetime.now().strftime(DEFAULT_SERVER_DATETIME_FORMAT)),
-                           ('logged_in', '=', True)])
+        sessions = self.sudo().search([('date_expiration', '<=',
+                                        fields.datetime.now().strftime(DEFAULT_SERVER_DATETIME_FORMAT)),
+                                       ('logged_in', '=', True)])
         if sessions:
             sessions._close_session(logout_type='to')
         return True
@@ -99,15 +99,15 @@ class ir_sessions(models.Model):
 
         for session in self:
             session_duration = str(now - datetime.strptime(
-                            session.date_login,
-                            DEFAULT_SERVER_DATETIME_FORMAT))
+                session.date_login,
+                DEFAULT_SERVER_DATETIME_FORMAT)).split('.')[0]
             session.sudo().write(
                 {
                     'logged_in': False,
-                    'date_logout': now,
+                    'date_logout': now.strftime(DEFAULT_SERVER_DATETIME_FORMAT),
                     'logout_type': logout_type,
                     'user_kill_id': SUPERUSER_ID,
-                    'session_duration': session_duration.split('.')[0],
+                    'session_duration': session_duration,
                 })
         cr.commit()
         cr.close()
