@@ -23,17 +23,17 @@
 ##############################################################################
 
 import logging
-import pytz
 from datetime import datetime
-from dateutil.relativedelta import *
 
 import odoo
+import pytz
 import werkzeug.contrib.sessions
+from dateutil.relativedelta import *
 from odoo import SUPERUSER_ID
+from odoo import fields, _
 from odoo import http
 from odoo.http import request
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
-from odoo import  fields, models, _
 
 # from odoo import pooler
 
@@ -44,7 +44,7 @@ class Home_tkobr(odoo.addons.web.controllers.main.Home):
     @http.route('/web/login', type='http', auth="none")
     def web_login(self, redirect=None, **kw):
         if not request.registry.get('ir.sessions'):
-            return super(Home_tkobr,self).web_login(redirect=redirect, **kw)
+            return super(Home_tkobr, self).web_login(redirect=redirect, **kw)
         _logger.debug('Authentication method: Home_tkobr.web_login !')
         odoo.addons.web.controllers.main.ensure_db()
         multi_ok = True
@@ -82,7 +82,7 @@ class Home_tkobr(odoo.addons.web.controllers.main.Home):
                 if not uid is SUPERUSER_ID:
                     # check for multiple sessions block
                     sessions = session_obj.search(
-                            [('user_id', '=', uid), ('logged_in', '=', True)])
+                        [('user_id', '=', uid), ('logged_in', '=', True)])
 
                     if sessions and user.multiple_sessions_block:
                         multi_ok = False
@@ -178,7 +178,7 @@ class Home_tkobr(odoo.addons.web.controllers.main.Home):
             tz,
             sid,
             unsuccessful_message='',
-            ):
+    ):
         now = fields.datetime.now()
         session_obj = request.env['ir.sessions']
         cr = request.registry.cursor()
@@ -219,12 +219,13 @@ class Home_tkobr(odoo.addons.web.controllers.main.Home):
             sessions = False
         else:
             sessions = session_obj.search([('session_id', '=', sid),
-                                                    ('ip', '=', ip),
-                                                    ('user_id', '=', uid),
-                                                    ('logged_in', '=', True)],
+                                           ('ip', '=', ip),
+                                           ('user_id', '=', uid),
+                                           ('logged_in', '=', True)],
                                           )
         if not sessions:
-            date_expiration = (now + relativedelta(seconds= user.session_default_seconds)).strftime(DEFAULT_SERVER_DATETIME_FORMAT)
+            date_expiration = (now + relativedelta(seconds=user.session_default_seconds)).strftime(
+                DEFAULT_SERVER_DATETIME_FORMAT)
             values = {
                 'user_id': uid,
                 'logged_in': logged_in,
