@@ -23,9 +23,8 @@
 ##############################################################################
 
 import logging
+
 import odoo
-from dateutil.relativedelta import *
-from odoo import SUPERUSER_ID
 import werkzeug.contrib.sessions
 import werkzeug.datastructures
 import werkzeug.exceptions
@@ -33,10 +32,8 @@ import werkzeug.local
 import werkzeug.routing
 import werkzeug.wrappers
 import werkzeug.wsgi
-from werkzeug.wsgi import wrap_file
 from odoo.http import request
 from odoo.tools.func import lazy_property
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 #
 _logger = logging.getLogger(__name__)

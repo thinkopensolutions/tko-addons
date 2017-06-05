@@ -44,13 +44,13 @@
                                     <field name="multiple_sessions_block"/>
                                     <field name="date_login"/>
                                     <field name="session_duration"/>
-                                    <field name="expiration_date"/>
+                                    <field name="date_expiration"/>
                                     <field name="date_logout"/>
                                     <field name="logout_type"/>
                                     <field name="user_kill_id"/>
                                     <field name="unsuccessful_message"/>
                                     <button name="action_close_session" string="Close Session"
-                                            type="object" icon="STOCK_CANCEL"
+                                            type="object" icon="fa-remove"
                                             attrs="{'invisible':[('logged_in','=',False)]}"/>
                                 </tree>
                                 <form edit="false" create="false"
@@ -62,7 +62,7 @@
                                         <field name="multiple_sessions_block"/>
                                         <field name="date_login"/>
                                         <field name="session_duration"/>
-                                        <field name="expiration_date"/>
+                                        <field name="date_expiration"/>
                                         <field name="date_logout"/>
                                         <field name="logout_type"/>
                                         <field name="user_kill_id"/>
@@ -115,13 +115,13 @@
                                         <field name="multiple_sessions_block"/>
                                         <field name="date_login"/>
                                         <field name="session_duration"/>
-                                        <field name="expiration_date"/>
+                                        <field name="date_expiration"/>
                                         <field name="date_logout"/>
                                         <field name="logout_type"/>
                                         <field name="user_kill_id"/>
                                         <field name="unsuccessful_message"/>
                                         <button name="action_close_session" string="Close Session"
-                                                type="object" icon="STOCK_CANCEL"
+                                                type="object" icon="fa-remove"
                                                 attrs="{'invisible':[('logged_in','=',False)]}"/>
                                     </tree>
                                     <form edit="false" create="false">
@@ -132,7 +132,7 @@
                                             <field name="multiple_sessions_block"/>
                                             <field name="date_login"/>
                                             <field name="session_duration"/>
-                                            <field name="expiration_date"/>
+                                            <field name="date_expiration"/>
                                             <field name="date_logout"/>
                                             <field name="logout_type"/>
                                             <field name="user_kill_id"/>
