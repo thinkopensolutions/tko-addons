@@ -56,9 +56,8 @@ class ir_sessions(models.Model):
     session_seconds= fields.Integer('Session duration in seconds')
     multiple_sessions_block= fields.Boolean('Block Multiple Sessions')
     date_login= fields.Datetime('Login', required=True)
-    expiration_date= fields.Datetime('Expiration Date', required=True,
-                                       index=True)
     date_logout= fields.Datetime('Logout')
+    date_expiration= fields.Datetime('Expiration Date', required=True, index=True)
     logout_type= fields.Selection(LOGOUT_TYPES, 'Logout Type')
     session_duration= fields.Char('Session Duration', size=8)
     user_kill_id= fields.Many2one('res.users', 'Killed by', )
@@ -68,11 +67,11 @@ class ir_sessions(models.Model):
     remote_tz= fields.Char('Remote Time Zone', size=32, required=True)
     # Add other fields about the sessions from HEADER...
 
-    _order = 'logged_in desc, expiration_date desc'
+    _order = 'logged_in desc, date_expiration desc'
 
     # scheduler function to validate users session
     def validate_sessions(self):
-        sessions = self.sudo().search([('expiration_date', '<=', 
+        sessions = self.sudo().search([('date_expiration', '<=',
                 fields.datetime.now().strftime(DEFAULT_SERVER_DATETIME_FORMAT)),
                            ('logged_in', '=', True)])
         if sessions:

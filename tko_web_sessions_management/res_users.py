@@ -48,8 +48,8 @@ class res_users(models.Model):
             # of them rolled back due to a concurrent access.)
             cr.autocommit(True)
             session_ids = session_obj.search([('session_id', '=', session.sid),
-                              ('expiration_date', '>', now.strftime(DEFAULT_SERVER_DATETIME_FORMAT)),
-                              ('logged_in', '=', True)], order='expiration_date asc')
+                              ('date_expiration', '>', now.strftime(DEFAULT_SERVER_DATETIME_FORMAT)),
+                              ('logged_in', '=', True)], order='date_expiration asc')
             if session_ids:
                 if request.httprequest.path[:5] == '/web/' or \
                                 request.httprequest.path[:9] == '/im_chat/' or \
@@ -57,17 +57,17 @@ class res_users(models.Model):
                     open_sessions = session_ids.read(['logged_in',
                                                       'date_login',
                                                       'session_seconds',
-                                                      'expiration_date'])
+                                                      'date_expiration'])
                     for s in open_sessions:
                         session_id = session_obj.browse(s['id'])
-                        expiration_date = (now + relativedelta(seconds=session_id.session_seconds)).strftime(DEFAULT_SERVER_DATETIME_FORMAT)
+                        date_expiration = (now + relativedelta(seconds=session_id.session_seconds)).strftime(DEFAULT_SERVER_DATETIME_FORMAT)
                         session_duration = str(now - datetime.strptime(
                                         session_id.date_login,
                                         DEFAULT_SERVER_DATETIME_FORMAT)).split('.')[0]
                         cr.execute('UPDATE ir_sessions '\
-                                   'SET expiration_date=%s, '\
+                                   'SET date_expiration=%s, '\
                                    'session_duration=%s '\
-                                   'WHERE id= %s', (expiration_date,
+                                   'WHERE id= %s', (date_expiration,
                                                 session_duration,
                                                 session_id.id,))
                     cr.commit()
