@@ -15,8 +15,10 @@
                                 <field name="expected_date"/>
                                 <field name="done_date"/>
                                 <field name="state" readonly="1"/>
-                                <button name="set_done" icon="fa fa-check" type="object" attrs="{'invisible':[('state','!=','i')]}"/>
-                                <button name="set_cancel" icon="fa fa-times" type="object" attrs="{'invisible':[('state','!=','i')]}"/>
+                                <button name="set_done" icon="fa fa-check" type="object"
+                                        attrs="{'invisible':[('state','!=','i')]}"/>
+                                <button name="set_cancel" icon="fa fa-times" type="object"
+                                        attrs="{'invisible':[('state','!=','i')]}"/>
                             </tree>
                         </field>
                     </page>
@@ -50,14 +52,18 @@
                         </group>
                         <group colspan="2" col="2">
                             <group>
-                            <field name="done_filter_id" domain="[('model_id','=','project.task')]"/>
-                            <field name="done_filter_warning_message" placeholder="Warning message if done filter not validated" attrs="{'required' : [('done_filter_id','!=',False)]}" nolable="1"/>
-                            <field name="done_server_action_id"/>
+                                <field name="done_filter_id" domain="[('model_id','=','project.task')]"/>
+                                <field name="done_filter_warning_message"
+                                       placeholder="Warning message if done filter not validated"
+                                       attrs="{'required' : [('done_filter_id','!=',False)]}" nolable="1"/>
+                                <field name="done_server_action_id"/>
                             </group>
                             <group>
-                            <field name="cancel_filter_id" domain="[('model_id','=','project.task')]"/>
-                            <field name="cancel_filter_warning_message" placeholder="Warning message if cancel filter not validated" attrs="{'required' : [('cancel_filter_id','!=',False)]}" nolable="1"/>
-                            <field name="cancel_server_action_id"/>
+                                <field name="cancel_filter_id" domain="[('model_id','=','project.task')]"/>
+                                <field name="cancel_filter_warning_message"
+                                       placeholder="Warning message if cancel filter not validated"
+                                       attrs="{'required' : [('cancel_filter_id','!=',False)]}" nolable="1"/>
+                                <field name="cancel_server_action_id"/>
                             </group>
                         </group>
                     </sheet>
@@ -78,10 +84,49 @@
                   parent="project.menu_project_config"/>
 
         <!-- action line -->
+        <!-- action line calendar view-->
+
+        <record id="task_action_line_calendar_view" model="ir.ui.view">
+            <field name="name">Task Action Line</field>
+            <field name="model">project.task.action.line</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">
+                <calendar color="action_id" date_start="expected_date" date_delay="done_date" string="Task Action">
+                    <field name="task_id"/>
+                    <field name="action_id"/>
+                </calendar>
+            </field>
+        </record>
+        
+        <!-- action line pivot view-->
+        <record id="task_action_line_pivot_view" model="ir.ui.view">
+            <field name="name">Task Action Line</field>
+            <field name="model">project.task.action.line</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">
+                <pivot string="Task Action Line">
+                    <field name="task_id"/>
+                    <field name="action_id"/>
+                </pivot>
+            </field>
+        </record>
+
+        <!-- action line graph view-->
+        <record id="task_action_line_graph_view" model="ir.ui.view">
+            <field name="name">Task Action Line</field>
+            <field name="model">project.task.action.line</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">
+                <graph string="Task Action Line">
+                    <field name="task_id"/>
+                    <field name="action_id"/>
+                </graph>
+            </field>
+        </record>
 
         <!-- action line tree view-->
         <record id="task_action_line_tree_view" model="ir.ui.view">
-            <field name="name">Task Action</field>
+            <field name="name">Task Action Line</field>
             <field name="model">project.task.action.line</field>
             <field name="arch" type="xml">
                 <tree string="Task Action Lines" version="7.0" create="false">
@@ -91,8 +136,10 @@
                     <field name="done_date"/>
                     <field name="remaining_days"/>
                     <field name="state"/>
-                    <button name="set_done" icon="fa fa-check" type="object" attrs="{'invisible':[('state','!=','i')]}"/>
-                    <button name="set_cancel" icon="fa fa-times" type="object" attrs="{'invisible':[('state','!=','i')]}"/>
+                    <button name="set_done" icon="fa fa-check" type="object"
+                            attrs="{'invisible':[('state','!=','i')]}"/>
+                    <button name="set_cancel" icon="fa fa-times" type="object"
+                            attrs="{'invisible':[('state','!=','i')]}"/>
                 </tree>
             </field>
         </record>
@@ -104,9 +151,10 @@
             <field name="arch" type="xml">
                 <form string="Task Action Line" version="7.0" create="false" editable="false">
                     <header>
-                            <field name="state" widget="statusbar"/>
-                            <button name="set_done" string="Done" type="object" attrs="{'invisible':[('state','!=','i')]}"/>
-                            <button name="set_cancel" string="Cancel" type="object" attrs="{'invisible':[('state','!=','i')]}"/>
+                        <field name="state" widget="statusbar"/>
+                        <button name="set_done" string="Done" type="object" attrs="{'invisible':[('state','!=','i')]}"/>
+                        <button name="set_cancel" string="Cancel" type="object"
+                                attrs="{'invisible':[('state','!=','i')]}"/>
                     </header>
                     <sheet>
                         <group colspan="2" col="2">
@@ -124,7 +172,8 @@
                                 <label for="remaining_days"/>
                                 <div>
 
-                                    <field name="remaining_days" nolable="1"/> Days
+                                    <field name="remaining_days" nolable="1"/>
+                                    Days
                                 </div>
                             </group>
                         </group>
@@ -137,10 +186,10 @@
             <field name="name">Task Action Lines</field>
             <field name="res_model">project.task.action.line</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,calendar,pivot,graph</field>
         </record>
 
-         <menuitem id="task_action_line_menu" action="task_action_line_action" sequence="50"
+        <menuitem id="task_action_line_menu" action="task_action_line_action" sequence="50"
                   parent="project.menu_project_management"/>
 
     </data>
