@@ -17,6 +17,9 @@ addons:
       - python-serial
       - python-yaml
       - wkhtmltopdf
+      - tesseract-ocr # document_ocr
+      - imagemagick # document_ocr
+      - fonts-inconsolata # document_ocr (for tests only)
 
 env:
   global:
