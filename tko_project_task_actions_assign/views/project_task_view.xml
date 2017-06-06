@@ -1,18 +1,14 @@
 <openerp>
     <data>
 
-         <record id="view_task_form_inherit_envolved_users" model="ir.ui.view">
+        <record id="view_task_form_inherit_envolved_users" model="ir.ui.view">
             <field name="name">project.task.form</field>
             <field name="model">project.task</field>
             <field name="inherit_id" ref="tko_project_task_actions.view_task_form_inherit"/>
             <field name="arch" type="xml">
-                <page name="task_action" position="after">
-                    <page string="Team" name="task_action">
-                        <group>
-                            <field name="user_ids" widget="many2many_tags"/>
-                        </group>
-                    </page>
-                </page>
+                <field name="tag_ids" position="after">
+                    <field name="user_ids" widget="many2many_tags"/>
+                </field>
                 <xpath expr="//field[@name='action_line_ids']/tree/field[@name='state']" position="before">
                     <field name="user_id"/>
                 </xpath>
