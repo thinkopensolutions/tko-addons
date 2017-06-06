@@ -48,8 +48,8 @@ Credits
 Contributors
 ------------
 
- * Holger Brunn <hbrunn@therp.nl>
- * Carlos Almeida <carlos.almeida@tkobr.com>
+* Holger Brunn <hbrunn@therp.nl>
+* Carlos Almeida <carlos.almeida@tkobr.com>
 
 Maintainer
 ----------
