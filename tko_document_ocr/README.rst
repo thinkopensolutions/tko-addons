@@ -48,20 +48,17 @@ In PDF case, OCR will run after it will be converted to an image. But OCR will b
 
 
 System parameters used:
-#``document_ocr.synchronous``:  bool
-#``document_ocr.language``:  string
-#``document_ocr.dpi``:  integer
-#``document_ocr.quality``:  integer
 
+* ``document_ocr.synchronous``:  bool
+* ``document_ocr.language``:  string
+* ``document_ocr.dpi``:  integer
+* ``document_ocr.quality``:  integer
 
-.. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
-    :alt: Try me on Runbot
-    :target: https://runbot.odoo-community.org/runbot/118/10.0
 
 Bug Tracker
 ===========
 
-Bugs are tracked on `GitHub Issues <https://github.com/OCA/knowledge/issues>`_.
+Bugs are tracked on `GitHub Issues <https://github.com/thinkopensolutions/tko-addons/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed feedback.
 
@@ -73,29 +70,17 @@ The actual work
 
 * `tesseract <https://github.com/tesseract-ocr>`_
 
-Images
-------
-
-* Odoo Community Association: `Icon <https://github.com/OCA/maintainer-tools/blob/master/template/module/static/description/icon.svg>`_.
-
 Contributors
 ------------
 
 * Holger Brunn <hbrunn@therp.nl>  
+* Carlos Almeida <carlos.almeida@tkobr.com>
 
-Do not contact contributors directly about help with questions or problems concerning this addon, but use the `community mailing list <mailto:community@mail.odoo.com>`_ or the `appropriate specialized mailinglist <https://odoo-community.org/groups>`_ for help, and the bug tracker linked in `Bug Tracker`_ above for technical issues.
 
 Maintainer
 ----------
 
-.. image:: https://odoo-community.org/logo.png
-   :alt: Odoo Community Association
-   :target: https://odoo-community.org
+This module is maintained by ThinkOpen Solutions Brasil.
 
-This module is maintained by the OCA.
 
-OCA, or the Odoo Community Association, is a nonprofit organization whose
-mission is to support the collaborative development of Odoo features and
-promote its widespread use.
-
-To contribute to this module, please visit https://odoo-community.org.
+To contribute to this module, please visit https://github.com/thinkopensolutions/tko-addons/edit/10.0/tko_document_ocr.
