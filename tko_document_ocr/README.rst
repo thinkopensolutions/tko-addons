@@ -6,21 +6,29 @@ This module was written to make uploaded documents, for example scans, searchabl
 It supports all image formats Pillow supports for reading and PDFs.
 
 Installation
+============
 
 To install this module, you need to:
+------------------------------------
+
   - install tesseract and the language(s) your documents use
   - if you want to support OCR on PDFs, install imagemagick
   - install the module itself
 
 On an Debian or Ubuntu system you would typically run:
-$ sudo apt-get install tesseract-ocr imagemagick
+
+``$ sudo apt-get install tesseract-ocr imagemagick``
 
 Configuration
+=============
 
 To configure this module, go to:
+--------------------------------
+
  - Settings/Technical/Parameters/System parameters and review the parameters with names document_ocr.*
 
 Usage
+=====
 
 By default, character recognition is done asynchronously by a cronjob at night. This is because the recognition process takes a while and you don't want to make your users wait for the indexation to finish. The interval to run the cronjob can be adjusted to your needs in the Scheduled Actions menu, under ` Settings`. In case you want to force the OCR to be done immediately, set configuration parameter document_ocr.synchronous to value True.
 
