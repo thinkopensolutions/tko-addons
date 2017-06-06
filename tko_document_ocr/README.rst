@@ -83,4 +83,4 @@ Maintainer
 This module is maintained by ThinkOpen Solutions Brasil.
 
 
-To contribute to this module, please visit https://github.com/thinkopensolutions/tko-addons/edit/10.0/tko_document_ocr.
+To contribute to this module, please visit https://github.com/thinkopensolutions/tko-addons/issues.
