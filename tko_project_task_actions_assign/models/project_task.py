@@ -53,7 +53,7 @@ class ProjectTaskActionsLine(models.Model):
 class ProjectTask(models.Model):
 	_inherit = 'project.task'
 
-	user_ids = fields.Many2many('res.users',string='Envolved',compute='get_users')
+	user_ids = fields.Many2many('res.users',string='Team',compute='get_users')
 
 	@api.multi
 	def get_users(self):
