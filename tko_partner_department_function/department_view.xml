@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="curriculum_department_tree" model="ir.ui.view">
+            <field name="name">Department</field>
+            <field name="model">curriculum.department</field>
+            <field name="arch" type="xml">
+                <tree string="Department">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="curriculum_department_form" model="ir.ui.view">
+            <field name="name">Department</field>
+            <field name="model">curriculum.department</field>
+            <field name="arch" type="xml">
+                <form string="Department">
+                    <group col="4" colspan="4">
+                        <field name="name"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="curriculum_department_action" model="ir.actions.act_window">
+            <field name="name">Department</field>
+            <field name="res_model">curriculum.department</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="curriculum_department_menu" parent="tko_partner_configuration_menus.partner_config_menu"
+                  action="curriculum_department_action" sequence="30" groups="base.group_no_one"/>
+
+    </data>
+</odoo>
+

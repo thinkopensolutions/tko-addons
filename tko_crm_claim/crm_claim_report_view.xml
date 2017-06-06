@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_report_crm_claim_filter" model="ir.ui.view">
+            <field name="name">crm.claim.report.select</field>
+            <field name="model">crm.claim.report</field>
+            <field name="inherit_id" ref="crm_claim.view_report_crm_claim_filter"/>
+            <field name="arch" type="xml">
+                <filter name="Salesperson" position="replace">
+                    <filter string="Attendant" name="Salesperson" context="{'group_by':'user_id'}"/>
+                </filter>
+                <filter name="partner" position="replace">
+                    <filter string="Claimer" name="partner" context="{'group_by':'partner_id'}"/>
+                    <filter string="Claim Company" name="claim_company" context="{'group_by':'parent_id'}"/>
+                </filter>
+                <filter name="claim_month" position="replace">
+                    <filter string="Type" context="{'group_by':'type_id'}" help="Claim Type"/>
+                    <filter string="Month" context="{'group_by':'claim_date:month'}" help="Month of claim"/>
+                </filter>
+
+            </field>
+        </record>
+    </data>
+</odoo>

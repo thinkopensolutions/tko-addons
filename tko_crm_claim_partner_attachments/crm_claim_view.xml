@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="crm_claim_form_inherit" model="ir.ui.view">
+            <field name="name">CRM Claim</field>
+            <field name="model">crm.claim</field>
+            <field name="inherit_id" ref="crm_claim.crm_case_claims_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook[last()]" position="inside">
+                    <page string="Attachments">
+                        <field name="partner_attachment_ids" mode="kanban,tree">
+                                <kanban>
+                                <field name="id"/>
+                                <field name="mimetype"/>
+                                <field name="type"/>
+                                <field name="datas_fname"/>
+                                <field name="name"/>
+                                <templates>
+                                    <t t-name="kanban-box">
+                                        <div class="oe_kanban_global_click">
+                                            <div class="oe_kanban_vignette">
+                                                <div class="oe_attachment">
+                                                    <div class="oe_name">
+                                                        <field name="name"/>
+                                                    </div>
+                                                    <div t-if="record.type.raw_value == 'binary'">
+                                                        <a t-attf-href="/web/content/#{record.id.value}?download=1">
+                                                            <t t-set="webimage" t-value="new RegExp('image.*(gif|jpeg|jpg|png)').test(record.mimetype.value)"/>
+                                                            <div t-if="!webimage" class="o_image" t-att-data-mimetype="record.mimetype.value"/>
+                                                            <div t-if="webimage" class="o_kanban_attachment_image">
+                                                                <img t-attf-src="/web/image/#{record.id.value}?download=1"/>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </templates>
+                            </kanban>
+                    
+                            <tree>
+                                <field name="name" context="{'form_view_ref':'custom_attachment_form'}"/>
+                                <field name="type"/>
+                                <field name="write_date"/>
+                            </tree>
+
+                        </field>
+                    </page>
+                
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

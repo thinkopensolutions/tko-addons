@@ -1,0 +1,173 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* tko_crm_claim_delegation_tab
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0-20150704\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-25 14:50+0000\n"
+"PO-Revision-Date: 2015-08-25 14:50+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: tko_crm_claim_delegation_tab
+#: field:claim.delegation,action_id:0
+#: view:delegation.action:tko_crm_claim_delegation_tab.delegation_action_form
+#: view:delegation.action:tko_crm_claim_delegation_tab.delegation_action_tree
+msgid "Action"
+msgstr "Ação"
+
+#. module: tko_crm_claim_delegation_tab
+#: model:ir.actions.act_window,name:tko_crm_claim_delegation_tab.delegation_action_action
+msgid "Actoin"
+msgstr "Ação"
+
+#. module: tko_crm_claim_delegation_tab
+#: selection:claim.delegation,state:0
+msgid "Assigned"
+msgstr "Atribuída"
+
+#. module: tko_crm_claim_delegation_tab
+#: view:crm.claim:tko_crm_claim_delegation_tab.crm_claim_form_inherit
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: tko_crm_claim_delegation_tab
+#: selection:claim.delegation,state:0
+msgid "Cancelled"
+msgstr "Cancelada"
+
+#. module: tko_crm_claim_delegation_tab
+#: field:claim.delegation,claim_id:0
+#: model:ir.model,name:tko_crm_claim_delegation_tab.model_crm_claim
+msgid "Claim"
+msgstr "Solicitação"
+
+#. module: tko_crm_claim_delegation_tab
+#: field:claim.delegation,create_uid:0
+#: field:delegation.action,create_uid:0
+msgid "Created by"
+msgstr "Created by"
+
+#. module: tko_crm_claim_delegation_tab
+#: field:claim.delegation,create_date:0
+#: field:delegation.action,create_date:0
+msgid "Created on"
+msgstr "Created on"
+
+#. module: tko_crm_claim_delegation_tab
+#: field:claim.delegation,date_deadline:0
+msgid "Deadline"
+msgstr "Prazo Limite"
+
+#. module: tko_crm_claim_delegation_tab
+#: view:crm.claim:tko_crm_claim_delegation_tab.crm_claim_form_inherit
+msgid "Delegate Me"
+msgstr "Atribuir-me"
+
+#. module: tko_crm_claim_delegation_tab
+#: field:claim.delegation,delegated_date:0
+msgid "Delegated Date"
+msgstr "Data de Atribuição"
+
+#. module: tko_crm_claim_delegation_tab
+#: view:crm.claim:tko_crm_claim_delegation_tab.crm_claim_form_inherit
+#: field:crm.claim,delegation_ids:0
+msgid "Delegation"
+msgstr "Envolvidos"
+
+#. module: tko_crm_claim_delegation_tab
+#: model:ir.ui.menu,name:tko_crm_claim_delegation_tab.claim_delegation_menu
+msgid "Delegation Action"
+msgstr "Ação de Atribuição"
+
+#. module: tko_crm_claim_delegation_tab
+#: field:claim.delegation,department_id:0
+msgid "Department"
+msgstr "Departamento"
+
+#. module: tko_crm_claim_delegation_tab
+#: field:claim.delegation,description:0
+#: field:delegation.action,description:0
+msgid "Description"
+msgstr "Descrição"
+
+#. module: tko_crm_claim_delegation_tab
+#: field:delegation.action,description:0
+msgid "Description"
+msgstr "Descrição"
+
+#. module: tko_crm_claim_delegation_tab
+#: selection:claim.delegation,state:0
+#: view:crm.claim:tko_crm_claim_delegation_tab.crm_claim_form_inherit
+msgid "Done"
+msgstr "Concluída"
+
+#. module: tko_crm_claim_delegation_tab
+#: field:claim.delegation,finished_date:0
+msgid "Finished Date"
+msgstr "Data de Conclusão"
+
+#. module: tko_crm_claim_delegation_tab
+#: view:crm.claim:tko_crm_claim_delegation_tab.crm_claim_form_inherit
+msgid "Follow Up"
+msgstr "Lembrete"
+
+#. module: tko_crm_claim_delegation_tab
+#: field:claim.delegation,id:0
+#: field:delegation.action,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: tko_crm_claim_delegation_tab
+#: field:delegation.action,planned_hours:0
+msgid "Initially Planned Hours"
+msgstr "Horas Planeadas Inicialmente"
+
+#. module: tko_crm_claim_delegation_tab
+#: field:claim.delegation,last_notified:0
+msgid "Last Notified Date"
+msgstr "Last Notified Date"
+
+#. module: tko_crm_claim_delegation_tab
+#: field:claim.delegation,write_uid:0
+#: field:delegation.action,write_uid:0
+msgid "Last Updated by"
+msgstr "Última atualização por"
+
+#. module: tko_crm_claim_delegation_tab
+#: field:claim.delegation,write_date:0
+#: field:delegation.action,write_date:0
+msgid "Last Updated on"
+msgstr "Última atualização em"
+
+#. module: tko_crm_claim_delegation_tab
+#: field:delegation.action,name:0
+msgid "Name"
+msgstr "Nome"
+
+#. module: tko_crm_claim_delegation_tab
+#: selection:claim.delegation,state:0
+msgid "New"
+msgstr "Nova"
+
+#. module: tko_crm_claim_delegation_tab
+#: field:claim.delegation,user_id:0
+msgid "Responsible"
+msgstr "Responsável"
+
+#. module: tko_crm_claim_delegation_tab
+#: field:claim.delegation,warning_mail:0
+msgid "Sent Warning Mail"
+msgstr "Email de Notificação Enviado"
+
+#. module: tko_crm_claim_delegation_tab
+#: field:claim.delegation,state:0
+msgid "State"
+msgstr "Estágio"
+

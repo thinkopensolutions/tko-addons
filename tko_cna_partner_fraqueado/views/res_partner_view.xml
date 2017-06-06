@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_partner_form_franqueado" model="ir.ui.view">
+            <field name="name">res.partner.form.franqueado</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='parent_id']" position="replace">
+                    <field name="parent_id" placeholder="Company"
+                           domain="[('is_company', '=', True)]"
+                           context="{'default_is_company': True,
+                                  'default_supplier': supplier,
+                                  'default_customer': customer}"
+                           attrs="{'invisible': ['|',('is_franqueado', '=', True),('is_company','=', True),
+                                              ('parent_id', '=', False),
+                                              ]}"
+                           on_change="onchange_address(use_parent_address, parent_id)"/>
+                </xpath>
+                <xpath expr="//h1" position="before">
+                    <field name="is_franqueado" attrs="{'invisible': [('is_company', '=', True)]}" class="oe_inline"/>
+                    <label for="is_franqueado" string="Is Franqueado?"
+                           attrs="{'invisible': [('is_company', '=', True)]}" class="oe_inline"/>
+                </xpath>
+                <field name="parent_id" position="after">
+                    <field name="parent_ids" attrs="{'invisible': [('is_franqueado','!=',True)]}"
+                           widget="many2many_tags" placeholder="Parents..."/>
+                </field>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>
