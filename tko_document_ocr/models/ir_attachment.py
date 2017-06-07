@@ -11,6 +11,7 @@ from StringIO import StringIO
 import pyPdf
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
+from openerp.osv import osv
 
 _logger = logging.getLogger(__name__)
 _MARKER_PHRASE = '[[waiting for OCR]]'
@@ -144,7 +145,7 @@ class IrAttachment(models.Model):
                                    stdout=subprocess.PIPE,
                                    stderr=subprocess.PIPE)
         stdout, stderr = process.communicate()
-        if self.language not in stderr.split('\n'):
+        if self.language not in stderr.split('\n')[1:-1]:
             raise UserError(_(
                 "Language not installed."
                 " Please ask your system administrator to"
@@ -186,34 +187,39 @@ class IrAttachment(models.Model):
         stdout, stderr = process.communicate(bin_data)
         if stderr:
             _logger.error('Error during OCR: %s', stderr)
+            if self.env['ir.config_parameter'].get_param(
+                'document_ocr.synchronous', 'False') == 'True':
+                raise Exception('Error during OCR:\n%s', stderr)
         return stdout
 
+    def _convert_bin_to_image(self, bin_data):
+        dpi = int(self.env['ir.config_parameter'].get_param(
+            'document_ocr.dpi', '500'))
+        quality = int(self.env['ir.config_parameter'].get_param(
+            'document_ocr.quality', '100'))
+        process = subprocess.Popen(
+            ['convert', '-density', str(dpi),
+             '-quality', str(quality),
+             '-', '-append', 'png32:-'],
+            stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE)
+        stdout, stderr = process.communicate(bin_data)
+        if stderr:
+            _logger.error('Error converting PDF to image: %s', stderr)
+            if self.env['ir.config_parameter'].get_param(
+                'document_ocr.synchronous', 'False') == 'True':
+                raise Exception('Error converting PDF to image:\n%s' % stderr)
+        return stdout
+
+    def _convert_pdf_page_to_image(self, pdf, pagenum):
+        dst_pdf = pyPdf.PdfFileWriter()
+        dst_pdf.addPage(pdf.getPage(pagenum))
+        pdf_bytes = io.BytesIO()
+        dst_pdf.write(pdf_bytes)
+        pdf_bytes.seek(0)
+        return self._convert_bin_to_image(pdf_bytes.read())
+
     def _index_pdf(self, bin_data):
-
-        def convert_bin_to_image(self, bin_data):
-            dpi = int(self.env['ir.config_parameter'].get_param(
-                'document_ocr.dpi', '500'))
-            quality = int(self.env['ir.config_parameter'].get_param(
-                'document_ocr.quality', '100'))
-            process = subprocess.Popen(
-                ['convert', '-density', str(dpi),
-                 '-quality', str(quality),
-                 '-', '-append', 'png32:-'],
-                stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE)
-            stdout, stderr = process.communicate(bin_data)
-            if stderr:
-                _logger.error('Error converting PDF to image: %s', stderr)
-            return stdout
-
-        def _convert_pdf_page_to_image(self, pdf, pagenum):
-            dst_pdf = pyPdf.PdfFileWriter()
-            dst_pdf.addPage(pdf.getPage(pagenum))
-            pdf_bytes = io.BytesIO()
-            dst_pdf.write(pdf_bytes)
-            pdf_bytes.seek(0)
-            return convert_bin_to_image(self, pdf_bytes.read())
-
         has_synchr_param = self.env['ir.config_parameter'].get_param(
             'document_ocr.synchronous', 'False') == 'True'
         has_force_flag = self.env.context.get('document_ocr_force')
@@ -232,17 +238,18 @@ class IrAttachment(models.Model):
                                          self.datas_fname,
                                          pagenum + 1,
                                          pdf.getNumPages())
-                            pdf_image = _convert_pdf_page_to_image(self, pdf,
+                            pdf_image = self._convert_pdf_page_to_image(pdf,
                                                                    pagenum)
                             index_content = self._index_ocr(pdf_image)
                             buf = u'%s\n-- %d --\n%s' % (
                                 buf, pagenum + 1, index_content.decode('utf8'))
                     else:
-                        pdf_image = convert_bin_to_image(self, bin_data)
+                        pdf_image = self._convert_bin_to_image(bin_data)
                         index_content = self._index_ocr(pdf_image)
                         buf = u'%s\n%s' % (buf, index_content.decode('utf8'))
-                except Exception as e:
-                    _logger.error('Error converting PDF to image: %s', e)
+                except Exception, err:
+                    buf = u'%s' % err.message.decode('utf8', 'replace')
+                    _logger.error(buf)
                     pass
         else:
             buf = _MARKER_PHRASE
