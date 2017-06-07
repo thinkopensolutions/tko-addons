@@ -107,7 +107,7 @@ class crm_claim(models.Model):
         if self.claim_poc_id:
             self.claim_poc_id.email = self.poc_partner_email
 
-    @api.onchange('partner_id', 'email')
+    @api.onchange('partner_id')
     def onchange_partner_id(self):
 
         res = super(crm_claim, self).onchange_partner_id()

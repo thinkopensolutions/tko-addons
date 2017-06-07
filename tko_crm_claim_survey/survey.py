@@ -43,8 +43,8 @@ class survey_user_input(models.Model):
                     res[record.id] = claim_id[0]
         return res
 
-    claim_id = fields.Many2one(
-        _get_claim_id, relation='crm.claim', string='Claim')
+    claim_id = fields.Many2one('crm.claim',
+        compute='_get_claim_id', string='Claim')
     date_write = fields.Datetime(
         'Write Date', default=lambda *a: datetime.now())
 

@@ -55,11 +55,10 @@ class crm_claim(models.Model):
         return []
 
     survey_id = fields.Many2one('survey.survey', 'Survey')
-    survey_ans_id = fields.Many2one(compute=_get_survey_answer, relation='survey.user_input',
-                                    string="Survey Answer", fnct_search=_answer_search
-                                    )
+    survey_ans_id = fields.Many2one('survey.user_input', compute=_get_survey_answer,
+                                    string="Survey Answer")
     survey_created = fields.Boolean('Survey Created', default=False)
-    answer_state = fields.Selection(related='survey_id.user_input_ids.state', selection=AVAILABLE_STATES,
+    answer_state = fields.Selection(related='survey_ans_id.state', selection=AVAILABLE_STATES,
                                     string="Answer State", readonly=True, store=True)
     # _defaults = {'survey_created': False}
 

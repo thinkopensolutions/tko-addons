@@ -41,7 +41,7 @@
         <record id="delegation_action_action" model="ir.actions.act_window">
             <field name="name">Actoin</field>
             <field name="res_model">delegation.action</field>
-            <field name="tree_view_id" ref="delegation_action_tree"/>
+            <field name="view_id" ref="delegation_action_tree"/>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>

@@ -95,7 +95,7 @@ class crm_claim(models.Model):
                     'parent_id': record.parent_id.id,
                 })
 
-    @api.onchange('partner_id', 'email')
+    @api.onchange('partner_id')
     def onchange_partner_id(self):
 
         res = super(crm_claim, self).onchange_partner_id()
