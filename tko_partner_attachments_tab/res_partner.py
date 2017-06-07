@@ -31,7 +31,7 @@ class ir_attachment(models.Model):
 
     partner_id = fields.Many2one('res.partner', 'Customer')
     type = fields.Selection([('url', 'URL'), ('binary', 'Binary'), ],
-                                 'Type', help="Binary File or URL", required=True, change_default=True)
+                            'Type', help="Binary File or URL", required=True, change_default=True)
 
     # this method will srync attachments between attachment tab and attachment button on top
     @api.model
@@ -40,12 +40,13 @@ class ir_attachment(models.Model):
             if vals['res_model'] == 'res.partner':
                 vals.update({'partner_id': vals['res_id']})
         if 'partner_id' in vals and vals['partner_id'] != False:
-            vals.update({'res_model': 'res.partner', 'res_id': vals['partner_id']})
+            vals.update({'res_model': 'res.partner',
+                         'res_id': vals['partner_id']})
         return super(ir_attachment, self).create(vals)
 
 
 class res_partner(models.Model):
     _inherit = "res.partner"
 
-    attachment_ids = fields.One2many('ir.attachment', 'partner_id', 'Attachments')
-
+    attachment_ids = fields.One2many(
+        'ir.attachment', 'partner_id', 'Attachments')

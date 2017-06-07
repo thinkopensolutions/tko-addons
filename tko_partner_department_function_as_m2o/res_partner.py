@@ -4,7 +4,8 @@ from openerp import fields, models, api
 class res_partner(models.Model):
     _inherit = 'res.partner'
 
-    department_id = fields.Many2one('curriculum.department', string='Department')
+    department_id = fields.Many2one(
+        'curriculum.department', string='Department')
     function_id = fields.Many2one('curriculum.job.position', string='Function')
 
     @api.onchange('function_id')

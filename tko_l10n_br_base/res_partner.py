@@ -63,19 +63,19 @@ GENDER = [
 
 class res_partner(models.Model):
     _inherit = 'res.partner'
-    
+
     @api.multi
     def _get_is_company(self):
         result = {}
-        convert = {True: 'j', False: 'f',}
+        convert = {True: 'j', False: 'f', }
         for partner in self:
             result[partner.id] = convert[partner.is_company]
         return result
-    
+
     @api.multi
     def _save_is_company(self, name, value, arg):
         result = {}
-        convert = {'j': True, 'f': False,}
+        convert = {'j': True, 'f': False, }
         return convert[value]
 
     @api.multi
@@ -85,6 +85,7 @@ class res_partner(models.Model):
         age = now.year - age_date.year - (0 if (now.month > age_date.month or (
             now.month == age_date.month and now.day >= age_date.day)) else 1)
         return age
+
     @api.multi
     def _calculate_age(self):
         res = {}
@@ -104,12 +105,12 @@ class res_partner(models.Model):
     #         string=u'Matrizn' ,default="f")
 
     is_company_selection = fields.Selection(
-            fnct_inv=_save_is_company,
-            method=True,
-            required=True,
-            translate=True,
-            selection=IS_COMPANY,
-            string=u'Matrizn' ,default="f")
+        fnct_inv=_save_is_company,
+        method=True,
+        required=True,
+        translate=True,
+        selection=IS_COMPANY,
+        string=u'Matrizn', default="f")
     pabx = fields.Char('Phones', size=32)
     pabx_extension = fields.Char('Extension', size=32)
     fax = fields.Char('FAX', size=32)
@@ -118,12 +119,14 @@ class res_partner(models.Model):
     gender = fields.Selection(GENDER, 'Gender', translate=True)
     district_id = fields.Many2one('district', 'District')
     zone = fields.Selection(AVAILABLE_ZONES, 'Zona', translate=True)
-    is_matriz = fields.Selection(IS_MATRIZ, 'Unidade', translate=True, default='f')
+    is_matriz = fields.Selection(
+        IS_MATRIZ, 'Unidade', translate=True, default='f')
     activity_branch_id = fields.Many2one('activity_branch', 'Activity Branch')
     business_size_id = fields.Many2one('business_size', 'Business Size')
     annual_income_id = fields.Many2one('annual_income', 'Annual Income')
     economic_sector_id = fields.Many2one('economic_sector', 'Economic Sector')
-    business_nationality_id = fields.Many2one('business_nationality', 'Business Nationality')
+    business_nationality_id = fields.Many2one(
+        'business_nationality', 'Business Nationality')
     skype = fields.Char('Skype', size=128)
     blog = fields.Char('Blog', size=256)
     facebook = fields.Char('Facebook', size=128)
@@ -131,8 +134,9 @@ class res_partner(models.Model):
     linkedin = fields.Char('LinkedIn', size=128)
     departamento = fields.Char('Departamento', size=128)
     birth_date = fields.Date('Birthdate')
-    age = fields.Integer(compute='_calculate_age', method=True, type='integer', string='Age')
-    
+    age = fields.Integer(compute='_calculate_age',
+                         method=True, type='integer', string='Age')
+
     @api.onchange('is_company_selection')
     def onchange_is_company_selection(self):
         if self.is_company_selection:
@@ -205,73 +209,69 @@ class district(models.Model):
     _order = "name"
 
     name = fields.Char(
-            'District',
-            size=128,
-            required=True,
-            translate=True)
+        'District',
+        size=128,
+        required=True,
+        translate=True)
 
 
 class activity_branch(models.Model):
     _name = "activity_branch"
     _description = "Activity Branch"
 
-
     name = fields.Char(
-            'Activity Branch',
-            size=128,
-            required=True,
-            translate=True)
+        'Activity Branch',
+        size=128,
+        required=True,
+        translate=True)
 
 
 class business_size(models.Model):
     _name = "business_size"
     _description = "Business Size"
 
-
     name = fields.Char(
-            'Business Size',
-            size=128,
-            required=True,
-            translate=True)
+        'Business Size',
+        size=128,
+        required=True,
+        translate=True)
+
 
 class annual_income(models.Model):
     _name = "annual_income"
     _description = "Annual Income"
 
     name = fields.Char(
-            'Annual Income',
-            size=128,
-            required=True,
-            translate=True)
+        'Annual Income',
+        size=128,
+        required=True,
+        translate=True)
 
 
 class economic_sector(models.Model):
     _name = "economic_sector"
     _description = "Economic Sector"
 
-
     name = fields.Char(
-            'Economic Sector',
-            size=128,
-            required=True,
-            translate=True)
-
+        'Economic Sector',
+        size=128,
+        required=True,
+        translate=True)
 
 
 class business_nationality(models.Model):
     _name = "business_nationality"
     _description = "Business Nationality"
 
-
     name = fields.Char(
-            'Business nationality',
-            size=128,
-            required=True,
-            translate=True)
+        'Business nationality',
+        size=128,
+        required=True,
+        translate=True)
+
 
 class res_partner_title(models.Model):
     _inherit = "res.partner.title"
 
     is_fisica = fields.Boolean('Pessoa Fisica')
     is_juridica = fields.Boolean('Pessoa Juridica')
-

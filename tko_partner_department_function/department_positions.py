@@ -32,7 +32,7 @@ class curriculum_department(models.Model):
     _description = "curriculum_department model"
 
     name = fields.Char('Department', size=64, required=True)
-    
+
     _order = 'name'
 
 
@@ -44,10 +44,10 @@ class curriculum_job_position(models.Model):
     _description = "curriculum_job_position model"
 
     name = fields.Char('Position', size=64, required=True)
-    depart_id = fields.Many2one('curriculum.department', 'Department', required=True)
+    depart_id = fields.Many2one(
+        'curriculum.department', 'Department', required=True)
 
     _order = 'name'
 
 
 curriculum_job_position()
-

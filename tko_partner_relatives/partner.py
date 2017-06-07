@@ -29,5 +29,5 @@ class res_partner(models.Model):
     _inherit = 'res.partner'
 
     relative_id = fields.Many2one('res.partner', 'Related Relative')
-    relative_ids = fields.One2many('res.partner', 'relative_id', 'Child Categories')
-
+    relative_ids = fields.One2many(
+        'res.partner', 'relative_id', 'Child Categories')
