@@ -33,15 +33,18 @@ class res_company(models.Model):
 
 class crm_claim(models.Model):
     _inherit = 'crm.claim'
-    
+
     @api.multi
     def get_company_id(self):
         return self.env.user.company_id.id
 
     parent_id = fields.Many2one('res.partner', string='Company')
-    company_phone = fields.Char(string='Phone', compute='_get_company_info', inverse='_set_company_info')
-    company_website = fields.Char(string='Website', compute='_get_company_info', inverse='_set_company_info')
-    company_email = fields.Char(string='Email', compute='_get_company_info', inverse='_set_company_info')
+    company_phone = fields.Char(
+        string='Phone', compute='_get_company_info', inverse='_set_company_info')
+    company_website = fields.Char(
+        string='Website', compute='_get_company_info', inverse='_set_company_info')
+    company_email = fields.Char(
+        string='Email', compute='_get_company_info', inverse='_set_company_info')
 
     @api.depends('partner_id')
     def _get_company_info(self):
@@ -63,15 +66,17 @@ class crm_claim(models.Model):
             if record.parent_id:
 
                 if self.env.user.company_id.claim_company_domain:
-                    partners = self.env['res.partner'].search([('parent_id', '=', record.parent_id.id)])
-                    res['domain'] = {'partner_id': [('id', 'in', [partner.id for partner in partners])]}
+                    partners = self.env['res.partner'].search(
+                        [('parent_id', '=', record.parent_id.id)])
+                    res['domain'] = {'partner_id': [
+                        ('id', 'in', [partner.id for partner in partners])]}
                 record.company_phone = record.parent_id.phone
                 record.company_website = record.parent_id.website
                 record.company_email = record.parent_id.email
             else:
                 res['domain'] = {'partner_id': [('id', 'not in', [])]}
         return res
-    
+
     @api.one
     def _set_company_info(self):
         for record in self:
@@ -89,8 +94,8 @@ class crm_claim(models.Model):
                 record.partner_id.write({
                     'parent_id': record.parent_id.id,
                 })
-    
-    @api.onchange('partner_id','email')
+
+    @api.onchange('partner_id', 'email')
     def onchange_partner_id(self):
 
         res = super(crm_claim, self).onchange_partner_id()
@@ -98,4 +103,3 @@ class crm_claim(models.Model):
             parent_id = self.partner_id.parent_id and self.partner_id.parent_id.id or False
             res['value'].update({'parent_id': parent_id})
         return res
-

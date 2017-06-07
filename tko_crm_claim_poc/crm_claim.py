@@ -55,13 +55,18 @@ class crm_claim(models.Model):
     _inherit = 'crm.claim'
 
     claim_poc_id = fields.Many2one('res.partner', 'POC')
-    poc_partner_function = fields.Char('Function', related='claim_poc_id.function', readonly=True)
+    poc_partner_function = fields.Char(
+        'Function', related='claim_poc_id.function', readonly=True)
     poc_function_id = fields.Many2one('curriculum.job.position', string='Function', compute='get_poc_function_id',
                                       inverse='set_poc_function_id')
-    poc_function_id2 = fields.Many2one('curriculum.job.position', string='Function')
-    poc_partner_mobile = fields.Char(string='Mobile', compute='_get_poc_partner_info', inverse='_set_poc_partner_info')
-    poc_partner_phone = fields.Char(string='Phone', compute='_get_poc_partner_info', inverse='_set_poc_partner_info')
-    poc_partner_email = fields.Char(string='Email', compute='_get_poc_partner_email', inverse='_set_poc_partner_email')
+    poc_function_id2 = fields.Many2one(
+        'curriculum.job.position', string='Function')
+    poc_partner_mobile = fields.Char(
+        string='Mobile', compute='_get_poc_partner_info', inverse='_set_poc_partner_info')
+    poc_partner_phone = fields.Char(
+        string='Phone', compute='_get_poc_partner_info', inverse='_set_poc_partner_info')
+    poc_partner_email = fields.Char(
+        string='Email', compute='_get_poc_partner_email', inverse='_set_poc_partner_email')
     poc = fields.Boolean('Use Point of Contact')
 
     @api.depends('claim_poc_id')
@@ -102,7 +107,7 @@ class crm_claim(models.Model):
         if self.claim_poc_id:
             self.claim_poc_id.email = self.poc_partner_email
 
-    @api.onchange('partner_id','email')
+    @api.onchange('partner_id', 'email')
     def onchange_partner_id(self):
 
         res = super(crm_claim, self).onchange_partner_id()

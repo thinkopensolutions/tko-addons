@@ -50,7 +50,8 @@ class crm_claim(models.Model):
     def set_partner_function(self):
         self.ensure_one()
         if self.partner_id and self.function_id:
-            self.partner_id.write({'function_id': self.function_id.id, 'function': self.function_id.name})
+            self.partner_id.write(
+                {'function_id': self.function_id.id, 'function': self.function_id.name})
 
     @api.onchange('parent_id', 'function_id')
     def onchange_company(self):
@@ -59,18 +60,23 @@ class crm_claim(models.Model):
             if record.parent_id and not record.function_id:
 
                 if self.env.user.company_id.claim_company_domain:
-                    partners = self.env['res.partner'].search([('parent_id', '=', record.parent_id.id)])
-                    res['domain'] = {'partner_id': [('id', 'in', [partner.id for partner in partners])]}
+                    partners = self.env['res.partner'].search(
+                        [('parent_id', '=', record.parent_id.id)])
+                    res['domain'] = {'partner_id': [
+                        ('id', 'in', [partner.id for partner in partners])]}
                 record.company_phone = record.parent_id.phone
                 record.company_website = record.parent_id.website
                 record.company_email = record.parent_id.email
             elif not record.parent_id and record.function_id:
-                partners = self.env['res.partner'].search([('function_id', '=', record.function_id.id)])
-                res['domain'] = {'partner_id': [('id', 'in', [partner.id for partner in partners])]}
+                partners = self.env['res.partner'].search(
+                    [('function_id', '=', record.function_id.id)])
+                res['domain'] = {'partner_id': [
+                    ('id', 'in', [partner.id for partner in partners])]}
             elif record.parent_id and record.function_id:
                 partners = self.env['res.partner'].search(
                     [('function_id', '=', record.function_id.id), ('parent_id', '=', record.parent_id.id)])
-                res['domain'] = {'partner_id': [('id', 'in', [partner.id for partner in partners])]}
+                res['domain'] = {'partner_id': [
+                    ('id', 'in', [partner.id for partner in partners])]}
                 record.company_phone = record.parent_id.phone
                 record.company_website = record.parent_id.website
                 record.company_email = record.parent_id.email

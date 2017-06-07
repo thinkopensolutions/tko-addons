@@ -65,7 +65,8 @@ class calendar_event(models.Model):
     _inherit = 'calendar.event'
 
     claim_id = fields.Many2one('crm.claim', string='Claim')
-    active_model = fields.Char('Active Model', default=lambda self: self.env.context.get('active_model', False))
+    active_model = fields.Char(
+        'Active Model', default=lambda self: self.env.context.get('active_model', False))
 
     # button used to save form(when it is wizard opened from claim form)
     @api.one
@@ -77,7 +78,8 @@ class calendar_phonecall(models.Model):
     _inherit = 'crm.phonecall'
 
     claim_id = fields.Many2one('crm.claim', string='Claim')
-    active_model = fields.Char('Active Model', default=lambda self: self.env.context.get('active_model', False))
+    active_model = fields.Char(
+        'Active Model', default=lambda self: self.env.context.get('active_model', False))
 
     @api.onchange('claim_id')
     def change_claim_id(self):
@@ -89,7 +91,8 @@ class calendar_phonecall(models.Model):
     def default_get(self, fields_list):
         data = super(calendar_phonecall, self).default_get(fields_list)
         if 'default_claim_id' in self._context.keys() and self._context['default_claim_id']:
-            data['partner_id'] = self.env['crm.claim'].browse(self._context['default_claim_id']).partner_id.id
+            data['partner_id'] = self.env['crm.claim'].browse(
+                self._context['default_claim_id']).partner_id.id
         return data
 
     # button used to save form(when it is wizard opened from claim form)
@@ -116,7 +119,8 @@ class crm_claim(models.Model):
     # compute sequence just to show before save
     @api.one
     def _get_sequence(self):
-        sequence_obj = self.env['ir.sequence'].search([('code', '=', 'crm.claim')])
+        sequence_obj = self.env['ir.sequence'].search(
+            [('code', '=', 'crm.claim')])
         prefix = sequence_obj.prefix or ''
         suffix = sequence_obj.suffix or ''
         return prefix + str(format(sequence_obj.number_next_actual, '0' + str(sequence_obj.padding))) + suffix
@@ -127,12 +131,17 @@ class crm_claim(models.Model):
     color = fields.Integer(string='Color', related='categ_id.color')
     partner_id = fields.Many2one('res.partner', 'Claimer')
     date_deadline = fields.Datetime('Deadline')
-    countdown_timer = fields.Char(compute='_get_bussiness_hours', string='Countdown Timer')
+    countdown_timer = fields.Char(
+        compute='_get_bussiness_hours', string='Countdown Timer')
     priority = fields.Selection(AVAILABLE_PRIORITIES, 'Priority')
-    partner_mobile = fields.Char(string='Mobile', compute='_get_partner_info', inverse='_set_partner_info')
-    partner_phone2 = fields.Char(string='Phone', compute='_get_partner_info', inverse='_set_partner_info')
-    partner_email = fields.Char(string='Email', compute='_get_partner_info', inverse='_set_partner_info')
-    claim_ids = fields.Many2many('crm.claim', compute='get_claim_ids', store=False)
+    partner_mobile = fields.Char(
+        string='Mobile', compute='_get_partner_info', inverse='_set_partner_info')
+    partner_phone2 = fields.Char(
+        string='Phone', compute='_get_partner_info', inverse='_set_partner_info')
+    partner_email = fields.Char(
+        string='Email', compute='_get_partner_info', inverse='_set_partner_info')
+    claim_ids = fields.Many2many(
+        'crm.claim', compute='get_claim_ids', store=False)
     type_id = fields.Many2one('claim.type', 'Claim Type')
     assigned_id = fields.Many2one('res.users', 'Assigned to', compute='_get_assinged_supervisor', readonly=False,
                                   store=True)
@@ -211,17 +220,21 @@ class crm_claim(models.Model):
             user_tz = user.partner_id.tz
             if user_tz:
                 # less timezone difference
-                todays = datetime.now() - timedelta(hours=3)  # datetime.now(pytz.timezone(user_tz))
+                # datetime.now(pytz.timezone(user_tz))
+                todays = datetime.now() - timedelta(hours=3)
             else:
                 todays = datetime.now() - timedelta(hours=3)
             whole_days = int(res.type_id.planned_hours / 9)
             remaining_hours = res.type_id.planned_hours % 9
             weekday = todays.weekday()
             # TODO: timezone difference should not be rigid
-            deadline = todays + timedelta(days=whole_days, hours=remaining_hours)  # timezone difference
+            # timezone difference
+            deadline = todays + \
+                timedelta(days=whole_days, hours=remaining_hours)
             # fix time exeeded than 18 hours
             if deadline.hour >= 18 and deadline.minute > 0 or deadline.hour < 9:
-                deadline = deadline + relativedelta(hours=15)  # (24-18)EVE + MOR(9-0) = 15
+                # (24-18)EVE + MOR(9-0) = 15
+                deadline = deadline + relativedelta(hours=15)
 
             # fix days if falling on saturday or sunday
             if deadline.weekday() == 5 or deadline.weekday() == 6:
@@ -248,17 +261,21 @@ class crm_claim(models.Model):
             user_tz = user.partner_id.tz
             if user_tz:
                 # less timezone difference
-                todays = datetime.now() - timedelta(hours=3)  # datetime.now(pytz.timezone(user_tz))
+                # datetime.now(pytz.timezone(user_tz))
+                todays = datetime.now() - timedelta(hours=3)
             else:
                 todays = datetime.now() - timedelta(hours=3)
             whole_days = int(self.type_id.planned_hours / 9)
             remaining_hours = self.type_id.planned_hours % 9
             weekday = todays.weekday()
             # TODO: timezone difference should not be rigid
-            deadline = todays + timedelta(days=whole_days, hours=remaining_hours)  # timezone difference
+            # timezone difference
+            deadline = todays + \
+                timedelta(days=whole_days, hours=remaining_hours)
             # fix time exeeded than 18 hours
             if deadline.hour >= 18 and deadline.minute > 0 or deadline.hour < 9:
-                deadline = deadline + relativedelta(hours=15)  # (24-18)EVE + MOR(9-0) = 15
+                # (24-18)EVE + MOR(9-0) = 15
+                deadline = deadline + relativedelta(hours=15)
             # fix days if falling on saturday or sunday
             if deadline.weekday() == 5 or deadline.weekday() == 6:
                 deadline = deadline = deadline + relativedelta(days=2)
@@ -271,21 +288,25 @@ class crm_claim(models.Model):
     def _get_bussiness_hours(self):
         if self.date_deadline:
             fromdate = date.today()
-            todate = datetime.strptime(self.date_deadline, "%Y-%m-%d %H:%M:%S").date()
+            todate = datetime.strptime(
+                self.date_deadline, "%Y-%m-%d %H:%M:%S").date()
             if not todate >= fromdate:
                 self.countdown_timer = '00' + ':' + '00' + ':' + '00' + ':' '00'
                 return
-            daygenerator = (fromdate + timedelta(x + 1) for x in xrange((todate - fromdate).days))
+            daygenerator = (fromdate + timedelta(x + 1)
+                            for x in xrange((todate - fromdate).days))
             weekdays = sum(1 for day in daygenerator if day.weekday() < 5) - 1
 
             # subtract 3 to get time of 'America/Sao_Paulo', using timezone gives wrong calculation 'America/Sao_Paulo' gives -3.1 difference instaed of -3
 
             user = self.env['res.users'].browse(SUPERUSER_ID)
             user_tz = user.partner_id.tz or 'UTC'
-            todays = pytz.utc.localize(datetime.now()).astimezone(pytz.timezone(user_tz))
+            todays = pytz.utc.localize(
+                datetime.now()).astimezone(pytz.timezone(user_tz))
 
             # (9-18) + 3 hours becuase of timezone
-            offset = (calendar.timegm(time.localtime()) - calendar.timegm(time.gmtime())) / 3600
+            offset = (calendar.timegm(time.localtime()) -
+                      calendar.timegm(time.gmtime())) / 3600
             offset = -3
             start_hour = 9 - (offset)
             end_hour = 12 - (offset)
@@ -307,7 +328,8 @@ class crm_claim(models.Model):
             if remaining_time_today < 0:
                 remaining_time_today = 0
             # remaining time on final day
-            remaining_time_final_day = (final - final_day_start).total_seconds()
+            remaining_time_final_day = (
+                final - final_day_start).total_seconds()
             diff = remaining_time_today + remaining_time_final_day
 
             if diff > 0:
@@ -329,7 +351,8 @@ class crm_claim(models.Model):
 
             if int(weekdays) > 0 and len(str(weekdays)) < 2:
                 weekdays = '0' + str(weekdays)
-                self.countdown_timer = str(weekdays) + ':' + hours + ':' + minutes + ':' + seconds
+                self.countdown_timer = str(
+                    weekdays) + ':' + hours + ':' + minutes + ':' + seconds
             else:
                 self.countdown_timer = '00:00:00:00'
 

@@ -88,13 +88,15 @@ class WebsiteSurvey(WebsiteSurvey):
             _logger.info("[survey] Phantom mode")
             user_input_id = user_input_obj.create(cr, uid, {'survey_id': survey.id, 'test_entry': True},
                                                   context=context)
-            user_input = user_input_obj.browse(cr, uid, [user_input_id], context=context)[0]
+            user_input = user_input_obj.browse(
+                cr, uid, [user_input_id], context=context)[0]
             data = {'survey': survey, 'page': None, 'token': user_input.token}
             return request.website.render('survey.survey_init', data)
         # END Test mode
 
         # Controls if the survey can be displayed
-        errpage = self._check_bad_cases(cr, uid, request, survey_obj, survey, user_input_obj, context=context)
+        errpage = self._check_bad_cases(
+            cr, uid, request, survey_obj, survey, user_input_obj, context=context)
         if errpage:
             return errpage
 
@@ -102,16 +104,21 @@ class WebsiteSurvey(WebsiteSurvey):
         if not token:
             vals = {'survey_id': survey.id}
             if request.website.user_id.id != uid:
-                vals['partner_id'] = request.registry['res.users'].browse(cr, uid, uid, context=context).partner_id.id
-            user_input_id = user_input_obj.create(cr, uid, vals, context=context)
-            user_input = user_input_obj.browse(cr, uid, [user_input_id], context=context)[0]
+                vals['partner_id'] = request.registry['res.users'].browse(
+                    cr, uid, uid, context=context).partner_id.id
+            user_input_id = user_input_obj.create(
+                cr, uid, vals, context=context)
+            user_input = user_input_obj.browse(
+                cr, uid, [user_input_id], context=context)[0]
         else:
             try:
-                user_input_id = user_input_obj.search(cr, uid, [('token', '=', token)], context=context)[0]
+                user_input_id = user_input_obj.search(
+                    cr, uid, [('token', '=', token)], context=context)[0]
             except IndexError:  # Invalid token
                 return request.website.render("website.403")
             else:
-                user_input = user_input_obj.browse(cr, uid, [user_input_id], context=context)[0]
+                user_input = user_input_obj.browse(
+                    cr, uid, [user_input_id], context=context)[0]
 
         # Do not open expired survey
         errpage = self._check_deadline(cr, uid, user_input, context=context)
@@ -136,17 +143,20 @@ class WebsiteSurvey(WebsiteSurvey):
         user_input_obj = request.registry['survey.user_input']
 
         # Controls if the survey can be displayed
-        errpage = self._check_bad_cases(cr, uid, request, survey_obj, survey, user_input_obj, context=context)
+        errpage = self._check_bad_cases(
+            cr, uid, request, survey_obj, survey, user_input_obj, context=context)
         if errpage:
             return errpage
 
         # Load the user_input
         try:
-            user_input_id = user_input_obj.search(cr, uid, [('token', '=', token)])[0]
+            user_input_id = user_input_obj.search(
+                cr, uid, [('token', '=', token)])[0]
         except IndexError:  # Invalid token
             return request.website.render("website.403")
         else:
-            user_input = user_input_obj.browse(cr, uid, [user_input_id], context=context)[0]
+            user_input = user_input_obj.browse(
+                cr, uid, [user_input_id], context=context)[0]
 
         # Do not display expired survey (even if some pages have already been
         # displayed -- There's a time for everything!)
@@ -156,8 +166,10 @@ class WebsiteSurvey(WebsiteSurvey):
 
         # Select the right page
         if user_input.state == 'new':  # First page
-            page, page_nr, last = survey_obj.next_page(cr, uid, user_input, 0, go_back=False, context=context)
-            data = {'survey': survey, 'page': page, 'page_nr': page_nr, 'token': user_input.token}
+            page, page_nr, last = survey_obj.next_page(
+                cr, uid, user_input, 0, go_back=False, context=context)
+            data = {'survey': survey, 'page': page,
+                    'page_nr': page_nr, 'token': user_input.token}
             if last:
                 data.update({'last': True})
             return request.website.render('survey.survey', data)
@@ -169,7 +181,8 @@ class WebsiteSurvey(WebsiteSurvey):
             flag = (True if prev and prev == 'prev' else False)
             page, page_nr, last = survey_obj.next_page(cr, uid, user_input, user_input.last_displayed_page_id.id,
                                                        go_back=flag, context=context)
-            data = {'survey': survey, 'page': page, 'page_nr': page_nr, 'token': user_input.token}
+            data = {'survey': survey, 'page': page,
+                    'page_nr': page_nr, 'token': user_input.token}
             if last:
                 data.update({'last': True})
             return request.website.render('survey.survey', data)
@@ -190,13 +203,16 @@ class WebsiteSurvey(WebsiteSurvey):
             ids = user_input_line_obj.search(cr, uid, [('user_input_id.token', '=', token), ('page_id', '=', page.id)],
                                              context=context)
         else:
-            ids = user_input_line_obj.search(cr, uid, [('user_input_id.token', '=', token)], context=context)
-        previous_answers = user_input_line_obj.browse(cr, uid, ids, context=context)
+            ids = user_input_line_obj.search(
+                cr, uid, [('user_input_id.token', '=', token)], context=context)
+        previous_answers = user_input_line_obj.browse(
+            cr, uid, ids, context=context)
 
         # Return non empty answers in a JSON compatible format
         for answer in previous_answers:
             if not answer.skipped:
-                answer_tag = '%s_%s_%s' % (answer.survey_id.id, answer.page_id.id, answer.question_id.id)
+                answer_tag = '%s_%s_%s' % (
+                    answer.survey_id.id, answer.page_id.id, answer.question_id.id)
                 answer_value = None
                 if answer.answer_type == 'free_text':
                     answer_value = answer.value_free_text
@@ -213,7 +229,8 @@ class WebsiteSurvey(WebsiteSurvey):
                 elif answer.answer_type == 'suggestion' and not answer.value_suggested_row:
                     answer_value = answer.value_suggested.id
                 elif answer.answer_type == 'suggestion' and answer.value_suggested_row:
-                    answer_tag = "%s_%s" % (answer_tag, answer.value_suggested_row.id)
+                    answer_tag = "%s_%s" % (
+                        answer_tag, answer.value_suggested_row.id)
                     answer_value = answer.value_suggested.id
                 if answer_value:
                     dict_soft_update(ret, answer_tag, answer_value)
@@ -231,8 +248,10 @@ class WebsiteSurvey(WebsiteSurvey):
         ret = {}
 
         # Fetch answers
-        ids = user_input_line_obj.search(cr, uid, [('user_input_id.token', '=', token)], context=context)
-        previous_answers = user_input_line_obj.browse(cr, uid, ids, context=context)
+        ids = user_input_line_obj.search(
+            cr, uid, [('user_input_id.token', '=', token)], context=context)
+        previous_answers = user_input_line_obj.browse(
+            cr, uid, ids, context=context)
 
         # Compute score for each question
         for answer in previous_answers:
@@ -249,14 +268,17 @@ class WebsiteSurvey(WebsiteSurvey):
         cr, uid, context = request.cr, SUPERUSER_ID, request.context
         survey_obj = request.registry['survey.survey']
         questions_obj = request.registry['survey.question']
-        questions_ids = questions_obj.search(cr, uid, [('page_id', '=', page_id)], context=context)
-        questions = questions_obj.browse(cr, uid, questions_ids, context=context)
+        questions_ids = questions_obj.search(
+            cr, uid, [('page_id', '=', page_id)], context=context)
+        questions = questions_obj.browse(
+            cr, uid, questions_ids, context=context)
 
         # Answer validation
         errors = {}
         for question in questions:
             answer_tag = "%s_%s_%s" % (survey.id, page_id, question.id)
-            errors.update(questions_obj.validate_question(cr, uid, question, post, answer_tag, context=context))
+            errors.update(questions_obj.validate_question(
+                cr, uid, question, post, answer_tag, context=context))
 
         ret = {}
         if (len(errors) != 0):
@@ -268,16 +290,20 @@ class WebsiteSurvey(WebsiteSurvey):
 
             user_input_line_obj = request.registry['survey.user_input_line']
             try:
-                user_input_id = user_input_obj.search(cr, uid, [('token', '=', post['token'])], context=context)[0]
+                user_input_id = user_input_obj.search(
+                    cr, uid, [('token', '=', post['token'])], context=context)[0]
             except KeyError:  # Invalid token
                 return request.website.render("website.403")
             for question in questions:
                 answer_tag = "%s_%s_%s" % (survey.id, page_id, question.id)
-                user_input_line_obj.save_lines(cr, uid, user_input_id, question, post, answer_tag, context=context)
+                user_input_line_obj.save_lines(
+                    cr, uid, user_input_id, question, post, answer_tag, context=context)
 
-            user_input = user_input_obj.browse(cr, uid, user_input_id, context=context)
+            user_input = user_input_obj.browse(
+                cr, uid, user_input_id, context=context)
             go_back = post['button_submit'] == 'previous'
-            next_page, _, last = survey_obj.next_page(cr, uid, user_input, page_id, go_back=go_back, context=context)
+            next_page, _, last = survey_obj.next_page(
+                cr, uid, user_input, page_id, go_back=go_back, context=context)
             vals = {'last_displayed_page_id': page_id}
             if next_page is None and not go_back:
                 vals.update({'state': 'done'})
@@ -361,7 +387,8 @@ class WebsiteSurvey(WebsiteSurvey):
             # if user add some random data in query URI, ignore it
             try:
                 row_id, answer_id = ids.split(',')
-                filters.append({'row_id': int(row_id), 'answer_id': int(answer_id)})
+                filters.append(
+                    {'row_id': int(row_id), 'answer_id': int(answer_id)})
             except:
                 return filters
         return filters
@@ -384,16 +411,18 @@ class WebsiteSurvey(WebsiteSurvey):
                            })
         if question.type == 'simple_choice':
             result = \
-            survey_obj.prepare_result(request.cr, request.uid, question, current_filters, context=request.context)[
-                'answers']
+                survey_obj.prepare_result(request.cr, request.uid, question, current_filters, context=request.context)[
+                    'answers']
         if question.type == 'matrix':
             data = survey_obj.prepare_result(request.cr, request.uid, question, current_filters,
                                              context=request.context)
             for answer in data['answers']:
                 values = []
                 for row in data['rows']:
-                    values.append({'text': data['rows'].get(row), 'count': data['result'].get((row, answer))})
-                result.append({'key': data['answers'].get(answer), 'values': values})
+                    values.append({'text': data['rows'].get(
+                        row), 'count': data['result'].get((row, answer))})
+                result.append(
+                    {'key': data['answers'].get(answer), 'values': values})
         return json.dumps(result)
 
 

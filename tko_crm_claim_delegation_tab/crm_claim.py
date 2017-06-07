@@ -39,7 +39,8 @@ class claim_delegation(models.Model):
     _name = 'claim.delegation'
 
     claim_id = fields.Many2one('crm.claim', string='Claim')
-    action_id = fields.Many2one('delegation.action', string='Action', required=False)
+    action_id = fields.Many2one(
+        'delegation.action', string='Action', required=False)
     description = fields.Text(string='Description')
     department_id = fields.Many2one('hr.department', string='Department')
     user_id = fields.Many2one('res.users', string='Responsible', readonly=True)
@@ -65,17 +66,21 @@ class claim_delegation(models.Model):
             user_tz = user.partner_id.tz
             if user_tz:
                 # less timezone difference
-                todays = datetime.now() - timedelta(hours=3)  # datetime.now(pytz.timezone(user_tz))
+                # datetime.now(pytz.timezone(user_tz))
+                todays = datetime.now() - timedelta(hours=3)
             else:
                 todays = datetime.now() - timedelta(hours=3)
             whole_days = int(res.action_id.planned_hours / 9)
             remaining_hours = res.action_id.planned_hours % 9
             weekday = todays.weekday()
             # TODO: timezone difference should not be rigid
-            deadline = todays + timedelta(days=whole_days, hours=remaining_hours)  # timezone difference
+            # timezone difference
+            deadline = todays + \
+                timedelta(days=whole_days, hours=remaining_hours)
             # fix time exeeded than 18 hours
             if deadline.hour >= 18 and deadline.minute > 0 or deadline.hour < 9:
-                deadline = deadline + relativedelta(hours=15)  # (24-18)EVE + MOR(9-0) = 15
+                # (24-18)EVE + MOR(9-0) = 15
+                deadline = deadline + relativedelta(hours=15)
 
             # fix days if falling on saturday or sunday
             if deadline.weekday() == 5 or deadline.weekday() == 6:
@@ -91,17 +96,21 @@ class claim_delegation(models.Model):
             user_tz = user.partner_id.tz
             if user_tz:
                 # less timezone difference
-                todays = datetime.now() - timedelta(hours=3)  # datetime.now(pytz.timezone(user_tz))
+                # datetime.now(pytz.timezone(user_tz))
+                todays = datetime.now() - timedelta(hours=3)
             else:
                 todays = datetime.now() - timedelta(hours=3)
             whole_days = int(self.action_id.planned_hours / 9)
             remaining_hours = self.action_id.planned_hours % 9
             weekday = todays.weekday()
             # TODO: timezone difference should not be rigid
-            deadline = todays + timedelta(days=whole_days, hours=remaining_hours)  # timezone difference
+            # timezone difference
+            deadline = todays + \
+                timedelta(days=whole_days, hours=remaining_hours)
             # fix time exeeded than 18 hours
             if deadline.hour >= 18 and deadline.minute > 0 or deadline.hour < 9:
-                deadline = deadline + relativedelta(hours=15)  # (24-18)EVE + MOR(9-0) = 15
+                # (24-18)EVE + MOR(9-0) = 15
+                deadline = deadline + relativedelta(hours=15)
 
             # fix days if falling on saturday or sunday
             if deadline.weekday() == 5 or deadline.weekday() == 6:
@@ -113,9 +122,11 @@ class claim_delegation(models.Model):
     def last_day_warning_mail(self):
         ''' This method commits after each mail is drafted'''
         # get all delegations in new or assigned state and have not warned
-        delegations = self.search([('state', 'not in', ['d', 'c']), ('warning_mail', '!=', True)])
+        delegations = self.search(
+            [('state', 'not in', ['d', 'c']), ('warning_mail', '!=', True)])
         for delegation in delegations:
-            deadline = datetime.strptime(delegation.date_deadline, "%Y-%m-%d %H:%M:%S").date()
+            deadline = datetime.strptime(
+                delegation.date_deadline, "%Y-%m-%d %H:%M:%S").date()
             # calculate difference between deadline and today's date
             diff = (deadline - datetime.today().date()).days
             partners = []
@@ -123,7 +134,8 @@ class claim_delegation(models.Model):
                 if delegation.user_id:
                     partners = [delegation.user_id.partner_id.id]
                 elif delegation.department_id:
-                    employees = self.env['hr.employee'].search([('department_id', '=', delegation.department_id.id)])
+                    employees = self.env['hr.employee'].search(
+                        [('department_id', '=', delegation.department_id.id)])
                     users = [emp.user_id for emp in employees]
                     # remove False values "employess without users"
                     partners = [user.partner_id.id for user in users if users]
@@ -137,9 +149,9 @@ class claim_delegation(models.Model):
                 vals = {
                     'state': 'outgoing',
                     'subject': 'Action %s assigned to %s with deadline %s' % (
-                    delegation.action_id.name, delegation.user_id.name, delegation.date_deadline),
+                        delegation.action_id.name, delegation.user_id.name, delegation.date_deadline),
                     'body_html': 'Hi, Action %s assigned to %s with deadline %s' % (
-                    delegation.action_id.name, delegation.user_id.name or None, delegation.date_deadline),
+                        delegation.action_id.name, delegation.user_id.name or None, delegation.date_deadline),
                     'email_to': False,
                     'recipient_ids': [(6, False, partners)],
                     'email_from': delegation.user_id.email,
@@ -159,7 +171,8 @@ class claim_delegation(models.Model):
         # get all delegations in new or assigned state and have not warned
         delegations = self.search([('state', 'not in', ['d', 'c'])])
         for delegation in delegations:
-            deadline = datetime.strptime(delegation.date_deadline, "%Y-%m-%d %H:%M:%S").date()
+            deadline = datetime.strptime(
+                delegation.date_deadline, "%Y-%m-%d %H:%M:%S").date()
             # calculate difference between deadline and today's date
             diff = (deadline - datetime.today().date()).days
             partners = []
@@ -174,10 +187,10 @@ class claim_delegation(models.Model):
                 vals = {
                     'state': 'outgoing',
                     'subject': 'Action %s assigned to %s with deadline %s' % (
-                    delegation.action_id.name, delegation.user_id.name, delegation.date_deadline),
+                        delegation.action_id.name, delegation.user_id.name, delegation.date_deadline),
                     'body_html': 'Hello %s, Action %s assigned to %s with deadline %s Has been expired' % (
-                    delegation.user_id.partner_id.name, delegation.action_id.name, delegation.user_id.name or None,
-                    delegation.date_deadline),
+                        delegation.user_id.partner_id.name, delegation.action_id.name, delegation.user_id.name or None,
+                        delegation.date_deadline),
                     'email_to': False,
                     'recipient_ids': [(6, False, partners)],
                     'email_from': delegation.user_id.email,
@@ -209,8 +222,8 @@ class claim_delegation(models.Model):
     #     deadline = todays + timedelta(days = whole_days, hours = remaining_hours) #timezone difference
     #     #fix time exeeded than 18 hours
     #     if deadline.hour >= 18  and deadline.minute > 0 or deadline.hour < 9:
-    #         deadline = deadline + relativedelta(hours=15) # (24-18)EVE + MOR(9-0) = 15 
-    #     
+    #         deadline = deadline + relativedelta(hours=15) # (24-18)EVE + MOR(9-0) = 15
+    #
     #     #fix days if falling on saturday or sunday
     #     if deadline.weekday() == 5:
     #         deadline = deadline = deadline + relativedelta(days=2)
@@ -234,7 +247,8 @@ class claim_delegation(models.Model):
         # send mail only if state is changed from new to assigned
         if old_state == 'n':
             if self.department_id:
-                employees = self.env['hr.employee'].search([('department_id', '=', self.department_id.id)])
+                employees = self.env['hr.employee'].search(
+                    [('department_id', '=', self.department_id.id)])
                 users = [emp.user_id for emp in employees if emp.user_id != False]
                 # remove False values "employess without users"
                 partners = [user.partner_id.id for user in users]
@@ -244,7 +258,7 @@ class claim_delegation(models.Model):
             vals = {
                 'state': 'outgoing',
                 'subject': 'Action %s assigned to %s with deadline %s' % (
-                self.action_id.name, self.user_id.name, self.date_deadline),
+                    self.action_id.name, self.user_id.name, self.date_deadline),
                 'body_html': 'Hi there Action assined for %s' % (self.claim_id.name),
                 'email_to': False,
                 'recipient_ids': [(6, False, partners)],
@@ -273,4 +287,5 @@ class claim_delegation(models.Model):
 class crm_claim(models.Model):
     _inherit = 'crm.claim'
 
-    delegation_ids = fields.One2many('claim.delegation', 'claim_id', string='Delegation')
+    delegation_ids = fields.One2many(
+        'claim.delegation', 'claim_id', string='Delegation')

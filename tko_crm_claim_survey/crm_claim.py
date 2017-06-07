@@ -42,9 +42,9 @@ class crm_claim(models.Model):
         for record in self:
             if record.partner_id and record.survey_id:
                 suvery_answer = self.env['survey.user_input'].search(
-                                                [('survey_id', '=', record.survey_id.id),
-                                                ('partner_id', '=', record.partner_id.id)],
-                                                order='id desc')
+                    [('survey_id', '=', record.survey_id.id),
+                     ('partner_id', '=', record.partner_id.id)],
+                    order='id desc')
                 if len(suvery_answer):
                     res[record.id] = suvery_answer[0]
         return res
@@ -56,11 +56,11 @@ class crm_claim(models.Model):
 
     survey_id = fields.Many2one('survey.survey', 'Survey')
     survey_ans_id = fields.Many2one(compute=_get_survey_answer, relation='survey.user_input',
-                            string="Survey Answer", fnct_search=_answer_search
-                             )
-    survey_created = fields.Boolean('Survey Created', default= False)
+                                    string="Survey Answer", fnct_search=_answer_search
+                                    )
+    survey_created = fields.Boolean('Survey Created', default=False)
     answer_state = fields.Selection(related='survey_id.user_input_ids.state', selection=AVAILABLE_STATES,
-                                       string="Answer State", readonly=True,store=True)
+                                    string="Answer State", readonly=True, store=True)
     # _defaults = {'survey_created': False}
 
     @api.onchange('type_id', 'survey_id')
@@ -75,9 +75,9 @@ class crm_claim(models.Model):
         # show all surveys
         if not len(survey_ids):
             survey_ids = self.env['survey.survey'].search([])
-        res['domain'] = {'survey_id': [('id', 'in', survey_ids and survey_ids.ids or [])]}
+        res['domain'] = {'survey_id': [
+            ('id', 'in', survey_ids and survey_ids.ids or [])]}
         return res
-    
 
     @api.multi
     def answer_survey(self):
@@ -96,7 +96,7 @@ class crm_claim(models.Model):
             # raise Warning(_('Please select a customer for this survey'))
         if not survey_id:
             raise UserError(_("Please select a survey to answer"))
-            
+
             # raise Warning(_('Please select a survey to answer'))
 
             # raise osv.except_osv('Warning', 'Please select a survey to answer')
@@ -129,7 +129,7 @@ class crm_claim(models.Model):
             # survey has been replied
             if self_obj.survey_ans_id.state == 'done':
                 final_url = survey_obj.read([survey_id], ['print_url'])[0][
-                                'print_url'] + trail
+                    'print_url'] + trail
             # survey has been not replied
             else:
                 final_url = survey_obj.browse(survey_id).public_url + trail
@@ -141,8 +141,9 @@ class crm_claim(models.Model):
             }
 # on_change="onchange_template_id(template_id, composition_mode, model, res_id, context)"
 
+
 class claim_type(models.Model):
     _inherit = 'claim.type'
 
     survey_ids = fields.Many2many('survey.survey', 'claim_type_survey_rel', 'claim_id', 'survey_id',
-                                       string='Survey')
+                                  string='Survey')

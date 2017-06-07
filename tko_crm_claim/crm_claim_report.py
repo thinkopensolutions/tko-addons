@@ -34,15 +34,14 @@ class crm_claim_report(models.Model):
     _inherit = "crm.claim.report"
     _description = "CRM Claim Report Inherit for fix stages and priority"
 
-
     section_id = fields.Many2one('crm.case.section', 'Section', readonly=True)
     stage_id = fields.Many2one('crm.claim.stage', 'Stage', readonly=True,
-                                domain="[('section_ids','=',section_id)]")
+                               domain="[('section_ids','=',section_id)]")
     priority = fields.Selection(AVAILABLE_PRIORITIES, 'Priority')
     parent_id = fields.Many2one('res.partner', 'Claimer Company')
     type_id = fields.Many2one('claim.type', 'Type')
     origin_id = fields.Many2one('claim.origin', string='Origin')
-    
+
     @api.model_cr
     def init(self):
         """ Display Number of cases And Section Name

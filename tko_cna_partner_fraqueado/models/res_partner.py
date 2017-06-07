@@ -24,13 +24,13 @@
 
 from openerp import models, fields, api
 
+
 class res_partner(models.Model):
     _inherit = 'res.partner'
 
-    
     is_franqueado = fields.Boolean(string='Is Franqueado')
     parent_ids = fields.Many2many('res.partner', 'partner_franqueado_rel',
-                                       'partner_id', 'partner_franqueado_id',
-                                       string='Parents',
-                                       domain=[('is_company', '=', True),
-                                               ])
+                                  'partner_id', 'partner_franqueado_id',
+                                  string='Parents',
+                                  domain=[('is_company', '=', True),
+                                          ])

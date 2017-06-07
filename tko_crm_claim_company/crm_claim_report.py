@@ -25,10 +25,12 @@
 from openerp import fields, models, api
 from odoo import tools
 
+
 class crm_claim_report(models.Model):
     """ CRM Claim Report"""
 
     _inherit = "crm.claim.report"
+
     @api.model_cr
     def init(self):
         """ Display Number of cases And Section Name
@@ -66,4 +68,3 @@ class crm_claim_report(models.Model):
                         c.categ_id,c.partner_id,c.type_id,c.company_id,c.create_date,
                         c.priority,c.type_action,c.date_deadline,c.date_closed,c.id
             )""")
-
