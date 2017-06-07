@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_district,access_district,model_district,sales_team.group_sale_manager,1,1,1,1
+access_activity_branch,access_activity_branch,model_activity_branch,sales_team.group_sale_manager,1,1,1,1
+access_business_size,access_business_size,model_business_size,sales_team.group_sale_manager,1,1,1,1
+access_annual_income,access_annual_income,model_annual_income,sales_team.group_sale_manager,1,1,1,1
+access_economic_sector,access_economic_sector,model_economic_sector,sales_team.group_sale_manager,1,1,1,1
+access_business_nationality,access_business_nationality,model_business_nationality,sales_team.group_sale_manager,1,1,1,1
+access_district_all,access_district,model_district,base.group_no_one,1,0,0,0
+access_activity_branch_all,access_activity_branch,model_activity_branch,base.group_no_one,1,0,0,0
+access_business_size_all,access_business_size,model_business_size,base.group_no_one,1,0,0,0
+access_annual_income_all,access_annual_income,model_annual_income,base.group_no_one,1,0,0,0
+access_economic_sector_all,access_economic_sector,model_economic_sector,base.group_no_one,1,0,0,0
+access_business_nationality_all,access_business_nationality,model_business_nationality,base.group_no_one,1,0,0,0

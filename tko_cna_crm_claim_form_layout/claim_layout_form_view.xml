@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- tko_crm_claim -->
+        <record id="tko_crm_claim_form_inherit" model="ir.ui.view">
+            <field name="name">CRM Claim</field>
+            <field name="model">crm.claim</field>
+            <field name="inherit_id" ref="tko_crm_claim.crm_claim_form_inherit"/>
+            <field name="arch" type="xml">
+               <!--  <page string="Meetings" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </page> -->
+                <notebook position="inside">
+                    <page string="Financeiro">
+                    </page>
+                    <page string="Pedagógico">
+                    </page>
+                    <page string="Comercial">
+                    </page>
+                    <page string="Administrativo">
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

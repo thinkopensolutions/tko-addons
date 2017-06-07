@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <record id="crm_claim_company_form_inherit" model="ir.ui.view">
+            <field name="name">CRM Claim</field>
+            <field name="model">crm.claim</field>
+            <field name="inherit_id" ref="tko_crm_claim.crm_claim_form_inherit"/>
+            <field name="arch" type="xml">
+                <group name="claim_reporter" position="after">
+                    <group name="poc" colspan="4">
+                        <field name="poc"/>
+                    </group>
+                    <group string="Point of Contact" attrs="{'invisible': [('poc','=',False)]}">
+                        <field name="claim_poc_id" domain="[('relative_id','=',partner_id),('id','!=',partner_id)]"
+                               context="{'default_parent_id' : partner_id}" options="{'no_create' : True}"/>
+
+                        <field name="poc_function_id"/>
+
+                        <field name="poc_partner_mobile"/>
+                        <field name="poc_partner_phone"/>
+                        <field name="poc_partner_email"/>
+                        <field name="poc_partner_function" invisible="1"/>
+                        <field name="poc_function_id2" invisible="1"/>
+                    </group>
+                </group>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

@@ -4,8 +4,8 @@
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
 #
-#    ThinkOpen Solutions Brasil
-#    Copyright (C) Thinkopen Solutions <http://www.tkobr.com>.
+#    Thinkopen Brasil
+#    Copyright (C) Thinkopen Solutions Brasil (<http://www.tkobr.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -22,10 +22,11 @@
 #
 ##############################################################################
 
-from openerp import models, fields, api
+from openerp import models, fields
 
 
-class ResPartner(models.Model):
-    _inherit = 'res.partner'
+class crm_claim(models.Model):
+    _inherit = 'crm.claim'
 
-    is_school = fields.Boolean(string='School')
+    partner_attachment_ids = fields.One2many('ir.attachment', related='partner_id.attachment_ids',
+                                             string="Claim Attachments")

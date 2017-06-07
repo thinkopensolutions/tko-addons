@@ -22,10 +22,24 @@
 #
 ##############################################################################
 
-from openerp import models, fields, api
-
-
-class ResPartner(models.Model):
-    _inherit = 'res.partner'
-
-    is_school = fields.Boolean(string='School')
+{
+    'name': 'CNA Partner Franqueado',
+    'version': '1.0',
+    'author': 'TKO',
+    "category": "Custom",
+    'license': 'AGPL-3',
+    'depends': [
+        'base',
+    ],
+    'contributors': [
+        "Purnendu Singh <purnendusingh1985@gmail.com>"
+    ],
+    "data": [
+        "views/res_partner_view.xml",
+    ],
+    "demo": [
+    ],
+    'test': [
+    ],
+    "installable": True
+}

@@ -22,10 +22,21 @@
 #
 ##############################################################################
 
-from openerp import models, fields, api
+from openerp import api
+from openerp import fields, models
+
+from res_partner import AVAILABLE_ZONES
 
 
-class ResPartner(models.Model):
-    _inherit = 'res.partner'
+class res_company(models.Model):
+    _inherit = 'res.company'
 
-    is_school = fields.Boolean(string='School')
+    @api.one
+    def _get_address_data(self):
+        return super(res_company, self)._get_address_data()
+
+    @api.one
+    def _set_address_data(self):
+        return super(res_company, self)._set_address_data()
+
+    zone = fields.Selection(AVAILABLE_ZONES)

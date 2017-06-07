@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="wizard_schedule_phonecall_view" model="ir.ui.view">
+      <field name="name">schedule phonecall wizard</field>
+      <field name="model">crm.schedule_phonecall</field>
+      <field name="arch" type="xml">
+        <form string="Schedule a Call">
+          <group col="4">
+            <field name="name"/>
+            <field name="date" string="Planned Date"/>
+            <field name="partner_id" readonly="True"/>
+            <field name="user_id"/>
+            <field name="team_id" groups="sales_team.group_sale_manager"/>
+          </group>
+          <footer>
+            <button name="action_schedule" type="object" string="Schedule Call" class="oe_highlight"/>
+            or
+            <button string="Cancel" class="oe_link" special="cancel" />
+          </footer>
+        </form>
+      </field>
+    </record>
+
+</odoo>

@@ -4,8 +4,8 @@
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
 #
-#    ThinkOpen Solutions Brasil
-#    Copyright (C) Thinkopen Solutions <http://www.tkobr.com>.
+#    Thinkopen Brasil
+#    Copyright (C) Thinkopen Solutions Brasil (<http://www.tkobr.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -22,10 +22,31 @@
 #
 ##############################################################################
 
-from openerp import models, fields, api
-
-
-class ResPartner(models.Model):
-    _inherit = 'res.partner'
-
-    is_school = fields.Boolean(string='School')
+{
+    'name': 'TKO Partner attachments',
+    'version': '0.002',
+    'category': 'Customizations',
+    'sequence': 158,
+    'complexity': 'normal',
+    'description': '''It adds attachment Tab in Partner form
+''',
+    'author': 'ThinkOpen Solutions Brasil',
+    'website': 'http://www.tkobr.com',
+    'images': ['images/oerp61.jpeg',
+               ],
+    'depends': ['base',
+                'document',
+                ],
+    'data': [
+        'res_partner_view.xml'
+    ],
+    'init': [],
+    'demo': [],
+    'update': [],
+    'test': [],  # YAML files with tests
+    'installable': True,
+    'application': False,
+    # If it's True, the modules will be auto-installed when all dependencies are installed
+    'auto_install': False,
+    'certificate': '',
+}

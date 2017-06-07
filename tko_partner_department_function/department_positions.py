@@ -4,8 +4,8 @@
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
 #
-#    ThinkOpen Solutions Brasil
-#    Copyright (C) Thinkopen Solutions <http://www.tkobr.com>.
+#    Thinkopen Brasil
+#    Copyright (C) Thinkopen Solutions Brasil (<http://www.tkobr.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -22,10 +22,32 @@
 #
 ##############################################################################
 
-from openerp import models, fields, api
+#from openerp.osv import osv, fields
+from openerp import api
+from openerp import fields, models
 
 
-class ResPartner(models.Model):
-    _inherit = 'res.partner'
+class curriculum_department(models.Model):
+    _name = "curriculum.department"
+    _description = "curriculum_department model"
 
-    is_school = fields.Boolean(string='School')
+    name = fields.Char('Department', size=64, required=True)
+
+    _order = 'name'
+
+
+curriculum_department()
+
+
+class curriculum_job_position(models.Model):
+    _name = "curriculum.job.position"
+    _description = "curriculum_job_position model"
+
+    name = fields.Char('Position', size=64, required=True)
+    depart_id = fields.Many2one(
+        'curriculum.department', 'Department', required=True)
+
+    _order = 'name'
+
+
+curriculum_job_position()

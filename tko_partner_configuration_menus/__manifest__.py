@@ -22,10 +22,32 @@
 #
 ##############################################################################
 
-from openerp import models, fields, api
-
-
-class ResPartner(models.Model):
-    _inherit = 'res.partner'
-
-    is_school = fields.Boolean(string='School')
+{
+    'name': 'Partner Entities Menus for tko_partner_configuration_menus',
+    'version': '10.0',
+    'category': 'Customization',
+    'sequence': 18,
+    'complexity': 'normal',
+    'description': ''' This module creates partner menus for 
+		tko_partner_configuration_menus new fields under Settings -> Technical''',
+    'author': 'ThinkOpen Solutions Brasil',
+    'website': 'http://www.tkobr.com',
+    'depends': [
+        'base',
+        'tko_l10n_br_base',
+        'sales_team'
+    ],
+    'data': [
+        'base_view.xml',
+    ],
+    'init': [],
+    'demo': [],
+    'update': [],
+    'test': [],  # YAML files with tests
+    'installable': True,
+    'application': False,
+    # If it's True, the modules will be auto-installed when all dependencies
+    # are installed
+    'auto_install': False,
+    'certificate': '',
+}

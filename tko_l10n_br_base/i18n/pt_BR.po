@@ -1,0 +1,751 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* tko_l10n_br_base
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0-c7d8e97\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-03-18 23:38+0000\n"
+"PO-Revision-Date: 2015-03-18 23:38+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: tko_l10n_br_base
+#: model:ir.actions.act_window,name:tko_l10n_br_base.activity_branch_action
+#: model:ir.ui.menu,name:tko_l10n_br_base.activity_branch_menu
+msgid " Activity Branch"
+msgstr "Ramo de Atividade"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_32
+msgid "Acima de 120,000,000,00"
+msgstr "Acima de 120,000,000,00"
+
+#. module: tko_l10n_br_base
+#: model:ir.ui.menu,name:tko_l10n_br_base.activity_main_menu
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "Activity"
+msgstr "Atividade"
+
+#. module: tko_l10n_br_base
+#: view:activity_branch:tko_l10n_br_base.activity_branch_form
+#: view:activity_branch:tko_l10n_br_base.activity_branch_tree
+#: field:activity_branch,name:0
+#: model:ir.model,name:tko_l10n_br_base.model_activity_branch
+#: field:res.partner,activity_branch_id:0
+msgid "Activity Branch"
+msgstr "Ramo de Atividade"
+
+#. module: tko_l10n_br_base
+#: field:res.partner,age:0
+msgid "Age"
+msgstr "Idade"
+
+#. module: tko_l10n_br_base
+#: field:annual_income,name:0
+#: model:ir.actions.act_window,name:tko_l10n_br_base.annual_income_action
+#: model:ir.model,name:tko_l10n_br_base.model_annual_income
+#: model:ir.ui.menu,name:tko_l10n_br_base.annual_income_menu
+#: field:res.partner,annual_income_id:0
+msgid "Annual Income"
+msgstr "Faturamento Anual"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_0
+msgid "Até R$ 36.000,00"
+msgstr "Até R$ 36.000,00"
+
+#. module: tko_l10n_br_base
+#: model:economic_sector,name:tko_l10n_br_base.economic_sector_2
+msgid "Bens Duráveis"
+msgstr "Bens Duráveis"
+
+#. module: tko_l10n_br_base
+#: model:economic_sector,name:tko_l10n_br_base.economic_sector_1
+msgid "Bens de Consumo"
+msgstr "Bens de Consumo"
+
+#. module: tko_l10n_br_base
+#: field:res.partner,birth_date:0
+msgid "Birthdate"
+msgstr "Data de Nascimento"
+
+#. module: tko_l10n_br_base
+#: field:res.partner,blog:0
+msgid "Blog"
+msgstr "Blogue"
+
+#. module: tko_l10n_br_base
+#: view:business_nationality:tko_l10n_br_base.business_nationality_form
+#: view:business_nationality:tko_l10n_br_base.business_nationality_tree
+#: model:ir.actions.act_window,name:tko_l10n_br_base.business_nationality_action
+#: model:ir.model,name:tko_l10n_br_base.model_business_nationality
+#: model:ir.ui.menu,name:tko_l10n_br_base.business_nationality_menu
+#: field:res.partner,business_nationality_id:0
+msgid "Business Nationality"
+msgstr "Escala"
+
+#. module: tko_l10n_br_base
+#: view:annual_income:tko_l10n_br_base.annual_income_form
+#: view:annual_income:tko_l10n_br_base.annual_income_tree
+#: view:business_size:tko_l10n_br_base.business_size_form
+#: view:business_size:tko_l10n_br_base.business_size_tree
+#: field:business_size,name:0
+#: model:ir.actions.act_window,name:tko_l10n_br_base.business_size_action
+#: model:ir.model,name:tko_l10n_br_base.model_business_size
+#: model:ir.ui.menu,name:tko_l10n_br_base.business_size_menu
+#: field:res.partner,business_size_id:0
+msgid "Business Size"
+msgstr "Porte"
+
+#. module: tko_l10n_br_base
+#: field:business_nationality,name:0
+msgid "Business nationality"
+msgstr "Escala"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "Cargo"
+msgstr "Cargo"
+
+#. module: tko_l10n_br_base
+#: selection:res.company,zone:0
+#: selection:res.partner,zone:0
+msgid "Centro"
+msgstr "Centro"
+
+#. module: tko_l10n_br_base
+#: model:ir.model,name:tko_l10n_br_base.model_res_company
+msgid "Companies"
+msgstr "Empresas"
+
+#. module: tko_l10n_br_base
+#: model:activity_branch,name:tko_l10n_br_base.activity_branch_2
+msgid "Comércio"
+msgstr "Comércio"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "Contacts"
+msgstr "Contatos"
+
+#. module: tko_l10n_br_base
+#: field:activity_branch,create_uid:0
+#: field:annual_income,create_uid:0
+#: field:business_nationality,create_uid:0
+#: field:business_size,create_uid:0
+#: field:district,create_uid:0
+#: field:economic_sector,create_uid:0
+msgid "Created by"
+msgstr "Criado por"
+
+#. module: tko_l10n_br_base
+#: field:activity_branch,create_date:0
+#: field:annual_income,create_date:0
+#: field:business_nationality,create_date:0
+#: field:business_size,create_date:0
+#: field:district,create_date:0
+#: field:economic_sector,create_date:0
+msgid "Created on"
+msgstr "Criado em"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "Dados"
+msgstr "Dados"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "Dados Fiscais"
+msgstr "Dados Fiscais"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "Data Nascimento"
+msgstr "Data Nascimento"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_15
+msgid "De R$ 1.200.000,01 a R$ 1.600.000,00"
+msgstr "De R$ 1.200.000,01 a R$ 1.600.000,00"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_16
+msgid "De R$ 1.600.000,01 a R$ 2.000.000,00"
+msgstr "De R$ 1.600.000,01 a R$ 2.000.000,00"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_20
+msgid "De R$ 10.000.000,01 a R$ 14.000.000,00"
+msgstr "De R$ 10.000.000,01 a R$ 14.000.000,00"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_7
+msgid "De R$ 100.000,01 a R$ 130.000,00"
+msgstr "De R$ 100.000,01 a R$ 130.000,00"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_8
+msgid "De R$ 130.000,01 a R$ 160.000,00"
+msgstr "De R$ 130.000,01 a R$ 160.000,00"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_21
+msgid "De R$ 14.000.000,01 a R$ 18.000.000,00"
+msgstr "De R$ 14.000.000,01 a R$ 18.000.000,00"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_9
+msgid "De R$ 160.000,01 a R$ 190.000,00"
+msgstr "De R$ 160.000,01 a R$ 190.000,00"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_22
+msgid "De R$ 18.000.000,01 a R$ 22.000.000,00"
+msgstr "De R$ 18.000.000,01 a R$ 22.000.000,00"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_10
+msgid "De R$ 190.000,01 a R$ 210.000,00"
+msgstr "De R$ 190.000,01 a R$ 210.000,00"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_17
+msgid "De R$ 2.000.000,01 a R$ 2.400.000,00"
+msgstr "De R$ 2.000.000,01 a R$ 2.400.000,00"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_18
+msgid "De R$ 2.400.000,01 a R$ 6.000.000,00"
+msgstr "De R$ 2.400.000,01 a R$ 6.000.000,00"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_11
+msgid "De R$ 210.000,01 a R$ 240.000,00"
+msgstr "De R$ 210.000,01 a R$ 240.000,00"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_23
+msgid "De R$ 22.000.000,01 a R$ 26.000.000,00"
+msgstr "De R$ 22.000.000,01 a R$ 26.000.000,00"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_12
+msgid "De R$ 240.000,01 a R$ 400.000,00"
+msgstr "De R$ 240.000,01 a R$ 400.000,00"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_24
+msgid "De R$ 26.000.000,01 a R$ 30.000.000,00"
+msgstr "De R$ 26.000.000,01 a R$ 30.000.000,00"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_25
+msgid "De R$ 30.000.000,01 a R$ 34.000.000,00"
+msgstr "De R$ 30.000.000,01 a R$ 34.000.000,00"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_26
+msgid "De R$ 34.000.000,01 a R$ 38.000.000,00"
+msgstr "De R$ 34.000.000,01 a R$ 38.000.000,00"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_1
+msgid "De R$ 36.000,01 a R$ 50.000,00"
+msgstr "De R$ 36.000,01 a R$ 50.000,00"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_27
+msgid "De R$ 38.000.000,01 a R$ 42.000.000,00"
+msgstr "De R$ 38.000.000,01 a R$ 42.000.000,00"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_13
+msgid "De R$ 400.000,01 a R$ 800.000,00"
+msgstr "De R$ 400.000,01 a R$ 800.000,00"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_28
+msgid "De R$ 42.000.000,01 a R$ 48.000.000,00"
+msgstr "De R$ 42.000.000,01 a R$ 48.000.000,00"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_29
+msgid "De R$ 48.000.000,01 a R$ 60.000.000,00"
+msgstr "De R$ 48.000.000,01 a R$ 60.000.000,00"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_2
+msgid "De R$ 50.000,01 a R$ 60.000,00"
+msgstr "De R$ 50.000,01 a R$ 60.000,00"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_19
+msgid "De R$ 6.000.000,01 a R$ 10.000.000,00"
+msgstr "De R$ 6.000.000,01 a R$ 10.000.000,00"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_3
+msgid "De R$ 60.000,01 a R$ 70.000,00"
+msgstr "De R$ 60.000,01 a R$ 70.000,00"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_30
+msgid "De R$ 60.000.000,01 a R$ 80.000.000,00"
+msgstr "De R$ 60.000.000,01 a R$ 80.000.000,00"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_4
+msgid "De R$ 70.000,01 a R$ 80.000,00"
+msgstr "De R$ 70.000,01 a R$ 80.000,00"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_5
+msgid "De R$ 80.000,01 a R$ 90.000,00"
+msgstr "De R$ 80.000,01 a R$ 90.000,00"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_31
+msgid "De R$ 80.000.000,01 a R$ 120.000.000,00"
+msgstr "De R$ 80.000.000,01 a R$ 120.000.000,00"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_14
+msgid "De R$ 800.000,01 a R$ 1.200.000,00"
+msgstr "De R$ 800.000,01 a R$ 1.200.000,00"
+
+#. module: tko_l10n_br_base
+#: model:annual_income,name:tko_l10n_br_base.annual_income_6
+msgid "De R$ 90.000,01 a R$ 100.000,00"
+msgstr "De R$ 90.000,01 a R$ 100.000,00"
+
+#. module: tko_l10n_br_base
+#: field:res.partner,departamento:0
+msgid "Department"
+msgstr "Departamento"
+
+#. module: tko_l10n_br_base
+#: field:district,name:0
+#: model:ir.model,name:tko_l10n_br_base.model_district
+#: field:res.partner,district_id:0
+msgid "District"
+msgstr "Distrito"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "Documents"
+msgstr "Documentos"
+
+#. module: tko_l10n_br_base
+#: view:economic_sector:tko_l10n_br_base.economic_sector_form
+#: view:economic_sector:tko_l10n_br_base.economic_sector_tree
+#: field:economic_sector,name:0
+#: model:ir.actions.act_window,name:tko_l10n_br_base.economic_sector_action
+#: model:ir.model,name:tko_l10n_br_base.model_economic_sector
+#: model:ir.ui.menu,name:tko_l10n_br_base.economic_sector_menu
+#: field:res.partner,economic_sector_id:0
+msgid "Economic Sector"
+msgstr "Setor Econômico"
+
+#. module: tko_l10n_br_base
+#: field:res.partner,fax_extension:0
+#: field:res.partner,pabx_extension:0
+msgid "Extension"
+msgstr "Extensão"
+
+#. module: tko_l10n_br_base
+#: field:res.partner,facebook:0
+msgid "Facebook"
+msgstr "Facebook"
+
+#. module: tko_l10n_br_base
+#: selection:res.partner,gender:0
+msgid "Feminino"
+msgstr "Feminino"
+
+#. module: tko_l10n_br_base
+#: selection:res.partner,is_matriz:0
+msgid "Filial"
+msgstr "Filial"
+
+#. module: tko_l10n_br_base
+#: model:economic_sector,name:tko_l10n_br_base.economic_sector_3
+msgid "Financeiro"
+msgstr "Financeiro"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "Fiscal"
+msgstr "Fiscal"
+
+#. module: tko_l10n_br_base
+#: field:res.partner,gender:0
+msgid "Gender"
+msgstr "Género"
+
+#. module: tko_l10n_br_base
+#: model:business_size,name:tko_l10n_br_base.business_size_0
+msgid "Grande"
+msgstr "Grande"
+
+#. module: tko_l10n_br_base
+#: field:activity_branch,id:0
+#: field:annual_income,id:0
+#: field:business_nationality,id:0
+#: field:business_size,id:0
+#: field:district,id:0
+#: field:economic_sector,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "Idade"
+msgstr "Idade"
+
+#. module: tko_l10n_br_base
+#: model:district,name:tko_l10n_br_base.district_0
+msgid "Industrial"
+msgstr "Industrial"
+
+#. module: tko_l10n_br_base
+#: model:activity_branch,name:tko_l10n_br_base.activity_branch_1
+msgid "Indústria"
+msgstr "Indústria"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "Internet & Social Network"
+msgstr "Internet & Redes Sociais"
+
+#. module: tko_l10n_br_base
+#: field:activity_branch,write_uid:0
+#: field:annual_income,write_uid:0
+#: field:business_nationality,write_uid:0
+#: field:business_size,write_uid:0
+#: field:district,write_uid:0
+#: field:economic_sector,write_uid:0
+msgid "Last Updated by"
+msgstr "Última atualização por"
+
+#. module: tko_l10n_br_base
+#: field:activity_branch,write_date:0
+#: field:annual_income,write_date:0
+#: field:business_nationality,write_date:0
+#: field:business_size,write_date:0
+#: field:district,write_date:0
+#: field:economic_sector,write_date:0
+msgid "Last Updated on"
+msgstr "Última atualização em"
+
+#. module: tko_l10n_br_base
+#: selection:res.company,zone:0
+#: selection:res.partner,zone:0
+msgid "Leste"
+msgstr "Leste"
+
+#. module: tko_l10n_br_base
+#: field:res.partner,linkedin:0
+msgid "LinkedIn"
+msgstr "LinkedIn"
+
+#. module: tko_l10n_br_base
+#: field:res.partner,is_company_selection:0
+msgid "Main"
+msgstr "Principal"
+
+#. module: tko_l10n_br_base
+#: selection:res.partner,gender:0
+msgid "Masculino"
+msgstr "Masculino"
+
+#. module: tko_l10n_br_base
+#: selection:res.partner,is_matriz:0
+msgid "Matriz"
+msgstr "Matriz"
+
+#. module: tko_l10n_br_base
+#: model:district,name:tko_l10n_br_base.district_2
+msgid "Militar"
+msgstr "Militar"
+
+#. module: tko_l10n_br_base
+#: model:business_nationality,name:tko_l10n_br_base.business_nationality_2
+msgid "Multinacional - Mercado"
+msgstr "Multinacional - Mercado"
+
+#. module: tko_l10n_br_base
+#: model:business_size,name:tko_l10n_br_base.business_size_1
+msgid "Médio"
+msgstr "Médio"
+
+#. module: tko_l10n_br_base
+#: model:business_nationality,name:tko_l10n_br_base.business_nationality_1
+msgid "Nacional - Economia Mista"
+msgstr "Nacional - Economia Mista"
+
+#. module: tko_l10n_br_base
+#: model:business_nationality,name:tko_l10n_br_base.business_nationality_0
+msgid "Nacional - Mercado"
+msgstr "Nacional - Mercado"
+
+#. module: tko_l10n_br_base
+#: selection:res.company,zone:0
+#: selection:res.partner,zone:0
+msgid "Norte"
+msgstr "Norte"
+
+#. module: tko_l10n_br_base
+#: model:business_nationality,name:tko_l10n_br_base.business_nationality_3
+msgid "Nultinacional - Economia Mista"
+msgstr "Nultinacional - Economia Mista"
+
+#. module: tko_l10n_br_base
+#: selection:res.company,zone:0
+#: selection:res.partner,zone:0
+msgid "Oeste"
+msgstr "Oeste"
+
+#. module: tko_l10n_br_base
+#: model:economic_sector,name:tko_l10n_br_base.economic_sector_5
+msgid "Outros"
+msgstr "Outros"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "Outros Dados"
+msgstr "Outros Dados"
+
+#. module: tko_l10n_br_base
+#: model:ir.model,name:tko_l10n_br_base.model_res_partner
+msgid "Partner"
+msgstr "Parceiro"
+
+#. module: tko_l10n_br_base
+#: model:business_size,name:tko_l10n_br_base.business_size_2
+msgid "Pequeno"
+msgstr "Pequeno"
+
+#. module: tko_l10n_br_base
+#: field:res.partner.title,is_fisica:0
+msgid "Pessoa Fisica"
+msgstr "Pessoa Fisica"
+
+#. module: tko_l10n_br_base
+#: selection:res.partner,is_company_selection:0
+msgid "Pessoa Física"
+msgstr "Pessoa Física"
+
+#. module: tko_l10n_br_base
+#: field:res.partner.title,is_juridica:0
+msgid "Pessoa Juridica"
+msgstr "Pessoa Juridica"
+
+#. module: tko_l10n_br_base
+#: selection:res.partner,is_company_selection:0
+msgid "Pessoa Jurídica"
+msgstr "Pessoa Jurídica"
+
+#. module: tko_l10n_br_base
+#: field:res.partner,pabx:0
+msgid "Phones"
+msgstr "Telefones"
+
+#. module: tko_l10n_br_base
+#: field:res.partner,residence_phone:0
+msgid "Residence"
+msgstr "Residência"
+
+#. module: tko_l10n_br_base
+#: model:activity_branch,name:tko_l10n_br_base.activity_branch_0
+#: model:economic_sector,name:tko_l10n_br_base.economic_sector_4
+msgid "Serviços"
+msgstr "Serviços"
+
+#. module: tko_l10n_br_base
+#: field:res.partner,skype:0
+msgid "Skype"
+msgstr "Skype"
+
+#. module: tko_l10n_br_base
+#: selection:res.company,zone:0
+#: selection:res.partner,zone:0
+msgid "Sul"
+msgstr "Sul"
+
+#. module: tko_l10n_br_base
+#: model:ir.ui.menu,name:tko_l10n_br_base.menu_partner_category_form
+msgid "Tags"
+msgstr "Tags"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "Telefones"
+msgstr "Telefones"
+
+#. module: tko_l10n_br_base
+#: model:economic_sector,name:tko_l10n_br_base.economic_sector_0
+msgid "Terceiro Setor"
+msgstr "Terceiro Setor"
+
+#. module: tko_l10n_br_base
+#: model:ir.ui.menu,name:tko_l10n_br_base.menu_partner_title_partner
+msgid "Titles"
+msgstr "Títulos"
+
+#. module: tko_l10n_br_base
+#: field:res.partner,twitter:0
+msgid "Twitter"
+msgstr "Twitter"
+
+#. module: tko_l10n_br_base
+#: model:district,name:tko_l10n_br_base.district_1
+msgid "Têxtil"
+msgstr "Têxtil"
+
+#. module: tko_l10n_br_base
+#: field:res.partner,is_matriz:0
+msgid "Unidade"
+msgstr "Unidade"
+
+#. module: tko_l10n_br_base
+#: field:res.company,zone:0
+#: field:res.partner,zone:0
+msgid "Zona"
+msgstr "Zona"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "city"
+msgstr "cidade"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "classe"
+msgstr "classe"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "company"
+msgstr "empresa"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "complement"
+msgstr "complemento"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "country"
+msgstr "país"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "cpf / cnpj"
+msgstr "cpf / cnpj"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "department"
+msgstr "departamento"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "direct phone"
+msgstr "telefone"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "district"
+msgstr "bairro"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "faturamento anual"
+msgstr "faturamento anual"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "fax"
+msgstr "fax"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "legal name"
+msgstr "nome legal"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "mobile phone"
+msgstr "celular"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "number"
+msgstr "número"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "pabx"
+msgstr "pabx"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "porte"
+msgstr "porte"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "position"
+msgstr "posição"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "ramal"
+msgstr "ramal"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "ramo de atividade"
+msgstr "ramo de atividade"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "residêncial"
+msgstr "residêncial"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "setor econômico"
+msgstr "setor econômico"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "state"
+msgstr "estado"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "street"
+msgstr "rua"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "zip"
+msgstr "cep"
+
+#. module: tko_l10n_br_base
+#: view:res.company:tko_l10n_br_base.view_company_form_inherited
+msgid "zona"
+msgstr "zona"
+
+#. module: tko_l10n_br_base
+#: view:res.partner:tko_l10n_br_base.res_partner_inherit_form
+msgid "{'invisible' : [('is_company_selection','=','f')] }"
+msgstr "{'invisible' : [('is_company_selection','=','f')] }"
+
