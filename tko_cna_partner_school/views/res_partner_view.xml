@@ -7,7 +7,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='company_type']" position="after">
                     <group>
-                    <field name="is_school" class="oe_edit_only" string="School" attrs="{'invisible':[('company_type','=','company')]}"/>
+                    <field name="is_school" class="oe_edit_only" string="School" attrs="{'invisible':[('company_type','=','person')]}"/>
                     </group>
                 </xpath>
 
