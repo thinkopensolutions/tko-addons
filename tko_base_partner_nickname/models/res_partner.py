@@ -24,6 +24,7 @@
 
 from openerp import models, fields, api
 
+
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
@@ -33,15 +34,12 @@ class ResPartner(models.Model):
     def name_get(self):
         result = []
         for record in self:
-            name = record.nickname and "[" + record.nickname +"] " + record.name or record.name
+            name = record.nickname and "[" + record.nickname + "] " + record.name or record.name
             result.append((record.id, name))
         return result
 
     @api.model
     def name_search(self, name, args=None, operator='ilike', limit=100):
-        if not args:
-            args.insert(0, ['name', operator, name])
-        args.insert(0, ['nickname', operator, name])
-        args.insert( 0, '|')
-        res = super(ResPartner, self).name_search(name, args=args, operator=operator, limit=limit)
-        return res
+        args = args or []
+        recs = self.search(['|', ('name', operator, name), ('nickname', operator, name)] + args, limit=limit)
+        return recs.name_get()
