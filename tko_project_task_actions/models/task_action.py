@@ -57,9 +57,10 @@ class ProjectTaskActionsLine(models.Model):
     expected_date = fields.Date(u'Expected Date', compute='onchange_action', store=True)
     done_date = fields.Date(u'Done Date', readonly=True)
     task_id = fields.Many2one('project.task', 'Task', ondelete='cascade')
-    state = fields.Selection([('i', u'In Progress'), ('d', u'Done'), ('c', u'Cancelled')], default='i', required=True,
+    state = fields.Selection([('i', u'To Do'), ('d', u'Done'), ('c', u'Cancelled')], default='i', required=True,
                              string='State')
-    remaining_days = fields.Integer("Remaining Days", compute='get_remaining_days')
+    remaining_days = fields.Integer("Remaining Days")
+    is_delayed = fields.Selection([('d', 'Delayed')])
 
     @api.multi
     def copy(self, default=None):
@@ -67,12 +68,16 @@ class ProjectTaskActionsLine(models.Model):
         default['done_date'] = False
         return super(ProjectTaskActionsLine, self).copy(default)
 
-    @api.one
+    @api.multi
     def get_remaining_days(self):
-        days = 0
-        if self.expected_date and not self.done_date:
-            days = (datetime.strptime(self.expected_date, DT) - datetime.today()).days
-        self.remaining_days = days
+        lines = self.search([('state', '=', 'i')])
+        for line in lines:
+            if line.expected_date and not line.done_date:
+                days = (datetime.strptime(line.expected_date, DT) - datetime.today()).days
+                line.remaining_days = days
+                if days < 0:
+                    line.is_delayed = 'd'
+        return True
 
     @api.one
     def _get_action_line_name(self):
@@ -160,7 +165,7 @@ class ProjectTaskActionsLine(models.Model):
                 raise Warning(self.action_id.done_filter_warning_message or "Warning message not set for done filter")
                 # set to done and execute server action
 
-        self.write({'state': 'd', 'done_date': fields.Date.today()})
+        self.write({'state': 'd', 'done_date': fields.Date.today(), 'is_delayed': False})
         if self.action_id.done_server_action_id:
             new_context = dict(self.env.context)
             if 'active_id' not in new_context.keys():
@@ -174,7 +179,7 @@ class ProjectTaskActionsLine(models.Model):
             if not self.validate_action_cancel_filter():
                 raise Warning(
                     self.action_id.cancel_filter_warning_message or "Warning message not set for cancel filter")
-        self.state = 'c'
+        self.write({'state': 'c', 'is_delayed': False})
         if self.action_id.cancel_server_action_id:
             new_context = dict(self.env.context)
             if 'active_id' not in new_context.keys():

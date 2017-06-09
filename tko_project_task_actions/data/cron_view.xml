@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="cron_predict_agent" model="ir.cron">
+        <field name="name">Compute Remaining days</field>
+        <field name="interval_type">hours</field>
+        <field name="interval_number">4</field>
+        <field name="model">project.task.action.line</field>
+        <field name="function">get_remaining_days</field>
+        <field name="numbercall">-1</field>
+    </record>
+</odoo>
