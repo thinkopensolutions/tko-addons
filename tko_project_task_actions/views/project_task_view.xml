@@ -97,7 +97,7 @@
                 </calendar>
             </field>
         </record>
-        
+
         <!-- action line pivot view-->
         <record id="task_action_line_pivot_view" model="ir.ui.view">
             <field name="name">Task Action Line</field>
@@ -129,7 +129,9 @@
             <field name="name">Task Action Line</field>
             <field name="model">project.task.action.line</field>
             <field name="arch" type="xml">
-                <tree string="Task Action Lines" version="7.0" create="false">
+                <tree string="Task Action Lines" version="7.0" create="false"
+                      colors="black:state in ('i'); red:is_delayed in ('d');gray:state in ('d','c')">
+                    <field name="is_delayed" invisible="1"/>
                     <field name="action_id"/>
                     <field name="task_id"/>
                     <field name="expected_date"/>

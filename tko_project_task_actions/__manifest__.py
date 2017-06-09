@@ -31,5 +31,6 @@
         'security/ir.model.access.csv',
         'views/project_task_view.xml',
         'wizard/cancel_conclude_view.xml',
+        'data/cron_view.xml',
     ],
 }
