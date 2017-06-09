@@ -23,7 +23,8 @@
 ##############################################################################
 
 from openerp import models, api, fields
-from lxml import etree
+from datetime import datetime
+from  dateutil.relativedelta import relativedelta
 
 
 
@@ -33,6 +34,9 @@ class task_type(models.Model):
     name = fields.Char(string='Name', required=True)
     color = fields.Integer('Color Index', size=1)
     task_id = fields.Many2one('project.task', string='Task')
+    expected_duration = fields.Integer(u'Expected Time', default=1, required=False)
+    expected_duration_unit = fields.Selection([('d', 'Day'), ('w', 'Week'), ('m', 'Month'), ('y', 'Year')],
+                                              default='d', required=False, string=u'Expected Time Unit')
 
 
 class project_task(models.Model):
@@ -71,13 +75,27 @@ class project_task(models.Model):
     @api.onchange('task_type_id')
     def _change_task_type(self):
         result = {'value': {}}
+        days = weeks = months = years = 0
+        deadline = self.date_deadline
         if self.task_type_id:
+            if self.task_type_id.expected_duration and self.task_type_id.expected_duration_unit:
+                if self.task_type_id.expected_duration_unit == 'd':
+                    days = self.task_type_id.expected_duration
+                if self.task_type_id.expected_duration_unit == 'w':
+                    weeks = self.task_type_id.expected_duration
+                if self.task_type_id.expected_duration_unit == 'm':
+                    months = self.task_type_id.expected_duration
+                if self.task_type_id.expected_duration_unit == 'y':
+                    years = self.task_type_id.expected_duration
+                deadline = datetime.today() + relativedelta(years=years, months=months, weeks=weeks, days=days)
+
             result['value'].update({
                 'color': str(self.task_type_id.color)[-1],
                 'type_name': self.task_type_id.name,
-
+                'date_deadline': deadline
             })
         return result
+
     @api.onchange('project_id')
     def _onchange_project(self):
         self.task_type_id = False
