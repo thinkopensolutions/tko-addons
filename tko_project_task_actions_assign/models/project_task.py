@@ -57,8 +57,9 @@ class ProjectTask(models.Model):
 
 	@api.multi
 	def get_users(self):
-		user_ids = []
-		for action_line in self.action_line_ids:
-			if action_line.user_id:
-				user_ids.append(action_line.user_id.id)
-		self.user_ids = [(6, 0 , list(set(user_ids)))]
+		for task in self:
+			user_ids = []
+			for action_line in task.action_line_ids:
+				if action_line.user_id:
+					user_ids.append(action_line.user_id.id)
+			task.user_ids = [(6, 0 , list(set(user_ids)))]
