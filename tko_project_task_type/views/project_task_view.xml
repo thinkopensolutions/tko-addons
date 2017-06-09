@@ -75,6 +75,8 @@
                     <group>
                         <field name="name"/>
                         <field name="color"/>
+                        <field name="expected_duration"/>
+                        <field name="expected_duration_unit"/>
                     </group>
                 </form>
             </field>
