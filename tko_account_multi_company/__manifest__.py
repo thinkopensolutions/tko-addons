@@ -24,5 +24,6 @@
     'demo_xml': [],
     'test': [],
     'data': [
+         'views/account_reconciliation_view.xml',
     ],
 }
