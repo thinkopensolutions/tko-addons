@@ -31,6 +31,7 @@ class stock_inventory_line(models.Model):
     _inherit = 'stock.inventory.line'
 
     _columns = {
+        # consumed quantity should be informed and substracted from theoretical quantity
         'consumed_qty': fields.float('Checked Quantity', digits_compute=dp.get_precision('Product Unit of Measure')),
         'theoretical_qty': fields.function(_get_theoretical_qty, type='float',
                                            digits_compute=dp.get_precision('Product Unit of Measure'),
@@ -42,6 +43,7 @@ class stock_inventory_line(models.Model):
     }
 
     def _get_inventory_lines(self, cr, uid, inventory, context=None):
+        # this super needs validation
         parent_res = super(stock_inventory_line, self).existing(cr, uid, ids, ['location_id', 'product_id', 'package_id',
                                                                             'product_uom_id', 'company_id',
                                                                             'prod_lot_id', 'partner_id'], context=context)
@@ -63,6 +65,7 @@ class stock_inventory_line(models.Model):
             domain += ' and package_id = %s'
             args += (inventory.package_id.id,)
 
+        # TO DO - change query
         cr.execute('''
            SELECT product_id, sum(qty) as product_qty, location_id, lot_id as prod_lot_id, package_id, owner_id as partner_id
            FROM stock_quant WHERE''' + domain + '''
@@ -81,3 +84,5 @@ class stock_inventory_line(models.Model):
                 product_line['product_uom_id'] = product.uom_id.id
             vals.append(product_line)
         return vals
+
+# add the options for line creation?
