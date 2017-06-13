@@ -27,7 +27,24 @@ from openerp import fields, models
 class stock_inventory(models.Model):
     _inherit = 'stock.inventory'
 
+class stock_inventory_line(models.Model):
+    _inherit = 'stock.inventory.line'
+
+    _columns = {
+        'consumed_qty': fields.float('Checked Quantity', digits_compute=dp.get_precision('Product Unit of Measure')),
+        'theoretical_qty': fields.function(_get_theoretical_qty, type='float',
+                                           digits_compute=dp.get_precision('Product Unit of Measure'),
+                                           store={'stock.inventory.line': (lambda self, cr, uid, ids, c={}: ids,
+                                                                           ['location_id', 'product_id', 'package_id',
+                                                                            'product_uom_id', 'company_id',
+                                                                            'prod_lot_id', 'partner_id'], 20), },
+                                           readonly=True, string="Theoretical Quantity")
+    }
+
     def _get_inventory_lines(self, cr, uid, inventory, context=None):
+        parent_res = super(stock_inventory_line, self).existing(cr, uid, ids, ['location_id', 'product_id', 'package_id',
+                                                                            'product_uom_id', 'company_id',
+                                                                            'prod_lot_id', 'partner_id'], context=context)
         location_obj = self.pool.get('stock.location')
         product_obj = self.pool.get('product.product')
         location_ids = location_obj.search(cr, uid, [('id', 'child_of', [inventory.location_id.id])], context=context)
