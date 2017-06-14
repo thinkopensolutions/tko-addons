@@ -28,6 +28,7 @@ class ProjectTaskVersion(models.Model):
     _name = 'project.task.version'
 
     name = fields.Char(u'Version Name')
+    active = fields.Boolean(u'Active')
 
 
 class ProjectTask(models.Model):
