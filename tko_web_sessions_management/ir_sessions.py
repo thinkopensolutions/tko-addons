@@ -60,7 +60,7 @@ class ir_sessions(models.Model):
     date_expiration = fields.Datetime('Expiration Date', required=True, index=True,
                                       default=lambda *a: fields.Datetime.now())
     logout_type = fields.Selection(LOGOUT_TYPES, 'Logout Type')
-    session_duration = fields.Char('Session Duration', size=8)
+    session_duration = fields.Char('Session Duration')
     user_kill_id = fields.Many2one('res.users', 'Killed by', )
     unsuccessful_message = fields.Char('Unsuccessful', size=252)
     ip = fields.Char('Remote IP', size=15)
