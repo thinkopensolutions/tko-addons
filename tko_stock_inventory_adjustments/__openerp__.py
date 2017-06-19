@@ -12,7 +12,7 @@
     'website': 'http://tko.tko-br.com',
     'depends': ['stock'],
     'data': [
-        'views/stock_employee_inventory_form.xml.xml',
+        'views/stock_employee_inventory_form.xml',
     ],
     'installable': True,
     'auto_install': True,

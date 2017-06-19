@@ -6,10 +6,14 @@ from openerp import fields, models
 
 
 class stock_inventory(models.Model):
+    _name = 'stock.inventory.adjustments'
     _inherit = 'stock.inventory'
+    _description = "Stock Inventory Adjustments"
 
 class stock_inventory_line(models.Model):
+    _name = 'stock.inventory.line.adjustments'
     _inherit = 'stock.inventory.line'
+    _description = "Stock Inventory Line Adjustments"
 
     _columns = {
         # consumed quantity should be informed and substracted from theoretical quantity

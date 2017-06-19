@@ -8,7 +8,7 @@
                 <!-- remove theoretical_qty and product_qty / add consumed_qty -->
                 <field name="theoretical_qty" invisible="1"/>
                 <field name="product_qty" invisible="1"/>
-                <field name="consumed_qty"  string="Consumed Quantity"/>
+                <field name="consumed_qty" string="Consumed Quantity"/>
             </field>
         </record>
     </data>
