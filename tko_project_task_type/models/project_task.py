@@ -34,6 +34,7 @@ class task_type(models.Model):
     name = fields.Char(string='Name', required=True)
     color = fields.Integer('Color Index', size=1)
     task_id = fields.Many2one('project.task', string='Task')
+    compute_expected_duration = fields.Boolean(u'Compute Expected Duration')
     expected_duration = fields.Integer(u'Expected Time', default=1, required=False)
     expected_duration_unit = fields.Selection([('d', 'Day'), ('w', 'Week'), ('m', 'Month'), ('y', 'Year')],
                                               default='d', required=False, string=u'Expected Time Unit')
@@ -77,7 +78,7 @@ class project_task(models.Model):
         result = {'value': {}}
         days = weeks = months = years = 0
         deadline = self.date_deadline
-        if self.task_type_id:
+        if self.task_type_id and self.task_type_id.compute_expected_duration:
             if self.task_type_id.expected_duration and self.task_type_id.expected_duration_unit:
                 if self.task_type_id.expected_duration_unit == 'd':
                     days = self.task_type_id.expected_duration
