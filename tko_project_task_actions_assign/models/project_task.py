@@ -55,13 +55,13 @@ class ProjectTaskActionsLine(models.Model):
 		if self.user_id.id == self._uid:
 			return super(ProjectTaskActionsLine , self).set_done()
 		else:
-			raise ValidationError("This user have no rights to input a time. Only " + self.user_id.name  +" can input a time")
+			raise ValidationError("This user have no rights to input a time. Only " + self.user_id.name  +" can done it")
 
 	def set_cancel(self):
 		if self.user_id.id == self._uid:
 			return super(ProjectTaskActionsLine , self).set_cancel()
 		else:
-			raise ValidationError("This user have no rights to input a time. Only " + self.user_id.name  +" can input a time")
+			raise ValidationError("This user have no rights to input a time. Only " + self.user_id.name  +" can cancle it")
 
 
 class ProjectTask(models.Model):
