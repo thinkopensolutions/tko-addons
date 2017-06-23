@@ -184,5 +184,5 @@ class ProjectTaskActionsLine(models.Model):
             new_context = dict(self.env.context)
             if 'active_id' not in new_context.keys():
                 new_context.update({'active_id': self.id, 'active_model': 'project.task.action.line'})
-            recs = self.action_id.done_server_action_id.with_context(new_context)
+            recs = self.action_id.cancel_server_action_id.with_context(new_context)
             recs.run()
