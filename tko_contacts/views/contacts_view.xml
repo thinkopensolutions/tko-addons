@@ -9,6 +9,6 @@
     <menuitem id="contacts_config_menu"
               name="Configuration"
               parent="contacts.menu_contacts"
-              sequence="10"
+              sequence="40"
               />
 </odoo>

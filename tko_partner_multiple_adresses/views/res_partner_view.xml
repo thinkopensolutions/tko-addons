@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="partner_search_inherit" model="ir.ui.view">
-        <field name="name">res.partner.select</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_res_partner_filter"/>
-        <field name="arch" type="xml">
-            <field name="name" position="after">
-                <field name="address_ids" string="Address"
-                       domain="[('address_ids.name','ilike',self)]"/>
-            </field>
-        </field>
-    </record>
-
     <record id="res_partner_inherited_form" model="ir.ui.view">
         <field name="name">res.partner.form</field>
         <field name="model">res.partner</field>
@@ -49,7 +37,7 @@
                             </header>
                             <group>
                                 <field name="name" colspan="4"/>
-
+                                <field name="partner_id" invisible="1"/>
                                 <field name="street"/>
                                 <field name="street2"/>
                                 <field name="number"/>
