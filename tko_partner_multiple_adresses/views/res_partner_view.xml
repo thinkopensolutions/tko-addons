@@ -23,6 +23,8 @@
                     <field name="address_ids">
                         <tree colors="black:is_main == True">
                             <field name="name"/>
+                            <field name="type_id"/>
+                            <field name="status_id"/>
                             <field name="zip"/>
                             <field name="street"/>
                             <field name="street2"/>
@@ -58,6 +60,8 @@
                                        options="{'no_create': True}"/>
                                 <field name="city_id" domain="[('state_id','=',state_id)]"
                                        options="{'no_create': True}"/>
+                                <field name="type_id" options="{'no_create':True}"/>
+                            <field name="status_id" options="{'no_create':True}"/>
                                 <field name="is_main" invisible="1"/>
                             </group>
                         </form>
@@ -66,5 +70,73 @@
             </page>
         </field>
     </record>
+
+    <!--Address Type-->
+    <record id="res_partner_address_type_form" model="ir.ui.view">
+        <field name="name">Address Type</field>
+        <field name="model">partner.address.type</field>
+        <field name="arch" type="xml">
+            <form string="Address Type">
+                <group col="4" colspan="4">
+                    <field name="name"/>
+                    <field name="type"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="res_partner_address_type_tree" model="ir.ui.view">
+        <field name="name">Address Type</field>
+        <field name="model">partner.address.type</field>
+        <field name="arch" type="xml">
+            <tree string="Address Type">
+                <field name="name"/>
+                <field name="type"/>
+            </tree>
+        </field>
+    </record>
+
+    <act_window id="res_partner_address_type_action"
+                name="Address Type"
+                res_model="partner.address.type"
+                view_mode="tree,form"
+                view_id="res_partner_address_type_tree"/>
+
+    <menuitem id="res_partner_address_type_menu" name="Address Type"
+              action="res_partner_address_type_action"
+              parent="tko_contacts.contacts_config_menu" sequence="10"/>
+
+    <!--Address Status-->
+    <record id="res_partner_address_status_form" model="ir.ui.view">
+        <field name="name">Address Status</field>
+        <field name="model">partner.address.status</field>
+        <field name="arch" type="xml">
+            <form string="Address Status">
+                <group col="4" colspan="4">
+                    <field name="name"/>
+                    <field name="type"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="res_partner_address_status_tree" model="ir.ui.view">
+        <field name="name">Address Status</field>
+        <field name="model">partner.address.status</field>
+        <field name="arch" type="xml">
+            <tree string="Address Status">
+                <field name="name"/>
+                <field name="type"/>
+            </tree>
+        </field>
+    </record>
+    <act_window id="res_partner_address_status_action"
+                name="Address Status"
+                res_model="partner.address.status"
+                view_mode="tree,form"
+                view_id="res_partner_address_status_tree"/>
+
+    <menuitem id="res_partner_address_status_menu" name="Address Status"
+              action="res_partner_address_status_action"
+              parent="tko_contacts.contacts_config_menu" sequence="20"/>
 
 </odoo>

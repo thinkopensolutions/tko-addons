@@ -36,14 +36,14 @@ class PartnerAddressType(models.Model):
     _name = 'partner.address.type'
 
     name = fields.Char('Name')
-    type = fields.Selection([('w', u'Work'), ('r', u'Residential')], string=u'Type')
+    type = fields.Selection([('w', u'Work'), ('r', u'Residential')], default='w', required=True, string=u'Type')
 
 
 class PartnerAddressStatus(models.Model):
     _name = 'partner.address.status'
 
     name = fields.Char('Name')
-    type = fields.Selection([('a', u'Active'), ('i', u'Inactive')], string=u'Status')
+    type = fields.Selection([('a', u'Active'), ('i', u'Inactive')], default='a', required=True, string=u'Status')
 
 
 class PartnerAddress(models.Model):
