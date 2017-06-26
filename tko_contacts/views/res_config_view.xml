@@ -12,7 +12,7 @@
                 </header>
                 <group name="main">
                     <field name="module_tko_partner_multiple_phones"/>
-                    <field name="tko_partner_multiple_emails"/>
+                    <field name="module_tko_partner_multiple_emails"/>
                 </group>
             </form>
         </field>

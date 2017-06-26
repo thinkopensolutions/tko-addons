@@ -13,7 +13,7 @@ class CRMSettings(models.TransientModel):
     module_tko_partner_multiple_phones = fields.Boolean("Manage Multiple Phones ?",
                                                         help="Manage multiple partner phones")
 
-    tko_partner_multiple_emails = fields.Boolean("Manage Multiple Emails ?",
+    module_tko_partner_multiple_emails = fields.Boolean("Manage Multiple Emails ?",
                                                         help="Manage multiple partner Emails")
     #
     # @api.multi
