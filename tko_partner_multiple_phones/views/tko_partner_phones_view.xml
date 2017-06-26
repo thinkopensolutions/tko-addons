@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_partner_phone_tree" model="ir.ui.view">
+        <field name="name">Phones</field>
+        <field name="model">partner.phone.number</field>
+        <field name="arch" type="xml">
+            <tree string="Phones" editable="top">
+                <field name="number"/>
+                <field name="type_id" options="{'no_create':True}"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="res_partner_phone_type_form" model="ir.ui.view">
+        <field name="name">Phone Type</field>
+        <field name="model">partner.phone.type</field>
+        <field name="arch" type="xml">
+            <form string="Phone Type">
+                <group col="4" colspan="4">
+                    <field name="name"/>
+                    <field name="type"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="res_partner_phone_type_tree" model="ir.ui.view">
+        <field name="name">Phone Type</field>
+        <field name="model">partner.phone.type</field>
+        <field name="arch" type="xml">
+            <tree string="Phone Type">
+                <field name="name"/>
+                <field name="type"/>
+            </tree>
+        </field>
+    </record>
+    <act_window id="res_partner_phone_type_menu"
+                name="Phone Type"
+                res_model="partner.phone.type"
+                view_mode="tree,form"
+                view_id="res_partner_phone_type_tree"/>
+
+    <menuitem id="phone_type_menu" name="Phone Status"
+              action="res_partner_phone_type_menu"
+              parent="tko_contacts.contacts_config_menu" sequence="10"/>
+
+    <record id="res_partner_phone_status_form" model="ir.ui.view">
+        <field name="name">Phone Status</field>
+        <field name="model">partner.phone.state</field>
+        <field name="arch" type="xml">
+            <form string="Phone Status">
+                <group col="4" colspan="4">
+                    <field name="name"/>
+                    <field name="status"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="res_partner_phone_status_tree" model="ir.ui.view">
+        <field name="name">Phone Status</field>
+        <field name="model">partner.phone.state</field>
+        <field name="arch" type="xml">
+            <tree string="Phone Status">
+                <field name="name"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+    <act_window id="partner_phone_status_action"
+                name="Phone Status"
+                res_model="partner.phone.state"
+                view_mode="tree,form"
+                view_id="res_partner_phone_status_tree"/>
+
+    <menuitem id="phone_status_menu" name="Phone Status"
+              action="partner_phone_status_action"
+              parent="tko_contacts.contacts_config_menu"
+              sequence="20"/>
+</odoo>
