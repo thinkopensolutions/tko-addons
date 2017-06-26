@@ -4,29 +4,90 @@
 
 from openerp import fields, models
 
+#necessário?
+#class stock_inventory(models.Model):
+#    _name = 'stock.inventory.adjustments'
+#    _inherit = 'stock.inventory'
+#    _description = "Stock Inventory Adjustments"
 
-class stock_inventory(models.Model):
+class stock_inventory_adj(models.Model):
     _name = 'stock.inventory.adjustments'
     _inherit = 'stock.inventory'
     _description = "Stock Inventory Adjustments"
 
-class stock_inventory_line(models.Model):
-    _name = 'stock.inventory.line.adjustments'
+    def _get_available_filters(self, cr, uid, context=None):
+        parent_res = super(stock_inventory_adj, self)._get_available_filters(self, cr, uid, context=None)
+        #VALIDATE default All products only
+        res_filter = ('none', _('All products'))
+        if self.pool.get('res.users').has_group(cr, uid, 'stock.group_tracking_owner'):
+            res_filter.append(('owner', _('One owner only')))
+            res_filter.append(('product_owner', _('One product for a specific owner')))
+        if self.pool.get('res.users').has_group(cr, uid, 'stock.group_production_lot'):
+            res_filter.append(('lot', _('One Lot/Serial Number')))
+        if self.pool.get('res.users').has_group(cr, uid, 'stock.group_tracking_lot'):
+            res_filter.append(('pack', _('A Pack')))
+        return res_filter
+
+class stock_inventory_adj_line(models.Model):
+    _name = 'stock.inventory.adjustments.line'
     _inherit = 'stock.inventory.line'
     _description = "Stock Inventory Line Adjustments"
 
     _columns = {
         # consumed quantity should be informed and substracted from theoretical quantity
-        'consumed_qty': fields.float('Checked Quantity', digits_compute=dp.get_precision('Product Unit of Measure')),
-        'theoretical_qty': fields.function(_get_theoretical_qty, type='float',
-                                           digits_compute=dp.get_precision('Product Unit of Measure'),
-                                           store={'stock.inventory.line': (lambda self, cr, uid, ids, c={}: ids,
-                                                                           ['location_id', 'product_id', 'package_id',
-                                                                            'product_uom_id', 'company_id',
-                                                                            'prod_lot_id', 'partner_id'], 20), },
-                                           readonly=True, string="Theoretical Quantity")
+        'consumed_qty': fields.float(string="Consumed Quantity", digits_compute=dp.get_precision('Product Unit of '
+                                                                                             'Measure')),
     }
 
+    _defaults = {
+        'consumed_qty': 0
+    }
 
-
-# add the options for line creation?
+    def _resolve_inventory_line(self, cr, uid, inventory_line, context=None):
+        parent_res = super(stock_inventory_adj_line, self)._resolve_inventory_line(self, cr, uid, context=None)
+        stock_move_obj = self.pool.get('stock.move')
+        quant_obj = self.pool.get('stock.quant')
+        diff = inventory_line.consumed_qty
+        if diff:
+            return
+        #we need to create a stock move to substract the diff from the theorical line qty
+        vals = {
+            'name': _('INV:') + (inventory_line.inventory_id.name or ''),
+            'product_id': inventory_line.product_id.id,
+            'product_uom': inventory_line.product_uom_id.id,
+            'date': inventory_line.inventory_id.date,
+            'company_id': inventory_line.inventory_id.company_id.id,
+            'inventory_id': inventory_line.inventory_id.id,
+            'state': 'confirmed',
+            'restrict_lot_id': inventory_line.prod_lot_id.id,
+            'restrict_partner_id': inventory_line.partner_id.id,
+         }
+        inventory_location_id = inventory_line.product_id.property_stock_inventory.id
+        if diff < 0:
+            #inventory entry
+            vals['location_id'] = inventory_location_id
+            vals['location_dest_id'] = inventory_line.location_id.id
+            vals['product_uom_qty'] = diff
+        else:
+            #found less than expected
+            vals['location_id'] = inventory_line.location_id.id
+            vals['location_dest_id'] = inventory_location_id
+            vals['product_uom_qty'] =
+        move_id = stock_move_obj.create(cr, uid, vals, context=context)
+        move = stock_move_obj.browse(cr, uid, move_id, context=context)
+        if diff > 0:
+            domain = [('qty', '>', 0.0), ('package_id', '=', inventory_line.package_id.id), ('lot_id', '=', inventory_line.prod_lot_id.id), ('location_id', '=', inventory_line.location_id.id)]
+            preferred_domain_list = [[('reservation_id', '=', False)], [('reservation_id.inventory_id', '!=', inventory_line.inventory_id.id)]]
+            quants = quant_obj.quants_get_prefered_domain(cr, uid, move.location_id, move.product_id, move.product_qty, domain=domain, prefered_domain_list=preferred_domain_list, restrict_partner_id=move.restrict_partner_id.id, context=context)
+            quant_obj.quants_reserve(cr, uid, quants, move, context=context)
+        elif inventory_line.package_id:
+            stock_move_obj.action_done(cr, uid, move_id, context=context)
+            quants = [x.id for x in move.quant_ids]
+            quant_obj.write(cr, SUPERUSER_ID, quants, {'package_id': inventory_line.package_id.id}, context=context)
+            res = quant_obj.search(cr, uid, [('qty', '<', 0.0), ('product_id', '=', move.product_id.id),
+                                    ('location_id', '=', move.location_dest_id.id), ('package_id', '!=', False)], limit=1, context=context)
+            if res:
+                for quant in move.quant_ids:
+                    if quant.location_id.id == move.location_dest_id.id: #To avoid we take a quant that was reconcile already
+                        quant_obj._quant_reconcile_negative(cr, uid, quant, move, context=context)
+        return move_id

@@ -7,7 +7,9 @@
     'version': '0.1',
     'category': 'Warehouse Management',
     'complexity': 'normal',
-    'description': ''' Módulo de saída de estoque para funcionários da loja. ''',
+    'description': ''' 
+                   Módulo de saída de estoque para funcionários da loja. 
+                   ''',
     'author': 'TKO',
     'website': 'http://tko.tko-br.com',
     'depends': ['stock'],

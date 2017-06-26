@@ -1,15 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- MELHORAR VIEW COM XML EXTENSIONNNNNNNNN -->
 <openerp>
     <data>
-        <record model="ir.ui.view" id="stock_employee_inventory_form">
-            <field name="name">stock.employee.inventory.form</field>
-            <field name="model">stock.employee.inventory.form</field>
-            <field name="inherit_id" ref="stock.view_inventory_form"/>
+        <record id="stock_inventory_line_tree" model="ir.ui.view">
+            <field name="name">stock.inventory.adjustments.line.tree</field>
+            <field name="model">stock.inventory.adjustments.line</field>
             <field name="arch" type="xml">
-                <!-- remove theoretical_qty and product_qty / add consumed_qty -->
-                <field name="theoretical_qty" invisible="1"/>
-                <field name="product_qty" invisible="1"/>
-                <field name="consumed_qty" string="Consumed Quantity"/>
+                <tree string="Stock Inventory Adjustment Lines">
+                    <field name="product_id"/>
+                    <field name="consumed_qty"/>
+                    <field name="product_uom_id" groups="product.group_uom"/>
+                    <field name="location_id" groups="stock.group_locations"/>
+                </tree>
             </field>
         </record>
+
+        <record id="view_inventory_filter" model="ir.ui.view">
+            <field name="name">stock.inventory.adjustments.filter</field>
+            <field name="model">stock.inventory.adjustments</field>
+            <field name="arch" type="xml">
+                <search string="Search Inventory">
+                    <field name="name" string="Inventory Reference"/>
+                    <field name="date"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Status" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
+                        <filter string="Inventories Month" icon="terp-go-month" domain="[]" context="{'group_by':'date'}" help="Physical Inventories by Month"/>
+                    </group>
+                </search>
+
+            </field>
+        </record>
+
+        <record id="view_inventory_tree" model="ir.ui.view">
+            <field name="name">stock.inventory.tree</field>
+            <field name="model">stock.inventory</field>
+            <field name="arch" type="xml">
+                <tree string="Lot Inventory" colors="grey:state == 'cancel'">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_inventory_form" model="ir.ui.view">
+            <field name="name">stock.inventory.form</field>
+            <field name="model">stock.inventory</field>
+            <field name="arch" type="xml">
+                <form string="Inventory Adjustment">
+                <header>
+                    <button name="prepare_inventory" states="draft" string="Start Inventory" type="object" class="oe_highlight" groups="stock.group_stock_user"/>
+                    <button name="action_done" states="confirm" string="Validate Inventory" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+                    <button name="action_cancel_draft" states="cancel" string="Set to Draft" type="object"/>
+                    <button name="action_cancel_inventory" states="confirm" string="Cancel Inventory" type="object"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" placeholder="Inventory"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="location_id" domain="[('usage','not in', ['supplier','production'])]"/>
+                            <!-- INVENTORY OF: DEIXAR ALL PRDS DEFALT -->
+                            <field name="filter" string="Inventory of" widget='radio' attrs="{'readonly': [('state', '!=', 'draft')]}" on_change="onchange_filter(filter)"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="company_id" groups="base.group_multi_company" widget="selection"/>
+                            <field name="product_id" domain="[('type','=','product')]" attrs="{'invisible': [('filter', 'not in', ('product', 'product_owner'))], 'required': [('filter', 'in', ('product', 'product_owner'))]}"/>
+                            <field name="lot_id" attrs="{'invisible': [('filter', '!=', 'lot')], 'required': [('filter', '=', 'lot')]}" groups="stock.group_production_lot" />
+                            <field name="partner_id" attrs="{'invisible': [('filter', 'not in', ('owner', 'product_owner'))], 'required': [('filter', 'in', ('owner', 'product_owner'))]}" groups="stock.group_tracking_owner"/>
+                            <field name="package_id" attrs="{'invisible': [('filter', '!=', 'pack')], 'required': [('filter', '=', 'pack')]}" groups="stock.group_tracking_lot"/>
+                        </group>
+                    </group>
+                    <notebook attrs="{'invisible':[('state','=','draft')]}">
+                        <page string="Inventory Details" >
+                            <field name="line_ids" string="Inventory Details" context="{'default_location_id': location_id,  'default_product_id': product_id, 'default_prod_lot_id': lot_id, 'default_package_id': package_id, 'default_partner_id': partner_id}">
+                                <!-- DIFF + color:blue | DIFF - color: red -->
+                                <tree string="Inventory Details" editable="bottom" colors="blue: consumed_qty > 0; red: consumed_qty < 0">
+                                    <field name="product_id"  domain="[('type','=','product')]" on_change="onchange_createline(location_id, product_id, product_uom_id, package_id, prod_lot_id, partner_id)"/>
+                                    <field name="product_uom_id" groups="product.group_uom" string="UoM" on_change="onchange_createline(location_id, product_id, product_uom_id, package_id, prod_lot_id, partner_id)"/>
+                                    <field name="location_id" domain="[('id', 'child_of', parent.location_id)]" groups="stock.group_locations" on_change="onchange_createline(location_id, product_id, product_uom_id, package_id, prod_lot_id, partner_id)"/>
+                                    <field name="prod_lot_id" on_change="onchange_createline(location_id, product_id, product_uom_id, package_id, prod_lot_id, partner_id)" domain="[('product_id', '=', product_id)]" context="{'default_product_id': product_id}"  groups="stock.group_production_lot"/>
+                                    <field name="package_id" domain="['|', ('location_id','=', False), ('location_id', '=', location_id)]" on_change="onchange_createline(location_id, product_id, product_uom_id, package_id, prod_lot_id, partner_id)" groups="stock.group_tracking_lot"/>
+                                    <field name="partner_id" on_change="onchange_createline(location_id, product_id, product_uom_id, package_id, prod_lot_id, partner_id)" groups="stock.group_tracking_owner"/>
+                                    <field name="consumed_qty" string="Consumed Quantity"/>
+                                    <field name="state" invisible="True"/>
+                                </tree>
+                            </field>
+                            <p></p>
+                            <h3 class="oe_grey">Notes</h3>
+                            <ul class="oe_grey"><li>Inventory adjustments will be made by comparing the theoretical and the checked quantities.</li>
+                            <li>You can delete lines to ignore some products.</li>
+                            <li>If a product is not at the right place, set the checked quantity to 0 and create a new line with correct location.</li>
+                            </ul>
+                        </page>
+                        <page string="Inventory Adjustments" attrs="{'invisible': [('state', '!=', 'done')]}">
+                            <field name="move_ids">
+                                <tree colors="grey:scrapped == True" string="Stock Moves">
+                                    <field name="product_id"/>
+                                    <field name="product_uom_qty" on_change="onchange_quantity(product_id, product_uom_qty, product_uom, product_uos)"/>
+                                    <field name="product_uom" string="Unit of Measure" groups="product.group_uom"/>
+                                    <field name="product_uos" groups="product.group_uos"/>
+                                    <field name="picking_id" invisible="1" />
+                                    <field name="create_date" invisible="1" />
+                                    <field name="date_expected" invisible="1" />
+                                    <button name="%(stock.move_scrap)d"
+                                       string="Scrap Products" type="action"
+                                       icon="terp-gtk-jump-to-ltr" context="{'scrap': True}"
+                                       states="draft,waiting,confirmed,assigned"
+                                       groups="base.group_user"/>
+                                    <field name="scrapped" invisible="1"/>
+                                    <field name="location_id"/>
+                                    <field name="location_dest_id"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_inventory_form" model="ir.actions.act_window">
+            <field name="name">Stock Inventory Adjustments</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.inventory.adjustments</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_inventory_tree"/>
+            <field name="search_view_id" ref="view_inventory_filter"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to start an inventory.
+              </p><p>
+                Periodical Inventories are used to count the number of products
+                available per location. You can use it once a year when you do
+                the general inventory or whenever you need it, to adapt the
+                current inventory level of a product.
+              </p>
+            </field>
+        </record>
+        <menuitem action="action_inventory_form" id="menu_action_inventory_form" parent="menu_stock_inventory_control" sequence="30"/>
     </data>
 </openerp>
