@@ -67,18 +67,19 @@ class stock_inventory_adj_line(models.Model):
             #inventory entry
             vals['location_id'] = inventory_location_id
             vals['location_dest_id'] = inventory_line.location_id.id
-            vals['product_uom_qty'] = diff
+            vals['product_uom_qty'] = +diff
         else:
             #found less than expected
             vals['location_id'] = inventory_line.location_id.id
             vals['location_dest_id'] = inventory_location_id
-            vals['product_uom_qty'] =
+            vals['product_uom_qty'] = +diff
         move_id = stock_move_obj.create(cr, uid, vals, context=context)
         move = stock_move_obj.browse(cr, uid, move_id, context=context)
         if diff > 0:
             domain = [('qty', '>', 0.0), ('package_id', '=', inventory_line.package_id.id), ('lot_id', '=', inventory_line.prod_lot_id.id), ('location_id', '=', inventory_line.location_id.id)]
             preferred_domain_list = [[('reservation_id', '=', False)], [('reservation_id.inventory_id', '!=', inventory_line.inventory_id.id)]]
-            quants = quant_obj.quants_get_prefered_domain(cr, uid, move.location_id, move.product_id, move.product_qty, domain=domain, prefered_domain_list=preferred_domain_list, restrict_partner_id=move.restrict_partner_id.id, context=context)
+            quants = quant_obj.quants_get_prefered_domain(cr, uid, move.location_id, move.product_id, move.diff,
+                                                          domain=domain, prefered_domain_list=preferred_domain_list, restrict_partner_id=move.restrict_partner_id.id, context=context)
             quant_obj.quants_reserve(cr, uid, quants, move, context=context)
         elif inventory_line.package_id:
             stock_move_obj.action_done(cr, uid, move_id, context=context)
