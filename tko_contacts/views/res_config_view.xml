@@ -31,5 +31,6 @@
               action="action_contact_config"
               name="Setting"
               parent="contacts_config_menu"
+              sequence="100"
               />
 </odoo>

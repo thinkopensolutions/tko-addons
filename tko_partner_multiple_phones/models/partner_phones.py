@@ -24,28 +24,37 @@
 
 from odoo import fields, models, api, _
 
-_status_vals  = [('a', u'Active'), ('i', u'Inactive')]
+_status_vals = [('a', u'Active'), ('i', u'Inactive')]
+
+
 class PartnerPhoneState(models.Model):
     _name = 'partner.phone.state'
+
+    """ Status of Phone Active or Inactive"""
+
     name = fields.Char('Name')
-    status = fields.Selection(_status_vals, default ='a', string=u'Status')
+    status = fields.Selection(_status_vals, default='a', string=u'Status')
+
 
 class PartnerPhoneType(models.Model):
     _name = "partner.phone.type"
     _description = "Phone type"
 
-    name = fields.Char('Type', size=64, required=True)
-    code = fields.Char('Code', size=64, required=True, readonly=False)
+    """ Phone Type Celular or Telefone """
+
+    name = fields.Char('name', size=64, required=True)
+    type = fields.Selection([('m', 'Celular'), ('p', 'Telefone')], string='Type')
+
 
 class PartnerPhoneNumber(models.Model):
     _name = "partner.phone.number"
     _description = "partner phone numbers"
-    _rec_name = "phone"
+    _rec_name = "number"
 
     def _get_default_country(self):
-        return 23
+        return self.env.user.company_id.country_id.id or False
 
-    phone = fields.Char('Number', size=64, required=True)
+    number = fields.Char('Number', size=64, required=True)
     partner_id = fields.Many2one('res.partner', string=u'Partner', ondelete="cascade")
     type_id = fields.Many2one('partner.phone.type', 'Type', required=True)
     country_id = fields.Many2one('res.country', u'Country', required=True, default=_get_default_country)
@@ -53,26 +62,27 @@ class PartnerPhoneNumber(models.Model):
     status = fields.Selection(_status_vals, related='state_id.status', string=u'Status')
     is_main = fields.Boolean('Is Main', help="Main Phone/Celular", default=False)
 
-    _order = 'phone'
+    _order = 'number'
 
     _sql_constraints = [
         ('unique_phone_no',
-         'unique(_partner_id,phone)',
+         'unique(_partner_id,number)',
          "Phone number should be unique !"),
     ]
     _constraints = []
 
-    # def set_partner_phone(self, cr, uid, ids, context=None):
-    #      = {}
-    #     for record in self.browse(cr, uid, ids):
-    #         phone_ids = self.search(
-    #             cr, uid, [
-    #                 ('_partner_id', '=', record._partner_id.id), ('type_id', '=', record.type_id.id)])
-    #         self.write(cr, uid, phone_ids, {'is_active': False})
-    #         self.write(cr, uid, ids, {'is_active': 't'})
-    #     return {
-    #         'type': 'ir.actions.client',
-    #         'tag': 'reload',
-    #     }
-
-
+    @api.multi
+    def set_main_phone(self):
+        for record in self:
+            phone_ids = self.search([('partner_id', '=', record.partner_id.id), ('type_id', '=', record.type_id.id)])
+            phone_ids.write({'is_main': False})
+            vals = {'is_main': 't'}
+            if record.type_id.type == 'm':
+                vals.update({'mobile': record.number})
+            if record.type_id.type == 'p':
+                vals.update({'phone': record.number})
+            record.partner_id.write(vals)
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'reload',
+        }

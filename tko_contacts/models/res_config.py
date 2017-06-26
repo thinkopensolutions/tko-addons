@@ -10,10 +10,10 @@ class CRMSettings(models.TransientModel):
     _name = 'contact.config.settings'
     _inherit = 'res.config.settings'
 
-    module_tko_partner_multiple_phones = fields.Boolean("Manage Multiple Phones?",
+    module_tko_partner_multiple_phones = fields.Boolean("Manage Multiple Phones ?",
                                                         help="Manage multiple partner phones")
 
-    tko_partner_multiple_emails = fields.Boolean("Manage Multiple Emails?",
+    tko_partner_multiple_emails = fields.Boolean("Manage Multiple Emails ?",
                                                         help="Manage multiple partner Emails")
     #
     # @api.multi

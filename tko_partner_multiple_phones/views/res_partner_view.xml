@@ -21,16 +21,16 @@
                 <page name="sales_purchases" position="after">
                     <page string="Phones">
                         <field name="phone_ids">
-                            <tree colors="black:is_main == True"
+                            <tree colors="black:is_main == True;gray:status=='i'"
                                   editable="top">
                                 <field name="partner_id" invisible="1"/>
                                 <field name="country_id"/>
                                 <field name="state_id"/>
-                                <field name="status"/>
+                                <field name="status" invisible="1"/>
                                 <field name="type_id"/>
-                                <field name="phone"/>
+                                <field name="number"/>
                                 <field name="is_main" invisible="1"/>
-                                <button name="set_partner_phone"
+                                <button name="set_main_phone"
                                         type="object"
                                         attrs="{'invisible' : [('is_main' ,'!=',False)]}"
                                         string="Make it main"/>

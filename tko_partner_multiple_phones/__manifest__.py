@@ -38,13 +38,12 @@ This module don't break phone functionality because it keeps the phone char fiel
     'images': ['images/oerp61.jpeg',
                ],
     'depends': [
-        'base',
+        'tko_contacts',
     ],
     'data': [
-        #'security/ir.model.access.csv',
-       # 'views/tko_partner_phones_view.xml',
+        'security/ir.model.access.csv',
+        'views/tko_partner_phones_view.xml',
         'views/res_partner_view.xml',
-        #'data/phone_type_data.xml'
     ],
     'init': [],
     'demo': [],
