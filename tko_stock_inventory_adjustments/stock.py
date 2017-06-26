@@ -35,8 +35,7 @@ class stock_inventory_adj_line(models.Model):
 
     _columns = {
         # consumed quantity should be informed and substracted from theoretical quantity
-        'consumed_qty': fields.float(string="Consumed Quantity", digits_compute=dp.get_precision('Product Unit of '
-                                                                                             'Measure')),
+        'consumed_qty': fields.float(string="Consumed Quantity", type='float', digits_compute=dp.get_precision('Product Unit of Measure')),
     }
 
     _defaults = {
