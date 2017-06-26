@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <field name="name" position="after">
                     <field name="phone_ids" string="Phone / Celular"
-                           domain="[('phone_ids.phone','ilike',self)]"/>
+                           domain="[('phone_ids.number','ilike',self)]"/>
                 </field>
             </field>
         </record>

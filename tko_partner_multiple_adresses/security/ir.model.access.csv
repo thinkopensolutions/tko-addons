@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_partner_multiple_address_status_user,Multiple Address Status,model_partner_address_status,base.group_user,1,1,1,0
+access_partner_multiple_address_type_user,Multiple Address Type,model_partner_address_type,base.group_user,1,1,1,0
+access_partner_multiple_address_user,Multiple Addresses,model_partner_address,base.group_user,1,1,1,1
+access_partner_multiple_address_status_manager,Multiple Address Status Manager,model_partner_address_status,base.group_partner_manager,1,1,1,1
+access_partner_multiple_address_type_manager,Multiple Address Type Manager,model_partner_address_type,base.group_partner_manager,1,1,1,1

@@ -13,6 +13,7 @@
                 <group name="main">
                     <field name="module_tko_partner_multiple_phones"/>
                     <field name="module_tko_partner_multiple_emails"/>
+                    <field name="module_tko_partner_multiple_adresses"/>
                 </group>
             </form>
         </field>
