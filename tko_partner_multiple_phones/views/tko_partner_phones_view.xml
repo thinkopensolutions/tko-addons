@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="res_partner_phone_tree" model="ir.ui.view">
+            <field name="name">Phones</field>
+            <field name="model">phone.number</field>
+            <field name="arch" type="xml">
+                <tree string="Phones" editable="top">
+                    <field name="type_id" options="{'no_create':True}"/>
+                    <field name="phone"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="res_partner_phone_type_form" model="ir.ui.view">
+            <field name="name">Phone Type</field>
+            <field name="model">phone.number.type</field>
+            <field name="arch" type="xml">
+                <form string="Phone Type" version="7.0">
+                    <group col="4" colspan="4">
+                        <field name="name"/>
+                        <field name="code"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+</odoo>
