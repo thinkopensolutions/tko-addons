@@ -20,15 +20,19 @@
             <field name="arch" type="xml">
                 <page name="sales_purchases" position="after">
                     <page string="Phones">
-                        <field name="phone_ids" class="oe_edit_only">
-                            <tree colors="black:is_active == True"
+                        <field name="phone_ids">
+                            <tree colors="black:is_main == True"
                                   editable="top">
+                                <field name="partner_id" invisible="1"/>
+                                <field name="country_id"/>
+                                <field name="state_id"/>
+                                <field name="status"/>
                                 <field name="type_id"/>
                                 <field name="phone"/>
-                                <field name="is_active" invisible="1"/>
+                                <field name="is_main" invisible="1"/>
                                 <button name="set_partner_phone"
                                         type="object"
-                                        attrs="{'invisible' : [('is_active' ,'!=',False)]}"
+                                        attrs="{'invisible' : [('is_main' ,'!=',False)]}"
                                         string="Make it main"/>
                             </tree>
                         </field>

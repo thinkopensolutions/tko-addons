@@ -34,7 +34,7 @@ _logger = logging.getLogger(__name__)
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
-    phone_ids = fields.One2many('phone.number', 'partner_id', string=u'Phones')
+    phone_ids = fields.One2many('partner.phone.number', 'partner_id', string=u'Phones')
     # phone_ids_readonly = fields.function('_get_phone_ids', type='one2many', relation='.partner.phone', string='Phones')
     # phone = fields.Char('_get_phones', fnct_inv='_set_phone_id', type='char', multi="phones", string='Phone',
     #                     store={'.partner': (lambda self, cr, uid, ids, c={}: ids, ['phone_ids'], 10),

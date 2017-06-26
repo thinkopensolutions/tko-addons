@@ -30,25 +30,28 @@ class PartnerPhoneState(models.Model):
     name = fields.Char('Name')
     status = fields.Selection(_status_vals, default ='a', string=u'Status')
 
-class _partner_phone_type(models.Model):
+class PartnerPhoneType(models.Model):
     _name = "partner.phone.type"
     _description = "Phone type"
 
     name = fields.Char('Type', size=64, required=True)
-    code = fields.Char('Code', size=64, required=True, readonly=True)
+    code = fields.Char('Code', size=64, required=True, readonly=False)
 
-class PhoneNumber(models.Model):
-    _name = "phone.number"
+class PartnerPhoneNumber(models.Model):
+    _name = "partner.phone.number"
     _description = "partner phone numbers"
     _rec_name = "phone"
+
+    def _get_default_country(self):
+        return 23
 
     phone = fields.Char('Number', size=64, required=True)
     partner_id = fields.Many2one('res.partner', string=u'Partner', ondelete="cascade")
     type_id = fields.Many2one('partner.phone.type', 'Type', required=True)
-    country_id = fields.Many2one('res.country', u'Country', required=True)
+    country_id = fields.Many2one('res.country', u'Country', required=True, default=_get_default_country)
     state_id = fields.Many2one('partner.phone.state', u'State')
     status = fields.Selection(_status_vals, related='state_id.status', string=u'Status')
-    is_active = fields.Boolean('Is Active', help="Main Phone/Celular", default=False)
+    is_main = fields.Boolean('Is Main', help="Main Phone/Celular", default=False)
 
     _order = 'phone'
 
