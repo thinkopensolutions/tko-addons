@@ -2,20 +2,28 @@
 <!-- MELHORAR VIEW COM XML EXTENSIONNNNNNNNN -->
 <openerp>
     <data>
-        <record id="stock_inventory_line_tree" model="ir.ui.view">
+
+         <!-- Top menu item -->
+       <!-- <menuitem name="Warehouse"
+            id="menu_stock_root"
+            groups="group_stock_manager,group_stock_user"
+            sequence="70"/>-->
+
+
+        <record id="stock_inventory_adjustments_line_tree" model="ir.ui.view">
             <field name="name">stock.inventory.adjustments.line.tree</field>
             <field name="model">stock.inventory.adjustments.line</field>
             <field name="arch" type="xml">
-                <tree string="Stock Inventory Adjustment Lines">
+                <tree string="Stock Inventory Lines">
                     <field name="product_id"/>
-                    <field name="consumed_qty"/>
+                    <field name="product_qty" string="Consumed Quantity"/>
                     <field name="product_uom_id" groups="product.group_uom"/>
                     <field name="location_id" groups="stock.group_locations"/>
                 </tree>
             </field>
         </record>
 
-        <record id="view_inventory_filter" model="ir.ui.view">
+        <record id="view_inventory_adjustments_filter" model="ir.ui.view">
             <field name="name">stock.inventory.adjustments.filter</field>
             <field name="model">stock.inventory.adjustments</field>
             <field name="arch" type="xml">
@@ -32,9 +40,9 @@
             </field>
         </record>
 
-        <record id="view_inventory_tree" model="ir.ui.view">
-            <field name="name">stock.inventory.tree</field>
-            <field name="model">stock.inventory</field>
+        <record id="view_inventory_adjustments_tree" model="ir.ui.view">
+            <field name="name">stock.inventory.adjustments.tree</field>
+            <field name="model">stock.inventory.adjustments</field>
             <field name="arch" type="xml">
                 <tree string="Lot Inventory" colors="grey:state == 'cancel'">
                     <field name="name"/>
@@ -44,9 +52,9 @@
             </field>
         </record>
 
-        <record id="view_inventory_form" model="ir.ui.view">
-            <field name="name">stock.inventory.form</field>
-            <field name="model">stock.inventory</field>
+        <record id="view_inventory_adjustments_form" model="ir.ui.view">
+            <field name="name">stock.inventory.adjustments.form</field>
+            <field name="model">stock.inventory.adjustments</field>
             <field name="arch" type="xml">
                 <form string="Inventory Adjustment">
                 <header>
@@ -59,12 +67,11 @@
                 <sheet>
                     <div class="oe_title">
                         <label for="name" class="oe_edit_only"/>
-                        <h1><field name="name" placeholder="Inventory"/></h1>
+                        <h1><field name="name" placeholder="e.g. Annual inventory"/></h1>
                     </div>
                     <group>
                         <group>
                             <field name="location_id" domain="[('usage','not in', ['supplier','production'])]"/>
-                            <!-- INVENTORY OF: DEIXAR ALL PRDS DEFALT -->
                             <field name="filter" string="Inventory of" widget='radio' attrs="{'readonly': [('state', '!=', 'draft')]}" on_change="onchange_filter(filter)"/>
                         </group>
                         <group>
@@ -78,16 +85,17 @@
                     </group>
                     <notebook attrs="{'invisible':[('state','=','draft')]}">
                         <page string="Inventory Details" >
+                            <button name="reset_real_qty" states="confirm" string="⇒ Set quantities to 0" type="object" class="oe_link oe_right" groups="stock.group_stock_user"/>
                             <field name="line_ids" string="Inventory Details" context="{'default_location_id': location_id,  'default_product_id': product_id, 'default_prod_lot_id': lot_id, 'default_package_id': package_id, 'default_partner_id': partner_id}">
-                                <!-- DIFF + color:blue | DIFF - color: red -->
-                                <tree string="Inventory Details" editable="bottom" colors="blue: consumed_qty > 0; red: consumed_qty < 0">
+                                <tree string="Inventory Details" editable="bottom" colors="blue: product_qty != theoretical_qty; red: theoretical_qty &lt; 0">
                                     <field name="product_id"  domain="[('type','=','product')]" on_change="onchange_createline(location_id, product_id, product_uom_id, package_id, prod_lot_id, partner_id)"/>
                                     <field name="product_uom_id" groups="product.group_uom" string="UoM" on_change="onchange_createline(location_id, product_id, product_uom_id, package_id, prod_lot_id, partner_id)"/>
                                     <field name="location_id" domain="[('id', 'child_of', parent.location_id)]" groups="stock.group_locations" on_change="onchange_createline(location_id, product_id, product_uom_id, package_id, prod_lot_id, partner_id)"/>
                                     <field name="prod_lot_id" on_change="onchange_createline(location_id, product_id, product_uom_id, package_id, prod_lot_id, partner_id)" domain="[('product_id', '=', product_id)]" context="{'default_product_id': product_id}"  groups="stock.group_production_lot"/>
                                     <field name="package_id" domain="['|', ('location_id','=', False), ('location_id', '=', location_id)]" on_change="onchange_createline(location_id, product_id, product_uom_id, package_id, prod_lot_id, partner_id)" groups="stock.group_tracking_lot"/>
                                     <field name="partner_id" on_change="onchange_createline(location_id, product_id, product_uom_id, package_id, prod_lot_id, partner_id)" groups="stock.group_tracking_owner"/>
-                                    <field name="consumed_qty" string="Consumed Quantity"/>
+                                    <field name="theoretical_qty" readonly="1"/>
+                                    <field name="product_qty" string="Real Quantity"/>
                                     <field name="state" invisible="True"/>
                                 </tree>
                             </field>
@@ -126,13 +134,13 @@
             </field>
         </record>
 
-        <record id="action_inventory_form" model="ir.actions.act_window">
-            <field name="name">Stock Inventory Adjustments</field>
+        <record id="action_inventory_adjustments_form" model="ir.actions.act_window">
+            <field name="name">Inventory Adjustments</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">stock.inventory.adjustments</field>
             <field name="view_type">form</field>
-            <field name="view_id" ref="view_inventory_tree"/>
-            <field name="search_view_id" ref="view_inventory_filter"/>
+            <field name="view_id" ref="view_inventory_adjustments_tree"/>
+            <field name="search_view_id" ref="view_inventory_adjustments_filter"/>
             <field name="help" type="html">
               <p class="oe_view_nocontent_create">
                 Click to start an inventory.
@@ -144,6 +152,6 @@
               </p>
             </field>
         </record>
-        <menuitem action="action_inventory_form" id="menu_action_inventory_form" parent="menu_stock_inventory_control" sequence="30"/>
+        <menuitem action="action_inventory_form" id="menu_action_inventory_adjustment_form" parent="menu_stock_inventory_control" sequence="35"/>
     </data>
 </openerp>

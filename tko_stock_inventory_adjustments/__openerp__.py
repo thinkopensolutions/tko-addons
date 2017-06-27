@@ -14,7 +14,7 @@
     'website': 'http://tko.tko-br.com',
     'depends': ['stock'],
     'data': [
-        'views/stock_employee_inventory_form.xml',
+        'views/stock_inventory_adjustment_form.xml',
     ],
     'installable': True,
     'auto_install': True,

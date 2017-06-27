@@ -2,7 +2,8 @@
 # © 2017 TKO <http://tko.tko-br.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import fields, models
+from openerp.osv import fields, osv
+import openerp.addons.decimal_precision as dp
 
 #necessário?
 #class stock_inventory(models.Model):
@@ -10,14 +11,14 @@ from openerp import fields, models
 #    _inherit = 'stock.inventory'
 #    _description = "Stock Inventory Adjustments"
 
-class stock_inventory_adj(models.Model):
+class stock_inventory_adj(osv.osv):
     _name = 'stock.inventory.adjustments'
     _inherit = 'stock.inventory'
     _description = "Stock Inventory Adjustments"
 
     def _get_available_filters(self, cr, uid, context=None):
         parent_res = super(stock_inventory_adj, self)._get_available_filters(self, cr, uid, context=None)
-        #VALIDATE default All products only
+        #VALIDATE default All products onlymodel.
         res_filter = ('none', _('All products'))
         if self.pool.get('res.users').has_group(cr, uid, 'stock.group_tracking_owner'):
             res_filter.append(('owner', _('One owner only')))
@@ -28,25 +29,25 @@ class stock_inventory_adj(models.Model):
             res_filter.append(('pack', _('A Pack')))
         return res_filter
 
-class stock_inventory_adj_line(models.Model):
+class stock_inventory_adj_line(osv.osv):
     _name = 'stock.inventory.adjustments.line'
     _inherit = 'stock.inventory.line'
     _description = "Stock Inventory Line Adjustments"
 
     _columns = {
         # consumed quantity should be informed and substracted from theoretical quantity
-        'consumed_qty': fields.float(string="Consumed Quantity", type='float', digits_compute=dp.get_precision('Product Unit of Measure')),
+        'product_qty': fields.float('Consumed Quantity', digits_compute=dp.get_precision('Product Unit of Measure')),
     }
 
     _defaults = {
-        'consumed_qty': 0
+        'product_qty': 0
     }
 
     def _resolve_inventory_line(self, cr, uid, inventory_line, context=None):
         parent_res = super(stock_inventory_adj_line, self)._resolve_inventory_line(self, cr, uid, context=None)
         stock_move_obj = self.pool.get('stock.move')
         quant_obj = self.pool.get('stock.quant')
-        diff = inventory_line.consumed_qty
+        diff = inventory_line.product_qty
         if diff:
             return
         #we need to create a stock move to substract the diff from the theorical line qty
