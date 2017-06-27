@@ -15,7 +15,7 @@ class CRMSettings(models.TransientModel):
                                                         help="Manage multiple partner phones")
     module_tko_partner_multiple_emails = fields.Boolean("Manage Multiple Emails ?",
                                                         help="Manage multiple partner Emails")
-    module_tko_partner_multiple_adresses = fields.Boolean("Manage Multiple Addresses ?",
+    module_tko_partner_multiple_addresses = fields.Boolean("Manage Multiple Addresses ?",
                                                           help="Manage multiple partner Addresses")
     module_tko_partner_multiple_assets = fields.Boolean("Manage Multiple Assets ?",
                                                           help="Manage multiple partner Addresses")
