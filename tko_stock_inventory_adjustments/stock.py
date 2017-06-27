@@ -17,7 +17,7 @@ class stock_inventory_adj(osv.osv):
     _description = "Stock Inventory Adjustments"
 
     def _get_available_filters(self, cr, uid, context=None):
-        parent_res = super(stock_inventory_adj, self)._get_available_filters(self, cr, uid, context=None)
+        result = super(stock_inventory_adj, self)._get_available_filters(self, cr, uid, context=None)
         #VALIDATE default All products onlymodel.
         res_filter = ('none', _('All products'))
         if self.pool.get('res.users').has_group(cr, uid, 'stock.group_tracking_owner'):
@@ -30,7 +30,7 @@ class stock_inventory_adj(osv.osv):
         return res_filter
 
     def action_done(self, cr, uid, ids, context=None):
-        parent_res = super(stock_inventory_adj, self).action_done(self, cr, uid, ids, context=None)
+        result = super(stock_inventory_adj, self).action_done(self, cr, uid, ids, context=None)
         """ Finish the inventory
         @return: True
         """
@@ -41,7 +41,7 @@ class stock_inventory_adj(osv.osv):
             self.action_check(cr, uid, [inv.id], context=context)
             self.write(cr, uid, [inv.id], {'state': 'done'}, context=context)
             self.post_inventory(cr, uid, inv, context=context)
-        return True
+        return result
 
 class stock_inventory_adj_line(osv.osv):
     _name = 'stock.inventory.adjustments.line'
