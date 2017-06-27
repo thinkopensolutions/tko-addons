@@ -35,7 +35,7 @@
     'images': ['images/oerp61.jpeg',
                ],
     'depends': [
-        'tko_partner_multiple_adresses',
+        'tko_partner_multiple_addresses',
     ],
     'data': [
         'security/ir.model.access.csv',

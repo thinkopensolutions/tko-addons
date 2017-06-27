@@ -10,7 +10,7 @@
                     <button string="Apply" type="object" name="execute" class="oe_highlight"/>
                     <button string="Cancel" type="object" name="cancel" class="oe_link"/>
                 </header>
-                <group name="main">
+                <group name="main" string="Contacts">
                     <field name="module_tko_partner_multiple_phones"/>
                     <field name="module_tko_partner_multiple_emails"/>
                     <field name="module_tko_partner_multiple_addresses"/>
