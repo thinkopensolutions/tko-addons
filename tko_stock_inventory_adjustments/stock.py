@@ -58,7 +58,7 @@ class stock_inventory_adj_line(osv.osv):
     }
 
     def _resolve_inventory_line(self, cr, uid, inventory_line, context=None):
-        parent_res = super(stock_inventory_adj_line, self)._resolve_inventory_line(self, cr, uid, context=None)
+        result = super(stock_inventory_adj_line, self)._resolve_inventory_line(self, cr, uid, context=None)
         stock_move_obj = self.pool.get('stock.move')
         quant_obj = self.pool.get('stock.quant')
         diff = inventory_line.product_qty
