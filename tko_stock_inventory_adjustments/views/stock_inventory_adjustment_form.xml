@@ -135,7 +135,7 @@
         </record>
 
         <record id="action_inventory_adjustments_form" model="ir.actions.act_window">
-            <field name="name">Inventory Adjustments</field>
+            <field name="name">Ajuste de Estoque | Loja</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">stock.inventory.adjustments</field>
             <field name="view_type">form</field>
@@ -152,6 +152,6 @@
               </p>
             </field>
         </record>
-        <!--<menuitem action="action_inventory_form" id="menu_action_inventory_adjustment_form" parent="menu_stock_inventory_control" sequence="35"/>-->
+        <menuitem action="action_inventory_adjustments_form" id="menu_action_inventory_adjustment_form" parent="stock.menu_stock_inventory_control" sequence="30"/>
     </data>
 </openerp>

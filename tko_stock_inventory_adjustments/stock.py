@@ -29,6 +29,20 @@ class stock_inventory_adj(osv.osv):
             res_filter.append(('pack', _('A Pack')))
         return res_filter
 
+    def action_done(self, cr, uid, ids, context=None):
+        parent_res = super(stock_inventory_adj, self).action_done(self, cr, uid, ids, context=None)
+        """ Finish the inventory
+        @return: True
+        """
+        for inv in self.browse(cr, uid, ids, context=context):
+            for inventory_line in inv.line_ids:
+                if inventory_line.product_qty < 0 and inventory_line.product_qty != inventory_line.theoretical_qty:
+                    pass
+            self.action_check(cr, uid, [inv.id], context=context)
+            self.write(cr, uid, [inv.id], {'state': 'done'}, context=context)
+            self.post_inventory(cr, uid, inv, context=context)
+        return True
+
 class stock_inventory_adj_line(osv.osv):
     _name = 'stock.inventory.adjustments.line'
     _inherit = 'stock.inventory.line'
