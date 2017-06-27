@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_partner_asset_type_user,Partner Asset Type User,model_partner_asset_type,base.group_user,1,1,1,0
+access_partner_asset_type_manager,Partner Asset Type Manager,model_partner_asset_type,base.group_partner_manager,1,1,1,1
+access_partner_asset,Partner Asset,model_res_partner_asset,base.group_user,1,1,1,1

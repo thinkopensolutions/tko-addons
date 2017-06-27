@@ -22,17 +22,4 @@
 #
 ##############################################################################
 
-
-
-from odoo import fields, models, api, _
-
-import logging
-
-_logger = logging.getLogger(__name__)
-
-
-class ResPartner(models.Model):
-    _inherit = "res.partner"
-
-    phone_ids = fields.One2many('partner.phone.number', 'partner_id', string=u'Phones')
-
+import res_partner

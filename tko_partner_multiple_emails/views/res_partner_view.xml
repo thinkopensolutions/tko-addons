@@ -7,8 +7,8 @@
             <field name="inherit_id" ref="base.view_res_partner_filter"/>
             <field name="arch" type="xml">
                 <field name="name" position="after">
-                    <field name="phone_ids" string="Phone / Celular"
-                           domain="[('phone_ids.number','ilike',self)]"/>
+                    <field name="email_ids" string="Email"
+                           domain="[('email_ids.email','ilike',self)]"/>
                 </field>
             </field>
         </record>
@@ -19,32 +19,19 @@
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
                 <page name="sales_purchases" position="after">
-                    <page string="Phones">
-                        <field name="phone_ids">
-                            <tree colors="black:is_main == True;gray:status=='i'"
+                    <page string="Emails">
+                        <field name="email_ids">
+                            <tree colors="black:is_main == True"
                                   editable="top">
                                 <field name="partner_id" invisible="1"/>
-                                <field name="country_id"/>
-                                <field name="state_id"/>
-                                <field name="status" invisible="1"/>
-                                <field name="type_id"/>
-                                <field name="number"/>
+                                <field name="email" widget="email"/>
                                 <field name="is_main" invisible="1"/>
-                                <button name="set_main_phone"
+                                <button name="set_main_email"
                                         type="object"
                                         attrs="{'invisible' : [('is_main' ,'!=',False)]}"
                                         string="Make it main"/>
                             </tree>
                         </field>
-                        <!--<field name="phone_ids_readonly" nolabel="1"-->
-                               <!--class="oe_read_only">-->
-                            <!--<tree editable="top"-->
-                                  <!--colors="black:is_active == True">-->
-                                <!--<field name="type_id"/>-->
-                                <!--<field name="phone"/>-->
-                                <!--<field name="is_active" invisible="1"/>-->
-                            <!--</tree>-->
-                        <!--</field>-->
                     </page>
                 </page>
             </field>

@@ -22,17 +22,33 @@
 #
 ##############################################################################
 
-
-
-from odoo import fields, models, api, _
-
-import logging
-
-_logger = logging.getLogger(__name__)
-
-
-class ResPartner(models.Model):
-    _inherit = "res.partner"
-
-    phone_ids = fields.One2many('partner.phone.number', 'partner_id', string=u'Phones')
-
+{
+    'name': 'Partner multiple assets',
+    'version': '0.008',
+    'category': 'Customizations',
+    'sequence': 16,
+    'complexity': 'normal',
+    'description': '''== Partner multiple assets ==\n\n
+''',
+    'author': 'ThinkOpen Solutions Brasil',
+    'website': 'http://www.tkobr.com',
+    'images': ['images/oerp61.jpeg',
+               ],
+    'depends': [
+        'tko_partner_multiple_adresses',
+    ],
+    'data': [
+        'security/ir.model.access.csv',
+        'views/res_partner_view.xml',
+    ],
+    'init': [],
+    'demo': [],
+    'update': [],
+    'test': [],  # YAML files with tests
+    'installable': True,
+    'application': False,
+    # If it's True, the modules will be auto-installed when all dependencies
+    # are installed
+    'auto_install': False,
+    'certificate': '',
+}
