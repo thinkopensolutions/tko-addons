@@ -35,8 +35,8 @@ class stock_inventory_adj_line(osv.osv):
     _description = "Stock Inventory Line Adjustments"
 
     _columns = {
-        # consumed quantity should be informed and substracted from theoretical quantity
-        'product_qty': fields.float('Consumed Quantity', digits_compute=dp.get_precision('Product Unit of Measure')),
+        # checked quantity should be informed and substracted from theoretical quantity
+        'product_qty': fields.float('Checked Quantity', digits_compute=dp.get_precision('Product Unit of Measure')),
     }
 
     _defaults = {
