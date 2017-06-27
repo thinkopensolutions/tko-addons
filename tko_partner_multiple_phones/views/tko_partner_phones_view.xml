@@ -40,7 +40,7 @@
                 view_mode="tree,form"
                 view_id="res_partner_phone_type_tree"/>
 
-    <menuitem id="phone_type_menu" name="Phone Status"
+    <menuitem id="phone_type_menu" name="Phone Type"
               action="res_partner_phone_type_menu"
               parent="tko_contacts.contacts_config_menu" sequence="10"/>
 
