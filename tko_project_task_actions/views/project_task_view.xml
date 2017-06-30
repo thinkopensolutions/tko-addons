@@ -138,6 +138,7 @@
                     <field name="done_date"/>
                     <field name="remaining_days"/>
                     <field name="state"/>
+                    <field name="kanban_state" widget="kanban_state_selection"/>
                     <button name="set_done" icon="fa fa-check" type="object"
                             attrs="{'invisible':[('state','!=','i')]}"/>
                     <button name="set_cancel" icon="fa fa-times" type="object"
@@ -159,6 +160,7 @@
                                 attrs="{'invisible':[('state','!=','i')]}"/>
                     </header>
                     <sheet>
+                        <field name="kanban_state" widget="kanban_state_selection"/>
                         <group colspan="2" col="2">
                             <group>
                                 <field name="action_id"/>
@@ -174,10 +176,13 @@
                                 <label for="remaining_days"/>
                                 <div>
 
-                                    <field name="remaining_days" nolable="1"/>
+                                    <field name="remaining_days" nolabel="1"/>
                                     Days
                                 </div>
                             </group>
+                        </group>
+                        <group string="Task Description">
+                            <field name="task_description" nolabel="1"/>
                         </group>
                     </sheet>
                 </form>

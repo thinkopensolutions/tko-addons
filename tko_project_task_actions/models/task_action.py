@@ -61,6 +61,20 @@ class ProjectTaskActionsLine(models.Model):
                              string='State')
     remaining_days = fields.Integer("Remaining Days")
     is_delayed = fields.Selection([('d', 'Delayed')])
+    task_description = fields.Html(string='Description', related='task_id.description')
+    kanban_state = fields.Selection([
+        ('normal', 'In Progress'),
+        ('done', 'Ready for next stage'),
+        ('blocked', 'Blocked')
+    ], string='Kanban State',
+        default='normal',
+        track_visibility='onchange',
+        required=True, copy=False,
+        related='task_id.kanban_state',
+        help="A task's kanban state indicates special situations affecting it:\n"
+             " * Normal is the default situation\n"
+             " * Blocked indicates something is preventing the progress of this task\n"
+             " * Ready for next stage indicates the task is ready to be pulled to the next stage")
 
     @api.multi
     def copy(self, default=None):
