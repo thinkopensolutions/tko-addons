@@ -73,7 +73,7 @@ class ProjectTaskActionsLine(models.Model):
         lines = self.search([('state', '=', 'i')])
         for line in lines:
             if line.expected_date and not line.done_date:
-                days = (datetime.strptime(line.expected_date, DT) - datetime.today()).days
+                days = (datetime.strptime(line.expected_date, DT).date() - datetime.today().date()).days
                 line.remaining_days = days
                 if days < 0:
                     line.is_delayed = 'd'
