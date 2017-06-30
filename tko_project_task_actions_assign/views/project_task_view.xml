@@ -1,6 +1,16 @@
 <openerp>
     <data>
-
+        <record id="view_task_form2_header_inherit" model="ir.ui.view">
+            <field name="name">project.task.form</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header/field[@name='stage_id']" position="replace">
+                    <field name="stage_id" widget="statusbar" options="{'fold_field': 'fold'}"/>
+                </xpath>
+            </field>
+        </record>
+        
         <record id="view_task_form_inherit_envolved_users" model="ir.ui.view">
             <field name="name">project.task.form</field>
             <field name="model">project.task</field>
