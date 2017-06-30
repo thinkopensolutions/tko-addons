@@ -11,9 +11,9 @@
                     <field name="current_time" widget="float_time"
                            attrs="{'invisible':['|', ('date_start_timer','=', False), ('state','!=','i')]}"/>
                     <button name="button_start_timer" icon="fa fa-play" string="Start Timer" type="object"
-                            attrs="{'invisible':['|', ('date_start_timer','!=', False), ('state','not in',('n','i'))]}"/>
+                            attrs="{'invisible':[('is_open','=', False),'|', ('date_start_timer','!=', False), ('state','not in',('n','i'))]}"/>
                     <button name="button_stop_timer" icon="fa fa-stop" string="Stop Timer" type="object"
-                            attrs="{'invisible':['|', ('date_start_timer','=', False), ('state','!=','i')]}"/>
+                            attrs="{'invisible':[('is_open','=', False),'|',('date_start_timer','=', False), ('state','!=','i')]}"/>
                 </xpath>
             </field>
         </record>
