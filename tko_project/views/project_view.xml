@@ -11,7 +11,7 @@
             </field>
             <field name="sequence" position="after">
                 <field name="is_urgent"/>
-                <field name="sla_days" invisible="0"/>
+                <field name="sla_days" invisible="1"/>
             </field>
 
         </field>
