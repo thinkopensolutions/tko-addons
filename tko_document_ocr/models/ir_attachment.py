@@ -178,19 +178,24 @@ class IrAttachment(models.Model):
         return content
 
     def _index_ocr(self, bin_data):
-        _logger.info('OCR IMAGE "%s"...', self.datas_fname)
-        process = subprocess.Popen(
-            ['tesseract', 'stdin', 'stdout', '-l', self.language],
-            stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-        )
-        stdout, stderr = process.communicate(bin_data)
-        if stderr:
-            _logger.error('Error during OCR: %s', stderr)
-            if self.env['ir.config_parameter'].get_param(
-                'document_ocr.synchronous', 'False') == 'True':
-                raise Exception('Error during OCR:\n%s', stderr)
-        return stdout
+        if self.datas_fname:
+            _logger.info('OCR IMAGE "%s"...', self.datas_fname)
+            process = subprocess.Popen(
+                ['tesseract', 'stdin', 'stdout', '-l', self.language],
+                stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+            )
+            stdout, stderr = process.communicate(bin_data)
+            if stderr:
+                _logger.error('Error during OCR: %s', stderr)
+                if self.env['ir.config_parameter'].get_param(
+                    'document_ocr.synchronous', 'False') == 'True':
+                    raise Exception('Error during OCR:\n%s', stderr)
+            return stdout
+        else:
+            _logger.info('OCR IMAGE "%s", no image to process...', self.name)
+        return False
+
 
     def _convert_bin_to_image(self, bin_data):
         dpi = int(self.env['ir.config_parameter'].get_param(
