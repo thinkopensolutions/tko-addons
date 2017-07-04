@@ -24,10 +24,9 @@
 
 # from openerp.osv import osv, fields
 from openerp import fields, api, models
+from openerp.exceptions import Warning
 
-class product_supplierinfo(models.Model):
-    _inherit = "product.supplierinfo"
+class ResPartner(models.Model):
+    _inherit = 'res.partner'
 
     min_purchase_value = fields.Float(string="Minimum Purchase Amount")
-    is_flexible = fields.Boolean(string="Is Flexible?")
-

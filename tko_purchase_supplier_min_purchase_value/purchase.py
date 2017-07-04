@@ -33,23 +33,18 @@ class PurchaseOrder(models.Model):
     # Validate condition on confirmation of order
     @api.multi
     def wkf_confirm_order(self):
-        self.with_context(warn=True).get_is_visible()
+        self.with_context(warn=True).get_valid_order()
         return super(PurchaseOrder, self).wkf_confirm_order()
 
-    @api.depends('order_line.product_id', 'order_line.product_qty', 'order_line.price_unit')
-    def get_is_visible(self):
-        context = self._context or {}
-        warn = context.get('warn', False)
-        flag = True
-        for line in self.order_line:
-            for supplier in line.product_id.seller_ids:
-                if supplier.name.id == self.partner_id.id:
-                    if flag:
-                        if ((supplier.is_flexible == False) and (line.price_subtotal < supplier.min_purchase_value)):
-                            flag = False
-                            if warn:
-                                raise Warning(u'Price subtotal : %s for product %s is less than allowed value %s' % (
-                                    line.price_subtotal, line.product_id.name, supplier.min_purchase_value))
-        self.is_visible = flag
+    @api.one
+    @api.depends('partner_id', 'order_line.product_id', 'order_line.product_qty', 'order_line.price_unit', 'order_line')
+    def get_valid_order(self):
+        self.valid_order = False
+        context = self._context
+        if self.partner_id.min_purchase_value <= self.amount_total:
+            self.valid_order = True
+        else:
+            if context.get('warn', False):
+                raise Warning(u'Order total is less than allowed for supplier!')
 
-    is_visible = fields.Boolean(compute=get_is_visible, string="Is Visible", default=True)
+    valid_order = fields.Boolean(compute=get_valid_order, string="Is Visible", default=False)

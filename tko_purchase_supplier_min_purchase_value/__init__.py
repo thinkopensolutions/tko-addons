@@ -22,5 +22,5 @@
 #
 ##############################################################################
 
-import product
 import purchase
+import res_partner
