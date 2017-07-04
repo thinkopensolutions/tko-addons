@@ -31,17 +31,3 @@ class product_supplierinfo(models.Model):
     min_purchase_value = fields.Float(string="Minimum Purchase Amount")
     is_flexible = fields.Boolean(string="Is Flexible?")
 
-class PurchaseOrder(models.Model):
-	_inherit = "purchase.order"
-
-	def is_visible(self):
-		flag = True
-		for line in self.order_line:
-			for supplier in line.product_id.seller_ids:
-				if supplier.name.id == self.partner_id.id:
-					if flag:
-						if ((supplier.is_flexible == False) and (line.price_subtotal < supplier.min_purchase_value)):
-							flag = False
-		self.is_visible = flag
-
-	is_visible = fields.Boolean(compute=is_visible,string="Is Visible", default=True)
