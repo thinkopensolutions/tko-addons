@@ -7,12 +7,13 @@
             <field name="inherit_id" ref="purchase.purchase_order_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='partner_id']" position="after">
-                    <field name="is_visible" invisible="1"/>
+                    <field name="valid_order" invisible="1"/>
                 </xpath>
-                <xpath expr="//header/button[@name='purchase_confirm']" position="replace">
-                    <button name="purchase_confirm" string="Confirm Order" id="draft_confirm"
-                            attrs="{'invisible':[('is_visible','=',False),('state','=','draft')]}"/>
-                </xpath>
+                <button id="draft_confirm" position="replace">
+                    <button name="purchase_confirm"
+                            attrs="{'invisible' : ['|',('state','not in', ['draft']),('valid_order','!=',True)]}"
+                            string="Confirm Orde1r" id="draft_confirm"/>
+                </button>
             </field>
         </record>
 

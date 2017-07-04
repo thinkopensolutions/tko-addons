@@ -32,13 +32,11 @@
     'license': 'AGPL-3',
     'website': 'http://www.tkobr.com',
     'depends': [
-        'base',
-        'product',
         'purchase',
     ],
     'data': [
-        'product_view.xml',
         'purchase_view.xml',
+        'res_partner_view.xml',
     ],
     'init': [],
     'demo': [],
