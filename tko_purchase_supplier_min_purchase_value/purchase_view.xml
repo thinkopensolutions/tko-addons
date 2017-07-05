@@ -12,7 +12,7 @@
                 <button id="draft_confirm" position="replace">
                     <button name="purchase_confirm"
                             attrs="{'invisible' : ['|',('state','not in', ['draft']),('valid_order','!=',True)]}"
-                            string="Confirm Orde1r" id="draft_confirm"/>
+                            string="Confirm Order" id="draft_confirm"/>
                 </button>
             </field>
         </record>
