@@ -63,7 +63,7 @@ class PurchaseRequisitionWizard(models.TransientModel):
                     requisition_line_vals[line.product_id.id] = (requisition_line_vals[
                                                                      line.product_id.id][0] + line.product_qty, uom_id)
         # create requisition_order
-        order = self.requisition_order_ids[0].copy(default={'line_ids': False})
+        order = self.requisition_order_ids[0].sudo().copy(default={'line_ids': False})
         for product_id, qty_uom in requisition_line_vals.iteritems():
             self.env['purchase.requisition.line'].create(
                 {'product_id': product_id, 'product_qty': qty_uom[0], 'requisition_id': order.id,
