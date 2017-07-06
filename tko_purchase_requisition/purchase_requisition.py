@@ -34,7 +34,6 @@ class PurchaseRequisition(models.Model):
 
     @api.multi
     def send_mail_to_all_quotations(self):
-        email_template_obj = self.env['email.template']
         ir_model_data = self.env['ir.model.data']
         template_id = ir_model_data.get_object_reference('purchase', 'email_template_edi_purchase')[1]
         if template_id:
@@ -60,4 +59,6 @@ class PurchaseRequisition(models.Model):
                         mail.write({'attachment_ids': [(6, 0, attachment_ids)]})
                     # send mail
                     mail.send()
+                    # change status of RFQ
+                    rfq.state = 'sent'
         return True
