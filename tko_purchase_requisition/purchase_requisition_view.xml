@@ -5,6 +5,15 @@
             <field name="model">purchase.requisition</field>
             <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form"/>
             <field name="arch" type="xml">
+                <button name="purchase_cancel"  position="attributes">
+                    <attribute name="states">draft,sent,bid</attribute>
+                </button>
+                <button name="purchase_confirm"  position="attributes">
+                    <attribute name="states">draft,sent,bid</attribute>
+                </button>
+                <button name="wkf_send_rfq"  position="attributes">
+                    <attribute name="states">draft</attribute>
+                </button>
                 <field name="picking_type_id" position="after">
                     <field name="parent_id" attrs="{'invisible': [('parent_id','=',False)]}"/>
                 </field>
