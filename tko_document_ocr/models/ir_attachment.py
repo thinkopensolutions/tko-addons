@@ -3,15 +3,15 @@
 # © 2017 ThinkOpen Solutions <https://tkobr.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-import io
 import logging
+import os
+import shutil
 import subprocess
-from StringIO import StringIO
+import tempfile
+import threading
 
-import pyPdf
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
-from openerp.osv import osv
 
 _logger = logging.getLogger(__name__)
 _MARKER_PHRASE = '[[waiting for OCR]]'
@@ -132,12 +132,31 @@ class IrAttachment(models.Model):
                                 self.env['ir.config_parameter'].get_param(
                                     'document_ocr.language', 'eng'))
     # We need to redefine index_content field to be able to update it
-    # on the onchange_language()
+    # on the onchange_language() in form
     index_content = fields.Text('Indexed Content',
                                 readonly=False,
                                 prefetch=False)
     index_content_rel = fields.Text(related='index_content',
                                     string='Indexed Content Rel')
+
+    def ncpus(self):
+        # for Linux, Unix and MacOS
+        if hasattr(os, "sysconf"):
+            if os.sysconf_names.has_key("SC_NPROCESSORS_ONLN"):
+                # Linux and Unix
+                ncpus = os.sysconf("SC_NPROCESSORS_ONLN")
+                if isinstance(ncpus, int) and ncpus > 0:
+                    return ncpus
+            else:
+                # MacOS X
+                return int(os.popen2("sysctl -n hw.ncpu")[1].read())
+        # for Windows
+        if os.environ.has_key("NUMBER_OF_PROCESSORS"):
+            ncpus = int(os.environ["NUMBER_OF_PROCESSORS"])
+            if ncpus > 0:
+                return ncpus
+        # return the default value
+        return 1
 
     @api.onchange('language')
     def onchange_language(self):
@@ -179,7 +198,6 @@ class IrAttachment(models.Model):
 
     def _index_ocr(self, bin_data):
         if self.datas_fname:
-            _logger.info('OCR IMAGE "%s"...', self.datas_fname)
             process = subprocess.Popen(
                 ['tesseract', 'stdin', 'stdout', '-l', self.language],
                 stdin=subprocess.PIPE, stdout=subprocess.PIPE,
@@ -187,75 +205,73 @@ class IrAttachment(models.Model):
             )
             stdout, stderr = process.communicate(bin_data)
             if stderr:
-                _logger.error('Error during OCR: %s', stderr)
-                if self.env['ir.config_parameter'].get_param(
-                    'document_ocr.synchronous', 'False') == 'True':
-                    raise Exception('Error during OCR:\n%s', stderr)
+                _logger.warning('Error during OCR: %s', stderr)
             return stdout
         else:
-            _logger.info('OCR IMAGE "%s", no image to process...', self.name)
+            _logger.warning('OCR IMAGE "%s", no image to process...',
+                            self.name)
         return False
 
-
-    def _convert_bin_to_image(self, bin_data):
-        dpi = int(self.env['ir.config_parameter'].get_param(
-            'document_ocr.dpi', '500'))
-        quality = int(self.env['ir.config_parameter'].get_param(
-            'document_ocr.quality', '100'))
-        process = subprocess.Popen(
-            ['convert', '-density', str(dpi),
-             '-quality', str(quality),
-             '-', '-append', 'png32:-'],
-            stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE)
-        stdout, stderr = process.communicate(bin_data)
-        if stderr:
-            _logger.error('Error converting PDF to image: %s', stderr)
-            if self.env['ir.config_parameter'].get_param(
-                'document_ocr.synchronous', 'False') == 'True':
-                raise Exception('Error converting PDF to image:\n%s' % stderr)
-        return stdout
-
-    def _convert_pdf_page_to_image(self, pdf, pagenum):
-        dst_pdf = pyPdf.PdfFileWriter()
-        dst_pdf.addPage(pdf.getPage(pagenum))
-        pdf_bytes = io.BytesIO()
-        dst_pdf.write(pdf_bytes)
-        pdf_bytes.seek(0)
-        return self._convert_bin_to_image(pdf_bytes.read())
+    def _ocr_image(self, semaphore, i, t, image):
+        global ocr_images_text
+        with semaphore:
+            with threading.Lock():
+                _logger.info('OCR PDF "%s" image %d/%d to text)...',
+                             self.name, i, t)
+                ocr_images_text[i] = self._index_ocr(image)
 
     def _index_pdf(self, bin_data):
+        global ocr_images_text
+        ocr_images_text = {}
+        ncpus = self.ncpus()
+        workers = []
+        semaphore = threading.BoundedSemaphore(ncpus)
         has_synchr_param = self.env['ir.config_parameter'].get_param(
             'document_ocr.synchronous', 'False') == 'True'
         has_force_flag = self.env.context.get('document_ocr_force')
         synchr = has_synchr_param or has_force_flag
         if synchr:
-            buf = super(IrAttachment, self)._index_pdf(bin_data)
-            if len(buf.split('\n')) < 2 and bin_data.startswith('%PDF-'):
-                # If we got less than 2 lines,
-                # run OCR anyway and append to existent text
-                try:
-                    f = StringIO(bin_data)
-                    pdf = pyPdf.PdfFileReader(f)
-                    if pdf.getNumPages() > 1:
-                        for pagenum in range(0, pdf.getNumPages()):
-                            _logger.info('OCR PDF "%s" page %d/%d...',
-                                         self.datas_fname,
-                                         pagenum + 1,
-                                         pdf.getNumPages())
-                            pdf_image = self._convert_pdf_page_to_image(pdf,
-                                                                   pagenum)
-                            index_content = self._index_ocr(pdf_image)
-                            buf = u'%s\n-- %d --\n%s' % (
-                                buf, pagenum + 1, index_content.decode('utf8'))
-                    else:
-                        pdf_image = self._convert_bin_to_image(bin_data)
-                        index_content = self._index_ocr(pdf_image)
-                        buf = u'%s\n%s' % (buf, index_content.decode('utf8'))
-                except Exception, err:
-                    buf = u'%s' % err.message.decode('utf8', 'replace')
-                    _logger.error(buf)
-                    pass
+            _logger.info('OCR PDF "%s"...', self.name)
+            stdout, stderr = subprocess.Popen(
+                ['pdftotext', '-layout', '-nopgbrk', '-', '-'],
+                stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE).communicate(bin_data)
+            if stderr:
+                _logger.warning('Error converting PDF to text: %s', stderr)
+            buf = stdout
+            # OCR PDF Images
+            tmpdir = tempfile.mkdtemp()
+            try:
+                stdout, stderr = subprocess.Popen(
+                    ['pdfimages', '-p', '-', tmpdir + '/ocr'],
+                    stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE).communicate(bin_data)
+                if stderr:
+                    _logger.warning('Error OCR PDF Images: %s', stderr)
+                # OCR every image greater than 50Kb
+                filelist = sorted([(file) for file
+                                   in os.listdir(tmpdir)
+                                   if os.path.getsize(
+                        os.path.join(tmpdir, file)) > 50000])
+                filelist_size = len(filelist)
+                count = 1
+                for pdf in filelist:
+                    img_file = os.path.join(tmpdir, pdf)
+                    image = open(img_file, 'rb').read()
+                    t = threading.Thread(target=self._ocr_image,
+                                         name=u'ocr_image_' + str(count),
+                                         args=(semaphore, count,
+                                               filelist_size, image))
+                    t.start()
+                    workers.append(t)
+                    count += 1
+                for t in workers:
+                    t.join()
+                for text in sorted(ocr_images_text):
+                    buf = '%s\n%s' % (buf, ocr_images_text[text])
+            except:
+                pass
+            shutil.rmtree(tmpdir)
         else:
             buf = _MARKER_PHRASE
         return buf
