@@ -22,6 +22,8 @@
         'bin': [
             'tesseract',
             'convert',
+            'pdftotext',
+            'pdfimage',
         ],
     },
 }
