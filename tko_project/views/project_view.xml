@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_task_form2" model="ir.ui.view">
+        <field name="name">project.task.form</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="replace"/>
+            <field name="project_id" position="before">
+                <field name="partner_id"/>
+            </field>
+            <field name="sequence" position="after">
+                <field name="is_urgent"/>
+                <field name="sla_days" invisible="1"/>
+            </field>
+
+        </field>
+    </record>
+    <record id="edit_project" model="ir.ui.view">
+        <field name="name">project.project.form</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="sla_id" invisible="0"/>
+            </field>
+
+        </field>
+    </record>
+</odoo>

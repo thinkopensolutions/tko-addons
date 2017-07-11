@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <menuitem id="contacts_sub_menu"
+              action="contacts.action_contacts"
+              name="Contacts"
+              parent="contacts.menu_contacts"
+              sequence="10"
+              />
+    <menuitem id="contacts_config_menu"
+              name="Configuration"
+              parent="contacts.menu_contacts"
+              sequence="40"
+              />
+</odoo>

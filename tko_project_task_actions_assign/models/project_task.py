@@ -50,6 +50,20 @@ class ProjectTaskActionsLine(models.Model):
 			raise ValidationError("Please set proper user id in " + self.action_id.name)
 		self.user_id = user_id and user_id.id or []
 
+	@api.multi
+	def set_done(self):
+		if self.user_id.id == self._uid:
+			return super(ProjectTaskActionsLine , self).set_done()
+		else:
+			raise ValidationError("This user have no rights to input a time. Only " + self.user_id.name  +" can done it")
+
+	def set_cancel(self):
+		if self.user_id.id == self._uid:
+			return super(ProjectTaskActionsLine , self).set_cancel()
+		else:
+			raise ValidationError("This user have no rights to input a time. Only " + self.user_id.name  +" can cancle it")
+
+
 class ProjectTask(models.Model):
 	_inherit = 'project.task'
 

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Contact config wizard -->
+    <record id="view_contact_config_settings" model="ir.ui.view">
+        <field name="name">contact settings</field>
+        <field name="model">contact.config.settings</field>
+        <field name="arch" type="xml">
+            <form string="Configure Sales" class="oe_form_configuration" name="contact_config_form">
+                <header>
+                    <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                    <button string="Cancel" type="object" name="cancel" class="oe_link"/>
+                </header>
+                <group name="main" string="Contacts">
+                    <field name="module_tko_partner_multiple_phones"/>
+                    <field name="module_tko_partner_multiple_emails"/>
+                    <field name="module_tko_partner_multiple_addresses"/>
+                    <field name="module_tko_partner_multiple_assets"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_contact_config" model="ir.actions.act_window">
+        <field name="name">Configure Sales</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">contact.config.settings</field>
+        <field name="view_id" ref="view_contact_config_settings"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <menuitem id="contacts_setting_menu"
+              action="action_contact_config"
+              name="Setting"
+              parent="contacts_config_menu"
+              sequence="100"
+              />
+</odoo>

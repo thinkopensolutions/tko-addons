@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="partner_search_inherit" model="ir.ui.view">
+            <field name="name">res.partner.select</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="email_ids" string="Email"
+                           domain="[('email_ids.email','ilike',self)]"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="res_partner_inherited_form" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <page name="sales_purchases" position="after">
+                    <page string="Emails">
+                        <field name="email_ids">
+                            <tree colors="black:is_main == True"
+                                  editable="top">
+                                <field name="partner_id" invisible="1"/>
+                                <field name="email" widget="email"/>
+                                <field name="is_main" invisible="1"/>
+                                <button name="set_main_email"
+                                        type="object"
+                                        attrs="{'invisible' : [('is_main' ,'!=',False)]}"
+                                        string="Make it main"/>
+                            </tree>
+                        </field>
+                    </page>
+                </page>
+            </field>
+        </record>
+
+</odoo>

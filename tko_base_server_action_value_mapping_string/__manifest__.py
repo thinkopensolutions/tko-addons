@@ -18,6 +18,7 @@
         'base',
     ],
     'data': [
+		'security/ir.model.access.csv',
         'views/ir_server_actions_view.xml',
     ],
     'init': [],

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <record id="res_partner_inherited_form" model="ir.ui.view">
+        <field name="name">res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <page name="sales_purchases" position="after">
+                <page string="Assets">
+                    <field name="asset_ids">
+                        <tree colors="black:is_main == True"
+                              editable="top">
+                            <field name="name"/>
+                            <field name="type_id" options="{'no_create': True}"/>
+                            <field name="value" widget="monetary"/>
+                            <field name="partner_id" invisible="1"/>
+                            <field name="address_id" domain="[('partner_id','=','partner_id')]"
+                                   context="{'default_partner_id':parent.id}"/>
+                            <field name="is_main" invisible="1"/>
+                            <button name="set_main_asset"
+                                    type="object"
+                                    attrs="{'invisible' : [('is_main' ,'!=',False)]}"
+                                    string="Make it main"/>
+                        </tree>
+                    </field>
+                </page>
+            </page>
+        </field>
+    </record>
+
+    <!--Asset Type-->
+
+    <record id="res_partner_asset_type_form" model="ir.ui.view">
+        <field name="name">Asset Type</field>
+        <field name="model">partner.asset.type</field>
+        <field name="arch" type="xml">
+            <form string="Asset Type">
+                <group>
+                    <field name="name"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="res_partner_asset_type_tree" model="ir.ui.view">
+        <field name="name">Asset Type</field>
+        <field name="model">partner.asset.type</field>
+        <field name="arch" type="xml">
+            <tree string="Asset Type">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <act_window id="res_partner_asset_type_action"
+                name="Asset Type"
+                res_model="partner.asset.type"
+                view_mode="tree,form"
+                view_id="res_partner_asset_type_tree"/>
+
+    <menuitem id="res_partner_asset_type_menu" name="Asset Type"
+              action="res_partner_asset_type_action"
+              parent="tko_contacts.contacts_config_menu" sequence="30"/>
+
+</odoo>
