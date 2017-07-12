@@ -75,6 +75,8 @@ class ProjectTaskActionsLine(models.Model):
              " * Normal is the default situation\n"
              " * Blocked indicates something is preventing the progress of this task\n"
              " * Ready for next stage indicates the task is ready to be pulled to the next stage")
+    partner_id = fields.Many2one('res.partner', 'Customer', related='task_id.partner_id')
+    project_id = fields.Many2one('project.project', 'Project', related='task_id.project_id')
 
     @api.multi
     def copy(self, default=None):
