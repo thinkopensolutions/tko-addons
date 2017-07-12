@@ -134,6 +134,7 @@
                     <field name="is_delayed" invisible="1"/>
                     <field name="action_id"/>
                     <field name="task_id"/>
+                    <field name="partner_id"/>
                     <field name="expected_date"/>
                     <field name="done_date"/>
                     <field name="remaining_days"/>
@@ -167,6 +168,8 @@
                             </group>
                             <group>
                                 <field name="task_id"/>
+                                <field name="partner_id" readonly="1"/>
+                                <field name="project_id" readonly="1"/>
                             </group>
                         </group>
                         <group>
