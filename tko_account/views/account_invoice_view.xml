@@ -1,19 +1,36 @@
 <odoo>
-    <data>
-        <record id="invoice_form_inherit" model="ir.ui.view">
+
+    <record id="invoice_form_inherit" model="ir.ui.view">
         <field name="name">account.invoice.view.form</field>
         <field name="model">account.invoice</field>
         <field name="inherit_id" ref="account.invoice_form"/>
         <field name="arch" type="xml">
             <button name="invoice_print" position="after">
-                <button name="set_is_paid" attrs="{'invisible': ['|',('is_paid','=',True),('state','not in',['open'])]}" string="Paid"  class="oe_highlight" type="object"/>
+                <button name="set_is_paid"
+                        attrs="{'invisible': ['|',('is_paid','=',True),('state','not in',['open'])]}" string="Paid"
+                        class="oe_highlight" type="object"/>
             </button>
             <field name="move_id" position="after">
-                <field name="is_paid"/>
+                <field name="is_paid" readonly="1"/>
             </field>
         </field>
     </record>
 
-    </data>
+    <record id="invoice_supplier_form" model="ir.ui.view">
+        <field name="name">account.invoice.view.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <button name="action_invoice_open" position="after">
+                <button name="set_is_paid"
+                        attrs="{'invisible': ['|',('is_paid','=',True),('state','not in',['open'])]}" string="Paid"
+                        class="oe_highlight" type="object"/>
+            </button>
+            <field name="move_id" position="after">
+                <field name="is_paid" readonly="1"/>
+            </field>
+        </field>
+    </record>
+
 </odoo>
 
