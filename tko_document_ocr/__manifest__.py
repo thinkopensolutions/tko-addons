@@ -23,7 +23,7 @@
             'tesseract',
             'convert',
             'pdftotext',
-            'pdfimage',
+            'pdfimages',
         ],
     },
 }

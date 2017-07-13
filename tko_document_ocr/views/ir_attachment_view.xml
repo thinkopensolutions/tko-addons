@@ -16,6 +16,7 @@
             <field name="mimetype" position="after">
                 <field name="store_fname" invisible="1"/>
                 <field name="language"/>
+                <field name="processing_time"/>
             </field>
         </field>
     </record>
