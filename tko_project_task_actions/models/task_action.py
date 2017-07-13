@@ -120,23 +120,23 @@ class ProjectTaskActionsLine(models.Model):
     @api.depends('action_id')
     def onchange_action(self):
         if self.action_id.expected_type == 't':
-                if self.action_id:
-                    days = weeks = months = years = 0
-                    if self.action_id.expected_duration_unit == 'd':
-                        days = self.action_id.expected_duration
-                    if self.action_id.expected_duration_unit == 'w':
-                        weeks = self.action_id.expected_duration
-                    if self.action_id.expected_duration_unit == 'm':
-                        months = self.action_id.expected_duration
-                    if self.action_id.expected_duration_unit == 'y':
-                        years = self.action_id.expected_duration
-                    self.expected_date = datetime.today() + relativedelta(years=years, months=months, weeks=weeks, days=days)
+            if self.action_id:
+                days = weeks = months = years = 0
+                if self.action_id.expected_duration_unit == 'd':
+                    days = self.action_id.expected_duration
+                if self.action_id.expected_duration_unit == 'w':
+                    weeks = self.action_id.expected_duration
+                if self.action_id.expected_duration_unit == 'm':
+                    months = self.action_id.expected_duration
+                if self.action_id.expected_duration_unit == 'y':
+                    years = self.action_id.expected_duration
+                self.expected_date = datetime.today() + relativedelta(years=years, months=months, weeks=weeks,
+                                                                      days=days)
         else:
             expected_date = getattr(self.task_id, str(self.action_id.expected_date_field_id.name))
-            if expected_date == False:
-                self.expected_date = datetime.today()
-            else:
-                self.expected_date = getattr(self.task_id, str(self.action_id.expected_date_field_id.name))
+            if not expected_date:
+                expected_date = datetime.today()
+            self.expected_date = expected_date
 
     # Validate action done filter
     def validate_action_done_filter(self):
