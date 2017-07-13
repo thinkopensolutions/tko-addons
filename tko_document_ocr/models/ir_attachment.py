@@ -9,6 +9,7 @@ import shutil
 import subprocess
 import tempfile
 import threading
+import time
 
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
@@ -138,6 +139,11 @@ class IrAttachment(models.Model):
                                 prefetch=False)
     index_content_rel = fields.Text(related='index_content',
                                     string='Indexed Content Rel')
+    processing_time = fields.Char('Processing Time',
+                                  readonly=True,
+                                  copy=False,
+                                  help='Processing time.\n'
+                                       '(00:00:00 means less than one second)')
 
     def ncpus(self):
         # for Linux, Unix and MacOS
@@ -183,6 +189,7 @@ class IrAttachment(models.Model):
 
     @api.model
     def _index(self, bin_data, datas_fname, mimetype):
+        time_start = time.time()
         content = super(IrAttachment, self)._index(
             bin_data, datas_fname, mimetype)
         if not content or content == 'image':
@@ -194,6 +201,9 @@ class IrAttachment(models.Model):
                 content = self._index_ocr(bin_data)
             else:
                 content = _MARKER_PHRASE
+        m, s = divmod((time.time() - time_start), 60)
+        h, m = divmod(m, 60)
+        self.processing_time = "%02d:%02d:%02d" % (h, m, s)
         return content
 
     def _index_ocr(self, bin_data):
@@ -216,7 +226,7 @@ class IrAttachment(models.Model):
         global ocr_images_text
         with semaphore:
             with threading.Lock():
-                _logger.info('OCR PDF "%s" image %d/%d to text)...',
+                _logger.info('OCR PDF "%s" image %d/%d to text...',
                              self.name, i, t)
                 ocr_images_text[i] = self._index_ocr(image)
 
@@ -232,6 +242,7 @@ class IrAttachment(models.Model):
         synchr = has_synchr_param or has_force_flag
         if synchr:
             _logger.info('OCR PDF "%s"...', self.name)
+            time_start = time.time()
             stdout, stderr = subprocess.Popen(
                 ['pdftotext', '-layout', '-nopgbrk', '-', '-'],
                 stdin=subprocess.PIPE, stdout=subprocess.PIPE,
