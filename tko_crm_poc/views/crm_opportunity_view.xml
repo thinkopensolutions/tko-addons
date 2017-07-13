@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="crm_case_form_view_oppor" model="ir.ui.view" >
+            <field name="name">CRM - Leads Form</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="is_company" invisible="1"/>
+                    <field name="mobile" attrs="{'invisible' : [('is_company','=', True)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='phone']" position="after">
+                    <field name="poc_id" attrs="{'invisible' : [('is_company','=', False)]}" domain="[('is_company','=',False), ('parent_id','=','partner_id')]"/>
+                    <field name="poc_email" attrs="{'invisible' : [('poc_id','=', False)]}"/>
+                    <field name="poc_mobile" attrs="{'invisible' : [('poc_id','=', False)]}"/>
+                </xpath>
+            </field>
+         </record>
+    </data>
+</odoo>
