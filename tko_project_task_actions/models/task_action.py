@@ -36,7 +36,10 @@ class ProjectTaskActions(models.Model):
     _name = 'project.task.action'
 
     name = fields.Char(string='Name', required=True)
-    expected_duration = fields.Integer(u'Expected Time', default=1, required=True)
+    expected_type = fields.Selection([('t', 'Time'), ('d', 'Date Field')],
+                                     default='d', string=u'Date Condition')
+    expected_date_field_id = fields.Many2one('ir.model.fields', 'Date Field')
+    expected_duration = fields.Integer(u'Expected Time', default=1)
     expected_duration_unit = fields.Selection([('d', 'Day'), ('w', 'Week'), ('m', 'Month'), ('y', 'Year')],
                                               default='d', required=True, string=u'Expected Time Unit')
     done_filter_id = fields.Many2one('ir.filters', 'Done Filter')
@@ -116,17 +119,24 @@ class ProjectTaskActionsLine(models.Model):
     @api.one
     @api.depends('action_id')
     def onchange_action(self):
-        if self.action_id:
-            days = weeks = months = years = 0
-            if self.action_id.expected_duration_unit == 'd':
-                days = self.action_id.expected_duration
-            if self.action_id.expected_duration_unit == 'w':
-                weeks = self.action_id.expected_duration
-            if self.action_id.expected_duration_unit == 'm':
-                months = self.action_id.expected_duration
-            if self.action_id.expected_duration_unit == 'y':
-                years = self.action_id.expected_duration
-            self.expected_date = datetime.today() + relativedelta(years=years, months=months, weeks=weeks, days=days)
+        if self.action_id.expected_type == 't':
+            if self.action_id:
+                days = weeks = months = years = 0
+                if self.action_id.expected_duration_unit == 'd':
+                    days = self.action_id.expected_duration
+                if self.action_id.expected_duration_unit == 'w':
+                    weeks = self.action_id.expected_duration
+                if self.action_id.expected_duration_unit == 'm':
+                    months = self.action_id.expected_duration
+                if self.action_id.expected_duration_unit == 'y':
+                    years = self.action_id.expected_duration
+                self.expected_date = datetime.today() + relativedelta(years=years, months=months, weeks=weeks,
+                                                                      days=days)
+        else:
+            expected_date = getattr(self.task_id, str(self.action_id.expected_date_field_id.name))
+            if not expected_date:
+                expected_date = datetime.today()
+            self.expected_date = expected_date
 
     # Validate action done filter
     def validate_action_done_filter(self):

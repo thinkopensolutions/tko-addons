@@ -47,8 +47,13 @@
                     <sheet>
                         <group>
                             <field name="name"/>
-                            <field name="expected_duration"/>
-                            <field name="expected_duration_unit"/>
+                            <field name="expected_type" widget="radio"/>
+                            <field name="expected_date_field_id" domain="[('model_id','=','project.task'),('ttype','=','date')]"
+                                   attrs="{'invisible': [('expected_type', '=', 't')], 'required': [('expected_type', '=', 'd')]}"/>
+                            <field name="expected_duration"
+                                   attrs="{'invisible': [('expected_type', '=', 'd')], 'required': [('expected_type', '=', 't')]}"/>
+                            <field name="expected_duration_unit"
+                                   attrs="{'invisible': [('expected_type', '=', 'd')], 'required': [('expected_type', '=', 't')]}"/>
                         </group>
                         <group colspan="2" col="2">
                             <group>
