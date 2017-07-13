@@ -28,7 +28,7 @@ from odoo import fields, models, api
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
-    is_paid = fields.Boolean(string='Is paid?', track_visibility='onchange')
+    is_paid = fields.Boolean(string='Is paid?', copy=False, track_visibility='onchange')
 
     def set_is_paid(self):
         self.is_paid = True
