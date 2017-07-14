@@ -133,10 +133,10 @@ class ProjectTaskActionsLine(models.Model):
                 self.expected_date = datetime.today() + relativedelta(years=years, months=months, weeks=weeks,
                                                                       days=days)
         else:
-            expected_date = getattr(self.task_id, str(self.action_id.expected_date_field_id.name))
-            if not expected_date:
-                expected_date = datetime.today()
-            self.expected_date = expected_date
+            expected_date = False
+            if self.action_id.expected_date_field_id:
+                expected_date = getattr(self.task_id, str(self.action_id.expected_date_field_id.name))
+            self.expected_date = expected_date or datetime.today()
 
     # Validate action done filter
     def validate_action_done_filter(self):
