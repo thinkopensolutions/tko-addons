@@ -61,13 +61,12 @@ class PurchaseRequisition(models.Model):
                     mail.send()
                     # change status of RFQ
                     # rfq.state = 'sent'
-
+                    self.signal_workflow(cr, uid, ids, 'send_rfq')
         return True
 
     # change status of RFQ
-    @api.multi
-    def send_rfq_signal(self, cr, uid, ids, context=None):
-        context = context or {}
-        if context.get('default_model') == 'purchase.order':
-            context = dict(context, mail_post_autofollow=True)
-            self.pool.get('purchase.order').signal_workflow(cr, uid, [context['default_res_id']], 'send_rfq')
+    #@api.multi
+    #def send_rfq_signal(self, cr, uid, ids, context=None):
+    #    context = context or {}
+    #    if context.get('send_rfq', True):
+    #        self.pool.get('purchase.order').signal_workflow(cr, uid, [context['default_res_id']], 'send_rfq')
