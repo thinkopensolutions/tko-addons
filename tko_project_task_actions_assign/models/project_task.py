@@ -35,6 +35,11 @@ class ProjectTaskActionsLine(models.Model):
 	_inherit = 'project.task.action.line'
 
 	user_id = fields.Many2one('res.users',string="Assigned To", compute='onchange_action', store=True)
+	state = fields.Selection(selection_add=[('n', u'New')])
+
+	@api.one
+	def self_assign(self):
+		self.user_id = self.env.uid
 
 	@api.one
 	@api.depends('action_id')

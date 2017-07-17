@@ -27,6 +27,7 @@
     'demo_xml': [],
     'test': [],
     'data': [
+        'wizard/action_line_user_view.xml',
         'views/project_task_view.xml',
     ],
 }
