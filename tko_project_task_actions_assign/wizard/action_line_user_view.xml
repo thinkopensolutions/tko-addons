@@ -7,7 +7,7 @@
             <form string="Set User">
                 <sheet>
                     <group col="4" colspan="4">
-                        <field name="user_id"/>
+                        <field name="user_id" options="{'no_create': True}"/>
                     </group>
                 </sheet>
                 <footer groups="base.group_user">

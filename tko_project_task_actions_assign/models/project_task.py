@@ -53,7 +53,8 @@ class ProjectTaskActionsLine(models.Model):
 			flag = True
 		if (user_id and user_id._name != 'res.users') or flag:
 			raise ValidationError("Please set proper user id in " + self.action_id.name)
-		self.user_id = user_id and user_id.id or []
+		self.user_id = user_id and user_id.id or False
+
 
 	@api.multi
 	def set_done(self):

@@ -1,0 +1,53 @@
+<odoo>
+        <!--Project-->
+        <record id="project_form_inherit" model="ir.ui.view">
+            <field name="name">project.project.form</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="team_id" options="{'no_create': True}"/>
+                </field>
+            </field>
+        </record>
+
+        <!--Project Task Type-->
+        <record id="task_type_edit_inherit" model="ir.ui.view">
+            <field name="name">task.type.form</field>
+            <field name="model">task.type</field>
+            <field name="inherit_id" ref="tko_project_task_type.task_type_form_view"/>
+            <field name="arch" type="xml">
+                <field name="color" position="after">
+                    <field name="team_id" options="{'no_create': True}"/>
+                </field>
+            </field>
+        </record>
+
+        <!--Project Task Action -->
+        <record id="task_action_form_view_inherit" model="ir.ui.view">
+            <field name="name">project.task.action.form</field>
+            <field name="model">project.task.action</field>
+            <field name="inherit_id" ref="tko_project_task_actions.task_action_form_view"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="team_id" options="{'no_create': True}"/>
+                </field>
+            </field>
+        </record>
+        <!--Task Action Line-->
+        <record id="view_task_form_inherit_envolved_users" model="ir.ui.view">
+            <field name="name">project.task.form</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="tko_project_task_actions.view_task_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='action_line_ids']/tree/field[@name='user_id']" position="after">
+                    <field name="team_id"/>
+                    <!--<field name="user_ids"/>-->
+                </xpath>
+                <!--<xpath expr="//field[@name='action_line_ids']/tree/field[@name='user_id']" position="attributes">-->
+                    <!--<attribute name="domain">[('id','in',user_ids[0][2])]</attribute>-->
+                <!--</xpath>-->
+            </field>
+        </record>
+
+</odoo>
