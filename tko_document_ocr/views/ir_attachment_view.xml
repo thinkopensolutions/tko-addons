@@ -25,6 +25,7 @@
         <field name="inherit_id" ref="base.view_attachment_tree"/>
         <field name="arch" type="xml">
             <field name="type" position="after">
+                <field name="processing_time"/>
                 <field name="language"/>
             </field>
         </field>
