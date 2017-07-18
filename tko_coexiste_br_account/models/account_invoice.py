@@ -22,8 +22,10 @@
 #
 ##############################################################################
 
-from openerp import models, fields, api
+from openerp import models, fields, api, _
 import datetime
+from odoo.exceptions import Warning as UserError
+
 
 class AccountPayment(models.Model):
     _inherit = 'account.payment'
@@ -38,25 +40,32 @@ class AccountPayment(models.Model):
                     invoice.move_id.state = 'posted'
                     for move_line in invoice.move_id.line_ids:
                         if move_line.credit > 0:
-                            move_line.date_maturity = invoice.move_id.date 
+                            move_line.date_maturity = invoice.move_id.date
         return res
+
 
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
+    # set move date
     @api.multi
     def action_invoice_paid(self):
         # lots of duplicate calls to action_invoice_paid, so we remove those already paid
         to_pay_invoices = self.filtered(lambda inv: inv.state != 'paid')
-        if to_pay_invoices.filtered(lambda inv: inv.state != 'open'):
-            raise UserError(_('Invoice must be validated in order to set it to register payment.'))
-        if to_pay_invoices.filtered(lambda inv: not inv.reconciled):
-            raise UserError(_('You cannot pay an invoice which is partially paid. You need to reconcile payment entries first.'))
-        if to_pay_invoices.move_id:
-            if to_pay_invoices.type == 'out_invoice':
-                to_pay_invoices.move_id.date =  datetime.datetime.now()
-                to_pay_invoices.move_id.state = 'posted'
-                for move_line in to_pay_invoices.move_id.line_ids:
-                    if move_line.credit > 0:
-                        move_line.date_maturity = to_pay_invoices.move_id.date 
-        return to_pay_invoices.write({'state': 'paid'})
+        result = super(AccountInvoice, self).action_invoice_paid()
+        for invoice in to_pay_invoices:
+            if invoice.move_id:
+                if invoice.type == 'out_invoice':
+                    invoice.move_id.date = datetime.datetime.now()
+                    invoice.move_id.state = 'posted'
+                    for move_line in invoice.move_id.line_ids:
+                        if move_line.credit > 0:
+                            move_line.date_maturity = invoice.move_id.date
+        return result
+
+    # set account Account Move to unposted
+    def action_invoice_re_open(self):
+        result = super(AccountInvoice, self).action_invoice_re_open()
+        if self.type  in ('out_invoice', 'out_refund'):
+            self.move_id.write({'state' : 'draft'})
+        return result
