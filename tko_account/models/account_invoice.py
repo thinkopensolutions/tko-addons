@@ -33,6 +33,9 @@ class AccountInvoice(models.Model):
     def set_is_paid(self):
         self.is_paid = True
 
+    def set_unpaid(self):
+        self.is_paid = False
+
     @api.multi
     def action_cancel(self):
         result = super(AccountInvoice, self).action_cancel()

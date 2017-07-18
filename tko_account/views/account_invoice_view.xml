@@ -9,6 +9,9 @@
                 <button name="set_is_paid"
                         attrs="{'invisible': ['|',('is_paid','=',True),('state','not in',['open'])]}" string="Paid"
                         class="oe_highlight" type="object"/>
+                <button name="set_unpaid"
+                        attrs="{'invisible': [('is_paid','!=',True)}" string="Unpaid"
+                        class="oe_highlight" type="object"/>
             </button>
             <field name="move_id" position="after">
                 <field name="is_paid" readonly="1"/>
@@ -24,6 +27,9 @@
             <button name="action_invoice_open" position="after">
                 <button name="set_is_paid"
                         attrs="{'invisible': ['|',('is_paid','=',True),('state','not in',['open'])]}" string="Paid"
+                        class="oe_highlight" type="object"/>
+                <button name="set_unpaid"
+                        attrs="{'invisible': [('is_paid','!=',True)}" string="Unpaid"
                         class="oe_highlight" type="object"/>
             </button>
             <field name="move_id" position="after">
