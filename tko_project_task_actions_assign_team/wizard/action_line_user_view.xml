@@ -1,0 +1,13 @@
+<odoo>
+    <record id="action_line_wizard_form" model="ir.ui.view">
+        <field name="name">action.line.wizard.form</field>
+        <field name="model">action.line.wizard</field>
+        <field name="inherit_id" ref="tko_project_task_actions_assign.action_line_wizard_form"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="before">
+                <field name="team_id" readonly="1"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
