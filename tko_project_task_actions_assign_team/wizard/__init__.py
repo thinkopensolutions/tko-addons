@@ -22,5 +22,4 @@
 #
 ##############################################################################
 
-import models
-import wizard
+import action_line_user

@@ -22,6 +22,9 @@
                 <xpath expr="//field[@name='action_line_ids']/tree/field[@name='state']" position="before">
                     <field name="user_id"/>
                 </xpath>
+                <xpath expr="//field[@name='action_line_ids']//button[@name='set_done']" position="before">
+                    <button name="self_assign" type="object" icon="fa-hand-rock-o" attrs="{'invisible':[('user_id','!=',False)]}"/>
+                </xpath>
             </field>
         </record>
 

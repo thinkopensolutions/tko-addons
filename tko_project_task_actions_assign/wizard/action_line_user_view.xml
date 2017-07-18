@@ -1,0 +1,32 @@
+<odoo>
+    <record id="action_line_wizard_form" model="ir.ui.view">
+        <field name="name">action.line.wizard.form</field>
+        <field name="model">action.line.wizard</field>
+        <field name="priority" eval="8"/>
+        <field name="arch" type="xml">
+            <form string="Set User">
+                <sheet>
+                    <group col="4" colspan="4">
+                        <field name="user_id" options="{'no_create': True}"/>
+                    </group>
+                </sheet>
+                <footer groups="base.group_user">
+                    <button string="Set" type="object"
+                            name="set_user" class="oe_highlight"/>
+                    <button special="cancel" string="Close"
+                            type="object"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window name="Set User"
+                res_model="action.line.wizard"
+                src_model="project.task.action.line"
+                view_mode="form"
+                view_id="action_line_wizard_form"
+                target="new"
+                key2="client_action_multi"
+                id="action_line_wizard_action"/>
+
+</odoo>

@@ -15,7 +15,7 @@
 
     'auto_install': False,
     'depends': [
-        'tko_project_task_actions',
+        'tko_project_task_actions_assign',
     ],
     'external_dependencies': {
         'python': [],
@@ -29,5 +29,6 @@
     'data': [
         'wizard/action_line_user_view.xml',
         'views/project_task_view.xml',
+        'views/project_team_view.xml',
     ],
 }
