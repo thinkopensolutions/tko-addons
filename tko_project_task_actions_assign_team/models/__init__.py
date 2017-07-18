@@ -22,5 +22,5 @@
 #
 ##############################################################################
 
-import models
-import wizard
+import project_team
+import project

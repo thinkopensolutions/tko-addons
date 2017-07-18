@@ -35,6 +35,11 @@ class ProjectTaskActionsLine(models.Model):
 	_inherit = 'project.task.action.line'
 
 	user_id = fields.Many2one('res.users',string="Assigned To", compute='onchange_action', store=True)
+	state = fields.Selection(selection_add=[('n', u'New')])
+
+	@api.one
+	def self_assign(self):
+		self.user_id = self.env.uid
 
 	@api.one
 	@api.depends('action_id')
@@ -48,7 +53,8 @@ class ProjectTaskActionsLine(models.Model):
 			flag = True
 		if (user_id and user_id._name != 'res.users') or flag:
 			raise ValidationError("Please set proper user id in " + self.action_id.name)
-		self.user_id = user_id and user_id.id or []
+		self.user_id = user_id and user_id.id or False
+
 
 	@api.multi
 	def set_done(self):
