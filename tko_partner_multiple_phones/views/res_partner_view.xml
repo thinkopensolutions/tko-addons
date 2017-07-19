@@ -7,8 +7,8 @@
             <field name="inherit_id" ref="base.view_res_partner_filter"/>
             <field name="arch" type="xml">
                 <field name="name" position="after">
-                    <field name="phone_ids" string="Phone / Celular"
-                           domain="[('phone_ids.number','ilike',self)]"/>
+                    <field name="partner_phone_ids" string="Phone / Celular"
+                           domain="[('partner_phone_ids.number','ilike',self)]"/>
                 </field>
             </field>
         </record>
@@ -20,7 +20,7 @@
             <field name="arch" type="xml">
                 <page name="sales_purchases" position="after">
                     <page string="Phones">
-                        <field name="phone_ids">
+                        <field name="partner_phone_ids">
                             <tree colors="black:is_main == True;gray:status=='i'"
                                   editable="top">
                                 <field name="partner_id" invisible="1"/>
@@ -36,7 +36,7 @@
                                         string="Make it main"/>
                             </tree>
                         </field>
-                        <!--<field name="phone_ids_readonly" nolabel="1"-->
+                        <!--<field name="partner_phone_ids_readonly" nolabel="1"-->
                                <!--class="oe_read_only">-->
                             <!--<tree editable="top"-->
                                   <!--colors="black:is_active == True">-->

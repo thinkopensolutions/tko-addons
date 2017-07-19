@@ -74,8 +74,8 @@ class PartnerPhoneNumber(models.Model):
     @api.multi
     def set_main_phone(self):
         for record in self:
-            phone_ids = self.search([('partner_id', '=', record.partner_id.id), ('type_id', '=', record.type_id.id)])
-            phone_ids.write({'is_main': False})
+            partner_phone_ids = self.search([('partner_id', '=', record.partner_id.id), ('type_id', '=', record.type_id.id)])
+            partner_phone_ids.write({'is_main': False})
             vals = {'is_main': 't'}
             if record.type_id.type == 'm':
                 vals.update({'mobile': record.number})
