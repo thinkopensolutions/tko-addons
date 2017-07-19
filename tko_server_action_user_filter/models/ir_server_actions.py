@@ -112,10 +112,11 @@ class IrActionsServer(models.Model):
     # if filter is set, execute server action only if condition is satisfied
     @api.multi
     def run(self):
-        if self.filter_id.domain:
-            result = self.validate_server_action()
-            if not result:
-                return False
+        for record in self:
+            if record.filter_id.domain:
+                result = record.validate_server_action()
+                if not result:
+                    return False
         return super(IrActionsServer, self).run()
 
 
