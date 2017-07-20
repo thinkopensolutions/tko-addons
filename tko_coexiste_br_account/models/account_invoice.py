@@ -27,6 +27,14 @@ import datetime
 from odoo.exceptions import Warning as UserError
 
 
+class AccountExpenseType(models.Model):
+    _name = 'account.expense.type'
+
+    name = fields.Char('Name')
+    expense_type = fields.Selection([('c', 'Customer Inovice'), ('s', 'Supplier Invoice'), ('b', 'Both')],
+                                    required=True, default='b', string='InvoiceType')
+
+
 class AccountPayment(models.Model):
     _inherit = 'account.payment'
 
@@ -47,6 +55,8 @@ class AccountPayment(models.Model):
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
+    expense_type_id = fields.Many2one('account.expense.type', string=u'Expense Type')
+
     # set move date
     @api.multi
     def action_invoice_paid(self):
@@ -66,6 +76,6 @@ class AccountInvoice(models.Model):
     # set account Account Move to unposted
     def action_invoice_re_open(self):
         result = super(AccountInvoice, self).action_invoice_re_open()
-        if self.type  in ('out_invoice', 'out_refund'):
-            self.move_id.write({'state' : 'draft'})
+        if self.type in ('out_invoice', 'out_refund'):
+            self.move_id.write({'state': 'draft'})
         return result
