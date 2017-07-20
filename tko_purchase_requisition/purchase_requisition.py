@@ -36,6 +36,8 @@ class PurchaseRequisition(models.Model):
     def send_mail_to_all_quotations(self):
         ir_model_data = self.env['ir.model.data']
         template_id = ir_model_data.get_object_reference('purchase', 'email_template_edi_purchase')[1]
+        # try
+        mail = self.env['mail.mail']
         if template_id:
             for rfq in self.purchase_ids:
                 if rfq.partner_id.email:
@@ -43,7 +45,7 @@ class PurchaseRequisition(models.Model):
                     values = template_obj.generate_email(template_id, rfq.id)
                     values['email_to'] = rfq.partner_id.email
                     values['email_from'] = self.env.user.email
-                    mail = self.env['mail.mail'].create(values)
+                    mail.create(values)
                     attachment_ids = []
                     # create attachments
                     for attachment in values['attachments']:
@@ -59,14 +61,7 @@ class PurchaseRequisition(models.Model):
                         mail.write({'attachment_ids': [(6, 0, attachment_ids)]})
                     # send mail
                     mail.send()
-                    # change status of RFQ
-                    # rfq.state = 'sent'
-                    self.signal_workflow(cr, uid, ids, 'send_rfq')
+                    self.env.mail._postprocess_sent_message()
+                # if self.purchase_ids.state['draft']:
+                #     mail._postprocess_sent_message()
         return True
-
-    # change status of RFQ
-    #@api.multi
-    #def send_rfq_signal(self, cr, uid, ids, context=None):
-    #    context = context or {}
-    #    if context.get('send_rfq', True):
-    #        self.pool.get('purchase.order').signal_workflow(cr, uid, [context['default_res_id']], 'send_rfq')
