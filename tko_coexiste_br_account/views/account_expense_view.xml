@@ -1,0 +1,43 @@
+<odoo>
+    <!--Accont Action form-->
+    <record id="account_expense_form" model="ir.ui.view">
+        <field name="name">Expense Type</field>
+        <field name="model">account.expense.type</field>
+        <field name="arch" type="xml">
+            <form string="Expense Type">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="expense_type" options="{'no_create':True}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--Accont Action form-->
+
+    <record id="account_expense_tree" model="ir.ui.view">
+        <field name="name">Expense Type</field>
+        <field name="model">account.expense.type</field>
+        <field name="arch" type="xml">
+            <tree string="Expense Type">
+                <field name="name"/>
+                <field name="expense_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Account Expense action -->
+    <record id="account_expense_action" model="ir.actions.act_window">
+        <field name="name">Expense Type</field>
+        <field name="res_model">account.expense.type</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="account_expense_tree"/>
+    </record>
+
+    <menuitem id="account_action_menu" action="account_expense_action" parent="account.account_account_menu"
+              name="Expense Type"/>
+</odoo>
+
