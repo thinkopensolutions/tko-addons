@@ -74,7 +74,7 @@ class IrActionsServer(models.Model):
         return {'user': self.env.user, 'time': time}
 
     # Method 2
-    def validate_server_action(self):
+    def get_valid_records(self):
         """
 
         Context must have active_id
@@ -103,21 +103,24 @@ class IrActionsServer(models.Model):
             query_str = 'SELECT id FROM ' + from_clause + where_str
             self._cr.execute(query_str, where_clause_params)
             result = self._cr.fetchall()
-            if active_id in [id[0] for id in result]:
-                return True
+            # result is list of tuples
+            result = [record[0] for record in result]
+            return result
         else:
             _logger.error("Server Action was called without 'active_id' not executed")
         return False
 
-    # if filter is set, execute server action only if condition is satisfied
+    # if filter is set
+    # update active_ids based on filer condition
     @api.multi
     def run(self):
-        for record in self:
-            if record.filter_id.domain:
-                result = record.validate_server_action()
-                if not result:
-                    return False
-        return super(IrActionsServer, self).run()
+        context = self.env.context.copy()
+        active_ids = context['active_ids']
+        if self.filter_id and self.filter_id.domain:
+            valid_ids = self.get_valid_records()
+            valid_active_ids = list(set(active_ids).intersection(valid_ids))
+            context['active_ids'] = valid_active_ids
+        return super(IrActionsServer, self.with_context(context)).run()
 
 
 
