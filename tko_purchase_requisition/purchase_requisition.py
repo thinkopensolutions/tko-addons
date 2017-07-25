@@ -60,5 +60,5 @@ class PurchaseRequisition(models.Model):
                     # send mail
                     mail.send()
                     # change status of RFQ
-                    rfq.state = 'sent'
+                    rfq.signal_workflow('send_rfq')
         return True
