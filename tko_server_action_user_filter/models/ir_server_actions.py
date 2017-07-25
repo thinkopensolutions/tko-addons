@@ -83,6 +83,7 @@ class IrActionsServer(models.Model):
         model_name = self.model_id.model
         eval_context = self._eval_context()
         active_id = self._context.get('active_id', False)
+        active_ids = self._context.get('active_ids', False)
         if not self.validate_filter_obj and self.field_id:
             original_model = model_name
             model_name = self.field_id.relation
@@ -94,7 +95,7 @@ class IrActionsServer(models.Model):
                 _logger.error("Field %s not set, server action not executed" % self.field_id.field_description)
                 return False
             active_id = record.id
-        if active_id and model_name:
+        if active_id and model_name and self.filter_id.domain:
             domain = self.filter_id.domain
             rule = expression.normalize_domain(safe_eval(domain, eval_context))
             Query = self.env[model_name].sudo()._where_calc(rule, active_test=False)
@@ -108,6 +109,7 @@ class IrActionsServer(models.Model):
             return result
         else:
             _logger.error("Server Action was called without 'active_id' not executed")
+            return active_ids
         return False
 
     # if filter is set
