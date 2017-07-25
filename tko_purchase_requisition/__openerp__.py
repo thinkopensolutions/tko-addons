@@ -24,12 +24,12 @@
 
 {
     'name': 'Merge Purchase Requisition Orders',
-    'version': '0.004',
+    'version': '004',
     'category': 'Customizations',
     'sequence': 14,
     'complexity': 'medium',
-    'description': ''' == This module allows to merge Requisition Orders in Draft Stage ==\n
-                       == And adds the possibility to request quotations and send rfqs to several suppliers at once ==\n
+    'description': ''' == This module allows to merge Requisition Orders in Draft Stage ==
+                       == And adds the possibility to request quotations and send rfqs to several suppliers at once ==
 ''',
     'author': 'ThinkOpen Solutions Brasil',
     'website': 'http://www.tkobr.com',
