@@ -79,3 +79,9 @@ class AccountInvoice(models.Model):
         if self.type in ('out_invoice', 'out_refund'):
             self.move_id.write({'state': 'draft'})
         return result
+
+class AccountInvoiceLine(models.Model):
+    _inherit = "account.invoice.line"
+
+    service_type_id = fields.Many2one(
+        'br_account.service.type', related='product_id.service_type_id', string=u'Tipo de Serviço')
