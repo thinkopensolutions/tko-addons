@@ -57,17 +57,8 @@ class PurchaseRequisition(models.Model):
                         attachment_ids.append(self.env['ir.attachment'].create(attachment_data).id)
                     if attachment_ids:
                         mail.write({'attachment_ids': [(6, 0, attachment_ids)]})
-                    # rfq.state = 'sent'
-                                            self.pool.get('purchase.order').signal_workflow(cr, [mail.res_id], 'send_rfq')
                     # send mail
                     mail.send()
                     # change status of RFQ
-
+                    rfq.signal_workflow('send_rfq')
         return True
-
-    # change status of RFQ
-    #@api.multi
-    #def send_rfq_signal(self, cr, uid, ids, context=None):
-    #    context = context or {}
-    #    if context.get('send_rfq', True):
-    #        self.pool.get('purchase.order').signal_workflow(cr, uid, [context['default_res_id']], 'send_rfq')
