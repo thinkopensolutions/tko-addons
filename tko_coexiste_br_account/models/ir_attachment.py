@@ -5,12 +5,12 @@ import datetime
 class IrAttachment(models.Model):
     _inherit = 'ir.attachment'
 
-    partner_id = fields.Many2one('res.partner', string=u'Client', compute='get_partner')
-    date_maturity = fields.Date(u'Due Date', compute='get_partner')
-    date_invoice = fields.Date(u'Invoice Date')
+    partner_id = fields.Many2one('res.partner', string=u'Client', compute='get_info')
+    date_maturity = fields.Date(u'Due Date', compute='get_info')
+    date_invoice = fields.Date(string=u'Invoice Date', compute='get_info')
 
     @api.one
-    def get_partner(self):
+    def get_info(self):
         model = self.res_model
         res_id = self.res_id
         if model and res_id:
