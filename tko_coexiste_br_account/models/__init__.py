@@ -23,3 +23,4 @@
 ##############################################################################
 import account_invoice
 import analytic_account
+import ir_attachment
