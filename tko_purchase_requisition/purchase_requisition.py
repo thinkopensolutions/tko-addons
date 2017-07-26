@@ -36,7 +36,7 @@ class PurchaseRequisition(models.Model):
     def send_mail_to_all_quotations(self):
         ir_model_data = self.env['ir.model.data']
         template_id = ir_model_data.get_object_reference('purchase', 'email_template_edi_purchase')[1]
-        if template_id:
+        if template_id and rfq.state == 'draft':
             for rfq in self.purchase_ids:
                 if rfq.partner_id.email:
                     template_obj = self.env['email.template']
