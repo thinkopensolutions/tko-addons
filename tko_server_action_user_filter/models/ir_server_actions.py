@@ -117,7 +117,7 @@ class IrActionsServer(models.Model):
     @api.multi
     def run(self):
         context = self.env.context.copy()
-        active_ids = context['active_ids']
+        active_ids = context.get('active_ids', False) or context.get('active_id',False) and [context.get('active_id')] or []
         if self.filter_id and self.filter_id.domain:
             valid_ids = self.get_valid_records()
             valid_active_ids = list(set(active_ids).intersection(valid_ids))
