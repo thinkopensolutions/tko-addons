@@ -39,9 +39,13 @@
                     <field name="spent_time" sum="Time Spent" widget="float_time"/>
                     <field name="remaining_time" sum="Remaining Time" widget="float_time"/>
                     <field name="is_open" invisible="True"/>
+                    <field name="task_id" invisible="True"/>
+                </xpath>
+                 <xpath expr="//field[@name='action_line_ids']/tree/button[@name='set_done']" position='attributes'>
+                    <attribute name="context">{'button_set_done':True,'default_timesheet_id':task_id}</attribute>
                 </xpath>
                 <xpath expr="//field[@name='action_line_ids']/tree/field[@name='state']" position='after'>
-                    <button name="open_wizard" icon="fa fa-clock-o" type="object" attrs="{'invisible':[('is_open','=', False)]}"/>
+                    <button name="open_wizard" icon="fa fa-clock-o" type="object" attrs="{'invisible':[('is_open','=', False)]}" context="{'default_timesheet_id':task_id}"/>
                 </xpath>
             </field>
         </record>
@@ -104,7 +108,22 @@
                     <sheet>
                         <group>
                             <field name="time" string="Input Time" widget="float_time"/>
+                            <field name="description"/>
+                            <field name="timesheet_id" invisible="True"/>
                         </group>
+                    <notebook>
+                        <page string="Worklog" name="worklog">
+                            <field name="worklog_ids" readonly="True">
+                                <tree>
+                                    <field name="date"/>
+                                    <field name="user_id" required="1" />
+                                    <field name="name"/>
+                                    <field name="unit_amount" string="Duration" widget="float_time"/>
+                                    <field name="project_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
                     </sheet>
                     <footer>
                         <button string='conclude' name="add_time" type="object" class="btn-primary"/>
