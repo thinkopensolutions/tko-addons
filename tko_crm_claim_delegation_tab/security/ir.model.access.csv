@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_crm_claim_acrtion_manager,Claim Delegation Action Manager,model_delegation_action,sales_team.group_sale_manager,1,1,1,1
-access_crm_claim_action_user,Claim Delegation Action User,model_delegation_action,sales_team.group_sale_salesman,1,1,1,0
-access_crm_claim_delegation_manager,Claim Delegation Manager,model_claim_delegation,sales_team.group_sale_manager,1,1,1,1
-access_crm_claim_delegation_user,Claim Delegation User,model_claim_delegation,sales_team.group_sale_salesman,1,1,1,0
