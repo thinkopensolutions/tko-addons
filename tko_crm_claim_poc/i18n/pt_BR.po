@@ -58,3 +58,8 @@ msgstr "Telefone"
 msgid "Point of Contact"
 msgstr "Ponto de Contato"
 
+#. module: tko_crm_claim_poc
+#: view:crm.claim:tko_crm_claim_poc.crm_claim_company_form_inherit_parent_id_option
+#: field:crm.claim,parent_id:0
+msgid "Company"
+msgstr "Nome"

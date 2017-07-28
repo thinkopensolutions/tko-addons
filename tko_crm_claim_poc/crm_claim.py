@@ -68,6 +68,7 @@ class crm_claim(models.Model):
     poc_partner_email = fields.Char(
         string='Email', compute='_get_poc_partner_email', inverse='_set_poc_partner_email')
     poc = fields.Boolean('Use Point of Contact')
+    origin_id = fields.Many2many('claim.origin', string='Origin')
 
     @api.depends('claim_poc_id')
     @api.one

@@ -14,9 +14,9 @@
                     </group>
                     <group string="Point of Contact" attrs="{'invisible': [('poc','=',False)]}">
                         <field name="claim_poc_id" domain="[('relative_id','=',partner_id),('id','!=',partner_id)]"
-                               context="{'default_parent_id' : partner_id}" options="{'no_create' : True}"/>
+                               context="{'default_parent_id' : partner_id}"/>
 
-                        <field name="poc_function_id"/>
+                        <field name="poc_function_id" options="{'no_create' : True }"/>
 
                         <field name="poc_partner_mobile"/>
                         <field name="poc_partner_phone"/>
@@ -25,9 +25,40 @@
                         <field name="poc_function_id2" invisible="1"/>
                     </group>
                 </group>
+                <xpath expr="//field[@name='origin_id']" position="replace">
+                    <field name="origin_id" widget="many2many_tags"/>
+                </xpath>
             </field>
         </record>
+        <record id="crm_claim_company_form_inherit_function_id_options" model="ir.ui.view">
+            <field name="name">CRM Claim</field>
+            <field name="model">crm.claim</field>
+            <field name="inherit_id" ref="tko_crm_claim_function.crm_claim_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='function_id']" position="attributes">
+                    <attribute name="options">{'no_create' : True }</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="crm_claim_company_form_inherit_parent_id_option" model="ir.ui.view">
+            <field name="name">CRM Claim</field>
+            <field name="model">crm.claim</field>
+            <field name="inherit_id" ref="tko_crm_claim_company.crm_claim_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='claim_reporter']/group[2]" position="replace"/>
+                <group name="partner_group" position="after">
+                    <group colspan="2">
+                        <separator string="Company"/>
+                        <newline/>
+                        <field name="parent_id" domain="[('is_company' ,'=', True)]"
+                               context="{'default_is_company' :  True}" options="{'no_create' : True }"/>
+                        <field name="company_phone"/>
+                        <field name="company_email"/>
+                        <field name="company_website" widget="url"/>
 
-
+                    </group>
+                </group>
+            </field>
+        </record>
     </data>
 </odoo>

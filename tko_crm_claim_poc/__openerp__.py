@@ -26,7 +26,7 @@
     'name': 'tko_crm_claim_poc',
     'version': '0.012',
     'category': 'Customizations',
-    'sequence': 119,
+    'sequence': 150,
     'complexity': 'normal',
     'description': '''tko_crm_claim_poc''',
     'author': 'ThinkOpen Solutions Brasil',
@@ -37,6 +37,8 @@
         'tko_crm_claim',
         'tko_partner_relatives',
         'tko_partner_department_function_as_m2o',
+        'tko_crm_claim_function',
+        'tko_crm_claim_company',
     ],
     'data': [
         'crm_claim_view.xml',

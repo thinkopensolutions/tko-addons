@@ -93,7 +93,7 @@
             <field name="arch" type="xml">
                 <group name="category" position="after">
                     <group name="survey" col="4">
-                        <field name="survey_id"/>
+                        <field name="survey_id"  options="{'no_create' : True }"/>
                         <field name="answer_state" nolabel="1" colspan="2" readonly="1"/>
                         <field name="survey_ans_id" colspan="4" attrs="{'invisible':[('answer_state','!=','done')]}"/>
                         <label for="answer_survey" string=""/>
