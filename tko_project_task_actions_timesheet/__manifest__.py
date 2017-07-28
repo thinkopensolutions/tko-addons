@@ -17,6 +17,7 @@
         'hr_timesheet',
         'tko_project_state',
         'tko_project_task_actions',
+        'tko_project_task_actions_assign',
     ],
     'external_dependencies': {
                                 'python': [],
