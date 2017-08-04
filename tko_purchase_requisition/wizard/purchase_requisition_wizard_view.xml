@@ -13,7 +13,7 @@
                                 string="Merge" type="object"
                                 class="oe_highlight"
                                 />
-                        <button string="Cancelar" special="cancel"/>
+                        <button string="Cancel" special="cancel"/>
                     </footer>
                 </form>
             </field>

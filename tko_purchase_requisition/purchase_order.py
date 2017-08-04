@@ -22,31 +22,10 @@
 #
 ##############################################################################
 
-{
-    'name': 'Merge Purchase Requisition Orders',
-    'version': '8.0.1',
-    'category': 'Customizations',
-    'sequence': 14,
-    'complexity': 'medium',
-    'description': ''' == This module allows to merge Requisition Orders in Draft Stage ==
-                       == And adds the possibility to request quotations and send rfqs to several suppliers at once ==
-''',
-    'author': 'ThinkOpen Solutions Brasil',
-    'website': 'http://www.tkobr.com',
-    'depends': [
-        'purchase_requisition'
-    ],
-    'data': [
-        'wizard/purchase_requisition_wizard_view.xml',
-        'purchase_order_view.xml',
-        'purchase_requisition_view.xml',
-    ],
-    'init': [],
-    'demo': [],
-    'update': [],
-    'test': [],  # YAML files with tests
-    'installable': True,
-    'application': False,
-    'auto_install': False,
-    'certificate': '',
-}
+from openerp import models, fields, api
+
+
+class PurchaseOrderLine(models.Model):
+    _inherit = 'purchase.order.line'
+
+    is_lowest_price = fields.Boolean('Is Lowest Price?', help='Used to highlight the Bid with the lowest price.')

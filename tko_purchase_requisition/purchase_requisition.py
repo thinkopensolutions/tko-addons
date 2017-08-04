@@ -62,3 +62,29 @@ class PurchaseRequisition(models.Model):
                     # change status of RFQ
                     rfq.signal_workflow('send_rfq')
         return True
+
+    @api.multi
+    def open_product_line(self):
+        po_line_obj = self.env['purchase.order.line']
+        res = super(PurchaseRequisition, self).open_product_line()
+        if res and res.get('domain'):
+            if res.get('domain')[0] and res.get('domain')[0][2]:
+                po_line_ids = res.get('domain')[0][2]
+                #Before update all lines.
+                purchase_line_rec = po_line_obj.browse(po_line_ids)
+                purchase_line_rec.write({'is_lowest_price': False})
+                self._cr.execute('''SELECT product_id FROM purchase_order_line
+                                    WHERE id in (%s) GROUP BY product_id
+                                ''' %(','.join(map(str, po_line_ids))))
+                datas = [line[0] for line in self._cr.fetchall()]
+                if datas:
+                    for line_id in datas:
+                        self._cr.execute('''SELECT id FROM purchase_order_line
+                                            WHERE id in (%s)
+                                            AND product_id = %s ORDER BY price_unit*product_qty ASC LIMIT 1
+                                        ''' %(','.join(map(str, po_line_ids)), line_id))
+                        datas_po_line = self._cr.fetchone()
+                        if datas_po_line:
+                            po_line_rec = po_line_obj.browse(datas_po_line[0])
+                            po_line_rec.write({'is_lowest_price': True})
+        return res
