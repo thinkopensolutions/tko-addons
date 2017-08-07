@@ -243,13 +243,16 @@ class IrAttachment(models.Model):
         if synchr:
             _logger.info('OCR PDF "%s"...', self.name)
             time_start = time.time()
-            stdout, stderr = subprocess.Popen(
-                ['pdftotext', '-layout', '-nopgbrk', '-', '-'],
-                stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE).communicate(bin_data)
-            if stderr:
-                _logger.warning('Error converting PDF to text: %s', stderr)
-            buf = stdout
+            try:
+                stdout, stderr = subprocess.Popen(
+                    ['pdftotext', '-layout', '-nopgbrk', '-', '-'],
+                    stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE).communicate(bin_data)
+                if stderr:
+                    _logger.warning('Error converting PDF to text: %s', stderr)
+                buf = stdout
+            except Exception, err:
+                _logger.warning('Error converting PDF to text: %s', err[0])
             # OCR PDF Images
             tmpdir = tempfile.mkdtemp()
             try:
