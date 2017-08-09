@@ -13,7 +13,7 @@
                     </group>
                     <group string="Point of Contact" attrs="{'invisible': [('poc','=',False)]}">
                         <field name="claim_poc_id" domain="[('relative_id','=',partner_id),('id','!=',partner_id)]"
-                               context="{'default_parent_id' : partner_id}" options="{'no_create' : True}"/>
+                               context="{'default_parent_id' : partner_id}" options="{'no_create' : False}"/>
 
                         <field name="poc_function_id"/>
 
