@@ -273,6 +273,7 @@ class IrAttachment(models.Model):
             _logger.info('OCR PDF INFO "%s" image %d/%d to text...',
                          self.name, count, filelist_size)
             buf = buf + self._index_ocr(image)
+            count += 1
             # buf = buf + self._ocr_image_thread(count,
             #                        filelist_size,
             #                        image)
