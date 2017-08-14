@@ -77,7 +77,6 @@ class InvoicePaymentInfo(models.Model):
     currency_id = fields.Many2one('res.currency', related='invoice_id.currency_id', readonly=True,
         help='Utility field to express amount currency')
     amount = fields.Monetary(string='Amount', copy=False, required=True, currency_field='currency_id')
-    # amount = fields.Monetary(string='Amount', store=True, readonly=True, compute='_amount_all', track_visibility='always')
 
 
 class AccountInvoice(models.Model):
@@ -85,6 +84,7 @@ class AccountInvoice(models.Model):
 
     expense_type_id = fields.Many2one('account.expense.type', string=u'Expense Type')
     payment_line = fields.One2many('invoice.payment.info', 'invoice_id', string="Invoice Payment Lines")
+    payment_date = fields.Date(related='payment_line.payment_date', string='Payment Date')
 
     # set move date
     @api.multi

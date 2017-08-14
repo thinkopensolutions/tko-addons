@@ -54,5 +54,16 @@
             </xpath>
         </field>
     </record>
+
+    <record id="invoice_tko_filter" model="ir.ui.view">
+        <field name="name">account.invoice.view.tko.filter</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <field name="date" position="after">
+                <field name="payment_date" string="payment Date" filter_domain="[('payment_date','&gt;=',self)]"/>
+            </field>
+        </field>
+    </record>
 </odoo>
 
