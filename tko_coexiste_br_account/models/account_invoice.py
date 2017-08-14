@@ -109,6 +109,27 @@ class AccountInvoice(models.Model):
             self.move_id.write({'state': 'draft'})
         return result
 
+    @api.multi
+    def update_history(self):
+        payment_obj = self.env['account.payment']
+        inv_obj = self.env['account.invoice']
+        invoices = inv_obj.search([('state','=', 'paid')])
+        # invoices = [x.invoice_id for x in inv_lines if x.invoice_id.state == 'paid']
+        invoices = set(invoices)
+        for invoice in invoices:
+            paymnets = payment_obj.search([('communication','=', invoice.number)])
+            for paymnet in paymnets:
+                invoice_payment_vals = {
+                    'payment_date':paymnet.payment_date,
+                    'amount':paymnet.amount,
+                    'name':paymnet,
+                    'invoice_id':invoice.id,
+                    'currency_id':paymnet.currency_id.id
+                }
+                self.env['invoice.payment.info'].create(invoice_payment_vals)
+        return True
+
+
 class AccountInvoiceLine(models.Model):
     _inherit = "account.invoice.line"
 

@@ -44,6 +44,7 @@
             </xpath>
             <xpath expr="//page[@string='Other info']" position="after">
                 <page string="Payment Info">
+                    <button name="update_history" type="object" string="Get History"/>
                     <field name="payment_line">
                         <tree create="0">
                             <field name="payment_date"/>
