@@ -42,6 +42,16 @@
             <xpath expr="//field[@name='fiscal_position_id']" position="before">
                 <field name="payment_term_id" />
             </xpath>
+            <xpath expr="//page[@string='Other info']" position="after">
+                <page string="Payment Info">
+                    <field name="payment_line">
+                        <tree create="0">
+                            <field name="payment_date"/>
+                            <field name="amount"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
         </field>
     </record>
 </odoo>
