@@ -106,28 +106,25 @@ class AccountAnalyticLine(models.Model):
             vals.update({'invoice_id': invoice})
         return super(AccountAnalyticLine, self).create(vals)
 
-
-    # @api.multi
-    # def get_history(self):
-    #     payment_obj = self.env['account.payment']
-    #     inv_line_obj = self.env['account.invoice.line']
-    #     analytic_line_obj = self.env['account.analytic.line']
-    #     inv_lines = inv_line_obj.search([('account_analytic_id','!=', False)])
-    #     invoices = [x.invoice_id for x in inv_lines]
-    #     print"inv_lines==============>",invoices
-    #     for invoice in invoices:
-    #         paymnets = payment_obj.search([('communication','=', invoice.number)])
-    #         print"paymnets==============>",paymnets
-    #         move_lines = [x.id for x in invoice.move_id.line_ids]
-    #         print"move_lines==============>",move_lines
-    #         analytic_lines = analytic_line_obj.search([('move_id','in', move_lines)])
-    #         print"analytic_lines==============>",analytic_lines
-    #         # for analytic_line_id in analytic_lines:
-    #             # analytic_payment_vals = {
-    #             #     'payment_date':vals.get('payment_date'),
-    #             #     'amount':vals.get('amount'),
-    #             #     'name':res,
-    #             #     'analytic_line_id':analytic_line_id.id
-    #             # }
-    #             # self.env['account.analytic.payment'].create(analytic_payment_vals)
-    #     return True
+    @api.multi
+    def get_history(self):
+        payment_obj = self.env['account.payment']
+        inv_line_obj = self.env['account.invoice.line']
+        analytic_line_obj = self.env['account.analytic.line']
+        inv_lines = inv_line_obj.search([('account_analytic_id','!=', False)])
+        invoices = [x.invoice_id for x in inv_lines if x.invoice_id.state == 'paid']
+        invoices = set(invoices)
+        for invoice in invoices:
+            paymnets = payment_obj.search([('communication','=', invoice.number)])
+            move_lines = [x.id for x in invoice.move_id.line_ids]
+            analytic_lines = analytic_line_obj.search([('move_id','in', move_lines)])
+            for analytic_line_id in analytic_lines:
+                analytic_payment_vals = {
+                    'payment_date':analytic_line_id.date,
+                    'amount':analytic_line_id.amount,
+                    'name':analytic_line_id,
+                    'analytic_line_id':analytic_line_id.id
+                }
+                self.env['account.analytic.payment'].create(analytic_payment_vals)
+                pass
+        return True
