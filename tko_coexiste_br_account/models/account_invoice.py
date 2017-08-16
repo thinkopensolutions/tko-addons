@@ -35,6 +35,40 @@ class AccountExpenseType(models.Model):
                                     required=True, default='b', string='InvoiceType')
 
 
+class AccountMove(models.Model):
+    _inherit = 'account.move'
+
+    @api.model
+    def create(self, vals):
+        res=super(AccountMove, self).create(vals) 
+        move_line_ids = self.env['account.move.line'].search([('move_id','=',res.id)])
+        partner = res.partner_id
+        account_ids = []
+        account_ids.append(partner.property_account_receivable_id.id)
+        account_ids.append(partner.property_account_payable_id.id)
+        partner_line_id = self.env['account.move.line'].search([('move_id','=',res.id),('account_id','in',account_ids)])
+        date_maturity = partner_line_id.date_maturity
+        for line in move_line_ids:
+            line.update({'date_maturity': date_maturity})
+        return res
+
+
+class AccountMoveLine(models.Model):
+    _inherit = 'account.move.line'
+
+    @api.onchange('date_maturity')
+    def onchange_date_maturity(self):
+        partner = self.partner_id
+        move_line_ids = self.search([('move_id','=',self.move_id.id)])
+        account_ids = []
+        account_ids.append(partner.property_account_receivable_id.id)
+        account_ids.append(partner.property_account_payable_id.id)
+        if self.account_id.id in account_ids:
+            date_maturity = self.date_maturity
+            for line in move_line_ids:
+                line.write({'date_maturity': date_maturity})
+
+
 class AccountPayment(models.Model):
     _inherit = 'account.payment'
 
