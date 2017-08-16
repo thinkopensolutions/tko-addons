@@ -42,7 +42,7 @@
             <xpath expr="//field[@name='fiscal_position_id']" position="before">
                 <field name="payment_term_id" />
             </xpath>
-            <xpath expr="//page[@string='Other info']" position="after">
+            <xpath expr="//notebook[last()]" position="inside">
                 <page string="Payment Info">
                     <button name="update_history" type="object" string="Get History"/>
                     <field name="payment_line">
