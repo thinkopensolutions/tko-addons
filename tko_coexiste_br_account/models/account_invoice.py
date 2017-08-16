@@ -53,6 +53,22 @@ class AccountMove(models.Model):
         return res
 
 
+class AccountMoveLine(models.Model):
+    _inherit = 'account.move.line'
+
+    @api.onchange('date_maturity')
+    def onchange_date_maturity(self):
+        partner = self.partner_id
+        move_line_ids = self.search([('move_id','=',self.move_id.id)])
+        account_ids = []
+        account_ids.append(partner.property_account_receivable_id.id)
+        account_ids.append(partner.property_account_payable_id.id)
+        if self.account_id.id in account_ids:
+            date_maturity = self.date_maturity
+            for line in move_line_ids:
+                line.write({'date_maturity': date_maturity})
+
+
 class AccountPayment(models.Model):
     _inherit = 'account.payment'
 
