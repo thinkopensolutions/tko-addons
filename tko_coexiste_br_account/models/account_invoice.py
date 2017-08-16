@@ -111,22 +111,23 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def update_history(self):
-        payment_obj = self.env['account.payment']
+        move_line_obj = self.env['account.move.line']
         inv_obj = self.env['account.invoice']
-        invoices = inv_obj.search([('state','=', 'paid')])
+        invoices = inv_obj.search([])
         # invoices = [x.invoice_id for x in inv_lines if x.invoice_id.state == 'paid']
         invoices = set(invoices)
         for invoice in invoices:
-            paymnets = payment_obj.search([('communication','=', invoice.number)])
-            for paymnet in paymnets:
-                invoice_payment_vals = {
-                    'payment_date':paymnet.payment_date,
-                    'amount':paymnet.amount,
-                    'name':paymnet,
-                    'invoice_id':invoice.id,
-                    'currency_id':paymnet.currency_id.id
-                }
-                self.env['invoice.payment.info'].create(invoice_payment_vals)
+            lines = move_line_obj.search([('ref','=', invoice.number)])
+            for line in lines:
+                if line.account_id.user_type_id.type == 'liquidity':
+                    invoice_payment_vals = {
+                        'payment_date':line.date,
+                        'amount':line.debit == 0 and line.credit or line.debit,
+                        'name':line,
+                        'invoice_id':invoice.id,
+                        'currency_id':line.currency_id.id
+                    }
+                    self.env['invoice.payment.info'].create(invoice_payment_vals)
         return True
 
 
