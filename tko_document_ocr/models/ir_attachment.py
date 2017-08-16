@@ -241,14 +241,6 @@ class IrAttachment(models.Model):
         ocr_images_text[self.id] = {}
         buf = _MARKER_PHRASE
         tmpdir = tempfile.mkdtemp()
-        # with api.Environment.manage():
-        #     with odoo.registry(
-        #             self.env.cr.dbname).cursor() as new_cr:
-        #         new_env = api.Environment(new_cr, self.env.uid,
-        #                                   self.env.context)
-                # try:
-                # with _SEMAPHORES_POOL:
-                #     with threading.Lock():
         _logger.info('OCR PDF INFO "%s"...', self.name)
         time_start = time.time()
         stdout, stderr = subprocess.Popen(
@@ -307,9 +299,6 @@ class IrAttachment(models.Model):
         self.index_content = index_content
         self.processing_time = "%02d:%02d:%02d" % (h, m, s)
         shutil.rmtree(tmpdir)
-        # new_env.cr.commit()
-                # except:
-                #     new_env.cr.rollback()
         return self.index_content
 
     def _index_pdf(self, bin_data):
@@ -326,12 +315,6 @@ class IrAttachment(models.Model):
             ocr_images_text = {}
         if synchr:
             buf = self._index_doc_pdf_thread(bin_data)
-            # t = threading.Thread(target=self._index_doc_pdf_thread,
-            #                      name=u'index_pdf_' + str(self.id),
-            #                      args=[bin_data])
-            # t.start()
-            # t.join()
-            # _PDF_OCR_DOCUMENTS_THREADS.append(t)
         else:
             buf = _MARKER_PHRASE
         return buf
