@@ -301,10 +301,13 @@ class IrAttachment(models.Model):
                                 index_content.decode('utf8'),
                                 ocr_images_text[self.id][text])
                     except:
-                        index_content = \
-                            u'%s\n%s' % (
-                                index_content.decode('utf8'),
-                                ocr_images_text[self.id][text].decode('utf8'))
+                        try:
+                            index_content = \
+                                u'%s\n%s' % (
+                                    index_content.decode('utf8'),
+                                    ocr_images_text[self.id][text].decode('utf8'))
+                        except:
+                            shutil.rmtree(tmpdir)
         ocr_images_text.pop(self.id)  # release memory
         m, s = divmod((time.time() - time_start), 60)
         h, m = divmod(m, 60)
