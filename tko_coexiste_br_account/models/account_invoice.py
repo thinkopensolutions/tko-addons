@@ -22,6 +22,7 @@
 #
 ##############################################################################
 
+import json
 from openerp import models, fields, api, _
 import datetime
 from odoo.exceptions import Warning as UserError
@@ -113,20 +114,30 @@ class AccountInvoice(models.Model):
     def update_history(self):
         payment_obj = self.env['account.payment']
         inv_obj = self.env['account.invoice']
-        invoices = inv_obj.search([('state','=', 'paid')])
-        # invoices = [x.invoice_id for x in inv_lines if x.invoice_id.state == 'paid']
+        invoices = inv_obj.search([])
         invoices = set(invoices)
         for invoice in invoices:
-            paymnets = payment_obj.search([('communication','=', invoice.number)])
-            for paymnet in paymnets:
-                invoice_payment_vals = {
-                    'payment_date':paymnet.payment_date,
-                    'amount':paymnet.amount,
-                    'name':paymnet,
-                    'invoice_id':invoice.id,
-                    'currency_id':paymnet.currency_id.id
-                }
-                self.env['invoice.payment.info'].create(invoice_payment_vals)
+            if invoice.payments_widget != u'false':
+                info = json.loads(invoice.payments_widget)
+                for content in info.get('content'):
+                    for data in content:
+                        if data == 'payment_id':
+                            payment_id = content[data]
+                            payment_id = payment_obj.search([('id','=',int(payment_id))])
+                        if data == 'date':
+                            payment_date = content[data]
+                        if data == 'amount':
+                            amount = content[data]
+                        if data == 'name':
+                            name = content[data]
+                    invoice_payment_vals = {
+                        'payment_date':payment_date,
+                        'amount':amount,
+                        'name':name,
+                        'invoice_id':invoice.id,
+                        'currency_id':payment_id.currency_id.id
+                    }
+                    self.env['invoice.payment.info'].create(invoice_payment_vals)
         return True
 
 
