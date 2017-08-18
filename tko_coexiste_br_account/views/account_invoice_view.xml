@@ -10,7 +10,7 @@
             </field>
             <xpath expr="//notebook[last()]" position="inside">
                 <page string="Payment Info">
-                    <button name="update_history" type="object" string="Get History"/>
+                    <button name="update_history" type="object" invisible="1" string="Get History"/>
                     <field name="payment_line">
                         <tree create="0">
                             <field name="payment_date"/>
@@ -55,7 +55,6 @@
             </xpath>
             <xpath expr="//notebook[last()]" position="inside">
                 <page string="Payment Info">
-                    <button name="update_history" type="object" string="Get History"/>
                     <field name="payment_line">
                         <tree create="0">
                             <field name="payment_date"/>
