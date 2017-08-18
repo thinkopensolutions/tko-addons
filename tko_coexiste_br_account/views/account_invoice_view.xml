@@ -8,6 +8,17 @@
             <field name="move_id" position="after">
                 <field name="expense_type_id" options="{'no_create': True}" domain="[('expense_type','in',['c','b'])]"/>
             </field>
+            <xpath expr="//notebook[last()]" position="inside">
+                <page string="Payment Info">
+                    <button name="update_history" type="object" string="Get History"/>
+                    <field name="payment_line">
+                        <tree create="0">
+                            <field name="payment_date"/>
+                            <field name="amount"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
         </field>
     </record>
 
