@@ -26,7 +26,8 @@ import json
 from openerp import models, fields, api, _
 import datetime
 from odoo.exceptions import Warning as UserError
-
+from odoo.exceptions import ValidationError
+from openerp.tools import DEFAULT_SERVER_DATE_FORMAT as OE_DFORMAT
 
 class AccountExpenseType(models.Model):
     _name = 'account.expense.type'
@@ -156,6 +157,36 @@ class AccountInvoice(models.Model):
             self.move_id.write({'state': 'draft'})
         return result
 
+    @api.model
+    def create(self, vals):
+        result = super(AccountInvoice, self).create(vals)
+        due_date = vals.get('date_due') or self.date_due
+        date = vals.get('date') or self.date
+        if due_date and date:
+            due_date = datetime.datetime.strptime(due_date, OE_DFORMAT).date()
+            date = datetime.datetime.strptime(date, OE_DFORMAT).date()
+            if due_date > date:
+                raise ValidationError(
+                _("You can not set Due Date Greater than Invoice date."))
+                return False
+        return result
+
+
+    @api.multi
+    def write(self, vals):
+        due_date = vals.get('date_due') or self.date_due
+        date = vals.get('date') or self.date
+        if due_date and date:
+            due_date = datetime.datetime.strptime(due_date, OE_DFORMAT).date()
+            date = datetime.datetime.strptime(date, OE_DFORMAT).date()
+            if due_date > date:
+                raise ValidationError(
+                _("You can not set Due Date Greater than Invoice date."))
+                return False
+            for move_line in self.move_id.line_ids:
+                move_line.date_maturity = due_date
+        return super(AccountInvoice, self).write(vals)
+
     @api.multi
     def update_history(self):
         payment_obj = self.env['account.payment']
@@ -185,7 +216,6 @@ class AccountInvoice(models.Model):
                     }
                     self.env['invoice.payment.info'].create(invoice_payment_vals)
         return True
-
 
 class AccountInvoiceLine(models.Model):
     _inherit = "account.invoice.line"
