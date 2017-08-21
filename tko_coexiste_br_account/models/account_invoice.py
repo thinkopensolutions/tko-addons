@@ -38,21 +38,6 @@ class AccountExpenseType(models.Model):
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
-    # @api.model
-    # def create(self, vals):
-    #     res=super(AccountMove, self).create(vals) 
-    #     move_line_ids = self.env['account.move.line'].search([('move_id','=',res.id)])
-    #     partner = res.partner_id
-    #     account_ids = []
-    #     account_ids.append(partner.property_account_receivable_id.id)
-    #     account_ids.append(partner.property_account_payable_id.id)
-    #     partner_line_id = self.env['account.move.line'].search([('move_id','=',res.id),('account_id','in',account_ids)])
-    #     date_maturity = partner_line_id.date_maturity
-    #     for line in move_line_ids:
-    #         line.update({'date_maturity': date_maturity})
-    #     return res
-
-
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
@@ -67,6 +52,33 @@ class AccountMoveLine(models.Model):
             date_maturity = self.date_maturity
             for line in move_line_ids:
                 line.write({'date_maturity': date_maturity})
+
+    @api.model
+    def create(self, vals):
+        if vals.get('invoice_id'):
+            invoice = self.env['account.invoice'].search([('id','=',vals.get('invoice_id'))])
+            vals.update({'date_maturity':invoice.date_due})
+        return super(AccountMoveLine, self).create(vals)
+
+    @api.multi
+    def write(self, values):
+        result = super(AccountMoveLine, self).write(values)
+        if values.get('date_maturity'):
+            context = self.env.context
+            if context.get('pass_date_maturity'):
+                return result
+            for record in self:
+                partner = self.partner_id
+                account_ids = []
+                account_ids.append(partner.property_account_receivable_id.id)
+                account_ids.append(partner.property_account_payable_id.id)
+                move_line_ids = self.search([('move_id','=',self.move_id.id),('id','!=',self.id)])
+                if self.account_id.id in account_ids:
+                    date_maturity = values.get('date_maturity')
+                    for line in move_line_ids:
+                        ctx = {'pass_date_matury':True}
+                        line.with_context(ctx).write({'date_maturity': date_maturity})
+        return result
 
 
 class AccountPayment(models.Model):
