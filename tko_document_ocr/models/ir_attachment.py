@@ -11,11 +11,16 @@ import tempfile
 import threading
 import time
 
+from odoo.tests import common
+
+ADMIN_USER_ID = common.ADMIN_USER_ID
+
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 _MARKER_PHRASE = '[[waiting for OCR]]'
+_PDF_OCR_DOCUMENTS_THREADS = []
 OCR_LANGUAGE = [('afr', 'Afrikaans'),
                 ('amh', 'Amharic'),
                 ('ara', 'Arabic'),
@@ -125,6 +130,29 @@ OCR_LANGUAGE = [('afr', 'Afrikaans'),
                 ('yid', 'Yiddish'), ]
 
 
+def ncpus():
+    # for Linux, Unix and MacOS
+    if hasattr(os, "sysconf"):
+        if os.sysconf_names.has_key("SC_NPROCESSORS_ONLN"):
+            # Linux and Unix
+            ncpus = os.sysconf("SC_NPROCESSORS_ONLN")
+            if isinstance(ncpus, int) and ncpus > 0:
+                return ncpus
+        else:
+            # MacOS X
+            return int(os.popen2("sysctl -n hw.ncpu")[1].read())
+    # for Windows
+    if os.environ.has_key("NUMBER_OF_PROCESSORS"):
+        ncpus = int(os.environ["NUMBER_OF_PROCESSORS"])
+        if ncpus > 0:
+            return ncpus
+    # return the default value
+    return 1
+
+
+_SEMAPHORES_POOL = threading.BoundedSemaphore(ncpus())
+
+
 class IrAttachment(models.Model):
     _inherit = 'ir.attachment'
 
@@ -144,25 +172,6 @@ class IrAttachment(models.Model):
                                   copy=False,
                                   help='Processing time.\n'
                                        '(00:00:00 means less than one second)')
-
-    def ncpus(self):
-        # for Linux, Unix and MacOS
-        if hasattr(os, "sysconf"):
-            if os.sysconf_names.has_key("SC_NPROCESSORS_ONLN"):
-                # Linux and Unix
-                ncpus = os.sysconf("SC_NPROCESSORS_ONLN")
-                if isinstance(ncpus, int) and ncpus > 0:
-                    return ncpus
-            else:
-                # MacOS X
-                return int(os.popen2("sysctl -n hw.ncpu")[1].read())
-        # for Windows
-        if os.environ.has_key("NUMBER_OF_PROCESSORS"):
-            ncpus = int(os.environ["NUMBER_OF_PROCESSORS"])
-            if ncpus > 0:
-                return ncpus
-        # return the default value
-        return 1
 
     @api.onchange('language')
     def onchange_language(self):
@@ -189,7 +198,6 @@ class IrAttachment(models.Model):
 
     @api.model
     def _index(self, bin_data, datas_fname, mimetype):
-        time_start = time.time()
         content = super(IrAttachment, self)._index(
             bin_data, datas_fname, mimetype)
         if not content or content == 'image':
@@ -201,9 +209,6 @@ class IrAttachment(models.Model):
                 content = self._index_ocr(bin_data)
             else:
                 content = _MARKER_PHRASE
-        m, s = divmod((time.time() - time_start), 60)
-        h, m = divmod(m, 60)
-        self.processing_time = "%02d:%02d:%02d" % (h, m, s)
         return content
 
     def _index_ocr(self, bin_data):
@@ -222,70 +227,97 @@ class IrAttachment(models.Model):
                             self.name)
         return False
 
-    def _ocr_image(self, semaphore, i, t, image):
+    def _ocr_image_thread(self, i, t, image):
         global ocr_images_text
-        with semaphore:
+        with _SEMAPHORES_POOL:
             with threading.Lock():
-                _logger.info('OCR PDF "%s" image %d/%d to text...',
+                _logger.info('OCR PDF INFO "%s" image %d/%d to text...',
                              self.name, i, t)
-                ocr_images_text[i] = self._index_ocr(image)
+                ocr_images_text[self.id][i] = self._index_ocr(image)
 
-    def _index_pdf(self, bin_data):
+    def _index_doc_pdf_thread(self, bin_data):
         global ocr_images_text
-        ocr_images_text = {}
-        ncpus = self.ncpus()
-        workers = []
-        semaphore = threading.BoundedSemaphore(ncpus)
-        has_synchr_param = self.env['ir.config_parameter'].get_param(
-            'document_ocr.synchronous', 'False') == 'True'
-        has_force_flag = self.env.context.get('document_ocr_force')
-        synchr = has_synchr_param or has_force_flag
-        if synchr:
-            _logger.info('OCR PDF "%s"...', self.name)
-            time_start = time.time()
-            tmpdir = tempfile.mkdtemp()
-            buf = ''
-            try:
+        ocr_images_text[self.id] = {}
+        buf = _MARKER_PHRASE
+        tmpdir = tempfile.mkdtemp()
+        with _SEMAPHORES_POOL:
+            with threading.Lock():
+                _logger.info('OCR PDF INFO "%s"...', self.name)
+                time_start = time.time()
                 stdout, stderr = subprocess.Popen(
                     ['pdftotext', '-layout', '-nopgbrk', '-', '-'],
                     stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                     stderr=subprocess.PIPE).communicate(bin_data)
                 if stderr:
-                    _logger.warning('Error converting PDF to text: %s', stderr)
+                    _logger.warning('OCR PDF ERROR to text: %s',
+                                    stderr)
                 buf = stdout
-
                 # OCR PDF Images
-
                 stdout, stderr = subprocess.Popen(
                     ['pdfimages', '-p', '-', tmpdir + '/ocr'],
                     stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                     stderr=subprocess.PIPE).communicate(bin_data)
                 if stderr:
-                    _logger.warning('Error OCR PDF Images: %s', stderr)
+                    _logger.warning('OCR PDF WARNING Images: %s', stderr)
                 # OCR every image greater than 50Kb
                 filelist = sorted([(file) for file
                                    in os.listdir(tmpdir)
                                    if os.path.getsize(
                         os.path.join(tmpdir, file)) > 50000])
                 filelist_size = len(filelist)
-                count = 1
-                for pdf in filelist:
-                    img_file = os.path.join(tmpdir, pdf)
-                    image = open(img_file, 'rb').read()
-                    t = threading.Thread(target=self._ocr_image,
-                                         name=u'ocr_image_' + str(count),
-                                         args=(semaphore, count,
-                                               filelist_size, image))
-                    t.start()
-                    workers.append(t)
-                    count += 1
-                for t in workers:
-                    t.join()
-                for text in sorted(ocr_images_text):
-                    buf = '%s\n%s' % (buf, ocr_images_text[text])
-            except Exception, err:
-                _logger.warning('Error converting PDF to text: %s', err[0])
-            shutil.rmtree(tmpdir)
+        count = 1
+        workers = []
+        for pdf in filelist:
+            img_file = os.path.join(tmpdir, pdf)
+            image = open(img_file, 'rb').read()
+            t = threading.Thread(target=self._ocr_image_thread,
+                                 name=u'ocr_image_' + str(count),
+                                 args=(count,
+                                       filelist_size,
+                                       image))
+            t.start()
+            count += 1
+            workers.append(t)
+        for t in workers:
+            t.join()
+        index_content = buf
+        for text in sorted(ocr_images_text[self.id]):
+            try:
+                index_content = \
+                    u'%s\n%s' % (
+                        index_content,
+                        ocr_images_text[self.id][text].decode('utf8'))
+            except:
+                index_content = \
+                    u'%s\n%s' % (
+                        index_content.decode('utf8'),
+                        ocr_images_text[self.id][text])
+        ocr_images_text.pop(self.id)  # release memory
+        m, s = divmod((time.time() - time_start), 60)
+        h, m = divmod(m, 60)
+        self.index_content = index_content
+        self.processing_time = "%02d:%02d:%02d" % (h, m, s)
+        shutil.rmtree(tmpdir)
+        return True
+
+    def _index_pdf(self, bin_data):
+        global ocr_images_text
+        buf = _MARKER_PHRASE
+        has_synchr_param = self.env['ir.config_parameter'].get_param(
+            'document_ocr.synchronous', 'False') == 'True'
+        has_force_flag = self.env.context.get('document_ocr_force')
+        synchr = has_synchr_param or has_force_flag
+        try:
+            if ocr_images_text:
+                pass
+        except:
+            ocr_images_text = {}
+        if synchr:
+            t = threading.Thread(target=self._index_doc_pdf_thread,
+                                 name=u'index_pdf_' + str(self.id),
+                                 args=[bin_data])
+            t.start()
+            _PDF_OCR_DOCUMENTS_THREADS.append(t)
         else:
             buf = _MARKER_PHRASE
         return buf
@@ -301,3 +333,8 @@ class IrAttachment(models.Model):
             this.write({
                 'index_content': index_content,
             })
+
+    def _inverse_datas(self):
+        super(IrAttachment, self)._inverse_datas()
+        for t in _PDF_OCR_DOCUMENTS_THREADS:
+            t.join()
