@@ -119,6 +119,8 @@ class AccountAnalyticLine(models.Model):
             move_lines = [x.id for x in invoice.move_id.line_ids]
             analytic_lines = analytic_line_obj.search([('move_id','in', move_lines)])
             for analytic_line_id in analytic_lines:
+                # print"invoice>",invoice
+                analytic_line_id.write({'invoice_id':invoice.id,'state':invoice.state, 'date_due':invoice.date_due})
                 analytic_payment_vals = {
                     'payment_date':analytic_line_id.date,
                     'amount':analytic_line_id.amount,
