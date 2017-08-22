@@ -12,12 +12,12 @@
                 <field name="invoice_id"/>
                 <field name="date_due"/>
                 <field name="state"/>
-                <button name="get_history" type="object" string="Get History"/>
             </xpath>
             <!-- payment_line -->
             <xpath expr="//sheet" position="inside">
                 <notebook>
                     <page string="Payment Info">
+                        <button name="get_history" type="object" string="Get History"/>
                         <field name="payment_line">
                             <tree create="0">
                                 <field name="payment_date"/>
