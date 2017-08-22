@@ -6,8 +6,54 @@
         <field name="arch" type="xml">
             <field name="currency_id" position="after">
                 <field name="journal_id"/>
+                <field name="line_total"/>
             </field>
+            <xpath expr="//field[@name='date']" position="after">
+                <field name="invoice_id"/>
+                <field name="date_due"/>
+                <field name="state"/>
+            </xpath>
+            <!-- payment_line -->
+            <xpath expr="//sheet" position="inside">
+                <notebook>
+                    <page string="Payment Info">
+                        <button name="get_history" type="object" string="Get History"/>
+                        <button name="get_inv_history" type="object" string="Get Invoice History"/>
+                        <field name="payment_line">
+                            <tree create="0">
+                                <field name="payment_date"/>
+                                <field name="amount"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </xpath>
         </field>
     </record>
+    <record id="tko_view_account_analytic_line_tree_inherit_account" model="ir.ui.view">
+            <field name="name">tko.account.analytic.line.tree.inherit.account</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_line_tree"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='date']" position="after">
+                        <field name="invoice_id"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+        <record id="tko_view_account_analytic_line_filter_inherit_account" model="ir.ui.view">
+            <field name="name">tko.account.analytic.line.select.inherit.account</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_line_filter"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='date']" position="after">
+                        <field name="invoice_id"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
 </odoo>
+
 
