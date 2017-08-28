@@ -208,6 +208,7 @@ class IrAttachment(models.Model):
             synchr = has_synchr_param or has_force_flag
             if synchr:
                 content = self._index_ocr(bin_data)
+                self.env.cr.commit()
             else:
                 content = _MARKER_PHRASE
         return content
@@ -238,34 +239,36 @@ class IrAttachment(models.Model):
 
     def _index_doc_pdf_thread(self, bin_data):
         global ocr_images_text
-        ocr_images_text[self.id] = {}
-        buf = _MARKER_PHRASE
-        tmpdir = tempfile.mkdtemp()
-        _logger.info('OCR PDF INFO "%s"...', self.name)
-        time_start = time.time()
-        stdout, stderr = subprocess.Popen(
-            ['pdftotext', '-layout', '-nopgbrk', '-', '-'],
-            stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE).communicate(bin_data)
-        if stderr:
-            _logger.warning('OCR PDF ERROR to text: %s',
-                            stderr)
-        buf = stdout
-        # OCR PDF Images
-        stdout, stderr = subprocess.Popen(
-            ['pdfimages', '-p', '-', tmpdir + '/ocr'],
-            stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE).communicate(bin_data)
-        if stderr:
-            _logger.warning('OCR PDF WARNING Images: %s',
-                            stderr)
-        # OCR every image greater than 50Kb
-        filelist = sorted([(file) for file
-                           in os.listdir(tmpdir)
-                           if os.path.getsize(
-                os.path.join(tmpdir, file)) > 50000])
-        filelist_size = len(filelist)
-        count = 1
+        with _SEMAPHORES_POOL:
+            with threading.Lock():
+                ocr_images_text[self.id] = {}
+                buf = _MARKER_PHRASE
+                tmpdir = tempfile.mkdtemp()
+                _logger.info('OCR PDF INFO "%s"...', self.name)
+                time_start = time.time()
+                stdout, stderr = subprocess.Popen(
+                    ['pdftotext', '-layout', '-nopgbrk', '-', '-'],
+                    stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE).communicate(bin_data)
+                if stderr:
+                    _logger.warning('OCR PDF ERROR to text: %s',
+                                    stderr)
+                buf = stdout
+                # OCR PDF Images
+                stdout, stderr = subprocess.Popen(
+                    ['pdfimages', '-p', '-', tmpdir + '/ocr'],
+                    stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE).communicate(bin_data)
+                if stderr:
+                    _logger.warning('OCR PDF WARNING Images: %s',
+                                    stderr)
+                # OCR every image greater than 50Kb
+                filelist = sorted([(file) for file
+                                   in os.listdir(tmpdir)
+                                   if os.path.getsize(
+                        os.path.join(tmpdir, file)) > 50000])
+                filelist_size = len(filelist)
+                count = 1
         workers = []
         for pdf in filelist:
             img_file = os.path.join(tmpdir, pdf)
