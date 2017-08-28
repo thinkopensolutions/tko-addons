@@ -11,7 +11,6 @@ import tempfile
 import threading
 import time
 
-import odoo
 from odoo.tests import common
 
 ADMIN_USER_ID = common.ADMIN_USER_ID
@@ -151,7 +150,8 @@ def ncpus():
     return 1
 
 
-_SEMAPHORES_POOL = threading.BoundedSemaphore(ncpus())
+_SEMAPHORES_DOC_POOL = threading.BoundedSemaphore(ncpus())
+_SEMAPHORES_PAGE_POOL = threading.BoundedSemaphore(ncpus())
 
 
 class IrAttachment(models.Model):
@@ -231,7 +231,7 @@ class IrAttachment(models.Model):
 
     def _ocr_image_thread(self, i, t, image):
         global ocr_images_text
-        with _SEMAPHORES_POOL:
+        with _SEMAPHORES_PAGE_POOL:
             with threading.Lock():
                 _logger.info('OCR PDF INFO "%s" image %d/%d to text...',
                              self.name, i, t)
@@ -239,10 +239,9 @@ class IrAttachment(models.Model):
 
     def _index_doc_pdf_thread(self, bin_data):
         global ocr_images_text
-        with _SEMAPHORES_POOL:
+        with _SEMAPHORES_DOC_POOL:
             with threading.Lock():
                 ocr_images_text[self.id] = {}
-                buf = _MARKER_PHRASE
                 tmpdir = tempfile.mkdtemp()
                 _logger.info('OCR PDF INFO "%s"...', self.name)
                 time_start = time.time()
@@ -269,55 +268,39 @@ class IrAttachment(models.Model):
                         os.path.join(tmpdir, file)) > 50000])
                 filelist_size = len(filelist)
                 count = 1
-        workers = []
-        for pdf in filelist:
-            img_file = os.path.join(tmpdir, pdf)
-            image = open(img_file, 'rb').read()
-            t = threading.Thread(target=self._ocr_image_thread,
-                                 name=u'ocr_image_' + str(count),
-                                 args=(count,
-                                       filelist_size,
-                                       image))
-            t.start()
-            count += 1
-            workers.append(t)
-        for t in workers:
-            t.join()
-        index_content = buf
-        for text in sorted(ocr_images_text[self.id]):
-            try:
-                index_content = \
-                    u'%s\n%s' % (
-                        index_content,
-                        ocr_images_text[self.id][text])
-            except:
-                try:
-                    index_content = \
-                        u'%s\n%s' % (
-                            index_content,
-                            ocr_images_text[self.id][text].decode(
-                                'utf8'))
-                except:
+                workers = []
+                for pdf in filelist:
+                    img_file = os.path.join(tmpdir, pdf)
+                    image = open(img_file, 'rb').read()
+                    t = threading.Thread(target=self._ocr_image_thread,
+                                         name=u'ocr_image_' + str(count),
+                                         args=(count,
+                                               filelist_size,
+                                               image))
+                    t.start()
+                    count += 1
+                    workers.append(t)
+                for t in workers:
+                    t.join()
+                index_content = buf
+                for text in sorted(ocr_images_text[self.id]):
                     try:
+                        index_content = \
+                            u'%s\n%s' % (
+                                index_content,
+                                ocr_images_text[self.id][text].decode('utf8'))
+                    except:
                         index_content = \
                             u'%s\n%s' % (
                                 index_content.decode('utf8'),
                                 ocr_images_text[self.id][text])
-                    except:
-                        try:
-                            index_content = \
-                                u'%s\n%s' % (
-                                    index_content.decode('utf8'),
-                                    ocr_images_text[self.id][text].decode('utf8'))
-                        except:
-                            shutil.rmtree(tmpdir)
-        ocr_images_text.pop(self.id)  # release memory
-        m, s = divmod((time.time() - time_start), 60)
-        h, m = divmod(m, 60)
-        self.index_content = index_content
-        self.processing_time = "%02d:%02d:%02d" % (h, m, s)
-        shutil.rmtree(tmpdir)
-        return self.index_content
+                ocr_images_text.pop(self.id)  # release memory
+                m, s = divmod((time.time() - time_start), 60)
+                h, m = divmod(m, 60)
+                self.index_content = index_content
+                self.processing_time = "%02d:%02d:%02d" % (h, m, s)
+                shutil.rmtree(tmpdir)
+        return True
 
     def _index_pdf(self, bin_data):
         global ocr_images_text
@@ -332,7 +315,10 @@ class IrAttachment(models.Model):
         except:
             ocr_images_text = {}
         if synchr:
-            buf = self._index_doc_pdf_thread(bin_data)
+            t = threading.Thread(target=self._index_doc_pdf_thread,
+                                 name=u'index_pdf_' + str(self.id),
+                                 args=[bin_data])
+            t.start()
         else:
             buf = _MARKER_PHRASE
         return buf
