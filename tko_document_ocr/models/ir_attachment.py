@@ -238,72 +238,70 @@ class IrAttachment(models.Model):
 
     def _index_doc_pdf_thread(self, bin_data):
         global ocr_images_text
-        with _SEMAPHORES_DOC_POOL:
-            with threading.Lock():
+        try:
+            ocr_images_text[self.id] = {}
+            tmpdir = tempfile.mkdtemp()
+            _logger.info('OCR PDF INFO "%s"...', self.name)
+            time_start = time.time()
+            stdout, stderr = subprocess.Popen(
+                ['pdftotext', '-layout', '-nopgbrk', '-', '-'],
+                stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE).communicate(bin_data)
+            if stderr:
+                _logger.warning('OCR PDF ERROR to text: %s',
+                                stderr)
+            buf = stdout
+            # OCR PDF Images
+            stdout, stderr = subprocess.Popen(
+                ['pdfimages', '-p', '-', tmpdir + '/ocr'],
+                stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE).communicate(bin_data)
+            if stderr:
+                _logger.warning('OCR PDF WARNING Images: %s',
+                                stderr)
+            # OCR every image greater than 50Kb
+            filelist = sorted([(file) for file
+                               in os.listdir(tmpdir)
+                               if os.path.getsize(
+                    os.path.join(tmpdir, file)) > 50000])
+            filelist_size = len(filelist)
+            count = 1
+            workers = []
+            for pdf in filelist:
+                img_file = os.path.join(tmpdir, pdf)
+                image = open(img_file, 'rb').read()
+                t = threading.Thread(target=self._ocr_image_thread,
+                                     name=u'ocr_image_' + str(count),
+                                     args=(count,
+                                           filelist_size,
+                                           image))
+                t.start()
+                count += 1
+                workers.append(t)
+            for t in workers:
+                t.join()
+            index_content = buf
+            for text in sorted(ocr_images_text[self.id]):
                 try:
-                    ocr_images_text[self.id] = {}
-                    tmpdir = tempfile.mkdtemp()
-                    _logger.info('OCR PDF INFO "%s"...', self.name)
-                    time_start = time.time()
-                    stdout, stderr = subprocess.Popen(
-                        ['pdftotext', '-layout', '-nopgbrk', '-', '-'],
-                        stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-                        stderr=subprocess.PIPE).communicate(bin_data)
-                    if stderr:
-                        _logger.warning('OCR PDF ERROR to text: %s',
-                                        stderr)
-                    buf = stdout
-                    # OCR PDF Images
-                    stdout, stderr = subprocess.Popen(
-                        ['pdfimages', '-p', '-', tmpdir + '/ocr'],
-                        stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-                        stderr=subprocess.PIPE).communicate(bin_data)
-                    if stderr:
-                        _logger.warning('OCR PDF WARNING Images: %s',
-                                        stderr)
-                    # OCR every image greater than 50Kb
-                    filelist = sorted([(file) for file
-                                       in os.listdir(tmpdir)
-                                       if os.path.getsize(
-                            os.path.join(tmpdir, file)) > 50000])
-                    filelist_size = len(filelist)
-                    count = 1
-                    workers = []
-                    for pdf in filelist:
-                        img_file = os.path.join(tmpdir, pdf)
-                        image = open(img_file, 'rb').read()
-                        t = threading.Thread(target=self._ocr_image_thread,
-                                             name=u'ocr_image_' + str(count),
-                                             args=(count,
-                                                   filelist_size,
-                                                   image))
-                        t.start()
-                        count += 1
-                        workers.append(t)
-                    for t in workers:
-                        t.join()
-                    index_content = buf
-                    for text in sorted(ocr_images_text[self.id]):
-                        try:
-                            index_content = \
-                                u'%s\n%s' % (
-                                    index_content,
-                                    ocr_images_text[self.id][text].decode('utf8'))
-                        except:
-                            index_content = \
-                                u'%s\n%s' % (
-                                    index_content.decode('utf8'),
-                                    ocr_images_text[self.id][text])
-                    ocr_images_text.pop(self.id)  # release memory
-                    m, s = divmod((time.time() - time_start), 60)
-                    h, m = divmod(m, 60)
-                    self.index_content = index_content
-                    self.processing_time = "%02d:%02d:%02d" % (h, m, s)
-                    shutil.rmtree(tmpdir)
-                except Exception, e:
-                    ocr_images_text.pop(self.id)  # release memory
-                    shutil.rmtree(tmpdir)
-                    _logger.warning('OCR PDF DOC ERROR: %s', e[0])
+                    index_content = \
+                        u'%s\n%s' % (
+                            index_content,
+                            ocr_images_text[self.id][text].decode('utf8'))
+                except:
+                    index_content = \
+                        u'%s\n%s' % (
+                            index_content.decode('utf8'),
+                            ocr_images_text[self.id][text])
+            m, s = divmod((time.time() - time_start), 60)
+            h, m = divmod(m, 60)
+            self.index_content = index_content
+            self.processing_time = "%02d:%02d:%02d" % (h, m, s)
+            ocr_images_text.pop(self.id)  # release memory
+            shutil.rmtree(tmpdir)
+        except Exception, e:
+            ocr_images_text.pop(self.id)  # release memory
+            shutil.rmtree(tmpdir)
+            _logger.error('OCR PDF DOC ERROR: %s', e[0])
         return True
 
     def _index_pdf(self, bin_data):
@@ -319,10 +317,12 @@ class IrAttachment(models.Model):
         except:
             ocr_images_text = {}
         if synchr:
-            t = threading.Thread(target=self._index_doc_pdf_thread,
-                                 name=u'index_pdf_' + str(self.id),
-                                 args=[bin_data])
-            t.start()
+            with _SEMAPHORES_DOC_POOL:
+                with threading.Lock():
+                    t = threading.Thread(target=self._index_doc_pdf_thread,
+                                         name=u'index_pdf_' + str(self.id),
+                                         args=[bin_data])
+                    t.start()
         else:
             buf = _MARKER_PHRASE
         return buf
