@@ -20,7 +20,6 @@ from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 _MARKER_PHRASE = '[[waiting for OCR]]'
-_PDF_OCR_DOCUMENTS_THREADS = []
 OCR_LANGUAGE = [('afr', 'Afrikaans'),
                 ('amh', 'Amharic'),
                 ('ara', 'Arabic'),
