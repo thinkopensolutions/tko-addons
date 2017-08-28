@@ -239,7 +239,6 @@ class IrAttachment(models.Model):
 
     def _index_doc_pdf_thread(self, bin_data):
         global ocr_images_text
-        ocr_images_text[self.id] = {}
         with _SEMAPHORES_DOC_POOL:
             with threading.Lock():
                 ocr_images_text[self.id] = {}
