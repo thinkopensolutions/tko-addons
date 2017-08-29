@@ -10,7 +10,9 @@ import subprocess
 import tempfile
 import threading
 import time
+from Queue import Queue
 
+import odoo
 from odoo.tests import common
 
 ADMIN_USER_ID = common.ADMIN_USER_ID
@@ -149,8 +151,8 @@ def ncpus():
     return 1
 
 
-_SEMAPHORES_DOC_POOL = threading.BoundedSemaphore(ncpus())
 _SEMAPHORES_PAGE_POOL = threading.BoundedSemaphore(ncpus())
+_DOCS_QUEUE = Queue(maxsize=0)
 
 
 class IrAttachment(models.Model):
@@ -207,7 +209,6 @@ class IrAttachment(models.Model):
             synchr = has_synchr_param or has_force_flag
             if synchr:
                 content = self._index_ocr(bin_data)
-                self.env.cr.commit()
             else:
                 content = _MARKER_PHRASE
         return content
@@ -234,95 +235,127 @@ class IrAttachment(models.Model):
             with threading.Lock():
                 _logger.info('OCR PDF INFO "%s" image %d/%d to text...',
                              self.name, i, t)
-                ocr_images_text[self.id][i] = self._index_ocr(image)
+                ocr_images_text[i] = self._index_ocr(image)
 
-    def _index_doc_pdf_thread(self, bin_data):
+    def _index_doc_pdf_thread(self):
         global ocr_images_text
-        try:
-            ocr_images_text[self.id] = {}
-            tmpdir = tempfile.mkdtemp()
-            _logger.info('OCR PDF INFO "%s"...', self.name)
-            time_start = time.time()
-            stdout, stderr = subprocess.Popen(
-                ['pdftotext', '-layout', '-nopgbrk', '-', '-'],
-                stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE).communicate(bin_data)
-            if stderr:
-                _logger.warning('OCR PDF ERROR to text: %s',
-                                stderr)
-            buf = stdout
-            # OCR PDF Images
-            stdout, stderr = subprocess.Popen(
-                ['pdfimages', '-p', '-', tmpdir + '/ocr'],
-                stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE).communicate(bin_data)
-            if stderr:
-                _logger.warning('OCR PDF WARNING Images: %s',
-                                stderr)
-            # OCR every image greater than 50Kb
-            filelist = sorted([(file) for file
-                               in os.listdir(tmpdir)
-                               if os.path.getsize(
-                    os.path.join(tmpdir, file)) > 50000])
-            filelist_size = len(filelist)
-            count = 1
-            workers = []
-            for pdf in filelist:
-                img_file = os.path.join(tmpdir, pdf)
-                image = open(img_file, 'rb').read()
-                t = threading.Thread(target=self._ocr_image_thread,
-                                     name=u'ocr_image_' + str(count),
-                                     args=(count,
-                                           filelist_size,
-                                           image))
-                t.start()
-                count += 1
-                workers.append(t)
-            for t in workers:
-                t.join()
-            index_content = buf
-            for text in sorted(ocr_images_text[self.id]):
-                try:
-                    index_content = \
-                        u'%s\n%s' % (
-                            index_content,
-                            ocr_images_text[self.id][text].decode('utf8'))
-                except:
-                    index_content = \
-                        u'%s\n%s' % (
-                            index_content.decode('utf8'),
-                            ocr_images_text[self.id][text])
-            m, s = divmod((time.time() - time_start), 60)
-            h, m = divmod(m, 60)
-            self.index_content = index_content
-            self.processing_time = "%02d:%02d:%02d" % (h, m, s)
-            ocr_images_text.pop(self.id)  # release memory
-            shutil.rmtree(tmpdir)
-        except Exception, e:
-            ocr_images_text.pop(self.id)  # release memory
-            shutil.rmtree(tmpdir)
-            _logger.error('OCR PDF DOC ERROR: %s', e[0])
+        while not _DOCS_QUEUE.empty():
+            work = _DOCS_QUEUE.get()
+            attachment_id = work[0]
+            attachment_name = work[1]
+            bin_data = work[2]
+            attachment_ocr = work[3]
+            try:
+                tmpdir = tempfile.mkdtemp()
+                _logger.info('OCR PDF INFO "%s"...', attachment_name)
+                time_start = time.time()
+                stdout, stderr = subprocess.Popen(
+                    ['pdftotext', '-layout', '-nopgbrk', '-', '-'],
+                    stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE).communicate(bin_data)
+                if stderr:
+                    _logger.warning('OCR PDF ERROR to text: %s', stderr)
+                buf = stdout
+                # OCR PDF Images
+                stdout, stderr = subprocess.Popen(
+                    ['pdfimages', '-p', '-', tmpdir + '/ocr'],
+                    stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE).communicate(bin_data)
+                if stderr:
+                    _logger.warning('OCR PDF WARNING Images: %s', stderr)
+                # OCR every image greater than 50Kb
+                filelist = \
+                    sorted([(file) for file
+                            in os.listdir(tmpdir)
+                            if os.path.getsize(
+                            os.path.join(tmpdir, file)) > 50000])
+                filelist_size = len(filelist)
+                count = 1
+                workers = []
+                ocr_images_text = {}
+                for pdf in filelist:
+                    img_file = os.path.join(tmpdir, pdf)
+                    image = open(img_file, 'rb').read()
+                    t = threading.Thread(
+                        target=attachment_ocr,
+                        name=u'ocr_image_' + str(count),
+                        args=(count, filelist_size, image))
+                    t.start()
+                    count += 1
+                    workers.append(t)
+                for t in workers:
+                    t.join()
+                index_content = buf
+                for text in sorted(ocr_images_text):
+                    try:
+                        index_content = \
+                            u'%s\n%s' % (
+                                index_content,
+                                ocr_images_text[text])
+                    except:
+                        try:
+                            index_content = \
+                                u'%s\n%s' % (
+                                    index_content.decode('utf8'),
+                                    ocr_images_text[text])
+                        except:
+                            try:
+                                index_content = \
+                                    u'%s\n%s' % (
+                                        index_content,
+                                        ocr_images_text[text].decode('utf8'))
+                            except:
+                                index_content = \
+                                    u'%s\n%s' % (
+                                        index_content.decode('utf8'),
+                                        ocr_images_text[text].decode('utf8'))
+                m, s = divmod((time.time() - time_start), 60)
+                h, m = divmod(m, 60)
+                shutil.rmtree(tmpdir)
+                with api.Environment.manage():
+                    with odoo.registry(self.env.cr.dbname).cursor() as new_cr:
+                        new_env = api.Environment(new_cr,
+                                                   self.env.uid,
+                                                   self.env.context)
+                        attachment_obj = \
+                            self.with_env(new_env).env[
+                                'ir.attachment'].browse(attachment_id)
+                        attachment_obj.with_env(
+                            new_env).write(
+                            {'index_content': index_content,
+                             'processing_time': \
+                                 "%02d:%02d:%02d" % (h, m, s)})
+                        new_env.cr.commit()
+            except Exception, e:
+                shutil.rmtree(tmpdir)
+                _logger.error('OCR PDF DOC ERROR: %s', e[0])
+                return False
+            _DOCS_QUEUE.task_done()
         return True
 
     def _index_pdf(self, bin_data):
-        global ocr_images_text
         buf = _MARKER_PHRASE
         has_synchr_param = self.env['ir.config_parameter'].get_param(
             'document_ocr.synchronous', 'False') == 'True'
         has_force_flag = self.env.context.get('document_ocr_force')
         synchr = has_synchr_param or has_force_flag
-        try:
-            if ocr_images_text:
-                pass
-        except:
-            ocr_images_text = {}
         if synchr:
-            with _SEMAPHORES_DOC_POOL:
-                with threading.Lock():
-                    t = threading.Thread(target=self._index_doc_pdf_thread,
-                                         name=u'index_pdf_' + str(self.id),
-                                         args=[bin_data])
-                    t.start()
+            # Append new PDF to the queue
+            _DOCS_QUEUE.put((self.id,
+                             self.name,
+                             self.datas.decode('base64'),
+                             self._ocr_image_thread))
+            # Launch new thread if necessary maximum CPU number
+            if sum(1 for t in threading.enumerate() \
+                   if 'index_pdf_ocr_' in t.name) <= ncpus():
+                t = threading.Thread(target=self._index_doc_pdf_thread,
+                                     name=u'index_pdf_ocr_' + str(self.id))
+                # setting threads as "daemon" allows main program to
+                # exit eventually even if these dont finish
+                # correctly.
+                t.setDaemon(True)
+                t.start()
+                # we don't wait for thread by calling queue.join()
         else:
             buf = _MARKER_PHRASE
         return buf
