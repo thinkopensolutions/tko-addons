@@ -315,8 +315,8 @@ class IrAttachment(models.Model):
                 with api.Environment.manage():
                     with odoo.registry(self.env.cr.dbname).cursor() as new_cr:
                         new_env = api.Environment(new_cr,
-                                                   self.env.uid,
-                                                   self.env.context)
+                                                  self.env.uid,
+                                                  self.env.context)
                         attachment_obj = \
                             self.with_env(new_env).env[
                                 'ir.attachment'].browse(attachment_id)
@@ -324,7 +324,7 @@ class IrAttachment(models.Model):
                             new_env).write(
                             {'index_content': index_content,
                              'processing_time': \
-                                 "%02d:%02d:%02d" % (h, m, s)})
+                                 '%02d:%02d:%02d' % (h, m, s)})
                         new_env.cr.commit()
             except Exception, e:
                 shutil.rmtree(tmpdir)
