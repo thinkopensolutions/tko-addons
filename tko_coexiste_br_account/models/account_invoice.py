@@ -26,7 +26,8 @@ import json
 from openerp import models, fields, api, _
 import datetime
 from odoo.exceptions import Warning as UserError
-
+from odoo.exceptions import ValidationError
+from openerp.tools import DEFAULT_SERVER_DATE_FORMAT as OE_DFORMAT
 
 class AccountExpenseType(models.Model):
     _name = 'account.expense.type'
@@ -34,6 +35,52 @@ class AccountExpenseType(models.Model):
     name = fields.Char('Name')
     expense_type = fields.Selection([('c', 'Customer Inovice'), ('s', 'Supplier Invoice'), ('b', 'Both')],
                                     required=True, default='b', string='InvoiceType')
+
+
+class AccountMove(models.Model):
+    _inherit = 'account.move'
+
+class AccountMoveLine(models.Model):
+    _inherit = 'account.move.line'
+
+    @api.onchange('date_maturity')
+    def onchange_date_maturity(self):
+        partner = self.partner_id
+        move_line_ids = self.search([('move_id','=',self.move_id.id)])
+        account_ids = []
+        account_ids.append(partner.property_account_receivable_id.id)
+        account_ids.append(partner.property_account_payable_id.id)
+        if self.account_id.id in account_ids:
+            date_maturity = self.date_maturity
+            for line in move_line_ids:
+                line.write({'date_maturity': date_maturity})
+
+    @api.model
+    def create(self, vals):
+        if vals.get('invoice_id'):
+            invoice = self.env['account.invoice'].search([('id','=',vals.get('invoice_id'))])
+            vals.update({'date_maturity':invoice.date_due})
+        return super(AccountMoveLine, self).create(vals)
+
+    @api.multi
+    def write(self, values):
+        result = super(AccountMoveLine, self).write(values)
+        if values.get('date_maturity'):
+            context = self.env.context
+            if context.get('pass_date_maturity'):
+                return result
+            for record in self:
+                partner = self.partner_id
+                account_ids = []
+                account_ids.append(partner.property_account_receivable_id.id)
+                account_ids.append(partner.property_account_payable_id.id)
+                move_line_ids = self.search([('move_id','=',self.move_id.id),('id','!=',self.id)])
+                if self.account_id.id in account_ids:
+                    date_maturity = values.get('date_maturity')
+                    for line in move_line_ids:
+                        ctx = {'pass_date_matury':True}
+                        line.with_context(ctx).write({'date_maturity': date_maturity})
+        return result
 
 
 class AccountPayment(models.Model):
@@ -110,6 +157,36 @@ class AccountInvoice(models.Model):
             self.move_id.write({'state': 'draft'})
         return result
 
+    @api.model
+    def create(self, vals):
+        result = super(AccountInvoice, self).create(vals)
+        due_date = vals.get('date_due') or self.date_due
+        date = vals.get('date') or self.date
+        if due_date and date:
+            due_date = datetime.datetime.strptime(due_date, OE_DFORMAT).date()
+            date = datetime.datetime.strptime(date, OE_DFORMAT).date()
+            if due_date < date:
+                raise ValidationError(
+                _("You can not set Due Date Less than Invoice date."))
+                return False
+        return result
+
+
+    @api.multi
+    def write(self, vals):
+        due_date = vals.get('date_due') or self.date_due
+        date = vals.get('date') or self.date
+        if due_date and date:
+            due_date = datetime.datetime.strptime(due_date, OE_DFORMAT).date()
+            date = datetime.datetime.strptime(date, OE_DFORMAT).date()
+            if due_date < date:
+                raise ValidationError(
+                _("You can not set Due Date Less than Invoice date."))
+                return False
+            for move_line in self.move_id.line_ids:
+                move_line.date_maturity = due_date
+        return super(AccountInvoice, self).write(vals)
+
     @api.multi
     def update_history(self):
         payment_obj = self.env['account.payment']
@@ -139,7 +216,6 @@ class AccountInvoice(models.Model):
                     }
                     self.env['invoice.payment.info'].create(invoice_payment_vals)
         return True
-
 
 class AccountInvoiceLine(models.Model):
     _inherit = "account.invoice.line"
