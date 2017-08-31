@@ -119,6 +119,8 @@ class AccountAnalyticLine(models.Model):
             move_lines = [x.id for x in invoice.move_id.line_ids]
             analytic_lines = analytic_line_obj.search([('move_id','in', move_lines)])
             for analytic_line_id in analytic_lines:
+                # print"invoice>",invoice
+                analytic_line_id.write({'invoice_id':invoice.id,'state':invoice.state, 'date_due':invoice.date_due})
                 analytic_payment_vals = {
                     'payment_date':analytic_line_id.date,
                     'amount':analytic_line_id.amount,
@@ -127,4 +129,18 @@ class AccountAnalyticLine(models.Model):
                 }
                 self.env['account.analytic.payment'].create(analytic_payment_vals)
                 pass
+        return True
+
+    @api.multi
+    def get_inv_history(self):
+        payment_obj = self.env['account.payment']
+        inv_obj = self.env['account.invoice']
+        inv_line_obj = self.env['account.invoice.line']
+        analytic_line_obj = self.env['account.analytic.line']
+        analytic_lines = analytic_line_obj.search([])
+        analytic_lines = set(analytic_lines)
+        for line in analytic_lines:
+            invoice = inv_obj.search([('move_id','=', line.move_id.move_id.id)])
+            line.write({'invoice_id':invoice.id,'state':invoice.state, 'date_due':invoice.date_due})
+            pass
         return True
