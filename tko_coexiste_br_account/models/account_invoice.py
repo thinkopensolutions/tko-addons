@@ -94,9 +94,9 @@ class AccountPayment(models.Model):
                 if invoice.type == 'out_invoice':
                     invoice.move_id.date = datetime.datetime.now()
                     invoice.move_id.state = 'posted'
-                    for move_line in invoice.move_id.line_ids:
-                        if move_line.credit > 0:
-                            move_line.date_maturity = invoice.move_id.date
+                    # for move_line in invoice.move_id.line_ids:
+                    #     if move_line.credit > 0:
+                    #         move_line.date_maturity = invoice.move_id.date
         return res
 
     @api.model
@@ -145,9 +145,9 @@ class AccountInvoice(models.Model):
                 if invoice.type == 'out_invoice':
                     invoice.move_id.date = datetime.datetime.now()
                     invoice.move_id.state = 'posted'
-                    for move_line in invoice.move_id.line_ids:
-                        if move_line.credit > 0:
-                            move_line.date_maturity = invoice.move_id.date
+                    # for move_line in invoice.move_id.line_ids:
+                    #     if move_line.credit > 0:
+                    #         move_line.date_maturity = invoice.move_id.date
         return result
 
     # set account Account Move to unposted
