@@ -12,6 +12,7 @@
                 <field name="invoice_id"/>
                 <field name="date_due"/>
                 <field name="state"/>
+                <!--<button name="get_history" type="object" string="Get History"/>-->
             </xpath>
             <!-- payment_line -->
             <xpath expr="//sheet" position="inside">
