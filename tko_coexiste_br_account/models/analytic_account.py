@@ -88,13 +88,12 @@ class AccountAnalyticLine(models.Model):
     invoice_id = fields.Many2one('account.invoice', string='Invoice ID', copy=False)
     state = fields.Selection(related='invoice_id.state', string='State')
     date_due =fields.Date(related='invoice_id.date_due', string='Due Date')
-    payment_line = fields.One2many('account.analytic.payment', 'analytic_line_id', string="Analytic Payment Lines")
     company_id = fields.Many2one(related='move_id.company_id', string='Company', store=True, readonly=False)
     journal_id = fields.Many2one(related='move_id.journal_id', string='Journal', store=True, readonly=False)
     invoice_id = fields.Many2one('account.invoice', string='Invoice ID', copy=False)
     state = fields.Selection(related='invoice_id.state', string='State')
     date_due =fields.Date(related='invoice_id.date_due', string='Due Date')
-    payment_line = fields.One2many('account.analytic.payment', 'analytic_line_id', string="Analytic Payment Lines")
+    payment_line = fields.One2many(related='invoice_id.payment_line', string="Analytic Payment Lines")
     line_total = fields.Float('Total', compute='_total_compute', store=True)
 
     @api.model
