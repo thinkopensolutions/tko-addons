@@ -18,6 +18,8 @@
             <xpath expr="//sheet" position="inside">
                 <notebook>
                     <page string="Payment Info">
+                        <button name="get_history" type="object" string="Get History"/>
+                        <button name="get_inv_history" type="object" string="Get Invoice History"/>
                         <field name="payment_line">
                             <tree create="0">
                                 <field name="payment_date"/>
