@@ -6,8 +6,10 @@
         <field name="model">res.partner</field> 
         <field name="inherit_id" ref="base.view_partner_form"/> 
         <field name="arch" type="xml">
-            <group name="purchase" position="inside">
-                <field name="is_student"/>
+            <group name="purchase" position="after">
+                   <group name="student" string="Student" >
+                      <field name="is_student"/>
+                </group>
             </group>
         </field>         
         </record>    
