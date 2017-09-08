@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="purchase_order_line_tree_tender_inherit" model="ir.ui.view">
+            <field name="name">purchase.order.line.form</field>
+            <field name="model">purchase.order.line</field>
+            <field name="inherit_id" ref="purchase_requisition.purchase_order_line_tree_tender"/>
+            <field name="arch" type="xml">
+                <button name="action_confirm" position="after">
+                    <field name="is_lowest_price" invisible="1"/>
+                </button>
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="colors">blue:state == 'confirmed';gray:state == 'cancel';green:is_lowest_price == True;</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
