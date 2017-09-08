@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="purchase_order_form_view_inherit" model="ir.ui.view">
+            <field name="name">purchase.order.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="valid_order" invisible="1"/>
+                </xpath>
+                <button id="draft_confirm" position="replace">
+                    <button name="purchase_confirm"
+                            attrs="{'invisible' : ['|',('state','not in', ['draft']),('valid_order','!=',True)]}"
+                            string="Confirm Order" id="draft_confirm"/>
+                </button>
+            </field>
+        </record>
+
+    </data>
+</openerp>
