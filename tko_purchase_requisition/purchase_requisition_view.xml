@@ -10,7 +10,7 @@
                 </field>
                 <xpath expr="//form/sheet/div[@name='button_box']/button[@class='oe_stat_button']" position="before">
                     <button name="send_mail_to_all_quotations" type="object" string="Send Mail to All"
-                            attrs="{'invisible': ['|', ('purchase_ids','=',[]),('state', 'in', ('draft' ,'open','done'))]}" 
+                            attrs="{'invisible': ['|', ('purchase_ids','=',[]),('state', 'in', ('draft' ,'done'))]}" 
                             class="btn-primary" style="margin-right: 10px;"/>
                 </xpath>
                 <notebook position="inside">
