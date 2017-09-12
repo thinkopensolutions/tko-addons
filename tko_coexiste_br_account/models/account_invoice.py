@@ -28,6 +28,8 @@ import datetime
 from odoo.exceptions import Warning as UserError
 from odoo.exceptions import ValidationError
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT as OE_DFORMAT
+from odoo.tools import float_is_zero, float_compare
+
 
 class AccountExpenseType(models.Model):
     _name = 'account.expense.type'
@@ -99,20 +101,21 @@ class AccountPayment(models.Model):
                             move_line.date_maturity = invoice.move_id.date
         return res
 
-    @api.model
-    def create(self, vals):
-        res = super(AccountPayment, self).create(vals)
-        if vals.get('communication'):
-            invoice = self.env['account.invoice'].search([('number','=', vals.get('communication'))])
-            if invoice:
-                invoice_payment_vals = {
-                    'payment_date':vals.get('payment_date'),
-                    'amount':vals.get('amount'),
-                    'name':res,
-                    'invoice_id':invoice.id
-                }
-                self.env['invoice.payment.info'].create(invoice_payment_vals)
-        return res
+    # @api.model
+    # def create(self, vals):
+    #     res = super(AccountPayment, self).create(vals)
+    #     if vals.get('communication'):
+    #         invoice = self.env['account.invoice'].search([('number','=', vals.get('communication'))])
+    #         if invoice:
+    #             invoice_payment_vals = {
+    #                 'payment_date':vals.get('payment_date'),
+    #                 'amount':vals.get('amount'),
+    #                 'name':res,
+    #                 'invoice_id':invoice.id,
+    #                 # 'move_line_id':res.id,
+    #             }
+    #             self.env['invoice.payment.info'].create(invoice_payment_vals)
+    #     return res
 
 
 class InvoicePaymentInfo(models.Model):
@@ -122,6 +125,7 @@ class InvoicePaymentInfo(models.Model):
     payment_date = fields.Date(string='Payment Date', copy=False)
     name = fields.Char('Name', copy=False)
     invoice_id = fields.Many2one('account.invoice', string='Invoice ID', copy=False)
+    move_line_id = fields.Many2one('account.move.line', string='Move Line', copy=False)
     currency_id = fields.Many2one('res.currency', related='invoice_id.currency_id', readonly=True,
         help='Utility field to express amount currency')
     amount = fields.Monetary(string='Amount', copy=False, required=True, currency_field='currency_id')
@@ -130,9 +134,67 @@ class InvoicePaymentInfo(models.Model):
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
+    @api.one
+    @api.depends('payment_move_line_ids.amount_residual')
+    def _get_payment_info_JSON(self):
+        self.payments_widget = json.dumps(False)
+        if self.payment_move_line_ids:
+            info = {'title': _('Less Payment'), 'outstanding': False, 'content': []}
+            currency_id = self.currency_id
+            for payment in self.payment_move_line_ids:
+                payment_currency_id = False
+                if self.type in ('out_invoice', 'in_refund'):
+                    amount = sum([p.amount for p in payment.matched_debit_ids if p.debit_move_id in self.move_id.line_ids])
+                    amount_currency = sum([p.amount_currency for p in payment.matched_debit_ids if p.debit_move_id in self.move_id.line_ids])
+                    if payment.matched_debit_ids:
+                        payment_currency_id = all([p.currency_id == payment.matched_debit_ids[0].currency_id for p in payment.matched_debit_ids]) and payment.matched_debit_ids[0].currency_id or False
+                elif self.type in ('in_invoice', 'out_refund'):
+                    amount = sum([p.amount for p in payment.matched_credit_ids if p.credit_move_id in self.move_id.line_ids])
+                    amount_currency = sum([p.amount_currency for p in payment.matched_credit_ids if p.credit_move_id in self.move_id.line_ids])
+                    if payment.matched_credit_ids:
+                        payment_currency_id = all([p.currency_id == payment.matched_credit_ids[0].currency_id for p in payment.matched_credit_ids]) and payment.matched_credit_ids[0].currency_id or False
+                # get the payment value in invoice currency
+                if payment_currency_id and payment_currency_id == self.currency_id:
+                    amount_to_show = amount_currency
+                else:
+                    amount_to_show = payment.company_id.currency_id.with_context(date=payment.date).compute(amount, self.currency_id)
+                if float_is_zero(amount_to_show, precision_rounding=self.currency_id.rounding):
+                    continue
+                payment_ref = payment.move_id.name
+                if payment.move_id.ref:
+                    payment_ref += ' (' + payment.move_id.ref + ')'
+                info['content'].append({
+                    'name': payment.name,
+                    'journal_name': payment.journal_id.name,
+                    'amount': amount_to_show,
+                    'currency': currency_id.symbol,
+                    'digits': [69, currency_id.decimal_places],
+                    'position': currency_id.position,
+                    'date': payment.date,
+                    'payment_id': payment.id,
+                    'move_id': payment.move_id.id,
+                    'ref': payment_ref,
+                })
+                payment_info_obj = self.env['invoice.payment.info']
+                pay_info_line = payment_info_obj.search([('move_line_id','=',payment.id),('invoice_id','=',self.id)])
+                if not pay_info_line:
+                    invoice_payment_vals = {
+                        'payment_date':payment.date,
+                        'amount':amount_to_show,
+                        'name':payment.name,
+                        'invoice_id':self.id,
+                        'currency_id':currency_id.id,
+                        'move_line_id': payment.id,
+                    }
+                    pay_info_id = self.env['invoice.payment.info'].create(invoice_payment_vals)
+            self.payments_widget = json.dumps(info)
+
+
     expense_type_id = fields.Many2one('account.expense.type', string=u'Expense Type')
     payment_line = fields.One2many('invoice.payment.info', 'invoice_id', string="Invoice Payment Lines")
     payment_date = fields.Date(related='payment_line.payment_date', string='Payment Date')
+    payments_widget = fields.Text(compute='_get_payment_info_JSON')
+    # payment_move_line_ids = fields.Many2many('account.move.line', string='Payment Move Lines', compute='_compute_payments', store=True)
 
     # set move date
     @api.multi
