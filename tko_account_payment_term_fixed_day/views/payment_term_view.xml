@@ -1,0 +1,35 @@
+<odoo>
+
+    <record id="tko_payment_term_form_inherit" model="ir.ui.view">
+        <field name="name">account.payment.term.line.form.tko</field>
+        <field name="model">account.payment.term.line</field>
+        <field name="inherit_id" ref="account.view_payment_term_line_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//div[@class='o_row']" position="replace">
+                        <div class="o_row" attrs="{'invisible': [('option', 'in', ['last_day_following_month', 'last_day_current_month','fixed_day_current_month'])]}">
+                            <field name="days"/>
+                            days
+                        </div>
+                        <div class="o_row" attrs="{'invisible': [('option', 'not in', ['fixed_day_current_month'])]}">
+                            <field name="days"/>
+                            Date of month
+                        </div>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <!--<record id="invoice_supplier_form" model="ir.ui.view">
+        <field name="name">account.invoice.view.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <field name="move_id" position="after">
+                <field name="is_paid" readonly="0"/>
+            </field>
+        </field>
+    </record>
+ -->
+</odoo>
+
