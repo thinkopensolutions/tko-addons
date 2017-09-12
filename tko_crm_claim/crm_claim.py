@@ -131,10 +131,14 @@ class crm_claim(models.Model):
     partner_email = fields.Char(string='Email', compute='_get_partner_info', inverse='_set_partner_info')
     claim_ids = fields.Many2many('crm.claim', compute='get_claim_ids', store=False)
     type_id = fields.Many2one('claim.type', 'Claim Type')
-    assigned_id = fields.Many2one('res.users', 'Assigned to', compute='_get_assinged_supervisor', readonly=False,
-                                  store=True)
-    supervisor_id = fields.Many2one('res.users', 'Supervisor', compute='_get_assinged_supervisor', readonly=False,
-                                    store=True)
+    # assigned_id = fields.Many2one('res.users', 'Assigned to', compute='_get_assinged_supervisor', readonly=False,
+    #                               store=True)
+    # supervisor_id = fields.Many2one('res.users', 'Supervisor', compute='_get_assinged_supervisor', readonly=False,
+    #                                 store=True)
+    assigned_id = fields.Many2one('res.users', 'Assigned to', readonly=False,
+                                   store=True)
+    supervisor_id = fields.Many2one('res.users', 'Supervisor', readonly=False,
+                                     store=True)
     event_ids = fields.One2many('calendar.event', 'claim_id', 'Calls')
     phonecall_ids = fields.One2many('crm.phonecall', 'claim_id', 'Meetings')
     scheduled_phonecall_ids = fields.Many2many('crm.phonecall', string='Scheduled Calls', compute='get_phonecall_ids',
@@ -186,24 +190,29 @@ class crm_claim(models.Model):
         # =======================================================================
 
     # set correct supervisor and assinged to
-    @api.depends('type_id', 'categ_id')
+    @api.depends('categ_id')
     @api.one
     def _get_assinged_supervisor(self):
-        assigned_id = self.type_id and self.type_id.assigned_id and self.type_id.assigned_id.id or False
-        supervisor_id = self.type_id and self.type_id.supervisor_id and self.type_id.supervisor_id.id or False
-        if not assigned_id:
-            assigned_id = self.categ_id and self.categ_id.assigned_id and self.categ_id.assigned_id.id or assigned_id
-
-        if not supervisor_id:
-            supervisor_id = self.categ_id and self.categ_id.supervisor_id and self.categ_id.supervisor_id.id or False
-        self.assigned_id = assigned_id
-        self.supervisor_id = supervisor_id
+         if self.type_id.assigned_id:
+            assigned_id = self.type_id and self.type_id.assigned_id and self.type_id.assigned_id.id or False
+            if not assigned_id:
+                assigned_id = self.categ_id and self.categ_id.assigned_id and self.categ_id.assigned_id.id or assigned_id
+            if assigned_id:
+                self.assigned_id = assigned_id
+        if self.type_id.supervisor_id:
+            supervisor_id = self.type_id and self.type_id.supervisor_id and self.type_id.supervisor_id.id or False
+            if not supervisor_id:
+               supervisor_id = self.categ_id and self.categ_id.supervisor_id and self.categ_id.supervisor_id.id or False
+            if supervisor_id:
+                self.supervisor_id = supervisor_id
 
     @api.model
     def create(self, vals):
         vals.update({'name': self.env['ir.sequence'].get('crm.claim')})
         res = super(crm_claim, self).create(vals)
         if 'type_id' in vals.keys():
+            assigned_id = res.type_id and res.type_id.assigned_id and res.type_id.assigned_id.id or False
+            supervisor_id = res.type_id and res.type_id.supervisor_id and res.type_id.supervisor_id.id or False
             user = self.env['res.users'].browse(SUPERUSER_ID)
             user_tz = user.partner_id.tz
             if user_tz:
@@ -223,11 +232,13 @@ class crm_claim(models.Model):
             # fix days if falling on saturday or sunday
             if deadline.weekday() == 5 or deadline.weekday() == 6:
                 deadline = deadline = deadline + relativedelta(days=2)
-            res.write({'date_deadline': deadline + timedelta(hours=3)})
+            res.write({'date_deadline': deadline + timedelta(hours=3),'assigned_id':assigned_id,'supervisor_id':supervisor_id})
         return res
 
     @api.one
     def write(self, vals):
+        assigned = self.assigned_id and self.assigned_id.id or False
+        supervisor = self.supervisor_id and self.supervisor_id.id or False
         res = super(crm_claim, self).write(vals)
         # update partner related fields
         part_dict = {}
@@ -259,7 +270,13 @@ class crm_claim(models.Model):
             # fix days if falling on saturday or sunday
             if deadline.weekday() == 5 or deadline.weekday() == 6:
                 deadline = deadline = deadline + relativedelta(days=2)
-            self.write({'date_deadline': deadline + timedelta(hours=3)})
+            assigned_id = self.type_id and self.type_id.assigned_id and self.type_id.assigned_id.id or False
+            supervisor_id = self.type_id and self.type_id.supervisor_id and self.type_id.supervisor_id.id or False
+            if assigned_id == False:
+                assigned_id = assigned
+            if supervisor_id == False:
+                supervisor_id = supervisor
+            self.write({'date_deadline': deadline + timedelta(hours=3),'assigned_id':assigned_id,'supervisor_id':supervisor_id})
         return res
 
     # considered business hours from 6 - 9 monday to friday
