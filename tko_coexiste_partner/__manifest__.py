@@ -22,21 +22,25 @@
 #
 ##############################################################################
 
-from odoo import fields, models, api
-
-class AccountInvoice(models.Model):
-    _inherit = 'account.invoice'
-
-    is_paid = fields.Boolean(string='Is paid?', copy=False, track_visibility='onchange')
-
-    def set_is_paid(self):
-        self.is_paid = True
-
-    def set_unpaid(self):
-        self.is_paid = False
-
-    @api.multi
-    def action_cancel(self):
-        result = super(AccountInvoice, self).action_cancel()
-        self.is_paid = False
-        return result
+{
+    'name': 'tko_coexiste_partner',
+    'version': '0.001',
+    'category': 'Customizations',
+    'description': '''  tko_coexiste_partner''',
+    'author': 'ThinkOpen Solutions Brasil',
+    'website': 'http://www.tkobr.com',
+    'depends': [
+        'base',
+        'sale',
+    ],
+    'data': [
+        'views/partner_view.xml',
+    ],
+    'init': [],
+    'demo': [],
+    'update': [],
+    'installable': True,
+    'application': False,
+    'auto_install': False,
+    'certificate': '',
+}

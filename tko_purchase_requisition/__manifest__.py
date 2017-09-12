@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+        # -*- encoding: utf-8 -*-
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
@@ -22,21 +22,29 @@
 #
 ##############################################################################
 
-from odoo import fields, models, api
-
-class AccountInvoice(models.Model):
-    _inherit = 'account.invoice'
-
-    is_paid = fields.Boolean(string='Is paid?', copy=False, track_visibility='onchange')
-
-    def set_is_paid(self):
-        self.is_paid = True
-
-    def set_unpaid(self):
-        self.is_paid = False
-
-    @api.multi
-    def action_cancel(self):
-        result = super(AccountInvoice, self).action_cancel()
-        self.is_paid = False
-        return result
+{
+    'name': 'Merge Purchase Requisition Orders',
+    'version': '10.0.0.0.0',
+    'category': 'Customizations',
+    'sequence': 14,
+    'complexity': 'medium',
+    'description': ''' == This module allows to merge Requisition Orders in Draft Stage ==\n
+''',
+    'author': 'ThinkOpen Solutions Brasil',
+    'website': 'http://www.tkobr.com',
+    'depends': [
+        'purchase_requisition',
+    ],
+    'data': [
+        'purchase_requisition_view.xml',
+        'wizard/purchase_requisition_wizard_view.xml',
+    ],
+    'init': [],
+    'demo': [],
+    'update': [],
+    'test': [],  # YAML files with tests
+    'installable': True,
+    'application': False,
+    'auto_install': False,
+    'certificate': '',
+}

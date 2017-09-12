@@ -1,0 +1,33 @@
+<openerp>
+    <data>
+        <record id="purchase_requisition_form_inherit" model="ir.ui.view">
+            <field name="name">purchase.requisition</field>
+            <field name="model">purchase.requisition</field>
+            <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form"/>
+            <field name="arch" type="xml">
+                <field name="picking_type_id" position="after">
+                    <field name="parent_id" attrs="{'invisible': [('parent_id','=',False)]}"/>
+                </field>
+                <xpath expr="//form/sheet/div[@name='button_box']/button[@class='oe_stat_button']" position="before">
+                    <button name="send_mail_to_all_quotations" type="object" string="Send Mail to All"
+                            attrs="{'invisible': ['|', ('purchase_ids','=',[]),('state', 'in', ('draft' ,'open','done'))]}" 
+                            class="btn-primary" style="margin-right: 10px;"/>
+                </xpath>
+                <notebook position="inside">
+                    <page name="child_ids" string="Origin" attrs="{'invisible':[('child_ids','=',[])]}">
+                        <field name="child_ids" nolabel="1" readonly="1">
+                            <tree>
+                                <field name="name"/>
+                                <field name="origin"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page name="purchase_ids" string="Purchase" invisible="1">
+                        <field name="purchase_ids"/>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+    </data>
+</openerp>

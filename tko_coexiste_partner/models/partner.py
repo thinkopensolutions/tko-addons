@@ -22,21 +22,10 @@
 #
 ##############################################################################
 
-from odoo import fields, models, api
+from odoo import models, fields, api, _
 
-class AccountInvoice(models.Model):
-    _inherit = 'account.invoice'
 
-    is_paid = fields.Boolean(string='Is paid?', copy=False, track_visibility='onchange')
+class ResPartner(models.Model):
+    _inherit = 'res.partner'
 
-    def set_is_paid(self):
-        self.is_paid = True
-
-    def set_unpaid(self):
-        self.is_paid = False
-
-    @api.multi
-    def action_cancel(self):
-        result = super(AccountInvoice, self).action_cancel()
-        self.is_paid = False
-        return result
+    is_student = fields.Boolean('Is a student?', required=False)
