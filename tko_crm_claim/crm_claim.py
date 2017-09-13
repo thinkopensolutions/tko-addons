@@ -131,9 +131,9 @@ class crm_claim(models.Model):
     partner_email = fields.Char(string='Email', compute='_get_partner_info', inverse='_set_partner_info')
     claim_ids = fields.Many2many('crm.claim', compute='get_claim_ids', store=False)
     type_id = fields.Many2one('claim.type', 'Claim Type')
-    assigned_id = fields.Many2one('res.users', 'Assigned to', compute='_get_assinged_supervisor', readonly=False,
+    assigned_id = fields.Many2one('res.users', 'Assigned to', compute='_get_assinged_supervisor', inverse='_set_assinged_supervisor',readonly=False,
                                   store=True)
-    supervisor_id = fields.Many2one('res.users', 'Supervisor', compute='_get_assinged_supervisor', readonly=False,
+    supervisor_id = fields.Many2one('res.users', 'Supervisor', compute='_get_assinged_supervisor', inverse='_set_assinged_supervisor', readonly=False,
                                     store=True)
     event_ids = fields.One2many('calendar.event', 'claim_id', 'Calls')
     phonecall_ids = fields.One2many('crm.phonecall', 'claim_id', 'Meetings')
@@ -184,6 +184,15 @@ class crm_claim(models.Model):
         #                            'mobile' :self.partner_mobile,
         #                            'email' : self.partner_email,})
         # =======================================================================
+
+    def _set_assinged_supervisor(self):
+        assigned_to = self.assigned_id.id or False
+        supervisor_id = self.supervisor_id.id or False
+        if assigned_to:
+            self.env.cr.execute("update crm_claim set assigned_id='%s'where id='%s'"%(assigned_to,self.id))
+        if supervisor_id:
+            self.env.cr.execute("update crm_claim set supervisor_id ='%s' where id='%s'"%(supervisor_id, self.id))
+
 
     # set correct supervisor and assinged to
     @api.depends('type_id', 'categ_id')
