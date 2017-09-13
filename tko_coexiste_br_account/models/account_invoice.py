@@ -94,9 +94,9 @@ class AccountPayment(models.Model):
                 if invoice.type == 'out_invoice':
                     invoice.move_id.date = datetime.datetime.now()
                     invoice.move_id.state = 'posted'
-                    for move_line in invoice.move_id.line_ids:
-                        if move_line.credit > 0:
-                            move_line.date_maturity = invoice.move_id.date
+                    # for move_line in invoice.move_id.line_ids:
+                    #     if move_line.credit > 0:
+                    #         move_line.date_maturity = invoice.move_id.date
         return res
 
     @api.model
@@ -113,6 +113,33 @@ class AccountPayment(models.Model):
                 }
                 self.env['invoice.payment.info'].create(invoice_payment_vals)
         return res
+
+    @api.model
+    def create(self, vals):
+        res = super(AccountPayment, self).create(vals)
+        if vals.get('communication'):
+            invoice = self.env['account.invoice'].search([('number','=', vals.get('communication'))])
+            if invoice:
+                invoice_payment_vals = {
+                    'payment_date':vals.get('payment_date'),
+                    'amount':vals.get('amount'),
+                    'name':res,
+                    'invoice_id':invoice.id
+                }
+                self.env['invoice.payment.info'].create(invoice_payment_vals)
+        return res
+
+
+class InvoicePaymentInfo(models.Model):
+    _name = 'invoice.payment.info'
+    _description = 'Invoice Payment Details'
+
+    payment_date = fields.Date(string='Payment Date', copy=False)
+    name = fields.Char('Name', copy=False)
+    invoice_id = fields.Many2one('account.invoice', string='Invoice ID', copy=False)
+    currency_id = fields.Many2one('res.currency', related='invoice_id.currency_id', readonly=True,
+        help='Utility field to express amount currency')
+    amount = fields.Monetary(string='Amount', copy=False, required=True, currency_field='currency_id')
 
 
 class InvoicePaymentInfo(models.Model):
@@ -145,9 +172,9 @@ class AccountInvoice(models.Model):
                 if invoice.type == 'out_invoice':
                     invoice.move_id.date = datetime.datetime.now()
                     invoice.move_id.state = 'posted'
-                    for move_line in invoice.move_id.line_ids:
-                        if move_line.credit > 0:
-                            move_line.date_maturity = invoice.move_id.date
+                    # for move_line in invoice.move_id.line_ids:
+                    #     if move_line.credit > 0:
+                    #         move_line.date_maturity = invoice.move_id.date
         return result
 
     # set account Account Move to unposted
