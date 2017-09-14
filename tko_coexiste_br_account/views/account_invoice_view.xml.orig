@@ -1,0 +1,86 @@
+<odoo>
+    <!--Customer Invoice-->
+    <record id="invoice_form_inherit" model="ir.ui.view">
+        <field name="name">account.invoice.view.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <field name="move_id" position="after">
+                <field name="expense_type_id" options="{'no_create': True}" domain="[('expense_type','in',['c','b'])]"/>
+            </field>
+<<<<<<< HEAD
+            <xpath expr="//notebook[last()]" position="inside">
+                <page string="Payment Info">
+                    <!--<button name="update_history" type="object" string="Get History"/>-->
+                    <field name="payment_line">
+                        <tree create="0">
+                            <field name="payment_date"/>
+                            <field name="amount"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+=======
+>>>>>>> Fix OCR no thread
+        </field>
+    </record>
+
+    <!--Supplier Invoice-->
+
+    <record id="invoice_supplier_form" model="ir.ui.view">
+        <field name="name">account.invoice.view.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <field name="journal_id" position="replace">
+                <field name="journal_id" options="{'no_create': True}" attrs="{'readonly':[('move_name','!=',False)]}"/>
+            </field>
+            <field name="move_id" position="after">
+                <field name="expense_type_id" options="{'no_create': True}" domain="[('expense_type','in',['s','b'])]"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="br_account_invoice_form_view_inherit" model="ir.ui.view">
+        <field name="name">account.invoice_form_view</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="br_account.view_br_account_invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vendor_number']" position="replace">
+                <field name="vendor_number" attrs="{'invisible': [('issuer','=', '1')]}" required="True" />
+            </xpath>
+            <xpath expr="//field[@name='date_invoice']" position="replace">
+                <field name="date_invoice" string="Bill Date" required="True"/>
+            </xpath>
+            <xpath expr="//field[@name='payment_term_id']" position="replace"/>
+            <xpath expr="//field[@name='fiscal_position_id']" position="before">
+                <field name="payment_term_id" />
+            </xpath>
+<<<<<<< HEAD
+            <xpath expr="//notebook[last()]" position="inside">
+                <page string="Payment Info">
+                    <field name="payment_line">
+                        <tree create="0">
+                            <field name="payment_date"/>
+                            <field name="amount"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="invoice_tko_filter" model="ir.ui.view">
+        <field name="name">account.invoice.view.tko.filter</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <field name="date" position="after">
+                <field name="payment_date" string="payment Date" filter_domain="[('payment_date','&gt;=',self)]"/>
+            </field>
+=======
+>>>>>>> Fix OCR no thread
+        </field>
+    </record>
+</odoo>
+
