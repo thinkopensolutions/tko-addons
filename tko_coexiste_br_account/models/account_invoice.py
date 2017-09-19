@@ -117,6 +117,33 @@ class AccountPayment(models.Model):
     #             self.env['invoice.payment.info'].create(invoice_payment_vals)
     #     return res
 
+    @api.model
+    def create(self, vals):
+        res = super(AccountPayment, self).create(vals)
+        if vals.get('communication'):
+            invoice = self.env['account.invoice'].search([('number','=', vals.get('communication'))])
+            if invoice:
+                invoice_payment_vals = {
+                    'payment_date':vals.get('payment_date'),
+                    'amount':vals.get('amount'),
+                    'name':res,
+                    'invoice_id':invoice.id
+                }
+                self.env['invoice.payment.info'].create(invoice_payment_vals)
+        return res
+
+
+class InvoicePaymentInfo(models.Model):
+    _name = 'invoice.payment.info'
+    _description = 'Invoice Payment Details'
+
+    payment_date = fields.Date(string='Payment Date', copy=False)
+    name = fields.Char('Name', copy=False)
+    invoice_id = fields.Many2one('account.invoice', string='Invoice ID', copy=False)
+    currency_id = fields.Many2one('res.currency', related='invoice_id.currency_id', readonly=True,
+        help='Utility field to express amount currency')
+    amount = fields.Monetary(string='Amount', copy=False, required=True, currency_field='currency_id')
+
 
 class InvoicePaymentInfo(models.Model):
     _name = 'invoice.payment.info'
@@ -228,8 +255,8 @@ class AccountInvoice(models.Model):
         #     due_date = datetime.datetime.strptime(due_date, OE_DFORMAT).date()
         #     date = datetime.datetime.strptime(date, OE_DFORMAT).date()
         #     if due_date < date:
-        #         # raise ValidationError(
-        #         # _("You can not set Due Date Less than Invoice date."))
+        #         raise ValidationError(
+        #         _("You can not set Due Date Less than Invoice date."))
         #         return False
         return result
 
@@ -240,10 +267,10 @@ class AccountInvoice(models.Model):
         date = vals.get('date') or self.date
         if due_date and date:
             due_date = datetime.datetime.strptime(due_date, OE_DFORMAT).date()
-            date = datetime.datetime.strptime(date, OE_DFORMAT).date()
+            #date = datetime.datetime.strptime(date, OE_DFORMAT).date()
             # if due_date < date:
-            #     # raise ValidationError(
-            #     # _("You can not set Due Date Less than Invoice date."))
+            #     raise ValidationError(
+            #     _("You can not set Due Date Less than Invoice date."))
             #     return False
             for move_line in self.move_id.line_ids:
                 move_line.date_maturity = due_date
