@@ -1,0 +1,234 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* prisme_postit
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-05-20 09:55+0000\n"
+"PO-Revision-Date: 2015-05-20 09:55+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: prisme_postit
+#: model:ir.ui.menu,name:prisme_postit.menu_prisme_postit
+msgid "PostIt"
+msgstr "PostIt"
+
+#. module: prisme_postit
+#: model:prisme.postit.day,name:prisme_postit.1
+msgid "Tuesday"
+msgstr "Mardi"
+
+#. module: prisme_postit
+#: selection:prisme.postit,state:0
+msgid "Demarre"
+msgstr "Démarré"
+
+#. module: prisme_postit
+#: view:prisme.postit:0
+msgid "In process"
+msgstr "En cours"
+
+#. module: prisme_postit
+#: model:ir.model,name:prisme_postit.model_prisme_postit
+msgid "Prisme postit"
+msgstr "Prisme postit"
+
+#. module: prisme_postit
+#: model:prisme.postit.day,name:prisme_postit.3
+msgid "Thursday"
+msgstr "Jeudi"
+
+#. module: prisme_postit
+#: field:prisme.postit,priority:0
+msgid "Priority"
+msgstr "Priorité"
+
+#. module: prisme_postit
+#: view:prisme.postit:0
+msgid "Start"
+msgstr "Début"
+
+#. module: prisme_postit
+#: field:prisme.postit,state:0
+msgid "State"
+msgstr "Statuts"
+
+#. module: prisme_postit
+#: view:prisme.postit:0
+msgid "Tags..."
+msgstr "Type..."
+
+#. module: prisme_postit
+#: selection:prisme.postit,state:0
+msgid "En cours"
+msgstr "En cours"
+
+#. module: prisme_postit
+#: model:ir.model,name:prisme_postit.model_prisme_postit_day
+msgid "Postit Day"
+msgstr "Postit - Jours"
+
+#. module: prisme_postit
+#: view:prisme.postit:0
+msgid "Description"
+msgstr "Notes"
+
+#. module: prisme_postit
+#: model:prisme.postit.day,name:prisme_postit.0
+msgid "Monday"
+msgstr "Lundi"
+
+#. module: prisme_postit
+#: field:prisme.postit,tags:0
+msgid "Tags"
+msgstr "Type"
+
+#. module: prisme_postit
+#: field:prisme.postit,description:0
+msgid "unknown"
+msgstr "unknown"
+
+#. module: prisme_postit
+#: view:prisme.postit:0
+msgid "To..."
+msgstr "à..."
+
+#. module: prisme_postit
+#: model:prisme.postit.day,name:prisme_postit.4
+msgid "Friday"
+msgstr "Vendredi"
+
+#. module: prisme_postit
+#: view:prisme.postit.tag:0
+msgid "Postit tag"
+msgstr "Postit Type"
+
+#. module: prisme_postit
+#: field:prisme.postit.tag,name:0
+msgid "Tag Name"
+msgstr "Nom"
+
+#. module: prisme_postit
+#: view:prisme.postit:0
+msgid "Days..."
+msgstr "Jours..."
+
+#. module: prisme_postit
+#: field:prisme.postit,copy_to:0
+msgid "Copy to"
+msgstr "Copie à"
+
+#. module: prisme_postit
+#: field:prisme.postit,date_end:0
+msgid "Date end"
+msgstr "Date fin"
+
+#. module: prisme_postit
+#: field:prisme.postit,name:0
+msgid "Name"
+msgstr "Tâche"
+
+#. module: prisme_postit
+#: field:prisme.postit.day,name:0
+msgid "Day Name"
+msgstr "Nom du jour"
+
+#. module: prisme_postit
+#: model:ir.actions.act_window,name:prisme_postit.action_prisme_postit
+#: view:prisme.postit:0
+msgid "Postit"
+msgstr "Postit"
+
+#. module: prisme_postit
+#: field:prisme.postit,days:0
+msgid "Days"
+msgstr "Jours"
+
+#. module: prisme_postit
+#: model:prisme.postit.day,name:prisme_postit.2
+msgid "Wednesday"
+msgstr "Mercredi"
+
+#. module: prisme_postit
+#: field:prisme.postit,partner_id:0
+msgid "Client"
+msgstr "Client"
+
+#. module: prisme_postit
+#: view:prisme.postit:0
+msgid "active"
+msgstr "active"
+
+#. module: prisme_postit
+#: field:prisme.postit,date_start:0
+msgid "Date start"
+msgstr "Date début"
+
+#. module: prisme_postit
+#: field:prisme.postit,assigned_by:0
+msgid "Assigned by"
+msgstr "Assignée par"
+
+#. module: prisme_postit
+#: field:prisme.postit,assigned_to:0
+msgid "Assigned to"
+msgstr "Assignée à"
+
+#. module: prisme_postit
+#: model:ir.actions.act_window,name:prisme_postit.action_prisme_postit_tag
+#: model:ir.model,name:prisme_postit.model_prisme_postit_tag
+msgid "Postit Tag"
+msgstr "Postit - Type"
+
+#. module: prisme_postit
+#: field:prisme.postit,recall_date:0
+msgid "Recall Date"
+msgstr "Date échéance"
+
+#. module: prisme_postit
+#: model:ir.ui.menu,name:prisme_postit.menu_prisme_postit_tag
+msgid "PostIt Tag"
+msgstr "PostIt - Type"
+
+#. module: prisme_postit
+#: model:prisme.postit.day,name:prisme_postit.6
+msgid "Sunday"
+msgstr "Dimanche"
+
+#. module: prisme_postit
+#: field:prisme.postit.day,nbr:0
+msgid "Day number"
+msgstr "Day number"
+
+#. module: prisme_postit
+#: field:prisme.postit,duration:0
+msgid "Duration"
+msgstr "Durée"
+
+#. module: prisme_postit
+#: view:prisme.postit:0
+msgid "Close"
+msgstr "Fermé"
+
+#. module: prisme_postit
+#: model:prisme.postit.day,name:prisme_postit.5
+msgid "Saturday"
+msgstr "Samedi"
+
+#. module: prisme_postit
+#: selection:prisme.postit,state:0
+msgid "Non termine"
+msgstr "Non terminé"
+
+#. module: prisme_postit
+#: selection:prisme.postit,state:0
+msgid "Termine"
+msgstr "Terminé"
+
