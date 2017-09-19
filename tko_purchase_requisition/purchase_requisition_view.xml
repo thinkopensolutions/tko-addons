@@ -1,17 +1,27 @@
 <openerp>
     <data>
+
         <record id="purchase_requisition_form_inherit" model="ir.ui.view">
             <field name="name">purchase.requisition</field>
             <field name="model">purchase.requisition</field>
             <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form"/>
             <field name="arch" type="xml">
+                <button name="action_done" position="before">
+                    <button name="view_product_line" type="object" string="Choose product lines"
+                            attrs="{'invisible': [('state', '!=', 'open')]}"
+                            class="btn-primary" style="margin-right: 10px;"/>
+                </button>
                 <field name="picking_type_id" position="after">
                     <field name="parent_id" attrs="{'invisible': [('parent_id','=',False)]}"/>
                 </field>
                 <xpath expr="//form/sheet/div[@name='button_box']/button[@class='oe_stat_button']" position="before">
                     <button name="send_mail_to_all_quotations" type="object" string="Send Mail to All"
-                            attrs="{'invisible': ['|', ('purchase_ids','=',[]),('state', 'in', ('draft' ,'done'))]}" 
+                            attrs="{'invisible': ['|', ('purchase_ids','=',[]),('state', 'in', ('draft' ,'open','done'))]}" 
                             class="btn-primary" style="margin-right: 10px;"/>
+
+                    <button name="view_product_line" type="object" string="View Product Lines"
+                            class="btn-primary" style="margin-right: 10px;"
+                            attrs="{'invisible': ['|', ('state', 'not in', ('open','done'))]}"/>
                 </xpath>
                 <notebook position="inside">
                     <page name="child_ids" string="Origin" attrs="{'invisible':[('child_ids','=',[])]}">
@@ -23,11 +33,56 @@
                             </tree>
                         </field>
                     </page>
-                    <page name="purchase_ids" string="Purchase" invisible="1">
-                        <field name="purchase_ids"/>
+                    <page name="purchase_ids" string="Requests for Quotation" attrs="{'invisible':[('purchase_ids','=',[])]}">
+                        <field name="purchase_ids">
+                            <tree>
+                                <field name="name" string="Reference"/>
+                                <field name="date_order"/>
+                                <field name="partner_id"/>
+                                <field name="origin"/>
+                                <field name="state"/>
+                                <button type="object" name="button_cancel" icon="fa-times-circle-o" states="draft,sent,bid" string="Cancel Purchase order"/>
+                                <button type="object" name="button_confirm" icon="fa-check-circle" string="Confirm Purchase Orde" states="draft,sent,bid"/>
+                                <button type="object" name="action_rfq_send" icon="fa-envelope" string="Sednd RFQ by Email" states="draft"/>
+                            </tree>
+                        </field>
                     </page>
                 </notebook>
             </field>
         </record>
+
+        <record id="purchase_order_line_tree_tender" model="ir.ui.view">
+            <field name="name">purchase.order.line.tree.tender</field>
+            <field name="model">purchase.order.line</field>
+            <field eval="1" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Purchase Order Lines" create="false" colors="blue:state == 'confirmed';gray:state == 'cancel'">
+                    <field name="name"/>
+                    <field name="id"/>
+                    <field name="partner_id" string="Supplier" />
+                    <field name="product_id"/>
+                    <field name="price_unit"/>
+                    <field name="product_qty"/>
+                    <field name="quantity_bid"/>
+                    <field name="product_uom" groups="product.group_uom"/>
+                    <field name="price_subtotal"/>
+                    <field name="state" invisible="1"/>
+                    <button name="action_draft" states="purchase" type="object" string="Cancel Choice" icon="fa-times-circle"/>
+                    <button name="%(tko_purchase_requisition.action_bid_line_qty)d" type="action" states="draft" string="Change Quantity" icon="fa-reply"/>
+                    <button name="action_confirm" states="draft" type="object" string="Confirm Order" icon="fa-check-circle"/>
+                </tree>
+            </field>
+    </record>
+
+    <record id="purchase_line_tree" model="ir.actions.act_window">
+            <field name="name">Bid Lines</field>
+            <field name="res_model">purchase.order.line</field>
+            <field name="context">{"search_default_groupby_product" : True}</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="purchase_order_line_tree_tender"/>
+            <field name="search_view_id" ref="purchase.purchase_order_line_search"/>
+    </record>
+
     </data>
 </openerp>

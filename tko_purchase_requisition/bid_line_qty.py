@@ -1,4 +1,4 @@
-        # -*- encoding: utf-8 -*-
+# -*- encoding: utf-8 -*-
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
@@ -22,32 +22,20 @@
 #
 ##############################################################################
 
-{
-    'name': 'Merge Purchase Requisition Orders',
-    'version': '10.0.0.0.0',
-    'category': 'Customizations',
-    'sequence': 14,
-    'complexity': 'medium',
-    'description': ''' == This module allows to merge Requisition Orders in Draft Stage ==\n
-''',
-    'author': 'ThinkOpen Solutions Brasil',
-    'website': 'http://www.tkobr.com',
-    'depends': [
-        'purchase_requisition',
-    ],
-    'data': [
-        'template.xml',
-        'bid_line_qty_view.xml',
-        'purchase_requisition_view.xml',
-        'wizard/purchase_requisition_wizard_view.xml',
-    ],
-    'qweb': ['static/src/xml/genereate_po.xml'],
-    'init': [],
-    'demo': [],
-    'update': [],
-    'test': [],  # YAML files with tests
-    'installable': True,
-    'application': False,
-    'auto_install': False,
-    'certificate': '',
-}
+from odoo import models, fields, api
+
+
+class bid_line_qty(models.TransientModel):
+    _name = "bid.line.qty"
+
+    qty = fields.Float('Quantity', required=True)
+
+    @api.multi
+    def change_qty(self):
+        active_id = self._context and self._context.get('record_id')
+        if active_id:
+            pol_id = self.env['purchase.order.line'].browse(active_id)
+            pol_id.write({'quantity_bid': self.qty})
+        return {'type': 'ir.actions.act_window_close'}
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
