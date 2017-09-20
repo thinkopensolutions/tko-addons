@@ -70,6 +70,7 @@ class pos_order(models.Model):
 class pos_order_line(models.Model):
     _inherit = 'pos.order.line'
 
+    cfop_id = fields.Many2one('l10n_br_account_product.cfop', string=u'CFOP')
     line_taxes_ids = fields.Many2many('account.tax', 'pos_line_tax_rel', 'order_line_id', 'tax_id', string=u'Taxes')
 
     def tko_onchange_product_id(self, cr, uid, ids, pricelist, product_id, qty=0, partner_id=False, context=None):

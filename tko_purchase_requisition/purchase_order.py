@@ -29,3 +29,4 @@ class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
 
     is_lowest_price = fields.Boolean('Is Lowest Price?', help='Used to highlight the Bid with the lowest price.')
+

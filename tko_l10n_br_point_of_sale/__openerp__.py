@@ -46,6 +46,7 @@
         'res_company_view.xml',
         'point_of_sale_view.xml',
         'account_tax_view.xml',
+        'product_view.xml',
     ],
     'qweb': [
         'static/src/xml/res_partner_view.xml',
