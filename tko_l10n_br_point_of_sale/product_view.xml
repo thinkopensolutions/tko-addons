@@ -1,0 +1,16 @@
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_account_product_fiscal_classification_form">
+            <field name="name">account.product.fiscal.classification</field>
+            <field name="model">account.product.fiscal.classification</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="l10n_br_account_product.l10n_br_account_product_fiscal_classification_form"/>
+            <field name="arch" type="xml">
+                <field name="parent_id" position="after">
+                    <field name="cfop_id"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

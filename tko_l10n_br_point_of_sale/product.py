@@ -21,9 +21,9 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from openerp import models, fields
 
-import res_company
-import res_partner
-import point_of_sale
-import account_tax
-import product
+class account_product_fiscal_classification(models.Model):
+    _inherit = 'account.product.fiscal.classification'
+
+    cfop_id = fields.Many2one('l10n_br_account_product.cfop', string=u'CFOP')
