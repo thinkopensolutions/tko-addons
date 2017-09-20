@@ -2,84 +2,17 @@
 from odoo import models, fields, api, _
 
 
-class AccountAnalyticPayment(models.Model):
-    _name = 'account.analytic.payment'
-    _description = 'Analytic Payment Details'
-
-    payment_date = fields.Date(string='Payment Date', required=True, copy=False)
-    amount = fields.Float('Amount', copy=False)
-    name = fields.Char('Name', copy=False)
-    analytic_line_id = fields.Many2one('account.analytic.line', string='Analytic Line ID', copy=False)
-
-
-class AccountPayment(models.Model):
-    _inherit = 'account.payment'
-
-    @api.model
-    def create(self, vals):
-        res = super(AccountPayment, self).create(vals)
-        if vals.get('communication'):
-            invoice = self.env['account.invoice'].search([('number','=', vals.get('communication'))])
-            if invoice:
-                remain = 0
-                analytic_line_ids = self.env['account.analytic.line'].search([('invoice_id','=',invoice.id)]) 
-                analytic_line_ids = [x for x in analytic_line_ids if (x.amount != x.line_total)]
-                remain = vals.get('amount') 
-                total = 0
-                for analytic_line_id in analytic_line_ids:
-                    if analytic_line_id.line_total == analytic_line_id.amount:
-                        pass
-                    if remain >= analytic_line_id.amount and remain >= analytic_line_id.line_total:
-                        pay_amount = analytic_line_id.amount-analytic_line_id.line_total
-                        analytic_payment_vals = {
-                            'payment_date':vals.get('payment_date'),
-                            'amount':pay_amount,
-                            'name':res,
-                            'analytic_line_id':analytic_line_id.id
-                        }
-                        total = total + pay_amount
-                        line_id = self.env['account.analytic.payment'].create(analytic_payment_vals)
-                        remain = vals.get('amount') - total
-                    # elif remain < analytic_line_id.amount and remain >= analytic_line_id.line_total:
-                    #     plan_total = remain + analytic_line_id.line_total
-                    #     if analytic_line_id.amount <= plan_total:
-                    #         pay_amount = remain
-                    #     else:
-                    #         pay_amount = analytic_line_id.amount - analytic_line_id.line_total
-                    else:
-                        if remain > 0:
-                            if remain < analytic_line_id.amount and remain <= analytic_line_id.line_total:
-                                pay_amount = remain
-                            else:
-                                pay_amount = analytic_line_id.amount-analytic_line_id.line_total
-                                if pay_amount >= remain:
-                                    pay_amount = remain
-                                else:
-                                    pay_amount = remain - pay_amount
-                            analytic_payment_vals = {
-                                'payment_date':vals.get('payment_date'),
-                                'amount':pay_amount,
-                                'name':res,
-                                'analytic_line_id':analytic_line_id.id
-                            }
-                            total = total + pay_amount
-                            line_id = self.env['account.analytic.payment'].create(analytic_payment_vals)
-                            remain = vals.get('amount') - total
-        return res
-
-
-
 class AccountAnalyticLine(models.Model):
     _inherit = 'account.analytic.line'
 
 
     @api.multi
-    @api.depends('payment_line')
+    @api.depends('payment_move_line_ids')
     def _total_compute(self):
         for analytic_line in self:
             line_total = 0
-            for line in analytic_line.payment_line:
-                line_total = line_total+line.amount
+            for line in analytic_line.payment_move_line_ids:
+                line_total = line_total+line.credit+line.debit
             analytic_line.line_total = line_total
 
     partner_id = fields.Many2one('res.partner', related='move_id.partner_id', string='Partner', store=True)
@@ -93,7 +26,10 @@ class AccountAnalyticLine(models.Model):
     invoice_id = fields.Many2one('account.invoice', string='Invoice ID', copy=False)
     state = fields.Selection(related='invoice_id.state', string='State')
     date_due =fields.Date(related='invoice_id.date_due', string='Due Date')
-    payment_line = fields.One2many(related='invoice_id.payment_line', string="Analytic Payment Lines")
+    payment_move_line_ids = fields.Many2many(related='invoice_id.payment_move_line_ids', string="Analytic Payment Lines")
+    # payment_date = fields.Date(related='payment_move_line_ids.date', string='Payment Date')
+    # credit = fields.Date(related='payment_move_line_ids.credit', string='Credit')
+    # debit = fields.Date(related='payment_move_line_ids.debit', string='Debit')
     line_total = fields.Float('Total', compute='_total_compute', store=True)
 
     @api.model
@@ -121,7 +57,7 @@ class AccountAnalyticLine(models.Model):
                 # print"invoice>",invoice
                 analytic_line_id.write({'invoice_id':invoice.id,'state':invoice.state, 'date_due':invoice.date_due})
                 analytic_payment_vals = {
-                    'payment_date':analytic_line_id.date,
+                    # 'payment_date':analytic_line_id.date,
                     'amount':analytic_line_id.amount,
                     'name':analytic_line_id,
                     'analytic_line_id':analytic_line_id.id
