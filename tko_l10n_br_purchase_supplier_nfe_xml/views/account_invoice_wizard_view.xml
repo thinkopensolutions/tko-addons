@@ -1,0 +1,33 @@
+<openerp>
+    <data>
+        <record id="account_invoice_xml_form_view_wizard" model="ir.ui.view">
+            <field name="name">account.invoice.xml.wizard.form</field>
+            <field name="model">account.invoice.xml.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Account Invoice XML Form">
+                    <group>
+                        <field name="file"/>
+                        <field name="xml_data" invisible="1"/>
+                    </group>
+                     <footer>
+                        <button string="Import" name="import_file" type="object"  class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_account_invoice_xml_wizard_xml">
+            <field name="name">Import Xml File</field>
+            <field name="res_model">account.invoice.xml.wizard</field>
+            <field name="view_type">form</field>
+            <field name="target">new</field>
+            <field name="view_mode">form</field>
+        </record>
+
+        <menuitem id="account_invoice_xml_wizard" name="Import Xml File" parent="purchase.menu_procurement_management"
+            action="action_account_invoice_xml_wizard_xml"/>
+
+    </data>
+</openerp>

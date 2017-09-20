@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <record id="view_warehouse_orderpoint_form" model="ir.ui.view">
-        <field name="name">stock.warehouse.orderpoint</field>
-        <field name="model">stock.warehouse.orderpoint</field>
-        <field name="inherit_id" ref="stock.view_warehouse_orderpoint_form"/>
-        <field name="arch" type="xml">
-            <field name="company_id" position="after">
-                <field name="qty_available"/>
+<openerp>
+    <data>
+        <record id="view_warehouse_orderpoint_form" model="ir.ui.view">
+            <field name="name">stock.warehouse.orderpoint</field>
+            <field name="model">stock.warehouse.orderpoint</field>
+            <field name="inherit_id" ref="stock.view_warehouse_orderpoint_form"/>
+            <field name="arch" type="xml">
+                <field name="active" position="before">
+                    <field name="qty_available"/>
+                </field>
             </field>
-        </field>
-    </record>
-</odoo>
+        </record>
+    </data>
+</openerp>

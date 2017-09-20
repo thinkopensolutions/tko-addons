@@ -21,26 +21,31 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import fields, osv
-class stock_warehouse_orderpoint(osv.osv):
-    """
-    Defines Minimum stock rules.
-    """
-    _inherit = "stock.warehouse.orderpoint"
-    _description = "Minimum Inventory Rule"
 
-    _columns = {
-     'qty_available' : fields.boolean(u'Subtract Quantity On Hand')
-    }
-    _defaults={
-        'qty_available' : True
-    }
-
-    def subtract_procurements(self, cr, uid, orderpoint, context=None):
-        '''This function returns quantity of product that needs to be deducted from the orderpoint computed quantity because there's already a procurement created with aim to fulfill it.
-        '''
-        qty = super(stock_warehouse_orderpoint, self).subtract_procurements(cr, uid, orderpoint, context=None)
-        # add available product qty
-        if orderpoint.qty_available:
-            qty += orderpoint.product_id.qty_available
-        return qty
+{
+    'name': 'tko_stock',
+    'version': '0.002',
+    'category': 'Customizations',
+    'sequence': 38,
+    'complexity': 'medium',
+    'description': ''' This module allows configure orderpoints subtracting quantity on hand of product
+''',
+    'author': 'ThinkOpen Solutions Brasil',
+    'website': 'http://www.tkobr.com',
+    'images': ['images/oerp61.jpeg',
+               ],
+    'depends': [
+        'stock',
+    ],
+    'data': [
+        'stock_view.xml',
+    ],
+    'init': [],
+    'demo': [],
+    'update': [],
+    'test': [],  # YAML files with tests
+    'installable': True,
+    'application': False,
+    'auto_install': False,  # If it's True, the modules will be auto-installed when all dependencies are installed
+    'certificate': '',
+}

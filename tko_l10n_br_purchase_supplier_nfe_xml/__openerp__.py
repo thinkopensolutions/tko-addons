@@ -4,8 +4,8 @@
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
 #
-#    Thinkopen Brasil
-#    Copyright (C) Thinkopen Solutions Brasil (<http://www.tkobr.com>).
+#    ThinkOpen Solutions Brasil
+#    Copyright (C) Thinkopen Solutions <http://www.tkobr.com>.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -21,4 +21,31 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import stock
+
+{
+    'name': 'tko_l10n_br_purchase_supplier_nfe_xml',
+    'version': '8.0',
+    'category': 'Localisation',
+    'sequence': 4,
+    'complexity': 'normal',
+    'description': '''''',
+    'author': 'ThinkOpen Solutions Brasil',
+    'license': 'AGPL-3',
+    'website': 'http://www.tkobr.com',
+    'depends': [
+        'base',
+        'purchase'
+    ],
+    'data': [
+        'views/account_invoice_xml_view.xml',
+        'views/account_invoice_wizard_view.xml'
+    ],
+    'init': [],
+    'demo': [],
+    'update': [],
+    'test': [],  # YAML files with tests
+    'installable': True,
+    'application': False,
+    'auto_install': False,
+    'certificate': '',
+}
