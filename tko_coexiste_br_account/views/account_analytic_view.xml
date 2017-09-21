@@ -51,9 +51,9 @@
                 <data>
                     <xpath expr="//field[@name='date']" position="after">
                         <field name="invoice_id"/>
-                        <!-- <field name="payment_date" string="payment Date" filter_domain="[('payment_date','&gt;=',self)]"/>
+                        <field name="payment_date" string="payment Date"/>
                         <field name="credit" string="Credit"/>
-                        <field name="debit" string="Debit"/> -->
+                        <field name="debit" string="Debit"/>
                     </xpath>
                 </data>
             </field>
