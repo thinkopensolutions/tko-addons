@@ -23,13 +23,13 @@ class AccountAnalyticLine(models.Model):
     date_due =fields.Date(related='invoice_id.date_due', string='Due Date')
     company_id = fields.Many2one(related='move_id.company_id', string='Company', store=True, readonly=False)
     journal_id = fields.Many2one(related='move_id.journal_id', string='Journal', store=True, readonly=False)
-    invoice_id = fields.Many2one('account.invoice', string='Invoice ID', copy=False)
     state = fields.Selection(related='invoice_id.state', string='State')
     date_due =fields.Date(related='invoice_id.date_due', string='Due Date')
     payment_move_line_ids = fields.Many2many(related='invoice_id.payment_move_line_ids', string="Analytic Payment Lines")
-    # payment_date = fields.Date(related='payment_move_line_ids.date', string='Payment Date')
-    # credit = fields.Date(related='payment_move_line_ids.credit', string='Credit')
-    # debit = fields.Date(related='payment_move_line_ids.debit', string='Debit')
+    # payment_date = fields.Date(string='Payment Date', compute='_get_date', store=True)
+    payment_date = fields.Date(related='payment_move_line_ids.date', string='Payment Date')
+    credit = fields.Monetary(related='payment_move_line_ids.credit', string='Credit')
+    debit = fields.Monetary(related='payment_move_line_ids.debit', string='Debit')
     line_total = fields.Float('Total', compute='_total_compute', store=True)
 
     @api.model
