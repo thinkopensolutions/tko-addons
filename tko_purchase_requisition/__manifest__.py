@@ -36,9 +36,12 @@
         'purchase_requisition',
     ],
     'data': [
+        'template.xml',
+        'bid_line_qty_view.xml',
         'purchase_requisition_view.xml',
         'wizard/purchase_requisition_wizard_view.xml',
     ],
+    'qweb': ['static/src/xml/genereate_po.xml'],
     'init': [],
     'demo': [],
     'update': [],

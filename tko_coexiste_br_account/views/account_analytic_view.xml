@@ -19,10 +19,11 @@
                     <page string="Payment Info">
                         <!--<button name="get_history" type="object" string="Get History"/>-->
                         <!--<button name="get_inv_history" type="object" string="Get Invoice History"/>-->
-                        <field name="payment_line">
+                        <field name="payment_move_line_ids">
                             <tree create="0">
-                                <field name="payment_date"/>
-                                <field name="amount"/>
+                                <field name="date" string="Payment Date"/>
+                                <field name="credit"/>
+                                <field name="debit"/>
                             </tree>
                         </field>
                     </page>
@@ -50,10 +51,11 @@
                 <data>
                     <xpath expr="//field[@name='date']" position="after">
                         <field name="invoice_id"/>
+                        <field name="payment_date" string="payment Date"/>
+                        <field name="credit" string="Credit"/>
+                        <field name="debit" string="Debit"/>
                     </xpath>
                 </data>
             </field>
         </record>
 </odoo>
-
-
