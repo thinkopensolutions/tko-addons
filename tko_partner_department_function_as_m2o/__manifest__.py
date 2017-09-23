@@ -37,7 +37,7 @@
                ],
     'depends': [
         'tko_partner_department_function',
-        'tko_l10n_br_base',
+        'br_base',
 
     ],
     'data': [
