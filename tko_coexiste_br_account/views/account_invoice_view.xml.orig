@@ -8,6 +8,7 @@
             <field name="move_id" position="after">
                 <field name="expense_type_id" options="{'no_create': True}" domain="[('expense_type','in',['c','b'])]"/>
             </field>
+<<<<<<< HEAD
             <xpath expr="//notebook[last()]" position="inside">
                 <page string="Payment Info">
                     <!--<button name="update_history" type="object" string="Get History"/>-->
@@ -19,6 +20,8 @@
                     </field>
                 </page>
             </xpath>
+=======
+>>>>>>> Fix OCR no thread
         </field>
     </record>
 
@@ -53,9 +56,9 @@
             <xpath expr="//field[@name='fiscal_position_id']" position="before">
                 <field name="payment_term_id" />
             </xpath>
+<<<<<<< HEAD
             <xpath expr="//notebook[last()]" position="inside">
                 <page string="Payment Info">
-                    <button name="update_history" type="object" string="Get History"/>
                     <field name="payment_line">
                         <tree create="0">
                             <field name="payment_date"/>
@@ -75,6 +78,8 @@
             <field name="date" position="after">
                 <field name="payment_date" string="payment Date" filter_domain="[('payment_date','&gt;=',self)]"/>
             </field>
+=======
+>>>>>>> Fix OCR no thread
         </field>
     </record>
 </odoo>

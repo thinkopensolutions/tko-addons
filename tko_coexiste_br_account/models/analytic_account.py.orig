@@ -2,6 +2,7 @@
 from odoo import models, fields, api, _
 
 
+<<<<<<< HEAD
 class AccountAnalyticPayment(models.Model):
     _name = 'account.analytic.payment'
     _description = 'Analytic Payment Details'
@@ -143,3 +144,11 @@ class AccountAnalyticLine(models.Model):
             line.write({'invoice_id':invoice.id,'state':invoice.state, 'date_due':invoice.date_due})
             pass
         return True
+=======
+class AccountAnalyticLine(models.Model):
+    _inherit = 'account.analytic.line'
+
+    partner_id = fields.Many2one('res.partner', related='move_id.partner_id', string='Partner', store=True)
+    company_id = fields.Many2one(related='move_id.company_id', string='Company', store=True, readonly=False)
+    journal_id = fields.Many2one(related='move_id.journal_id', string='Journal', store=True, readonly=False)
+>>>>>>> Fix OCR no thread

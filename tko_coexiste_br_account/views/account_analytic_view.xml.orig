@@ -6,6 +6,7 @@
         <field name="arch" type="xml">
             <field name="currency_id" position="after">
                 <field name="journal_id"/>
+<<<<<<< HEAD
                 <field name="line_total"/>
             </field>
             <xpath expr="//field[@name='date']" position="after">
@@ -57,3 +58,10 @@
 </odoo>
 
 
+=======
+            </field>
+        </field>
+    </record>
+</odoo>
+
+>>>>>>> Fix OCR no thread
