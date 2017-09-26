@@ -56,7 +56,7 @@
             <field name="model">purchase.order.line</field>
             <field eval="1" name="priority"/>
             <field name="arch" type="xml">
-                <tree string="Purchase Order Lines" create="false" colors="blue:state == 'confirmed';gray:state == 'cancel'">
+                <tree string="Purchase Order Lines" create="false" colors="blue:state == 'confirmed';gray:state == 'cancel';green:is_lowest_price == True;">
                     <field name="name"/>
                     <field name="id"/>
                     <field name="partner_id" string="Supplier" />
@@ -67,6 +67,7 @@
                     <field name="product_uom" groups="product.group_uom"/>
                     <field name="price_subtotal"/>
                     <field name="state" invisible="1"/>
+                    <field name="is_lowest_price" invisible="1"/>
                     <button name="action_draft" states="purchase" type="object" string="Cancel Choice" icon="fa-times-circle"/>
                     <button name="%(tko_purchase_requisition.action_bid_line_qty)d" type="action" states="draft" string="Change Quantity" icon="fa-reply"/>
                     <button name="action_confirm" states="draft" type="object" string="Confirm Order" icon="fa-check-circle"/>
