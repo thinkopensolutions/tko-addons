@@ -30,6 +30,7 @@ class purchase_order_line(models.Model):
     _inherit = 'purchase.order.line'
 
     quantity_bid = fields.Float('Quantity Bid', help="Technical field for not loosing the initial information about the quantity proposed in the bid")
+    is_lowest_price = fields.Boolean('Is Lowest Price?', help='Use for highlight to lowest price from Bids.')
 
     @api.one
     def action_draft(self):
@@ -126,18 +127,35 @@ class PurchaseRequisition(models.Model):
     @api.multi
     def view_product_line(self):
         res = self.env.ref('tko_purchase_requisition.purchase_line_tree')
+        po_line_obj = self.env['purchase.order.line']
         lst = []
         for x in self.purchase_ids:
             for line in x.order_line:
-                lst.append(line)
+                line.is_lowest_price = False
+                lst.append(line.id)
         if res:
-           return {
+            if lst:
+                self._cr.execute('''SELECT product_id FROM purchase_order_line
+                                        WHERE id in (%s) GROUP BY product_id
+                                    ''' %(','.join(map(str, lst))))
+                datas = [line[0] for line in self._cr.fetchall()]
+                if datas:
+                    for line_id in datas:
+                        self._cr.execute('''SELECT id FROM purchase_order_line
+                                            WHERE id in (%s)
+                                            AND product_id = %s ORDER BY price_unit*product_qty ASC LIMIT 1
+                                        ''' %(','.join(map(str, lst)), line_id))
+                        datas_po_line = self._cr.fetchone()
+                        if datas_po_line:
+                            po_line_rec = po_line_obj.browse(datas_po_line[0])
+                            po_line_rec.write({'is_lowest_price': True})
+            return {
                'name': _('Bid Lines'),
                'type': 'ir.actions.act_window',
                'view_type': 'form',
                'view_mode': 'tree',
                'target' : 'current',
-               'domain':[('id', 'in', [line.id for line in lst])],
+               'domain':[('id', 'in', lst)],
                'res_model': 'purchase.order.line',
                'context': {
                             'search_default_hide_cancelled':True,
