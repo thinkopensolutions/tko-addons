@@ -69,8 +69,8 @@
                     <field name="state" invisible="1"/>
                     <field name="is_lowest_price" invisible="1"/>
                     <button name="action_draft" states="purchase" type="object" string="Cancel Choice" icon="fa-times-circle"/>
-                    <button name="%(tko_purchase_requisition.action_bid_line_qty)d" type="action" states="draft" string="Change Quantity" icon="fa-reply"/>
-                    <button name="action_confirm" states="draft" type="object" string="Confirm Order" icon="fa-check-circle"/>
+                    <button name="%(tko_purchase_requisition.action_bid_line_qty)d" type="action" attrs="{'invisible': [('state', 'not in', ('draft','sent'))]}" string="Change Quantity" icon="fa-reply"/>
+                    <button name="action_confirm" attrs="{'invisible': [('state', 'not in', ('draft','sent'))]}" type="object" string="Confirm Order" icon="fa-check-circle"/>
                 </tree>
             </field>
     </record>
