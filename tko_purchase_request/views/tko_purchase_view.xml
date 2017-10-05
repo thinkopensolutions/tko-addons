@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="purchase_order_supplier_form_analytic_account">
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']/tree//field[@name='account_analytic_id']" position="attributes">
+                <attribute name="domain">[('type','=','n')]</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/form//field[@name='account_analytic_id']" position="attributes">
+                <attribute name="domain">[('type','=','n')]</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
