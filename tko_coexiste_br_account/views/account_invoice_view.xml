@@ -11,10 +11,11 @@
             <xpath expr="//notebook[last()]" position="inside">
                 <page string="Payment Info">
                     <!--<button name="update_history" type="object" string="Get History"/>-->
-                    <field name="payment_line">
+                    <field name="payment_move_line_ids">
                         <tree create="0">
-                            <field name="payment_date"/>
-                            <field name="amount"/>
+                             <field name="date" string="Payment Date"/>
+                             <field name="credit"/>
+                             <field name="debit"/>
                         </tree>
                     </field>
                 </page>
@@ -56,10 +57,11 @@
             <xpath expr="//notebook[last()]" position="inside">
                 <page string="Payment Info">
                     <button name="update_history" type="object" string="Get History"/>
-                    <field name="payment_line">
+                    <field name="payment_move_line_ids">
                         <tree create="0">
-                            <field name="payment_date"/>
-                            <field name="amount"/>
+                            <field name="date" string="Payment Date"/>
+                            <field name="credit"/>
+                            <field name="debit"/>
                         </tree>
                     </field>
                 </page>
