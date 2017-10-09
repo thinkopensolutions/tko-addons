@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<templates id="template" xml:space="preserve">
+ 
+    <!-- Add default code in Product-->
+    
+     <t t-extend="Product">
+	    <t t-jquery="div.product-name" t-operation="append">
+	    	
+            <br/>
+                <t t-if="product.default_code" >
+                	[ <t t-esc="product.default_code"/> ]
+                </t>
+	    </t>
+	</t>
+
+    
+</templates>

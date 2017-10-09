@@ -1,0 +1,68 @@
+<openerp>
+    <data>
+
+        <record id="price_exception_form" model="ir.ui.view">
+            <field name="name">pos.price.exception</field>
+            <field name="model">pos.price.exception</field>
+            <field name="arch" type="xml">
+                <form string="Price Exception" version="7.0">
+                    <sheet>
+                        <group>
+                            <field name="template_id"/>
+                            <field name="list_price"/>
+                            <field name="config_id" invisible="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="price_exception_tree" model="ir.ui.view">
+            <field name="name">pos.price.exception</field>
+            <field name="model">pos.price.exception</field>
+            <field name="arch" type="xml">
+                <tree string="Price Exception" version="7.0">
+                    <field name="template_id"/>
+                    <field name="list_price"/>
+                    <field name="config_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="product_template_form_view" model="ir.ui.view">
+            <field name="name">product.template.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Price Exception" attrs="{'invisible' : [('available_in_pos','!=',True)]}">
+                        <field name="price_exception_ids">
+                            <tree editable="bottom">
+                                <field name="config_id"/>
+                                <field name="list_price"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+        <record id="pos_config_form" model="ir.ui.view">
+            <field name="name">Discount Cards</field>
+            <field name="model">pos.config</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_config_form"/>
+            <field name="arch" type="xml">
+                <sheet position="inside">
+                    <notebook>
+                        <page string="Price Exceptions">
+                            <field name="price_exception_ids" context="{'default_config_id' : active_id}"
+                                   domain="[('config_id','=',active_id)]">
+
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,38 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* tko_point_of_sale_station_print_layout
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0-20150322\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-05-08 06:20+0000\n"
+"PO-Revision-Date: 2015-05-08 06:20+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: tko_point_of_sale_station_print_layout
+#. openerp-web
+#: code:addons/tko_point_of_sale_station_print_layout/static/src/xml/receipt_view.xml:20
+#, python-format
+msgid "DESCRICAO"
+msgstr "DESCRICAO"
+
+#. module: tko_point_of_sale_station_print_layout
+#. openerp-web
+#: code:addons/tko_point_of_sale_station_print_layout/static/src/xml/receipt_view.xml:43
+#, python-format
+msgid "Pedido :"
+msgstr "Pedido :"
+
+#. module: tko_point_of_sale_station_print_layout
+#. openerp-web
+#: code:addons/tko_point_of_sale_station_print_layout/static/src/xml/receipt_view.xml:21
+#, python-format
+msgid "QTE"
+msgstr "QTE"
+

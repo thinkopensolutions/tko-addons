@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<templates id="template" xml:space="preserve">
+	
+	
+	<t t-name="PrinterControlOptions">
+        <div class="header-button">
+            <select id="printer-control-options">
+              <option value="no_command"> </option>
+			  <option value="r_z">Redução Z</option>
+			  <option value="l_x">Leitura X</option>
+			  <option value="c_c">Cancelar Cupom</option>
+			  <option value="a_g">Abrir Gaveta</option>
+			</select>
+        </div>
+        
+    </t>
+    <t t-name="PrinterControlWidget">
+        <div class="header-button">
+            <i class="fa fa-print"></i>
+        </div>
+    </t>
+</templates>
