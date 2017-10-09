@@ -1,0 +1,186 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* tko_point_of_sale_order_analysis
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0-20150926\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-04-14 17:36+0000\n"
+"PO-Revision-Date: 2016-04-14 17:36+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: tko_point_of_sale_order_analysis
+#: field:report.pos.order.tko,nbr:0
+msgid "# of Lines"
+msgstr "# of Lines"
+
+#. module: tko_point_of_sale_order_analysis
+#: field:report.pos.order.tko,average_price:0
+msgid "Average Price"
+msgstr "Average Price"
+
+#. module: tko_point_of_sale_order_analysis
+#: selection:report.pos.order.tko,state:0
+msgid "Cancelled"
+msgstr "Cancelled"
+
+#. module: tko_point_of_sale_order_analysis
+#: selection:report.pos.order.tko,state:0
+msgid "Closed"
+msgstr "Closed"
+
+#. module: tko_point_of_sale_order_analysis
+#: field:report.pos.order.tko,company_id:0
+msgid "Company"
+msgstr "Company"
+
+#. module: tko_point_of_sale_order_analysis
+#: field:report.pos.order.tko,date:0
+msgid "Date Order"
+msgstr "Date Order"
+
+#. module: tko_point_of_sale_order_analysis
+#: view:report.pos.order.tko:tko_point_of_sale_order_analysis.view_report_pos_order_tko
+msgid "Group By"
+msgstr "Group By"
+
+#. module: tko_point_of_sale_order_analysis
+#: field:report.pos.order.tko,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: tko_point_of_sale_order_analysis
+#: view:report.pos.order.tko:tko_point_of_sale_order_analysis.view_report_pos_order_tko
+#: selection:report.pos.order.tko,state:0
+msgid "Invoiced"
+msgstr "Invoiced"
+
+#. module: tko_point_of_sale_order_analysis
+#: field:report.pos.order.tko,journal_id:0
+msgid "Journal"
+msgstr "Journal"
+
+#. module: tko_point_of_sale_order_analysis
+#: field:report.pos.order.tko,location_id:0
+msgid "Location"
+msgstr "Location"
+
+#. module: tko_point_of_sale_order_analysis
+#: view:report.pos.order.tko:tko_point_of_sale_order_analysis.view_report_pos_order_tko
+msgid "Month of order date"
+msgstr "Month of order date"
+
+#. module: tko_point_of_sale_order_analysis
+#: view:report.pos.order.tko:tko_point_of_sale_order_analysis.view_report_pos_order_tko
+msgid "My Sales"
+msgstr "My Sales"
+
+#. module: tko_point_of_sale_order_analysis
+#: selection:report.pos.order.tko,state:0
+msgid "New"
+msgstr "New"
+
+#. module: tko_point_of_sale_order_analysis
+#: field:pos.order,no_lines:0
+msgid "No of Lines"
+msgstr "No of Lines"
+
+#. module: tko_point_of_sale_order_analysis
+#: view:report.pos.order.tko:tko_point_of_sale_order_analysis.view_report_pos_order_tko
+msgid "Not Invoiced"
+msgstr "Not Invoiced"
+
+#. module: tko_point_of_sale_order_analysis
+#: view:report.pos.order:tko_point_of_sale_order_analysis.view_report_pos_order_search
+#: field:report.pos.order,order_id:0
+#: field:report.pos.order.tko,order_id:0
+msgid "Order"
+msgstr "Order"
+
+#. module: tko_point_of_sale_order_analysis
+#: view:report.pos.order.tko:tko_point_of_sale_order_analysis.view_report_pos_order_tko
+msgid "Order Month"
+msgstr "Order Month"
+
+#. module: tko_point_of_sale_order_analysis
+#: model:ir.actions.act_window,name:tko_point_of_sale_order_analysis.action_report_pos_order_all
+#: model:ir.ui.menu,name:tko_point_of_sale_order_analysis.menu_report_pos_order_all
+msgid "Orders Analysis"
+msgstr "Análise do Pedido"
+
+#. module: tko_point_of_sale_order_analysis
+#: view:report.pos.order.tko:tko_point_of_sale_order_analysis.view_report_pos_order_tko
+msgid "POS ordered created during current year"
+msgstr "POS ordered created during current year"
+
+#. module: tko_point_of_sale_order_analysis
+#: field:report.pos.order.tko,partner_id:0
+msgid "Partner"
+msgstr "Partner"
+
+#. module: tko_point_of_sale_order_analysis
+#: model:ir.model,name:tko_point_of_sale_order_analysis.model_pos_order
+msgid "Point of Sale"
+msgstr "Ponto de Venda"
+
+#. module: tko_point_of_sale_order_analysis
+#: view:report.pos.order.tko:tko_point_of_sale_order_analysis.view_report_pos_order_graph
+#: view:report.pos.order.tko:tko_point_of_sale_order_analysis.view_report_pos_order_tko
+msgid "Point of Sale Analysis"
+msgstr "Point of Sale Analysis"
+
+#. module: tko_point_of_sale_order_analysis
+#: model:ir.model,name:tko_point_of_sale_order_analysis.model_report_pos_order
+#: model:ir.model,name:tko_point_of_sale_order_analysis.model_report_pos_order_tko
+msgid "Point of Sale Orders Statistics"
+msgstr "Estatísticas de Pedidos do Ponto de Vendas"
+
+#. module: tko_point_of_sale_order_analysis
+#: view:report.pos.order:tko_point_of_sale_order_analysis.view_report_pos_order_search
+msgid "Product"
+msgstr "Produto"
+
+#. module: tko_point_of_sale_order_analysis
+#: view:report.pos.order.tko:tko_point_of_sale_order_analysis.view_report_pos_order_tko
+#: field:report.pos.order.tko,user_id:0
+msgid "Salesperson"
+msgstr "Salesperson"
+
+#. module: tko_point_of_sale_order_analysis
+#: field:report.pos.order.tko,state:0
+msgid "Status"
+msgstr "Status"
+
+#. module: tko_point_of_sale_order_analysis
+#: selection:report.pos.order.tko,state:0
+msgid "Synchronized"
+msgstr "Synchronized"
+
+#. module: tko_point_of_sale_order_analysis
+#: field:report.pos.order.tko,total_discount:0
+msgid "Total Discount"
+msgstr "Total Discount"
+
+#. module: tko_point_of_sale_order_analysis
+#: field:report.pos.order,total_liquid:0
+#: field:report.pos.order.tko,total_liquid:0
+msgid "Total Liquid"
+msgstr "Total Liquid"
+
+#. module: tko_point_of_sale_order_analysis
+#: view:report.pos.order.tko:tko_point_of_sale_order_analysis.view_report_pos_order_tko
+msgid "Year"
+msgstr "Year"
+
+#. module: point_of_sale
+#: model:ir.actions.act_window,name:point_of_sale.action_report_pos_order_all
+#: model:ir.ui.menu,name:point_of_sale.menu_report_pos_order_all
+msgid "Order Line Analysis"
+msgstr "Análise da Linha do Pedido"
+

@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <!-- Order Type Pos Form -->
+        <record id="view_pos_pos_form" model="ir.ui.view">
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='location_id']" position="before">
+                    <field name="order_type" required="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Order Type Pos Tree View -->
+        <record id="view_pos_order_tree" model="ir.ui.view">
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="order_type"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Order Type Pos Search View -->
+        <record id="view_pos_order_filter" model="ir.ui.view">
+            <field name="name">Project Issue Month Filter Search</field>
+            <field name="model">pos.order</field>
+            <field name="type">search</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_order_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr='/search/group[@string="Group By"]' position="inside">
+                    <filter string="Order Type" context="{'group_by':'order_type'}" help="Pos Order Type"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>
+

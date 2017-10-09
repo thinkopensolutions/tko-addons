@@ -1,0 +1,17 @@
+.pos .category-simple-button {
+    font-size: 15px;
+    padding: 5px 20px;
+    line-height: 110px;
+    width: 200px;
+}
+
+/* Move to new module in future */
+
+.pos .paypad {
+    max-height: 520px;
+}
+
+.pos .paypad button {
+    height: 25px;
+    font-size: 12px;
+}

@@ -1,0 +1,19 @@
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_pos_pos_extended_form">
+            <field name="name">POS Config</field>
+            <field name="model">pos.config</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_config_form"/>
+            <field name="arch" type="xml">
+                <field name="iface_big_scrollbars" position="after">
+                    <field name="allow_disc"/>
+                    <field name="allow_price"/>
+                </field>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>
