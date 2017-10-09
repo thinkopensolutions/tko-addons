@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="index" inherit_id='point_of_sale.index' name="TKO Index">
+            <xpath expr="//link[@id='pos-stylesheet']" position="after">
+                <link rel="stylesheet" href="/tko_point_of_sale_show_only_leaf_products/static/src/css/pos.css"/>
+            </xpath>
+        </template>
+
+        <template id="assets_frontend" inherit_id="web.assets_common">
+            <xpath expr="." position="inside">
+                <script type="text/javascript"
+                        src="/tko_point_of_sale_show_only_leaf_products/static/src/js/widgets.js"></script>
+                <script type="text/javascript"
+                        src="/tko_point_of_sale_show_only_leaf_products/static/src/js/main.js"></script>
+            </xpath>
+        </template>
+    </data>
+</openerp>

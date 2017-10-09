@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pos_price_exception_mgr,POS Price Exception Manager,model_pos_price_exception,point_of_sale.group_pos_manager,1,1,1,1
+access_pos_price_exception_usr,POS Price Exception User,model_pos_price_exception,point_of_sale.group_pos_user,1,0,0,0
+access_pos_price_exception_base_usr,POS Price Exception  Base User,model_pos_price_exception,base.group_user,1,0,0,0

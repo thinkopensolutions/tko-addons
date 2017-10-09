@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+        <template id="assets_frontend" inherit_id="web.assets_common">
+            <xpath expr="." position="inside">
+                <script type="text/javascript"
+                        src="/tko_point_of_sale_product_price_by_pos/static/src/js/models.js"/>
+                <script type="text/javascript"
+                        src="/tko_point_of_sale_product_price_by_pos/static/src/js/widgets.js"/>
+                <script type="text/javascript"
+                        src="/tko_point_of_sale_product_price_by_pos/static/src/js/main.js"/>
+            </xpath>
+        </template>
+
+    </data>
+</openerp>

@@ -1,0 +1,17 @@
+<openerp>
+    <data>
+        <record id="view_report_pos_order_search" model="ir.ui.view">
+            <field name="name">report.pos.order.search</field>
+            <field name="model">report.pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_report_pos_order_search"/>
+            <field name="arch" type="xml">
+                <field name="user_id" position="after">
+                    <field name="order_id"/>
+                </field>
+                <filter string="Product" position="after">
+                    <filter string="Order" context="{'group_by':'order_id'}"/>
+                </filter>
+            </field>
+        </record>
+    </data>
+</openerp>
