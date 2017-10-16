@@ -101,8 +101,9 @@ class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
     expense_type_id = fields.Many2one('account.expense.type', string=u'Expense Type')
-    # payment_line = fields.One2many('invoice.payment.info', 'invoice_id', string="Invoice Payment Lines")
+    payment_line = fields.One2many('invoice.payment.info', 'invoice_id', string="Invoice Payment Lines")
     payment_date = fields.Date(related='payment_move_line_ids.date', string='Payment Date')
+    
 
     # set move date
     @api.multi

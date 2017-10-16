@@ -30,7 +30,7 @@ class AccountAnalyticLine(models.Model):
     invoice_id = fields.Many2one('account.invoice', string='Invoice ID', copy=False)
     state = fields.Selection(related='invoice_id.state', string='State')
     date_due =fields.Date(related='invoice_id.date_due', string='Due Date')
-    # payment_line = fields.One2many(related='invoice_id.payment_line', string="Analytic Payment Lines")
+    payment_line = fields.One2many(related='invoice_id.payment_line', string="Analytic Payment Lines")
     payment_move_line_ids = fields.Many2many(related='invoice_id.payment_move_line_ids', string="Analytic Payment Lines")
     line_total = fields.Float('Total', compute='_total_compute', store=True)
 
