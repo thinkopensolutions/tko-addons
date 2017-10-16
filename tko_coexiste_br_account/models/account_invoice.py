@@ -97,12 +97,25 @@ class AccountPayment(models.Model):
         return res
 
 
+class InvoicePaymentInfo(models.Model):
+    _name = 'invoice.payment.info'
+    _description = 'Invoice Payment Details'
+
+    payment_date = fields.Date(string='Payment Date', copy=False)
+    name = fields.Char('Name', copy=False)
+    invoice_id = fields.Many2one('account.invoice', string='Invoice ID', copy=False)
+    currency_id = fields.Many2one('res.currency', related='invoice_id.currency_id', readonly=True,
+        help='Utility field to express amount currency')
+    amount = fields.Monetary(string='Amount', copy=False, required=True, currency_field='currency_id')
+
+
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
     expense_type_id = fields.Many2one('account.expense.type', string=u'Expense Type')
-    # payment_line = fields.One2many('invoice.payment.info', 'invoice_id', string="Invoice Payment Lines")
+    payment_line = fields.One2many('invoice.payment.info', 'invoice_id', string="Invoice Payment Lines")
     payment_date = fields.Date(related='payment_move_line_ids.date', string='Payment Date')
+
 
     # set move date
     @api.multi
