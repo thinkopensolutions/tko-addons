@@ -10,7 +10,6 @@
             </field>
             <xpath expr="//notebook[last()]" position="inside">
                 <page string="Payment Info">
-                    <!--<button name="update_history" type="object" string="Get History"/>-->
                     <field name="payment_move_line_ids">
                         <tree create="0">
                              <field name="date" string="Payment Date"/>
