@@ -36,6 +36,6 @@
     'installable': True,
     'auto_install': False,
     'external_dependencies': {
-        'python': ['num2words'],
+        # 'python': ['num2words'],
     }
 }
