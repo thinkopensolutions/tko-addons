@@ -20,8 +20,8 @@
                         <field name="payment_move_line_ids">
                             <tree create="0">
                                  <field name="date" string="Payment Date"/>
-                                 <field name="credit"/>
-                                 <field name="debit"/>
+                                 <!-- <field name="credit"/>
+                                 <field name="debit"/> -->
                             </tree>
                         </field>
                     </page>
