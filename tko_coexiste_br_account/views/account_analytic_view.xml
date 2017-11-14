@@ -36,6 +36,7 @@
             <field name="arch" type="xml">
                 <data>
                     <xpath expr="//field[@name='date']" position="after">
+                        <field name="payment_date"/>
                         <field name="invoice_id"/>
                     </xpath>
                 </data>
