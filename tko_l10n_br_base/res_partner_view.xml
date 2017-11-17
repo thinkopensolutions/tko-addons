@@ -161,7 +161,7 @@
                     <page string="Internet &amp; Social Network">
                         <group>
                             <group>
-                                <field name="skype" widget="url"/>
+                                <field name="skype"/>
                                 <field name="website" widget="url"/>
                                 <field name="blog" widget="url"/>
                             </group>
