@@ -112,9 +112,17 @@ class InvoicePaymentInfo(models.Model):
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
+    @api.model
+    def _default_journal_tko(self):
+        return []
+
     expense_type_id = fields.Many2one('account.expense.type', string=u'Expense Type')
     payment_line = fields.One2many('invoice.payment.info', 'invoice_id', string="Invoice Payment Lines")
     payment_date = fields.Date(related='payment_move_line_ids.date', string='Payment Date')
+    journal_id = fields.Many2one('account.journal', string='Journal',
+         required=True, readonly=True, states={'draft': [('readonly', False)]},
+         default=_default_journal_tko,
+         domain="[('type', 'in', {'out_invoice': ['sale'], 'out_refund': ['sale'], 'in_refund': ['purchase'], 'in_invoice': ['purchase']}.get(type, [])), ('company_id', '=', company_id)]")
 
 
     # set move date
