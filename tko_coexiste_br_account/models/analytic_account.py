@@ -24,6 +24,19 @@ class AccountAnalyticLine(models.Model):
                 line_total = line_total+line.amount
             analytic_line.line_total = line_total
 
+
+    @api.multi
+    @api.depends('payment_move_line_ids')
+    def _get_payment_date(self):
+        for analytic_line in self:
+            payment_date = False
+            for line in analytic_line.payment_move_line_ids:
+                if not payment_date:
+                    payment_date = line.date
+                elif payment_date > line.date:
+                    payment_date = line.date
+            analytic_line.payment_date = payment_date
+
     partner_id = fields.Many2one('res.partner', related='move_id.partner_id', string='Partner', store=True)
     company_id = fields.Many2one(related='move_id.company_id', string='Company', store=True, readonly=False)
     journal_id = fields.Many2one(related='move_id.journal_id', string='Journal', store=True, readonly=False)
@@ -32,7 +45,8 @@ class AccountAnalyticLine(models.Model):
     date_due =fields.Date(related='invoice_id.date_due', string='Due Date')
     payment_line = fields.One2many(related='invoice_id.payment_line', string="Analytic Payment Lines")
     payment_move_line_ids = fields.Many2many(related='invoice_id.payment_move_line_ids', string="Analytic Payment Lines")
-    line_total = fields.Float('Total', compute='_total_compute', store=True)
+    line_total = fields.Float('Total', compute=_total_compute, store=True)
+    payment_date = fields.Date(compute=_get_payment_date)
 
     @api.model
     def create(self, vals):

@@ -37,6 +37,7 @@
                 <data>
                     <xpath expr="//field[@name='date']" position="after">
                         <field name="invoice_id"/>
+                        <field name="payment_date"/>
                     </xpath>
                 </data>
             </field>
