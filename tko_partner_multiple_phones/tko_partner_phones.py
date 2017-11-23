@@ -53,7 +53,7 @@ class res_partner_phone(osv.osv):
     }
     _sql_constraints = [
         ('unique_phone_no',
-         'unique(res_partner_id,phone)',
+         'unique(phone)',
          "Phone number should be unique !"),
     ]
     _constraints = []
