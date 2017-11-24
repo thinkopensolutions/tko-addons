@@ -12,6 +12,11 @@
             <field name="code">phone</field>
         </record>
 
+        <record model="res.partner.phone.type" id="phone_type3">
+            <field name="name">Residencial</field>
+            <field name="code">res</field>
+        </record>
+
         <function model="res.partner" name="_create_multiple_phones_at_first_install"/>
 
     </data>
