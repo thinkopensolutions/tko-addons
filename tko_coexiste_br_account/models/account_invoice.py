@@ -169,7 +169,6 @@ class AccountInvoice(models.Model):
         if self.type in ['in_invoice', 'in_refund']:
             self.journal_id = []
 
-
     @api.model
     def create(self, vals):
         result = super(AccountInvoice, self).create(vals)
