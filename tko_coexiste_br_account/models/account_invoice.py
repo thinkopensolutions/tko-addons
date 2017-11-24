@@ -118,7 +118,7 @@ class AccountInvoice(models.Model):
             return self.env['account.journal'].browse(self._context.get('default_journal_id'))
         inv_type = self._context.get('type', 'out_invoice')
         result = super(AccountInvoice, self)._default_journal()
-        if inv_type == 'out_invoice':
+        if inv_type in ('out_invoice', 'out_refund'):
             result = super(AccountInvoice, self)._default_journal()
         else:
             result = []
@@ -159,10 +159,16 @@ class AccountInvoice(models.Model):
     @api.onchange('partner_id', 'company_id')
     def _onchange_partner_id(self):
         res = super(AccountInvoice, self)._onchange_partner_id()
-        if self.type == 'in_invoice':
-            self.journal_id = False
+        # import pdb; pdb.set_trace()
+        self.type in ['in_invoice', 'in_refund']
+            self.journal_id = []
         return res
 
+    @api.onchange('journal_id')
+    def _onchange_journal_id(self):
+        super(AccountInvoice, self)._onchange_journal_id()
+        if self.journal_id and self.type in ['in_invoice', 'in_refund']:
+            self.journal_id = []
 
     @api.model
     def create(self, vals):
