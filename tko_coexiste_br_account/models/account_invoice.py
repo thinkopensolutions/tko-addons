@@ -160,14 +160,13 @@ class AccountInvoice(models.Model):
     def _onchange_partner_id(self):
         res = super(AccountInvoice, self)._onchange_partner_id()
         # import pdb; pdb.set_trace()
-        self.type in ['in_invoice', 'in_refund']
+        if self.type in ['in_invoice', 'in_refund']:
             self.journal_id = []
         return res
 
-    @api.onchange('journal_id')
-    def _onchange_journal_id(self):
-        super(AccountInvoice, self)._onchange_journal_id()
-        if self.journal_id and self.type in ['in_invoice', 'in_refund']:
+    @api.onchange('account_id')
+    def _onchange_account_id(self):
+        if self.type in ['in_invoice', 'in_refund']:
             self.journal_id = []
 
 
