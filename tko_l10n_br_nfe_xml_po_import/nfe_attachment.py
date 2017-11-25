@@ -330,6 +330,7 @@ class nfeAttachmentWizard(models.TransientModel):
                             non_tax_tags = 0
                             icmsst = 0
                             cofins_cst_id = pis_cst_id = icms_cst_id = ipi_cst_id = False
+                            print "product_taxes......................",product_taxes
                             for tax_info in product_taxes:
                                 tag = tax_info.tag.split('}')[-1]
                                 tax_name = tag
@@ -469,7 +470,7 @@ class nfeAttachmentWizard(models.TransientModel):
                                                       'product_uom': uom.id,
                                                       'date_planned' :fields.Date.today(),
                                                       # 'fiscal_classification_id': ncm_id,
-                                                      # 'puchase_line_tax_id': [(6, False, tax_ids)],
+                                                      'taxes_id': [(6, False, tax_ids)],
                                                       # 'discount': discount_percentage,
                                                       # 'cfop_id': cfop_id,
                                                       # 'cofins_cst_id': cofins_cst_id,
@@ -477,9 +478,7 @@ class nfeAttachmentWizard(models.TransientModel):
                                                       # 'icms_cst_id': icms_cst_id,
                                                       # 'ipi_cst_id': ipi_cst_id,
                                                       })
-                        print "puchase_dict..................",puchase_dict
                         order = self.env['purchase.order'].create(puchase_dict)
-                        print "order............created.................", order
                         po_line_obj = self.env['purchase.order.line']
 
                         # create PO lines
