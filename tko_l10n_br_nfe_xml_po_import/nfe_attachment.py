@@ -58,7 +58,6 @@ class nfeAttachmentWizard(models.TransientModel):
         if not self.import_doc == 'p':
             return super(nfeAttachmentWizard, self).import_nfe_xml()
         else:
-            print "yogesh============================="
             for attachment in self.attachment_ids:
                 def get_cfop(cfop_code):
                     result = {'id': False, 'error_message': 'CFOP %s not found' % cfop_code}
@@ -218,7 +217,7 @@ class nfeAttachmentWizard(models.TransientModel):
                     return {'id': False, 'message': message, 'tax_code': tax_code.id}
 
                 if attachment.index_content:
-                    # try:
+                    try:
                         xml = attachment.index_content.encode('utf-8')
                         root = ET.fromstring(xml)
                         root.findall("./country/neighbor")
@@ -302,9 +301,6 @@ class nfeAttachmentWizard(models.TransientModel):
                             else:
                                 product_template = self.env['product.template'].search([('name', '=', product_name)],
                                                                                        limit=1)
-                                product = self.env['product.product'].search(
-                                    [('default_code', '=', product_code)], limit=1)
-                                product_template = product.product_tmpl_id
                                 if not len(product_template) and not product:
                                     product_template = self.env['product.template'].create({'name': product_name,
                                                                                             'uom_id': uom.id,
@@ -319,11 +315,10 @@ class nfeAttachmentWizard(models.TransientModel):
                                                                              'product_tmpl_id': product_template.id,
                                                                              })
                             # search product based on product template, it will be selected in order line
-                            if not product:
-                                product = self.env['product.product'].search(
-                                    [('product_tmpl_id', '=', product_template.id)], limit=1)
-                                if not len(product):
-                                    raise Warning(_("Product %s not found in database" % product_template.name))
+                            product = self.env['product.product'].search(
+                                [('product_tmpl_id', '=', product_template.id)], limit=1)
+                            if not len(product):
+                                raise Warning(_("Product %s not found in database" % product_template.name))
                             # compute taxes of line
                             tax_ids = []
                             message = 'Taxes not found for product %s, \n Please create taxes with below information or select Create Taxes to auto create taxes ..: \n  ' % product.name
@@ -396,87 +391,13 @@ class nfeAttachmentWizard(models.TransientModel):
                                 raise Warning(
                                     ("%s %s %s") % (message, len(product_taxes) + icmsst, len(tax_ids) + non_tax_tags))
 
-                            # # create order line after taxes comoputation
-                            # if po:
-                            #     # check if product exists in PO
-                            #     for pol in po.order_line:
-                            #         # match without unit price"
-                            #         productinfo = self.env['product.supplierinfo'].search(
-                            #             [('name', '=', po.partner_id.id), ('product_code', '=', product_code)])
-                            #         if len(productinfo) > 1:
-                            #             po_line_warning = po_line_warning + "Name: %s \n Supplier Product Code: %s [Found %s records]\n Quantity: %s\n UoM: %s\n Supplier: %s \n" % (
-                            #             product_name, product_code, len(productinfo), product_qty, uom.name,
-                            #             po.partner_id.name)
-                            #             break
-                            #         if len(productinfo):
-                            #             product_template = productinfo.product_tmpl_id
-                            #         else:
-                            #             product_template = self.env['product.template'].search(
-                            #                 [('name', '=', product_name)], limit=1)
-                            #             if not len(product_template):
-                            #                 product_template = self.env['product.template'].create(
-                            #                     {'name': product_name,
-                            #                      'uom_id': uom.id,
-                            #                      'uom_po_id': uom.id,
-                            #                      'type': 'product',
-                            #                      'ncm_id': ncm_id,
-                            #                      'purchase_ok': True,
-                            #                      'default_code': product_code,
-                            #                      })
-                            #             self.env['product.supplierinfo'].create({'name': partner.id,
-                            #                                                      'product_code': product_code,
-                            #                                                      'product_tmpl_id': product_template.id,
-                            #                                                      })
-                            #         product = self.env['product.product'].search(
-                            #             [('product_tmpl_id', '=', product_template.id)], limit=1)
-                            #
-                            #         if po.partner_id.id in [seller.name.id for seller in pol.product_id.seller_ids if
-                            #                                 seller.name] and pol.product_id.id == product.id and float(
-                            #                 pol.product_qty) == float(
-                            #                 product_qty) and pol.product_uom.name.lower() == uom.name.lower():
-                            #             # match with unit price
-                            #             if float(pol.price_unit) == float(unit_price) and sorted(tax_ids) == sorted(
-                            #                     [tax.id for tax in pol.taxes_id]):
-                            #                 print "PO line matched..............", sorted(tax_ids)
-                            #             else:
-                            #                 self.env['poline.info'].create({'product_name': pol.product_id.name,
-                            #                                                 'product_qty': pol.product_qty,
-                            #                                                 'product_uom': pol.product_uom.id,
-                            #                                                 'unit_price': pol.price_unit,
-                            #                                                 'wizard_id': self.id,
-                            #                                                 'tax_ids': [(6, 0, tax_ids)]
-                            #                                                 })
-                            #                 self.env['xml.line.info'].create({'product_name': product_name,
-                            #                                                   'product_qty': product_qty,
-                            #                                                   'product_uom': uom.id,
-                            #                                                   'unit_price': unit_price,
-                            #                                                   'wizard_id': self.id,
-                            #
-                            #                                                   })
-                            #                 # correct unite price in PO Order
-                            #                 if self.correct_po_from_xml:
-                            #                     pol.write({'price_unit': unit_price, 'taxes_id': [(6, 0, tax_ids)]})
-                            #             break
-                            #
-                            #     else:
-                            #         po_line_warning = po_line_warning + "Name: %s \n Supplier Product Code: %s\n Quantity: %s\n UoM: %s\n Supplier: %s \n" % (
-                            #         product_name, product_code, product_qty, uom.name, po.partner_id.name)
-                            #         po_line_not_found = True
-                            # append dict with inv line values to create outside of for loop
                             puchase_line_dict.append({'product_id': product.id,
                                                       'name': product_name,
                                                       'product_qty': product_qty,
                                                       'price_unit': unit_price,
                                                       'product_uom': uom.id,
                                                       'date_planned' :fields.Date.today(),
-                                                      # 'fiscal_classification_id': ncm_id,
                                                       'taxes_id': [(6, False, tax_ids)],
-                                                      # 'discount': discount_percentage,
-                                                      # 'cfop_id': cfop_id,
-                                                      # 'cofins_cst_id': cofins_cst_id,
-                                                      # 'pis_cst_id': pis_cst_id,
-                                                      # 'icms_cst_id': icms_cst_id,
-                                                      # 'ipi_cst_id': ipi_cst_id,
                                                       })
                         order = self.env['purchase.order'].create(puchase_dict)
                         po_line_obj = self.env['purchase.order.line']
@@ -484,17 +405,10 @@ class nfeAttachmentWizard(models.TransientModel):
                         # create PO lines
                         for puchase_line in puchase_line_dict:
                             puchase_line['order_id'] = order.id
-                            po_line = po_line_obj.create(puchase_line)
-                            # puchase_line_ids.append(po_line.id)
-                        # create PO and set in PO lines
-
-
-                        # po_line_obj.browse(puchase_line_ids).write({'order_id': order.id})
-                        # compute taxes
-                        # order.button_reset_taxes()
+                            po_line_obj.create(puchase_line)
                         attachment.write({'state': 'd', 'error_message': 'Imported'})
                         return order
 
-                    # except Exception, ex:
-                    #     # set error in attachment
-                    #     attachment.write({'state': 'e', 'error_message': "Error: {0}".format(ex.args[0].encode("utf-8"))})
+                    except Exception, ex:
+                        # set error in attachment
+                        attachment.write({'state': 'e', 'error_message': "Error: {0}".format(ex.args[0].encode("utf-8"))})
