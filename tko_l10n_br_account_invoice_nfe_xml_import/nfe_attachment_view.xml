@@ -23,8 +23,8 @@
                             </tree>
                             <form>
                                 <group>
-                                    <field name="name"/>
-                                    <field name="datas"/>
+                                    <field name="name" />
+                                    <field name="datas" filename="name"/>
                                     <separator string="Note" colspan="4"/>
                                     <field name="error_message" placeholer="Error message...." colspan="4"/>
                                 </group>

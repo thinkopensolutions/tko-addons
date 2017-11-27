@@ -51,7 +51,7 @@ class nfeAttachment(models.TransientModel):
 class nfeAttachmentWizard(models.TransientModel):
     _inherit = 'nfe.attachment.wizard'
 
-    import_doc = fields.Selection([('p','Purcahse Order'),('i','Invoice')])
+    import_doc = fields.Selection([('p','Purchase Order'),('i','Invoice')])
 
     @api.multi
     def import_nfe_xml(self):
