@@ -315,17 +315,16 @@ class nfeAttachmentWizard(models.TransientModel):
                                                                              'product_tmpl_id': product_template.id,
                                                                              })
                             # search product based on product template, it will be selected in order line
-                            product = self.env['product.product'].search(
-                                [('product_tmpl_id', '=', product_template.id)], limit=1)
-                            if not len(product):
-                                raise Warning(_("Product %s not found in database" % product_template.name))
+                            if product_template:
+                                product = self.env['product.product'].search([('product_tmpl_id', '=', product_template.id)], limit=1)
+                                if not len(product):
+                                    raise Warning(_("Product %s not found in database" % product_template.name))
                             # compute taxes of line
                             tax_ids = []
                             message = 'Taxes not found for product %s, \n Please create taxes with below information or select Create Taxes to auto create taxes ..: \n  ' % product.name
                             non_tax_tags = 0
                             icmsst = 0
                             cofins_cst_id = pis_cst_id = icms_cst_id = ipi_cst_id = False
-                            print "product_taxes......................",product_taxes
                             for tax_info in product_taxes:
                                 tag = tax_info.tag.split('}')[-1]
                                 tax_name = tag
