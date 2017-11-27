@@ -23,12 +23,12 @@
 ##############################################################################
 
 {
-    'name': 'tko_l10n_br_account_supplier_xml_import',
+    'name': 'tko_l10n_br_nfe_xml_po_import',
     'version': '0.041',
     'category': 'Customizations',
     'sequence': 120,
     'complexity': 'normal',
-    'description': '''This module creates supplier invoices from NFe XML import''',
+    'description': '''This module creates purchase orders from NFe XML import''',
     'author': 'ThinkOpen Solutions Brasil',
     'website': 'http://www.tkobr.com',
     'images': ['images/oerp61.jpeg',
