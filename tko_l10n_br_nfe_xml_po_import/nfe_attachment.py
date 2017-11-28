@@ -247,7 +247,7 @@ class nfeAttachmentWizard(models.TransientModel):
                         if order:
                             attachment.write(
                                 {'state': 'd', 'error_message': 'Invoice already exists with key %s' % nfe_access_key})
-                            return True
+                            continue
                         # ELSE
 
                         puchase_line_ids = []
@@ -299,9 +299,19 @@ class nfeAttachmentWizard(models.TransientModel):
                             if len(productinfo):
                                 product_template = productinfo.product_tmpl_id
                             else:
-                                product_template = self.env['product.template'].search([('name', '=', product_name)],
+                                product_template = self.env['product.template'].search([('default_code', '=', product_code)],
                                                                                        limit=1)
-                                if not len(product_template) and not product:
+
+                                if not len(product_template):
+                                    product = self.env['product.product'].search([('default_code', '=', product_code)],
+                                                                                 limit=1)
+                                    if len(product):
+                                        product_template = product.product_tmpl_id
+
+                                    if not (product_template):
+                                        product_template = self.env['product.template'].search([('name', '=', product_name)],
+                                                                        limit=1)
+                                if not len(product_template):
                                     product_template = self.env['product.template'].create({'name': product_name,
                                                                                             'uom_id': uom.id,
                                                                                             'uom_po_id': uom.id,

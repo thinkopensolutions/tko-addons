@@ -40,6 +40,7 @@
         'tko_l10n_br_base',
         'l10n_br_account',
         'l10n_br_account_product',
+        'sync_mail_multi_attach_ext',
     ],
     'data': [
         'data/account_tax_code_template.xml',
