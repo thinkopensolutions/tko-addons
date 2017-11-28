@@ -29,6 +29,20 @@ from openerp.exceptions import Warning
 
 _logger = logging.getLogger(__name__)
 
+class nfeAttachmentMultipleFiles(models.TransientModel):
+    _name = 'nfe.attachment.multiple.files'
+
+    attachment_ids = fields.Many2many('ir.attachment','nfe_file_attachment_rel','nfe_attachment_id','attachment_id', string='Attachments')
+
+    @api.multi
+    def load_files(self):
+        active_id = self.env.context.get('active_id', False)
+        for attachment in self.attachment_ids:
+            self.env['nfe.attachment'].create({'nfe_attachment_id':attachment.id,
+                                               'wizard_id':active_id,
+                                               })
+        return True
+
 
 class nfeAttachment(models.TransientModel):
     _name = 'nfe.attachment'
