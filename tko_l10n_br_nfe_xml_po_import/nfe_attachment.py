@@ -51,7 +51,7 @@ class nfeAttachment(models.TransientModel):
 class nfeAttachmentWizard(models.TransientModel):
     _inherit = 'nfe.attachment.wizard'
 
-    import_doc = fields.Selection([('p','Purchase Order'),('i','Invoice')])
+    import_doc = fields.Selection([('p', 'Purchase Order'), ('i', 'Invoice')])
 
     @api.multi
     def import_nfe_xml(self):
@@ -125,7 +125,8 @@ class nfeAttachmentWizard(models.TransientModel):
                             # search city:
                             if city_code or city_name:
                                 if city_code:
-                                    city = self.env['l10n_br_base.city'].search([('ibge_code', '=', city_code)], limit=1)
+                                    city = self.env['l10n_br_base.city'].search([('ibge_code', '=', city_code)],
+                                                                                limit=1)
                                     if len(city):
                                         city_id = city.id
                                 if not city_id and state_id:
@@ -165,7 +166,7 @@ class nfeAttachmentWizard(models.TransientModel):
                         tax_name = "%s Entrada %s" % (domain.upper(), str(float(amount) * 100) + '%')
                     else:
                         tax_name = "%s Entrada %s MVA %s" % (
-                        domain.upper(), str(float(amount) * 100) + '%', str(float(mva_icmsst) * 100) + '%')
+                            domain.upper(), str(float(amount) * 100) + '%', str(float(mva_icmsst) * 100) + '%')
 
                     tax_code = self.env['account.tax.code'].search(
                         [('code', '=', code), ('domain', '=ilike', case_code_domain), ('company_id', '=', company.id)],
@@ -207,12 +208,12 @@ class nfeAttachmentWizard(models.TransientModel):
                         else:
                             message = _(
                                 u"Tax Name: %s  \n Account Base Code: %s \n Company : %s \n Domain : %s, \n Tax percent : %s  \n Tax Application in:  Purchase, All" % (
-                                tax_name, code, company.name, domain, amount))
+                                    tax_name, code, company.name, domain, amount))
                             return {'id': False, 'message': message}
                     else:
                         message = _(
                             u"Tax code not found Tax Case Name: %s \n Company : %s \n Domain : %s, \n Case Code : %s" % (
-                            domain, company.name, domain, domain.lower()))
+                                domain, company.name, domain, domain.lower()))
                         return {'id': False, 'message': message, 'tax_code': tax_code.id}
                     return {'id': False, 'message': message, 'tax_code': tax_code.id}
 
@@ -232,6 +233,10 @@ class nfeAttachmentWizard(models.TransientModel):
                         fiscal_category = self.env['l10n_br_account.fiscal.category'].search(
                             [('type', '=', 'input'), ('state', '=', 'approved'), ('journal_type', '=', 'purchase')],
                             limit=1)
+                        picking_type_id = self.env['purchase.order']._get_picking_in()
+                        location_id = self.env['stock.picking.type'].browse(picking_type_id).default_location_dest_id.id
+                        if not location_id:
+                            raise Warning(_("Destination Location not found"))
                         # create order
                         puchase_dict = {
                             'partner_id': partner.id,
@@ -239,9 +244,9 @@ class nfeAttachmentWizard(models.TransientModel):
                             'nfe_access_key': nfe_access_key,
                             'fiscal_type': 'product',
                             'fiscal_category_id': fiscal_category.id,
-                            'location_id': partner.property_stock_supplier.id, # TODO location_id
+                            'location_id': location_id,  # partner.property_stock_supplier.id, # TODO location_id
                             # 'xml_data': xml,
-                            'pricelist_id' : 1,
+                            'pricelist_id': 1,
                         }
                         order = self.env['purchase.order'].search([('nfe_access_key', '=', nfe_access_key)], limit=1)
                         if order:
@@ -299,8 +304,9 @@ class nfeAttachmentWizard(models.TransientModel):
                             if len(productinfo):
                                 product_template = productinfo.product_tmpl_id
                             else:
-                                product_template = self.env['product.template'].search([('default_code', '=', product_code)],
-                                                                                       limit=1)
+                                product_template = self.env['product.template'].search(
+                                    [('default_code', '=', product_code)],
+                                    limit=1)
 
                                 if not len(product_template):
                                     product = self.env['product.product'].search([('default_code', '=', product_code)],
@@ -309,8 +315,9 @@ class nfeAttachmentWizard(models.TransientModel):
                                         product_template = product.product_tmpl_id
 
                                     if not (product_template):
-                                        product_template = self.env['product.template'].search([('name', '=', product_name)],
-                                                                        limit=1)
+                                        product_template = self.env['product.template'].search(
+                                            [('name', '=', product_name)],
+                                            limit=1)
                                 if not len(product_template):
                                     product_template = self.env['product.template'].create({'name': product_name,
                                                                                             'uom_id': uom.id,
@@ -326,7 +333,8 @@ class nfeAttachmentWizard(models.TransientModel):
                                                                              })
                             # search product based on product template, it will be selected in order line
                             if product_template:
-                                product = self.env['product.product'].search([('product_tmpl_id', '=', product_template.id)], limit=1)
+                                product = self.env['product.product'].search(
+                                    [('product_tmpl_id', '=', product_template.id)], limit=1)
                                 if not len(product):
                                     raise Warning(_("Product %s not found in database" % product_template.name))
                             # compute taxes of line
@@ -405,7 +413,7 @@ class nfeAttachmentWizard(models.TransientModel):
                                                       'product_qty': product_qty,
                                                       'price_unit': unit_price,
                                                       'product_uom': uom.id,
-                                                      'date_planned' :fields.Date.today(),
+                                                      'date_planned': fields.Date.today(),
                                                       'taxes_id': [(6, False, tax_ids)],
                                                       })
                         order = self.env['purchase.order'].create(puchase_dict)
@@ -420,4 +428,5 @@ class nfeAttachmentWizard(models.TransientModel):
 
                     except Exception, ex:
                         # set error in attachment
-                        attachment.write({'state': 'e', 'error_message': "Error: {0}".format(ex.args[0].encode("utf-8"))})
+                        attachment.write(
+                            {'state': 'e', 'error_message': "Error: {0}".format(ex.args[0].encode("utf-8"))})
