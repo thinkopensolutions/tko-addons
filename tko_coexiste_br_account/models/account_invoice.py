@@ -114,7 +114,15 @@ class AccountInvoice(models.Model):
 
     @api.model
     def _default_journal_tko(self):
-        return []
+        if self._context.get('default_journal_id', False):
+            return self.env['account.journal'].browse(self._context.get('default_journal_id'))
+        inv_type = self._context.get('type', 'out_invoice')
+        result = super(AccountInvoice, self)._default_journal()
+        if inv_type in ('out_invoice', 'out_refund'):
+            result = super(AccountInvoice, self)._default_journal()
+        else:
+            result = []
+        return result
 
     expense_type_id = fields.Many2one('account.expense.type', string=u'Expense Type')
     payment_line = fields.One2many('invoice.payment.info', 'invoice_id', string="Invoice Payment Lines")
@@ -147,6 +155,21 @@ class AccountInvoice(models.Model):
         if self.type in ('out_invoice', 'out_refund'):
             self.move_id.write({'state': 'draft'})
         return result
+
+
+    @api.onchange('partner_id', 'company_id')
+    def _onchange_partner_id(self):
+        res = super(AccountInvoice, self)._onchange_partner_id()
+        # import pdb; pdb.set_trace()
+        if self.type in ['in_invoice', 'in_refund']:
+            self.journal_id = []
+        return res
+
+    @api.onchange('account_id')
+    def _onchange_account_id(self):
+        if self.type in ['in_invoice', 'in_refund']:
+            self.journal_id = []
+
 
     @api.model
     def create(self, vals):
