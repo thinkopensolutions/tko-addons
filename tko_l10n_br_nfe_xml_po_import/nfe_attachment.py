@@ -251,7 +251,8 @@ class nfeAttachmentWizard(models.TransientModel):
                         order = self.env['purchase.order'].search([('nfe_access_key', '=', nfe_access_key)], limit=1)
                         if order:
                             attachment.write(
-                                {'state': 'd', 'error_message': 'Invoice already exists with key %s' % nfe_access_key})
+                                {'state': 'd', 'error_message': 'Order with ID %s  already exists with key %s' % (
+                                order.id, nfe_access_key)})
                             continue
                         # ELSE
 
@@ -298,7 +299,7 @@ class nfeAttachmentWizard(models.TransientModel):
                             # search product in product_supplierinfo
 
                             productinfo = self.env['product.supplierinfo'].search(
-                                [('name', '=', partner.id), ('product_code', '=', product_code)], limit=1)
+                                [('product_code', '=', product_code)], limit=1)
                             if len(productinfo) > 1:
                                 raise Warning("Duplicate supplierinfo found for product code %s" % product_code)
                             if len(productinfo):
@@ -311,6 +312,7 @@ class nfeAttachmentWizard(models.TransientModel):
                                 if not len(product_template):
                                     product = self.env['product.product'].search([('default_code', '=', product_code)],
                                                                                  limit=1)
+
                                     if len(product):
                                         product_template = product.product_tmpl_id
 
@@ -318,6 +320,7 @@ class nfeAttachmentWizard(models.TransientModel):
                                         product_template = self.env['product.template'].search(
                                             [('name', '=', product_name)],
                                             limit=1)
+
                                 if not len(product_template):
                                     product_template = self.env['product.template'].create({'name': product_name,
                                                                                             'uom_id': uom.id,
@@ -424,7 +427,7 @@ class nfeAttachmentWizard(models.TransientModel):
                             puchase_line['order_id'] = order.id
                             po_line_obj.create(puchase_line)
                         attachment.write({'state': 'd', 'error_message': 'Imported'})
-                        return order
+                        # return order
 
                     except Exception, ex:
                         # set error in attachment
