@@ -1,0 +1,17 @@
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="nfe_attachment_wizard">
+            <field name="name">nfe.attachment.wizard</field>
+            <field name="model">nfe.attachment.wizard</field>
+            <field name="inherit_id" ref="tko_l10n_br_account_invoice_nfe_xml_import.nfe_attachment_wizard"/>
+            <field name="arch" type="xml">
+                <field name="active_id" position="after">
+                    <field name="import_doc" required="1"/>
+                </field>
+                <field name="invoice_type" position="attributes">
+                    <attribute name="attrs">{'invisible': [('import_doc','!=','i')]}</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

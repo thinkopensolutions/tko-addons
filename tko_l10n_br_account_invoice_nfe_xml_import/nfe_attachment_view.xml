@@ -1,5 +1,30 @@
 <openerp>
     <data>
+        <record model="ir.ui.view" id="nfe_attachment_multiple_fieles_wizard">
+            <field name="name">nfe.attachment.multiple.files</field>
+            <field name="model">nfe.attachment.multiple.files</field>
+            <field name="arch" type="xml">
+                <form version="7.0">
+                    <group string="Attach Files">
+                        <field name="attachment_ids" required="1" nolabel="1" widget="many2many_binary"/>
+                    </group>
+                    <footer>
+                        <button string="Load" type="object" name="load_files" class="oe_highlight"/>
+                        <button string="Cancel" special="cancel" class="oe_link"/>
+                    </footer>
+                </form>
+
+            </field>
+        </record>
+
+        <record id="nfe_attachment_multiple_fieles_wizard_action" model="ir.actions.act_window">
+            <field name="name">Attach Multiple Files</field>
+            <field name="res_model">nfe.attachment.multiple.files</field>
+            <field name="view_mode">form</field>
+            <field name="view_type">form</field>
+            <field name="target">new</field>
+        </record>
+
         <record model="ir.ui.view" id="nfe_attachment_wizard">
             <field name="name">nfe.attachment.wizard</field>
             <field name="model">nfe.attachment.wizard</field>
@@ -7,8 +32,14 @@
                 <form version="7.0">
                     <header>
                         <button name="import_nfe_xml" type="object" string="Import" class="oe_highlight"/>
+
                     </header>
+                    <div class="oe_button_box oe_right">
+                        <button class="oe_inline oe_stat_button"  string="Add Files" name="%(nfe_attachment_multiple_fieles_wizard_action)d" type="action" icon="fa-plus">
+                        </button>
+                    </div>
                     <group>
+
                         <field name="name" required="1"/>
                         <field name="active_model" invisible="1"/>
                         <field name="active_id" invisible="1"/>
@@ -24,7 +55,7 @@
                             <form>
                                 <group>
                                     <field name="name"/>
-                                    <field name="datas"/>
+                                    <field name="datas" filename="name"/>
                                     <separator string="Note" colspan="4"/>
                                     <field name="error_message" placeholer="Error message...." colspan="4"/>
                                 </group>
