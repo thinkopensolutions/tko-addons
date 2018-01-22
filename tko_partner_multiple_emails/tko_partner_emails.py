@@ -52,7 +52,7 @@ class res_partner_email(osv.osv):
     def _ValidateEmail(self, cr, uid, ids, context=None):
         email = str(self.browse(cr, uid, ids[0], context=context).email)
         if re.match(
-                "^.+\\@(\\[?)[a-zA-Z0-9\\-\\.]+\\.([a-zA-Z]{2,3}|[0-9]{1,3})(\\]?)$",
+                r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)",
                 email) != None:
             return True
         return False
