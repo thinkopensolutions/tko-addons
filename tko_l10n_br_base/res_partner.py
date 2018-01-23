@@ -163,7 +163,7 @@ class res_partner(osv.osv):
     def onchange_email(self):
         if self.email:
             if not re.match(
-                    "^.+\\@(\\[?)[a-zA-Z0-9\\-\\.]+\\.([a-zA-Z]{2,3}|[0-9]{1,3})(\\]?)$",
+                    r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)",
                     self.email) != None:
                 raise Warning(_('Email not validated'))
         return {'value': {'email': self.email}}
