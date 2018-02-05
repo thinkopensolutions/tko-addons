@@ -156,6 +156,7 @@ class AccountInvoice(models.Model):
             self.move_id.write({'state': 'draft'})
         return result
 
+
     @api.onchange('partner_id', 'company_id')
     def _onchange_partner_id(self):
         res = super(AccountInvoice, self)._onchange_partner_id()
@@ -168,6 +169,7 @@ class AccountInvoice(models.Model):
     def _onchange_account_id(self):
         if self.type in ['in_invoice', 'in_refund']:
             self.journal_id = []
+
 
     @api.model
     def create(self, vals):
