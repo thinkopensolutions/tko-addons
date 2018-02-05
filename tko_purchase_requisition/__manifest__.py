@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+        # -*- encoding: utf-8 -*-
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
@@ -22,10 +22,32 @@
 #
 ##############################################################################
 
-from odoo import models, fields, api, _
-
-
-class ResPartner(models.Model):
-    _inherit = 'res.partner'
-
-    is_student = fields.Boolean('Is a Student', required=False)
+{
+    'name': 'Merge Purchase Requisition Orders',
+    'version': '10.0.0.0.0',
+    'category': 'Customizations',
+    'sequence': 14,
+    'complexity': 'medium',
+    'description': ''' == This module allows to merge Requisition Orders in Draft Stage ==\n
+''',
+    'author': 'ThinkOpen Solutions Brasil',
+    'website': 'http://www.tkobr.com',
+    'depends': [
+        'purchase_requisition',
+    ],
+    'data': [
+        'template.xml',
+        'bid_line_qty_view.xml',
+        'purchase_requisition_view.xml',
+        'wizard/purchase_requisition_wizard_view.xml',
+    ],
+    'qweb': ['static/src/xml/genereate_po.xml'],
+    'init': [],
+    'demo': [],
+    'update': [],
+    'test': [],  # YAML files with tests
+    'installable': True,
+    'application': False,
+    'auto_install': False,
+    'certificate': '',
+}
