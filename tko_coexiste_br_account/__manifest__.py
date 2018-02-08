@@ -41,6 +41,8 @@
         'views/account_expense_view.xml',
         'views/ir_attachment_view.xml',
         'views/account_analytic_view.xml',
+        'views/account_view.xml',
+
     ],
     'init': [],
     'demo': [],
