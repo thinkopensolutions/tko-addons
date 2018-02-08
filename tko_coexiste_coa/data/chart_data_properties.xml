@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record id="tko_coexiste_coa_template" model="account.chart.template">
+            <field name="property_account_receivable_id" ref="1_1_2_01_001_00001" />
+            <field name="property_account_payable_id" ref="2_1_1_00_000_00000" />
+        </record>
+    </data>
+</odoo>
