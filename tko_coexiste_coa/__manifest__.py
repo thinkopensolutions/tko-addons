@@ -29,12 +29,8 @@
     'demo_xml': [],
     'test': [],
     'data': [
+        'data/account.account.template.csv',
         'data/chart_data_properties.xml',
         'data/chart_data.xml',
-        'data/account.account.template.csv',
-
-        # TODO Separate proprities for products vs. services (enhance data/chart_data_properties.xml)
-        # TODO Criar Contas Pai
-        # TODO Create & Import l10n_br Taxes
     ],
 }
