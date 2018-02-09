@@ -16,7 +16,6 @@
     'auto_install': False,
     'depends': [
         'account',
-        'br_account',
         'account_parent',
     ],
     'external_dependencies': {
@@ -29,8 +28,11 @@
     'demo_xml': [],
     'test': [],
     'data': [
+        'data/chart_data.xml',
         'data/account.account.template.csv',
         'data/chart_data_properties.xml',
-        'data/chart_data.xml',
+        # TODO Separate proprities for products vs. services (enhance data/chart_data_properties.xml)
+        # TODO Criar Contas Pai
+        # TODO Create & Import l10n_br Taxes
     ],
 }

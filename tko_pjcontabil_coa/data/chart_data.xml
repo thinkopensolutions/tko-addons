@@ -13,8 +13,8 @@
         </record>
 
 
-        <record id="tko_l10n_br_coa_template" model="account.chart.template">
-            <field name="name">Plano de Contas Coexiste</field>
+        <record id="tko_pjcontabil_coa_template" model="account.chart.template">
+            <field name="name">Plano de Contas Brasileiro</field>
             <field name="code_digits">1</field>
             <field name="bank_account_code_prefix">1.1.1.02</field>
             <field name="cash_account_code_prefix">1.1.1.01</field>
@@ -24,7 +24,7 @@
 
 
         <record id="transfer_account_id" model="account.account.template">
-            <field name="chart_template_id" ref="tko_coexiste_coa_template"/>
+            <field name="chart_template_id" ref="tko_pjcontabil_coa_template"/>
         </record>
 
     </data>
