@@ -4,6 +4,47 @@
     <data>
         <!--<menuitem id="account_reports_br_statements_menu" name="Brazilian Statements" parent="account.menu_finance_reports" sequence="3" groups="account.group_account_user"/> -->
 
+        <record model="account.account.type" id="data_account_type_receivable">
+          <field name="name">Receivable</field>
+          <field name="type">receivable</field>
+          <field name="include_initial_balance" eval="True"/>
+        </record>
+
+        <record model="account.account.type" id="data_account_type_receivable">
+          <field name="name">Receivable</field>
+          <field name="type">receivable</field>
+          <field name="include_initial_balance" eval="True"/>
+        </record>
+
+        <record model="account.account.type" id="data_account_type_other_accounts">
+          <field name="name">Outras contas</field>
+          <field name="type">other</field>
+          <field name="include_initial_balance" eval="True"/>
+        </record>
+
+        <record model="account.account.type" id="data_account_type_patrimonio_liquido">
+          <field name="name">Patrimonio Liquido</field>
+          <field name="type">other</field>
+          <field name="include_initial_balance" eval="True"/>
+        </record>
+
+        <record model="account.account.type" id="data_account_type_custo_operacionais">
+          <field name="name">Custos Operacionais</field>
+          <field name="type">other</field>
+          <field name="include_initial_balance" eval="True"/>
+        </record>
+
+        <record model="account.account.type" id="data_account_type_expenses">
+          <field name="name">Expenses</field>
+          <field name="type">other</field>
+          <field name="include_initial_balance" eval="True"/>
+        </record>
+
+        <record model="account.account.type" id="data_account_type_income">
+          <field name="name">Income</field>
+          <field name="type">other</field>
+          <field name="include_initial_balance" eval="True"/>
+        </record>
 
         <record id="transfer_account_id" model="account.account.template">
             <field name="name">Transferência de Contas</field>

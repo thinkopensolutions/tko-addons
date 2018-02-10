@@ -220,40 +220,40 @@ id,code,name,parent_id:id,user_type_id:id,reconcile,chart_template_id:id
 1_9_1_01_000_00000,1.9.1.01.000.00000,CONTAS DE COMPENSACAO ATIVAS,1_9_1_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 1_9_1_01_001_00000,1.9.1.01.001.00000,SEGUROS CONTRATADOS,1_9_1_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 1_9_1_01_002_00000,1.9.1.01.002.00000,RISCOS E ONUS PATRIMONIAIS,1_9_1_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-1_9_1_01_002_00001,1.9.1.01.002.00001,Titulos Avalizados,1_9_1_01_002_00000,__export__.account_account_type_19,FALSE,tko_pjcontabil_coa_template
-1_9_1_01_002_00002,1.9.1.01.002.00002,Titulos Endossados,1_9_1_01_002_00000,__export__.account_account_type_19,FALSE,tko_pjcontabil_coa_template
-1_9_1_01_002_00003,1.9.1.01.002.00003,Imoveis Hipotecados,1_9_1_01_002_00000,__export__.account_account_type_19,FALSE,tko_pjcontabil_coa_template
+1_9_1_01_002_00001,1.9.1.01.002.00001,Titulos Avalizados,1_9_1_01_002_00000,data_account_type_other_accounts,FALSE,tko_pjcontabil_coa_template
+1_9_1_01_002_00002,1.9.1.01.002.00002,Titulos Endossados,1_9_1_01_002_00000,data_account_type_other_accounts,FALSE,tko_pjcontabil_coa_template
+1_9_1_01_002_00003,1.9.1.01.002.00003,Imoveis Hipotecados,1_9_1_01_002_00000,data_account_type_other_accounts,FALSE,tko_pjcontabil_coa_template
 1_9_1_01_003_00000,1.9.1.01.003.00000,OPERACOES C/ MATERIAIS PROPRIOS,1_9_1_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-1_9_1_01_003_00001,1.9.1.01.003.00001,Materiais remetidos p/ Industrializacao,1_9_1_01_003_00000,__export__.account_account_type_19,FALSE,tko_pjcontabil_coa_template
-1_9_1_01_003_00002,1.9.1.01.003.00002,Materiais remetidos p/ Conserto,1_9_1_01_003_00000,__export__.account_account_type_19,FALSE,tko_pjcontabil_coa_template
-1_9_1_01_003_00003,1.9.1.01.003.00003,Mercadorias Emprestadas,1_9_1_01_003_00000,__export__.account_account_type_19,FALSE,tko_pjcontabil_coa_template
+1_9_1_01_003_00001,1.9.1.01.003.00001,Materiais remetidos p/ Industrializacao,1_9_1_01_003_00000,data_account_type_other_accounts,FALSE,tko_pjcontabil_coa_template
+1_9_1_01_003_00002,1.9.1.01.003.00002,Materiais remetidos p/ Conserto,1_9_1_01_003_00000,data_account_type_other_accounts,FALSE,tko_pjcontabil_coa_template
+1_9_1_01_003_00003,1.9.1.01.003.00003,Mercadorias Emprestadas,1_9_1_01_003_00000,data_account_type_other_accounts,FALSE,tko_pjcontabil_coa_template
 1_9_1_01_004_00000,1.9.1.01.004.00000,MERCADORIAS REMETIDAS P/ DEMONSTRACAO,1_9_1_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 1_9_1_01_005_00000,1.9.1.01.005.00000,BENS CEDIDOS EM COMODATO,1_9_1_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 1_9_1_01_006_00000,1.9.1.01.006.00000,OPERACOES C/ MATERIAIS DE TERCEIROS,1_9_1_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 1_9_2_00_000_00000,1.9.2.00.000.00000,CONTAS DE COMPENSACAO PASSIVAS,1_9_0_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 1_9_2_01_000_00000,1.9.2.01.000.00000,CONTAS DE COMPENSACAO PASSIVAS,1_9_2_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 1_9_2_01_001_00000,1.9.2.01.001.00000,CONTRATOS DE SEGUROS,1_9_2_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-1_9_2_01_001_00001,1.9.2.01.001.00001,Contratos de Seguros,1_9_2_01_001_00000,__export__.account_account_type_19,FALSE,tko_pjcontabil_coa_template
+1_9_2_01_001_00001,1.9.2.01.001.00001,Contratos de Seguros,1_9_2_01_001_00000,data_account_type_other_accounts,FALSE,tko_pjcontabil_coa_template
 1_9_2_01_002_00000,1.9.2.01.002.00000,RISCOS E ONUS PATRIMONIAIS,1_9_2_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-1_9_2_01_002_00001,1.9.2.01.002.00001,Avais concedidos,1_9_2_01_002_00000,__export__.account_account_type_19,FALSE,tko_pjcontabil_coa_template
-1_9_2_01_002_00002,1.9.2.01.002.00002,Endossos de Titulos,1_9_2_01_002_00000,__export__.account_account_type_19,FALSE,tko_pjcontabil_coa_template
-1_9_2_01_002_00003,1.9.2.01.002.00003,Hipotecas de Imoveis,1_9_2_01_002_00000,__export__.account_account_type_19,FALSE,tko_pjcontabil_coa_template
+1_9_2_01_002_00001,1.9.2.01.002.00001,Avais concedidos,1_9_2_01_002_00000,data_account_type_other_accounts,FALSE,tko_pjcontabil_coa_template
+1_9_2_01_002_00002,1.9.2.01.002.00002,Endossos de Titulos,1_9_2_01_002_00000,data_account_type_other_accounts,FALSE,tko_pjcontabil_coa_template
+1_9_2_01_002_00003,1.9.2.01.002.00003,Hipotecas de Imoveis,1_9_2_01_002_00000,data_account_type_other_accounts,FALSE,tko_pjcontabil_coa_template
 1_9_2_01_003_00000,1.9.2.01.003.00000,OPERACOES COM MATERIAIS PROPRIOS,1_9_2_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-1_9_2_01_003_00001,1.9.2.01.003.00001,Remessas para Industrializacao,1_9_2_01_003_00000,__export__.account_account_type_19,FALSE,tko_pjcontabil_coa_template
-1_9_2_01_003_00002,1.9.2.01.003.00002,Remessas para Concerto,1_9_2_01_003_00000,__export__.account_account_type_19,FALSE,tko_pjcontabil_coa_template
-1_9_2_01_003_00003,1.9.2.01.003.00003,Remessas de mercadorias para Emprestimos,1_9_2_01_003_00000,__export__.account_account_type_19,FALSE,tko_pjcontabil_coa_template
-1_9_2_01_003_00004,1.9.2.01.003.00004,Remessas de mercadorias p/ Demonstracao,1_9_2_01_003_00000,__export__.account_account_type_19,FALSE,tko_pjcontabil_coa_template
-1_9_2_01_003_00005,1.9.2.01.003.00005,Remessas de bens em Comodato,1_9_2_01_003_00000,__export__.account_account_type_19,FALSE,tko_pjcontabil_coa_template
+1_9_2_01_003_00001,1.9.2.01.003.00001,Remessas para Industrializacao,1_9_2_01_003_00000,data_account_type_other_accounts,FALSE,tko_pjcontabil_coa_template
+1_9_2_01_003_00002,1.9.2.01.003.00002,Remessas para Concerto,1_9_2_01_003_00000,data_account_type_other_accounts,FALSE,tko_pjcontabil_coa_template
+1_9_2_01_003_00003,1.9.2.01.003.00003,Remessas de mercadorias para Emprestimos,1_9_2_01_003_00000,data_account_type_other_accounts,FALSE,tko_pjcontabil_coa_template
+1_9_2_01_003_00004,1.9.2.01.003.00004,Remessas de mercadorias p/ Demonstracao,1_9_2_01_003_00000,data_account_type_other_accounts,FALSE,tko_pjcontabil_coa_template
+1_9_2_01_003_00005,1.9.2.01.003.00005,Remessas de bens em Comodato,1_9_2_01_003_00000,data_account_type_other_accounts,FALSE,tko_pjcontabil_coa_template
 1_9_2_01_004_00000,1.9.2.01.004.00000,OPERACOES COM MATERIAIS DE TERCEIROS,1_9_2_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-1_9_2_01_004_00001,1.9.2.01.004.00001,Materiais recebidos p/ Industrializacao,1_9_2_01_004_00000,__export__.account_account_type_19,FALSE,tko_pjcontabil_coa_template
-1_9_2_01_004_00002,1.9.2.01.004.00002,Materiais recebidos p/ Concerto,1_9_2_01_004_00000,__export__.account_account_type_19,FALSE,tko_pjcontabil_coa_template
-1_9_2_01_004_00003,1.9.2.01.004.00003,Mercadorias Emprestadas,1_9_2_01_004_00000,__export__.account_account_type_19,FALSE,tko_pjcontabil_coa_template
-1_9_2_01_004_00004,1.9.2.01.004.00004,Mercadorias recebidas p/ Demonstracao,1_9_2_01_004_00000,__export__.account_account_type_19,FALSE,tko_pjcontabil_coa_template
-1_9_2_01_004_00005,1.9.2.01.004.00005,Bens recebidos em Comodato,1_9_2_01_004_00000,__export__.account_account_type_19,FALSE,tko_pjcontabil_coa_template
+1_9_2_01_004_00001,1.9.2.01.004.00001,Materiais recebidos p/ Industrializacao,1_9_2_01_004_00000,data_account_type_other_accounts,FALSE,tko_pjcontabil_coa_template
+1_9_2_01_004_00002,1.9.2.01.004.00002,Materiais recebidos p/ Concerto,1_9_2_01_004_00000,data_account_type_other_accounts,FALSE,tko_pjcontabil_coa_template
+1_9_2_01_004_00003,1.9.2.01.004.00003,Mercadorias Emprestadas,1_9_2_01_004_00000,data_account_type_other_accounts,FALSE,tko_pjcontabil_coa_template
+1_9_2_01_004_00004,1.9.2.01.004.00004,Mercadorias recebidas p/ Demonstracao,1_9_2_01_004_00000,data_account_type_other_accounts,FALSE,tko_pjcontabil_coa_template
+1_9_2_01_004_00005,1.9.2.01.004.00005,Bens recebidos em Comodato,1_9_2_01_004_00000,data_account_type_other_accounts,FALSE,tko_pjcontabil_coa_template
 1_9_3_00_000_00000,1.9.3.00.000.00000,CONTAS AUXILIARES,1_9_0_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 1_9_3_01_000_00000,1.9.3.01.000.00000,CONTAS AUXILIARES,1_9_3_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 1_9_3_01_001_00000,1.9.3.01.001.00000,CONTAS AUXILIARES,1_9_3_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-1_9_3_01_001_00001,1.9.3.01.001.00001,Conta Baixa,1_9_3_01_001_00000,__export__.account_account_type_19,FALSE,tko_pjcontabil_coa_template
+1_9_3_01_001_00001,1.9.3.01.001.00001,Conta Baixa,1_9_3_01_001_00000,data_account_type_other_accounts,FALSE,tko_pjcontabil_coa_template
 2_0_0_00_000_00000,2.0.0.00.000.00000,PASSIVO,0_0_0_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 2_1_0_00_000_00000,2.1.0.00.000.00000,PASSIVO CIRCULANTE,2_0_0_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 2_1_1_00_000_00000,2.1.1.00.000.00000,Exigivel a Curto prazo,2_1_0_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
@@ -406,73 +406,73 @@ id,code,name,parent_id:id,user_type_id:id,reconcile,chart_template_id:id
 2_3_1_00_000_00000,2.3.1.00.000.00000,CAPITAL SOCIAL,2_3_0_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 2_3_1_01_000_00000,2.3.1.01.000.00000,CAPITAL SOCIAL,2_3_1_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 2_3_1_01_001_00000,2.3.1.01.001.00000,CAPITAL SUBSCRITO,2_3_1_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-2_3_1_01_001_00001,2.3.1.01.001.00001,Capital social,2_3_1_01_001_00000,__export__.account_account_type_20,FALSE,tko_pjcontabil_coa_template
+2_3_1_01_001_00001,2.3.1.01.001.00001,Capital social,2_3_1_01_001_00000,data_account_type_patrimonio_liquido,FALSE,tko_pjcontabil_coa_template
 2_3_1_02_000_00000,2.3.1.02.000.00000,( - ) CAPITAL A INTEGRALIZAR,2_3_1_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 2_3_1_02_001_00000,2.3.1.02.001.00000,( - ) CAPITAL A INTEGRALIZAR,2_3_1_02_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-2_3_1_02_001_00001,2.3.1.02.001.00001,( - ) Capital a Integralizar,2_3_1_02_001_00000,__export__.account_account_type_20,FALSE,tko_pjcontabil_coa_template
+2_3_1_02_001_00001,2.3.1.02.001.00001,( - ) Capital a Integralizar,2_3_1_02_001_00000,data_account_type_patrimonio_liquido,FALSE,tko_pjcontabil_coa_template
 2_3_2_00_000_00000,2.3.2.00.000.00000,RESERVAS DE CAPITAL,2_3_0_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 2_3_2_01_000_00000,2.3.2.01.000.00000,RESERVAS DE CAPITAL,2_3_2_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 2_3_2_01_001_00000,2.3.2.01.001.00000,RESERVAS DE CAPITAL,2_3_2_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-2_3_2_01_001_00001,2.3.2.01.001.00001,Correcao monet. do capital integralizado,2_3_2_01_001_00000,__export__.account_account_type_20,FALSE,tko_pjcontabil_coa_template
-2_3_2_01_001_00002,2.3.2.01.001.00002,Agio na emissao de acoes,2_3_2_01_001_00000,__export__.account_account_type_20,FALSE,tko_pjcontabil_coa_template
-2_3_2_01_001_00003,2.3.2.01.001.00003,Doacoes e subvencoes p/ investimentos,2_3_2_01_001_00000,__export__.account_account_type_20,FALSE,tko_pjcontabil_coa_template
+2_3_2_01_001_00001,2.3.2.01.001.00001,Correcao monet. do capital integralizado,2_3_2_01_001_00000,data_account_type_patrimonio_liquido,FALSE,tko_pjcontabil_coa_template
+2_3_2_01_001_00002,2.3.2.01.001.00002,Agio na emissao de acoes,2_3_2_01_001_00000,data_account_type_patrimonio_liquido,FALSE,tko_pjcontabil_coa_template
+2_3_2_01_001_00003,2.3.2.01.001.00003,Doacoes e subvencoes p/ investimentos,2_3_2_01_001_00000,data_account_type_patrimonio_liquido,FALSE,tko_pjcontabil_coa_template
 2_3_3_00_000_00000,2.3.3.00.000.00000,AJUSTES DE AVALIAÇÃO PATRIMONIAL,2_3_0_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 2_3_3_01_000_00000,2.3.3.01.000.00000,AJUSTES DE AVALIAÇÃO PATRIMONIAL,2_3_3_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 2_3_3_01_001_00000,2.3.3.01.001.00000,RESERVAS DE REAVALIACAO,2_3_3_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-2_3_3_01_001_00001,2.3.3.01.001.00001,Reavaliacao de ativos proprios,2_3_3_01_001_00000,__export__.account_account_type_20,FALSE,tko_pjcontabil_coa_template
-2_3_3_01_001_00002,2.3.3.01.001.00002,Reavaliacao de ativos de coligadas,2_3_3_01_001_00000,__export__.account_account_type_20,FALSE,tko_pjcontabil_coa_template
+2_3_3_01_001_00001,2.3.3.01.001.00001,Reavaliacao de ativos proprios,2_3_3_01_001_00000,data_account_type_patrimonio_liquido,FALSE,tko_pjcontabil_coa_template
+2_3_3_01_001_00002,2.3.3.01.001.00002,Reavaliacao de ativos de coligadas,2_3_3_01_001_00000,data_account_type_patrimonio_liquido,FALSE,tko_pjcontabil_coa_template
 2_3_3_01_002_00000,2.3.3.01.002.00000,AJUSTES EXERCICIOS ANTERIORES,2_3_3_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-2_3_3_01_002_00001,2.3.3.01.002.00001,Ajuste Patrimonial 2016,2_3_3_01_002_00000,__export__.account_account_type_20,FALSE,tko_pjcontabil_coa_template
+2_3_3_01_002_00001,2.3.3.01.002.00001,Ajuste Patrimonial 2016,2_3_3_01_002_00000,data_account_type_patrimonio_liquido,FALSE,tko_pjcontabil_coa_template
 2_3_4_00_000_00000,2.3.4.00.000.00000,RESERVAS DE LUCROS,2_3_0_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 2_3_4_01_000_00000,2.3.4.01.000.00000,RESERVAS DE LUCROS,2_3_4_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 2_3_4_01_001_00000,2.3.4.01.001.00000,RESERVAS DE LUCROS,2_3_4_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-2_3_4_01_001_00001,2.3.4.01.001.00001,Reserva legal,2_3_4_01_001_00000,__export__.account_account_type_20,FALSE,tko_pjcontabil_coa_template
-2_3_4_01_001_00002,2.3.4.01.001.00002,Reserva estatutaria,2_3_4_01_001_00000,__export__.account_account_type_20,FALSE,tko_pjcontabil_coa_template
-2_3_4_01_001_00003,2.3.4.01.001.00003,Reserva para contingencias,2_3_4_01_001_00000,__export__.account_account_type_20,FALSE,tko_pjcontabil_coa_template
-2_3_4_01_001_00004,2.3.4.01.001.00004,Reserva de lucros a realizar,2_3_4_01_001_00000,__export__.account_account_type_20,FALSE,tko_pjcontabil_coa_template
-2_3_4_01_001_00005,2.3.4.01.001.00005,Reserva especial,2_3_4_01_001_00000,__export__.account_account_type_20,FALSE,tko_pjcontabil_coa_template
-2_3_4_01_001_00006,2.3.4.01.001.00006,Lucros Acumulados,2_3_4_01_001_00000,__export__.account_account_type_20,FALSE,tko_pjcontabil_coa_template
-2_3_4_01_001_00007,2.3.4.01.001.00007,Reserva a Disposição da Assembleia,2_3_4_01_001_00000,__export__.account_account_type_20,FALSE,tko_pjcontabil_coa_template
+2_3_4_01_001_00001,2.3.4.01.001.00001,Reserva legal,2_3_4_01_001_00000,data_account_type_patrimonio_liquido,FALSE,tko_pjcontabil_coa_template
+2_3_4_01_001_00002,2.3.4.01.001.00002,Reserva estatutaria,2_3_4_01_001_00000,data_account_type_patrimonio_liquido,FALSE,tko_pjcontabil_coa_template
+2_3_4_01_001_00003,2.3.4.01.001.00003,Reserva para contingencias,2_3_4_01_001_00000,data_account_type_patrimonio_liquido,FALSE,tko_pjcontabil_coa_template
+2_3_4_01_001_00004,2.3.4.01.001.00004,Reserva de lucros a realizar,2_3_4_01_001_00000,data_account_type_patrimonio_liquido,FALSE,tko_pjcontabil_coa_template
+2_3_4_01_001_00005,2.3.4.01.001.00005,Reserva especial,2_3_4_01_001_00000,data_account_type_patrimonio_liquido,FALSE,tko_pjcontabil_coa_template
+2_3_4_01_001_00006,2.3.4.01.001.00006,Lucros Acumulados,2_3_4_01_001_00000,data_account_type_patrimonio_liquido,FALSE,tko_pjcontabil_coa_template
+2_3_4_01_001_00007,2.3.4.01.001.00007,Reserva a Disposição da Assembleia,2_3_4_01_001_00000,data_account_type_patrimonio_liquido,FALSE,tko_pjcontabil_coa_template
 2_3_5_00_000_00000,2.3.5.00.000.00000,( - ) ACOES EM TESOURARIA,2_3_0_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 2_3_5_01_000_00000,2.3.5.01.000.00000,( - ) ACOES EM TESOURARIA,2_3_5_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 2_3_5_01_001_00000,2.3.5.01.001.00000,( - ) ACOES EM TESOURARIA,2_3_5_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-2_3_5_01_001_00001,2.3.5.01.001.00001,( - ) Acoes em tesouraria,2_3_5_01_001_00000,__export__.account_account_type_20,FALSE,tko_pjcontabil_coa_template
+2_3_5_01_001_00001,2.3.5.01.001.00001,( - ) Acoes em tesouraria,2_3_5_01_001_00000,data_account_type_patrimonio_liquido,FALSE,tko_pjcontabil_coa_template
 2_3_6_00_000_00000,2.3.6.00.000.00000,( - )PREJUIZOS ACUMULADOS,2_3_0_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 2_3_6_01_000_00000,2.3.6.01.000.00000,( - )PREJUIZOS ACUMULADOS,2_3_6_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 2_3_6_01_001_00000,2.3.6.01.001.00000,( - )PREJUIZOS ACUMULADOS,2_3_6_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-2_3_6_01_001_00001,2.3.6.01.001.00001,( - ) Prejuizos acumulados,2_3_6_01_001_00000,__export__.account_account_type_20,FALSE,tko_pjcontabil_coa_template
+2_3_6_01_001_00001,2.3.6.01.001.00001,( - ) Prejuizos acumulados,2_3_6_01_001_00000,data_account_type_patrimonio_liquido,FALSE,tko_pjcontabil_coa_template
 2_3_6_01_002_00000,2.3.6.01.002.00000,( - ) DIVIDENDOS PAGTO ANTECIPADO,2_3_6_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-2_3_6_01_002_00001,2.3.6.01.002.00001,( - ) Dividendos Pagtos Antecipado,2_3_6_01_002_00000,__export__.account_account_type_20,FALSE,tko_pjcontabil_coa_template
+2_3_6_01_002_00001,2.3.6.01.002.00001,( - ) Dividendos Pagtos Antecipado,2_3_6_01_002_00000,data_account_type_patrimonio_liquido,FALSE,tko_pjcontabil_coa_template
 2_3_7_00_000_00000,2.3.7.00.000.00000,RESULTADO DO EXERCICIO,2_3_0_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 2_3_7_01_000_00000,2.3.7.01.000.00000,RESULTADO DO EXERCICIO,2_3_7_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 2_3_7_01_001_00000,2.3.7.01.001.00000,RESULTADO DO EXERCICIO,2_3_7_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-2_3_7_01_001_00001,2.3.7.01.001.00001,Lucro do Exercicio,2_3_7_01_001_00000,__export__.account_account_type_20,FALSE,tko_pjcontabil_coa_template
-2_3_7_01_001_00002,2.3.7.01.001.00002,Prejuízo do Exercicio,2_3_7_01_001_00000,__export__.account_account_type_20,FALSE,tko_pjcontabil_coa_template
+2_3_7_01_001_00001,2.3.7.01.001.00001,Lucro do Exercicio,2_3_7_01_001_00000,data_account_type_patrimonio_liquido,FALSE,tko_pjcontabil_coa_template
+2_3_7_01_001_00002,2.3.7.01.001.00002,Prejuízo do Exercicio,2_3_7_01_001_00000,data_account_type_patrimonio_liquido,FALSE,tko_pjcontabil_coa_template
 2_9_0_00_000_00000,2.9.0.00.000.00000,CONTAS AUXILIARES,2_0_0_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 2_9_1_00_000_00000,2.9.1.00.000.00000,CONTAS AUXILIARES,2_9_0_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 2_9_1_01_000_00000,2.9.1.01.000.00000,CONTAS AUXILIARES,2_9_1_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 2_9_1_01_001_00000,2.9.1.01.001.00000,CONTAS AUXILIARES,2_9_1_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-2_9_1_01_001_00001,2.9.1.01.001.00001,Conta de Zeramento,2_9_1_01_001_00000,__export__.account_account_type_19,FALSE,tko_pjcontabil_coa_template
+2_9_1_01_001_00001,2.9.1.01.001.00001,Conta de Zeramento,2_9_1_01_001_00000,data_account_type_other_accounts,FALSE,tko_pjcontabil_coa_template
 3_0_0_00_000_00000,3.0.0.00.000.00000,CONTAS DE RESULTADO - CUSTOS E DESPESAS,0_0_0_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 3_1_0_00_000_00000,3.1.0.00.000.00000,CUSTOS DE PRODUCAO,3_0_0_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 3_1_1_00_000_00000,3.1.1.00.000.00000,CUSTOS DE PRODUCAO,3_1_0_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 3_1_1_01_000_00000,3.1.1.01.000.00000,CUSTOS DIRETOS DE PRODUCAO,3_1_1_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 3_1_1_01_001_00000,3.1.1.01.001.00000,MATERIAL APLICADO,3_1_1_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-3_1_1_01_001_00001,3.1.1.01.001.00001,MATERIA - PRIMA,3_1_1_01_001_00000,__export__.account_account_type_21,FALSE,tko_pjcontabil_coa_template
+3_1_1_01_001_00001,3.1.1.01.001.00001,MATERIA - PRIMA,3_1_1_01_001_00000,data_account_type_custo_operacionais,FALSE,tko_pjcontabil_coa_template
 3_1_1_01_002_00000,3.1.1.01.002.00000,MAO-DE-OBRA DIRETA,3_1_1_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-3_1_1_01_002_00001,3.1.1.01.002.00001,Salarios e ordenados,3_1_1_01_002_00000,__export__.account_account_type_22,FALSE,tko_pjcontabil_coa_template
-3_1_1_01_002_00002,3.1.1.01.002.00002,Pro - labore,3_1_1_01_002_00000,__export__.account_account_type_23,FALSE,tko_pjcontabil_coa_template
-3_1_1_01_002_00003,3.1.1.01.002.00003,Premios e gratificacoes,3_1_1_01_002_00000,__export__.account_account_type_24,FALSE,tko_pjcontabil_coa_template
-3_1_1_01_002_00004,3.1.1.01.002.00004,13o Salario,3_1_1_01_002_00000,__export__.account_account_type_25,FALSE,tko_pjcontabil_coa_template
-3_1_1_01_002_00005,3.1.1.01.002.00005,Ferias,3_1_1_01_002_00000,__export__.account_account_type_26,FALSE,tko_pjcontabil_coa_template
-3_1_1_01_002_00006,3.1.1.01.002.00006,INSS,3_1_1_01_002_00000,__export__.account_account_type_27,FALSE,tko_pjcontabil_coa_template
-3_1_1_01_002_00007,3.1.1.01.002.00007,FGTS,3_1_1_01_002_00000,__export__.account_account_type_28,FALSE,tko_pjcontabil_coa_template
-3_1_1_01_002_00008,3.1.1.01.002.00008,Indenizacoes e aviso previo,3_1_1_01_002_00000,__export__.account_account_type_29,FALSE,tko_pjcontabil_coa_template
-3_1_1_01_002_00009,3.1.1.01.002.00009,Assistencia medica e social,3_1_1_01_002_00000,__export__.account_account_type_30,FALSE,tko_pjcontabil_coa_template
+3_1_1_01_002_00001,3.1.1.01.002.00001,Salarios e ordenados,3_1_1_01_002_00000,data_account_type_custo_operacionais,FALSE,tko_pjcontabil_coa_template
+3_1_1_01_002_00002,3.1.1.01.002.00002,Pro - labore,3_1_1_01_002_00000,data_account_type_custo_operacionais,FALSE,tko_pjcontabil_coa_template
+3_1_1_01_002_00003,3.1.1.01.002.00003,Premios e gratificacoes,3_1_1_01_002_00000,data_account_type_custo_operacionais,FALSE,tko_pjcontabil_coa_template
+3_1_1_01_002_00004,3.1.1.01.002.00004,13o Salario,3_1_1_01_002_00000,data_account_type_custo_operacionais,FALSE,tko_pjcontabil_coa_template
+3_1_1_01_002_00005,3.1.1.01.002.00005,Ferias,3_1_1_01_002_00000,data_account_type_custo_operacionais,FALSE,tko_pjcontabil_coa_template
+3_1_1_01_002_00006,3.1.1.01.002.00006,INSS,3_1_1_01_002_00000,data_account_type_custo_operacionais,FALSE,tko_pjcontabil_coa_template
+3_1_1_01_002_00007,3.1.1.01.002.00007,FGTS,3_1_1_01_002_00000,data_account_type_custo_operacionais,FALSE,tko_pjcontabil_coa_template
+3_1_1_01_002_00008,3.1.1.01.002.00008,Indenizacoes e aviso previo,3_1_1_01_002_00000,data_account_type_custo_operacionais,FALSE,tko_pjcontabil_coa_template
+3_1_1_01_002_00009,3.1.1.01.002.00009,Assistencia medica e social,3_1_1_01_002_00000,data_account_type_custo_operacionais,FALSE,tko_pjcontabil_coa_template
 3_1_1_01_003_00000,3.1.1.01.003.00000,GASTOS GERAIS,3_1_1_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-3_1_1_01_003_00001,3.1.1.01.003.00001,Combustiveis e lubrificantes,3_1_1_01_003_00000,__export__.account_account_type_31,FALSE,tko_pjcontabil_coa_template
-3_1_1_01_003_00002,3.1.1.01.003.00002,Energia eletrica,3_1_1_01_003_00000,__export__.account_account_type_32,FALSE,tko_pjcontabil_coa_template
-3_1_1_01_003_00003,3.1.1.01.003.00003,Servicos de terceiros,3_1_1_01_003_00000,__export__.account_account_type_33,FALSE,tko_pjcontabil_coa_template
+3_1_1_01_003_00001,3.1.1.01.003.00001,Combustiveis e lubrificantes,3_1_1_01_003_00000,data_account_type_custo_operacionais,FALSE,tko_pjcontabil_coa_template
+3_1_1_01_003_00002,3.1.1.01.003.00002,Energia eletrica,3_1_1_01_003_00000,data_account_type_custo_operacionais,FALSE,tko_pjcontabil_coa_template
+3_1_1_01_003_00003,3.1.1.01.003.00003,Servicos de terceiros,3_1_1_01_003_00000,data_account_type_custo_operacionais,FALSE,tko_pjcontabil_coa_template
 3_1_1_02_000_00000,3.1.1.02.000.00000,CUSTOS INDIRETOS DE PRODUCAO,3_1_1_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 3_1_1_02_001_00000,3.1.1.02.001.00000,MAO-DE-OBRA INDIRETA,3_1_1_02_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 3_1_1_02_002_00000,3.1.1.02.002.00000,MATERIAIS DE CONSUMO INDIRETO,3_1_1_02_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
@@ -483,8 +483,8 @@ id,code,name,parent_id:id,user_type_id:id,reconcile,chart_template_id:id
 3_1_1_02_007_00000,3.1.1.02.007.00000,COMBUSTIVEIS E ENERGIA ELETRICA,3_1_1_02_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 3_1_1_03_000_00000,3.1.1.03.000.00000,CUSTOS DIRETOS DE PRODUCAO DE SERVICOS,3_1_1_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 3_1_1_03_001_00000,3.1.1.03.001.00000,CUSTOS DIRETOS DA PRODUCAO DE SERVICOS,3_1_1_03_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-3_1_1_03_001_00001,3.1.1.03.001.00001,MAO-DE-OBRA DIRETA,3_1_1_03_001_00000,__export__.account_account_type_34,FALSE,tko_pjcontabil_coa_template
-3_1_1_03_001_00002,3.1.1.03.001.00002,GASTOS GERAIS,3_1_1_03_001_00000,__export__.account_account_type_35,FALSE,tko_pjcontabil_coa_template
+3_1_1_03_001_00001,3.1.1.03.001.00001,MAO-DE-OBRA DIRETA,3_1_1_03_001_00000,data_account_type_custo_operacionais,FALSE,tko_pjcontabil_coa_template
+3_1_1_03_001_00002,3.1.1.03.001.00002,GASTOS GERAIS,3_1_1_03_001_00000,data_account_type_custo_operacionais,FALSE,tko_pjcontabil_coa_template
 3_1_1_04_000_00000,3.1.1.04.000.00000,CUSTOS INDIRETOS DA PRODUCAO DE SERVICOS,3_1_1_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 3_1_1_04_001_00000,3.1.1.04.001.00000,MAO-DE-OBRA DIRETA,3_1_1_04_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 3_1_1_04_002_00000,3.1.1.04.002.00000,MATERIAIS DE CONSUMO INDIRETO,3_1_1_04_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
@@ -628,25 +628,25 @@ id,code,name,parent_id:id,user_type_id:id,reconcile,chart_template_id:id
 3_3_1_00_000_00000,3.3.1.00.000.00000,RESULTADOS NAO OPERACIONAIS,3_3_0_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 3_3_1_01_000_00000,3.3.1.01.000.00000,RESULTADOS NAO OPERACIONAIS,3_3_1_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 3_3_1_01_001_00000,3.3.1.01.001.00000,RES. NEGATIVOS NA ALIEN.DE INVESTIMENTOS,3_3_1_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-3_3_1_01_001_00001,3.3.1.01.001.00001,Perdas na alien. part. coligadas,3_3_1_01_001_00000,__export__.account_account_type_22,FALSE,tko_pjcontabil_coa_template
+3_3_1_01_001_00001,3.3.1.01.001.00001,Perdas na alien. part. coligadas,3_3_1_01_001_00000,data_account_type_expenses,FALSE,tko_pjcontabil_coa_template
 3_3_1_01_002_00000,3.3.1.01.002.00000,RES. NEGATIVO NA ALIEN. DO IMOBILIZADO,3_3_1_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-3_3_1_01_002_00001,3.3.1.01.002.00001,Perdas na alienacao de imoveis,3_3_1_01_002_00000,__export__.account_account_type_22,FALSE,tko_pjcontabil_coa_template
-3_3_1_01_002_00002,3.3.1.01.002.00002,Perdas na alienacao de moveis e utens.,3_3_1_01_002_00000,__export__.account_account_type_22,FALSE,tko_pjcontabil_coa_template
-3_3_1_01_002_00003,3.3.1.01.002.00003,Perdas na alien.maq.equip. e ferramentas,3_3_1_01_002_00000,__export__.account_account_type_22,FALSE,tko_pjcontabil_coa_template
-3_3_1_01_002_00004,3.3.1.01.002.00004,Perdas na alienacao de veiculos,3_3_1_01_002_00000,__export__.account_account_type_22,FALSE,tko_pjcontabil_coa_template
-3_3_1_01_002_00005,3.3.1.01.002.00005,Resultado negativo alienação imobilizado,3_3_1_01_002_00000,__export__.account_account_type_22,FALSE,tko_pjcontabil_coa_template
+3_3_1_01_002_00001,3.3.1.01.002.00001,Perdas na alienacao de imoveis,3_3_1_01_002_00000,data_account_type_expenses,FALSE,tko_pjcontabil_coa_template
+3_3_1_01_002_00002,3.3.1.01.002.00002,Perdas na alienacao de moveis e utens.,3_3_1_01_002_00000,data_account_type_expenses,FALSE,tko_pjcontabil_coa_template
+3_3_1_01_002_00003,3.3.1.01.002.00003,Perdas na alien.maq.equip. e ferramentas,3_3_1_01_002_00000,data_account_type_expenses,FALSE,tko_pjcontabil_coa_template
+3_3_1_01_002_00004,3.3.1.01.002.00004,Perdas na alienacao de veiculos,3_3_1_01_002_00000,data_account_type_expenses,FALSE,tko_pjcontabil_coa_template
+3_3_1_01_002_00005,3.3.1.01.002.00005,Resultado negativo alienação imobilizado,3_3_1_01_002_00000,data_account_type_expenses,FALSE,tko_pjcontabil_coa_template
 3_3_1_01_003_00000,3.3.1.01.003.00000,RES. NEGATIVO DE SINISTROS C/IMOBILIZADO,3_3_1_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-3_3_1_01_003_00001,3.3.1.01.003.00001,Perdas em sinistro c/ imobilizado,3_3_1_01_003_00000,__export__.account_account_type_22,FALSE,tko_pjcontabil_coa_template
+3_3_1_01_003_00001,3.3.1.01.003.00001,Perdas em sinistro c/ imobilizado,3_3_1_01_003_00000,data_account_type_expenses,FALSE,tko_pjcontabil_coa_template
 3_3_1_01_004_00000,3.3.1.01.004.00000,OUTRAS BAIXAS DO ATIVO PERMANENTE,3_3_1_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-3_3_1_01_004_00001,3.3.1.01.004.00001,Baixas de investimentos permanentes,3_3_1_01_004_00000,__export__.account_account_type_22,FALSE,tko_pjcontabil_coa_template
-3_3_1_01_004_00002,3.3.1.01.004.00002,Baixas de imobilizado,3_3_1_01_004_00000,__export__.account_account_type_22,FALSE,tko_pjcontabil_coa_template
-3_3_1_01_004_00003,3.3.1.01.004.00003,Baixas de ativo diferido,3_3_1_01_004_00000,__export__.account_account_type_22,FALSE,tko_pjcontabil_coa_template
+3_3_1_01_004_00001,3.3.1.01.004.00001,Baixas de investimentos permanentes,3_3_1_01_004_00000,data_account_type_expenses,FALSE,tko_pjcontabil_coa_template
+3_3_1_01_004_00002,3.3.1.01.004.00002,Baixas de imobilizado,3_3_1_01_004_00000,data_account_type_expenses,FALSE,tko_pjcontabil_coa_template
+3_3_1_01_004_00003,3.3.1.01.004.00003,Baixas de ativo diferido,3_3_1_01_004_00000,data_account_type_expenses,FALSE,tko_pjcontabil_coa_template
 3_3_1_01_005_00000,3.3.1.01.005.00000,PROVISOES P/ PERDAS PERMANENTES,3_3_1_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-3_3_1_01_005_00001,3.3.1.01.005.00001,Controladas e coligadas - equiv. patrim,3_3_1_01_005_00000,__export__.account_account_type_22,FALSE,tko_pjcontabil_coa_template
-3_3_1_01_005_00002,3.3.1.01.005.00002,Controldas e coligadas - custo corrigido,3_3_1_01_005_00000,__export__.account_account_type_22,FALSE,tko_pjcontabil_coa_template
-3_3_1_01_005_00003,3.3.1.01.005.00003,Outras participacoes societarias,3_3_1_01_005_00000,__export__.account_account_type_22,FALSE,tko_pjcontabil_coa_template
+3_3_1_01_005_00001,3.3.1.01.005.00001,Controladas e coligadas - equiv. patrim,3_3_1_01_005_00000,data_account_type_expenses,FALSE,tko_pjcontabil_coa_template
+3_3_1_01_005_00002,3.3.1.01.005.00002,Controldas e coligadas - custo corrigido,3_3_1_01_005_00000,data_account_type_expenses,FALSE,tko_pjcontabil_coa_template
+3_3_1_01_005_00003,3.3.1.01.005.00003,Outras participacoes societarias,3_3_1_01_005_00000,data_account_type_expenses,FALSE,tko_pjcontabil_coa_template
 3_3_1_01_006_00000,3.3.1.01.006.00000,PERDAS POR FALTA NO INVENTARIO,3_3_1_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-3_3_1_01_006_00001,3.3.1.01.006.00001,Perdas por falta no inventario,3_3_1_01_006_00000,__export__.account_account_type_22,FALSE,tko_pjcontabil_coa_template
+3_3_1_01_006_00001,3.3.1.01.006.00001,Perdas por falta no inventario,3_3_1_01_006_00000,data_account_type_expenses,FALSE,tko_pjcontabil_coa_template
 4_0_0_00_000_00000,4.0.0.00.000.00000,RECEITAS,0_0_0_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 4_1_0_00_000_00000,4.1.0.00.000.00000,RECEITAS OPERACIONAIS,4_0_0_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 4_1_1_00_000_00000,4.1.1.00.000.00000,RECEITAS OPERACIONAIS,4_1_0_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
@@ -681,20 +681,20 @@ id,code,name,parent_id:id,user_type_id:id,reconcile,chart_template_id:id
 4_1_3_00_000_00000,4.1.3.00.000.00000,RECEITAS FINANCEIRAS,4_1_0_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 4_1_3_01_000_00000,4.1.3.01.000.00000,RECEITAS FINANCEIRAS,4_1_3_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 4_1_3_01_001_00000,4.1.3.01.001.00000,JUROS E DESCONTOS,4_1_3_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-4_1_3_01_001_00001,4.1.3.01.001.00001,Juros de aplicacoes financeiras,4_1_3_01_001_00000,__export__.account_account_type_23,FALSE,tko_pjcontabil_coa_template
-4_1_3_01_001_00002,4.1.3.01.001.00002,Juros ativos,4_1_3_01_001_00000,__export__.account_account_type_23,FALSE,tko_pjcontabil_coa_template
-4_1_3_01_001_00003,4.1.3.01.001.00003,Descontos financeiros obtidos,4_1_3_01_001_00000,__export__.account_account_type_23,FALSE,tko_pjcontabil_coa_template
-4_1_3_01_001_00004,4.1.3.01.001.00004,Juros s/ o capital proprio,4_1_3_01_001_00000,__export__.account_account_type_23,FALSE,tko_pjcontabil_coa_template
+4_1_3_01_001_00001,4.1.3.01.001.00001,Juros de aplicacoes financeiras,4_1_3_01_001_00000,data_account_type_income,FALSE,tko_pjcontabil_coa_template
+4_1_3_01_001_00002,4.1.3.01.001.00002,Juros ativos,4_1_3_01_001_00000,data_account_type_income,FALSE,tko_pjcontabil_coa_template
+4_1_3_01_001_00003,4.1.3.01.001.00003,Descontos financeiros obtidos,4_1_3_01_001_00000,data_account_type_income,FALSE,tko_pjcontabil_coa_template
+4_1_3_01_001_00004,4.1.3.01.001.00004,Juros s/ o capital proprio,4_1_3_01_001_00000,data_account_type_income,FALSE,tko_pjcontabil_coa_template
 4_1_3_01_002_00000,4.1.3.01.002.00000,VARIACOES MONETARIAS,4_1_3_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-4_1_3_01_002_00001,4.1.3.01.002.00001,Variacoes monetarias ativas,4_1_3_01_002_00000,__export__.account_account_type_23,FALSE,tko_pjcontabil_coa_template
-4_1_3_01_002_00002,4.1.3.01.002.00002,Variacoes cambiais ativas,4_1_3_01_002_00000,__export__.account_account_type_23,FALSE,tko_pjcontabil_coa_template
+4_1_3_01_002_00001,4.1.3.01.002.00001,Variacoes monetarias ativas,4_1_3_01_002_00000,data_account_type_income,FALSE,tko_pjcontabil_coa_template
+4_1_3_01_002_00002,4.1.3.01.002.00002,Variacoes cambiais ativas,4_1_3_01_002_00000,data_account_type_income,FALSE,tko_pjcontabil_coa_template
 4_1_3_01_003_00000,4.1.3.01.003.00000,RECEITA S/ APLICACAO FINANCEIRA,4_1_3_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-4_1_3_01_003_00001,4.1.3.01.003.00001,Receitas Financeiras,4_1_3_01_003_00000,__export__.account_account_type_23,FALSE,tko_pjcontabil_coa_template
+4_1_3_01_003_00001,4.1.3.01.003.00001,Receitas Financeiras,4_1_3_01_003_00000,data_account_type_income,FALSE,tko_pjcontabil_coa_template
 4_1_4_00_000_00000,4.1.4.00.000.00000,RECUPERACAO DE DESPESAS,4_1_0_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 4_1_4_01_000_00000,4.1.4.01.000.00000,RECUPERACAO DE DESPESAS,4_1_4_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 4_1_4_01_001_00000,4.1.4.01.001.00000,RECUPERACAO CRED.CONSIDERADO INCOBRAVEL,4_1_4_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 4_1_4_01_002_00000,4.1.4.01.002.00000,REVERSAO DE PROVISOES,4_1_4_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-4_1_4_01_002_00001,4.1.4.01.002.00001,Reversao Provisao de Creditos Duvidosos,4_1_4_01_002_00000,__export__.account_account_type_19,FALSE,tko_pjcontabil_coa_template
+4_1_4_01_002_00001,4.1.4.01.002.00001,Reversao Provisao de Creditos Duvidosos,4_1_4_01_002_00000,data_account_type_other_accounts,FALSE,tko_pjcontabil_coa_template
 4_1_5_00_000_00000,4.1.5.00.000.00000,OUTRAS RECEITAS OPERACIONAIS,4_1_0_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 4_1_5_01_000_00000,4.1.5.01.000.00000,OUTRAS RECEITAS OPERACIONAIS,4_1_5_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 4_1_5_01_001_00000,4.1.5.01.001.00000,RECEITAS DIVERSAS,4_1_5_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
@@ -708,30 +708,30 @@ id,code,name,parent_id:id,user_type_id:id,reconcile,chart_template_id:id
 4_2_1_00_000_00000,4.2.1.00.000.00000,RESULTADOS NAO OPERACIONAIS,4_2_0_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 4_2_1_01_000_00000,4.2.1.01.000.00000,RESULTADOS NAO OPERACIONAIS,4_2_1_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 4_2_1_01_001_00000,4.2.1.01.001.00000,RESULTADOS POSITIVOS ALIEN.INVESTIMENTOS,4_2_1_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-4_2_1_01_001_00001,4.2.1.01.001.00001,Lucros alien. particip. em coligadas,4_2_1_01_001_00000,__export__.account_account_type_24,FALSE,tko_pjcontabil_coa_template
+4_2_1_01_001_00001,4.2.1.01.001.00001,Lucros alien. particip. em coligadas,4_2_1_01_001_00000,data_account_type_income,FALSE,tko_pjcontabil_coa_template
 4_2_1_01_002_00000,4.2.1.01.002.00000,LUCROS NA ALIENACAO DO IMOBILIZADO,4_2_1_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-4_2_1_01_002_00001,4.2.1.01.002.00001,Lucros na alienacao de imoveis,4_2_1_01_002_00000,__export__.account_account_type_24,FALSE,tko_pjcontabil_coa_template
-4_2_1_01_002_00002,4.2.1.01.002.00002,Lucros na alienacao moveis e utensilios,4_2_1_01_002_00000,__export__.account_account_type_24,FALSE,tko_pjcontabil_coa_template
-4_2_1_01_002_00003,4.2.1.01.002.00003,Lucros na alien. maq. equip. ferramentas,4_2_1_01_002_00000,__export__.account_account_type_24,FALSE,tko_pjcontabil_coa_template
-4_2_1_01_002_00004,4.2.1.01.002.00004,Lucros na alienacao de veiculos,4_2_1_01_002_00000,__export__.account_account_type_24,FALSE,tko_pjcontabil_coa_template
-4_2_1_01_002_00005,4.2.1.01.002.00005,Resultado positivo Alienação Imobilizado,4_2_1_01_002_00000,__export__.account_account_type_24,FALSE,tko_pjcontabil_coa_template
+4_2_1_01_002_00001,4.2.1.01.002.00001,Lucros na alienacao de imoveis,4_2_1_01_002_00000,data_account_type_income,FALSE,tko_pjcontabil_coa_template
+4_2_1_01_002_00002,4.2.1.01.002.00002,Lucros na alienacao moveis e utensilios,4_2_1_01_002_00000,data_account_type_income,FALSE,tko_pjcontabil_coa_template
+4_2_1_01_002_00003,4.2.1.01.002.00003,Lucros na alien. maq. equip. ferramentas,4_2_1_01_002_00000,data_account_type_income,FALSE,tko_pjcontabil_coa_template
+4_2_1_01_002_00004,4.2.1.01.002.00004,Lucros na alienacao de veiculos,4_2_1_01_002_00000,data_account_type_income,FALSE,tko_pjcontabil_coa_template
+4_2_1_01_002_00005,4.2.1.01.002.00005,Resultado positivo Alienação Imobilizado,4_2_1_01_002_00000,data_account_type_income,FALSE,tko_pjcontabil_coa_template
 4_2_1_01_003_00000,4.2.1.01.003.00000,RESULTADO DE SINISTROS C/ IMOBILIZADO,4_2_1_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-4_2_1_01_003_00001,4.2.1.01.003.00001,Sinistros com imobilizado,4_2_1_01_003_00000,__export__.account_account_type_24,FALSE,tko_pjcontabil_coa_template
+4_2_1_01_003_00001,4.2.1.01.003.00001,Sinistros com imobilizado,4_2_1_01_003_00000,data_account_type_income,FALSE,tko_pjcontabil_coa_template
 5_0_0_00_000_00000,5.0.0.00.000.00000,CUSTOS,0_0_0_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 5_1_0_00_000_00000,5.1.0.00.000.00000,CUSTO DOS PRODUTOS E SERVICOS VENDIDOS,5_0_0_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 5_1_1_00_000_00000,5.1.1.00.000.00000,CUSTO DOS PRODUTOS VENDIDOS,5_1_0_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 5_1_1_01_000_00000,5.1.1.01.000.00000,CUSTO DOS PRODUTOS VENDIDOS,5_1_1_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 5_1_1_01_001_00000,5.1.1.01.001.00000,CUSTO DOS PRODUTOS VENDIDOS,5_1_1_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-5_1_1_01_001_00001,5.1.1.01.001.00001,Custo dos Produtos Vendidos,5_1_1_01_001_00000,__export__.account_account_type_19,FALSE,tko_pjcontabil_coa_template
+5_1_1_01_001_00001,5.1.1.01.001.00001,Custo dos Produtos Vendidos,5_1_1_01_001_00000,data_account_type_other_accounts,FALSE,tko_pjcontabil_coa_template
 5_1_2_00_000_00000,5.1.2.00.000.00000,CUSTO DOS SERVICOS PRESTADOS,5_1_0_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 5_1_2_01_000_00000,5.1.2.01.000.00000,CUSTO DOS SERVICOS PRESTADOS,5_1_2_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 5_1_2_01_001_00000,5.1.2.01.001.00000,CUSTO DOS SERVICOS PRESTADOS,5_1_2_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-5_1_2_01_001_00001,5.1.2.01.001.00001,Custo dos Servicos Prestados,5_1_2_01_001_00000,__export__.account_account_type_19,FALSE,tko_pjcontabil_coa_template
+5_1_2_01_001_00001,5.1.2.01.001.00001,Custo dos Servicos Prestados,5_1_2_01_001_00000,data_account_type_other_accounts,FALSE,tko_pjcontabil_coa_template
 5_1_3_00_000_00000,5.1.3.00.000.00000,CUSTO DAS MERCADORIAS VENDIDAS,5_1_0_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 5_1_3_01_000_00000,5.1.3.01.000.00000,CUSTO DAS MERCADORIAS VENDIDAS,5_1_3_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 5_1_3_01_001_00000,5.1.3.01.001.00000,CUSTO DAS MERCADORIAS VENDIDAS,5_1_3_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-5_1_3_01_001_00001,5.1.3.01.001.00001,Custo das Mercadorias Vendidas,5_1_3_01_001_00000,__export__.account_account_type_19,FALSE,tko_pjcontabil_coa_template
+5_1_3_01_001_00001,5.1.3.01.001.00001,Custo das Mercadorias Vendidas,5_1_3_01_001_00000,data_account_type_other_accounts,FALSE,tko_pjcontabil_coa_template
 5_1_4_00_000_00000,5.1.4.00.000.00000,APURACAO RESULTADO NÃO OPERACIONAL,5_1_0_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 5_1_4_01_000_00000,5.1.4.01.000.00000,APURACAO RESULTADO NÃO OPERACIONAL,5_1_4_00_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
 5_1_4_01_001_00000,5.1.4.01.001.00000,APURACAO RESULTADO NÃO OPERACIONAL,5_1_4_01_000_00000,account_parent.data_account_type_view,FALSE,tko_pjcontabil_coa_template
-5_1_4_01_001_00001,5.1.4.01.001.00001,Ganhos/Perdas na Alienacao Imobilizado,5_1_4_01_001_00000,__export__.account_account_type_19,FALSE,tko_pjcontabil_coa_template
+5_1_4_01_001_00001,5.1.4.01.001.00001,Ganhos/Perdas na Alienacao Imobilizado,5_1_4_01_001_00000,data_account_type_other_accounts,FALSE,tko_pjcontabil_coa_template
