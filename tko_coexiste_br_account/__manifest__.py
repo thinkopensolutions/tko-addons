@@ -33,6 +33,7 @@
     'depends': [
         'base',
         'account',
+        'br_account',
         'tko_account_moves_in_draft',
     ],
     'data': [
