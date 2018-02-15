@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="account.invoice_form"/>
         <field name="arch" type="xml">
             <field name="move_id" position="after">
-                <field name="expense_type_id" options="{'no_create': True}" domain="[('expense_type','in',['c','b'])]"/>
+                <field name="expense_type_id" required="1" options="{'no_create': True}" domain="[('expense_type','in',['c','b'])]"/>
             </field>
             <xpath expr="//notebook[last()]" position="inside">
                 <page string="Payment Info">
@@ -33,7 +33,7 @@
                 <field name="journal_id" options="{'no_create': True}" attrs="{'readonly':[('move_name','!=',False)]}"/>
             </field>
             <field name="move_id" position="after">
-                <field name="expense_type_id" options="{'no_create': True}" domain="[('expense_type','in',['s','b'])]"/>
+                <field name="expense_type_id" required="1" options="{'no_create': True}" domain="[('expense_type','in',['s','b'])]"/>
             </field>
         </field>
     </record>
