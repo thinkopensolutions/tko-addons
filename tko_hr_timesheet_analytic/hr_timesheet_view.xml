@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-        <record model="ir.ui.view" id="view_document_file_form">
-            <field name="name">ir.attachment</field>
-            <field name="model">ir.attachment</field>
+        <record model="ir.ui.view" id="hr_timesheet_line_search">
+            <field name="name">account.analytic.line</field>
+            <field name="model">account.analytic.line</field>
             <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_search"/>
             <field name="arch" type="xml">
                 <field name="task_id" position="after">
