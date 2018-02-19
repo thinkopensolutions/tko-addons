@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+        # -*- encoding: utf-8 -*-
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
@@ -23,31 +23,29 @@
 ##############################################################################
 
 {
-    'name': 'tko_coexiste_br_account',
-    'version': '0.001',
+    'name': 'Merge Purchase Requisition Orders',
+    'version': '10.0.0.0.0',
     'category': 'Customizations',
-    'sequence': 150,
-    'description': '''  tko_coexiste_br_account''',
+    'sequence': 14,
+    'complexity': 'medium',
+    'description': ''' == This module allows to merge Requisition Orders in Draft Stage ==\n
+''',
     'author': 'ThinkOpen Solutions Brasil',
     'website': 'http://www.tkobr.com',
     'depends': [
-        'base',
-        'account',
-        'br_account',
-        'tko_account_moves_in_draft',
+        'purchase_requisition',
     ],
     'data': [
-        'security/ir.model.access.csv',
-        'views/account_invoice_view.xml',
-        'views/account_expense_view.xml',
-        'views/ir_attachment_view.xml',
-        'views/account_analytic_view.xml',
-        'views/account_view.xml',
-        'views/account.xml',
+        'template.xml',
+        'bid_line_qty_view.xml',
+        'purchase_requisition_view.xml',
+        'wizard/purchase_requisition_wizard_view.xml',
     ],
+    'qweb': ['static/src/xml/genereate_po.xml'],
     'init': [],
     'demo': [],
     'update': [],
+    'test': [],  # YAML files with tests
     'installable': True,
     'application': False,
     'auto_install': False,

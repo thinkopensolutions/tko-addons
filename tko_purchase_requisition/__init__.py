@@ -22,34 +22,6 @@
 #
 ##############################################################################
 
-{
-    'name': 'tko_coexiste_br_account',
-    'version': '0.001',
-    'category': 'Customizations',
-    'sequence': 150,
-    'description': '''  tko_coexiste_br_account''',
-    'author': 'ThinkOpen Solutions Brasil',
-    'website': 'http://www.tkobr.com',
-    'depends': [
-        'base',
-        'account',
-        'br_account',
-        'tko_account_moves_in_draft',
-    ],
-    'data': [
-        'security/ir.model.access.csv',
-        'views/account_invoice_view.xml',
-        'views/account_expense_view.xml',
-        'views/ir_attachment_view.xml',
-        'views/account_analytic_view.xml',
-        'views/account_view.xml',
-        'views/account.xml',
-    ],
-    'init': [],
-    'demo': [],
-    'update': [],
-    'installable': True,
-    'application': False,
-    'auto_install': False,
-    'certificate': '',
-}
+import purchase_requisition
+import wizard
+import bid_line_qty
