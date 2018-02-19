@@ -40,6 +40,9 @@ class AccountExpenseType(models.Model):
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
+    expense_type_id = fields.Many2one('account.expense.type', string=u'Expense Type')
+
+
     @api.onchange('date_maturity')
     def onchange_date_maturity(self):
         partner = self.partner_id
