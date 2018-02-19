@@ -70,7 +70,7 @@ odoo.define('tko_coexiste_br_account.reconciliationa', function (require) {
 
     /* write expense_type_id to database */
 
-    reconciliation.abstractReconciliation.include({
+    reconciliation.abstractReconciliationLine.include({
         // Returns an object that can be passed to process_reconciliation()
         prepareCreatedMoveLinesForPersisting: function(lines) {
             lines = _.filter(lines, function(line) { return !line.is_tax_line });
