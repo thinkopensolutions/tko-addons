@@ -43,7 +43,7 @@
         'views/ir_attachment_view.xml',
         'views/account_analytic_view.xml',
         'views/account_view.xml',
-
+        'views/account.xml',
     ],
     'init': [],
     'demo': [],
