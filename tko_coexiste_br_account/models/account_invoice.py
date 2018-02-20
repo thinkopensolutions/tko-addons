@@ -59,7 +59,7 @@ class AccountMoveLine(models.Model):
     def create(self, vals):
         if vals.get('invoice_id'):
             invoice = self.env['account.invoice'].search([('id','=',vals.get('invoice_id'))])
-            vals.update({'date_maturity':invoice.date_due})
+            vals.update({'date_maturity':invoice.date_due,'expense_type_id': invoice.expense_type_id.id})
         return super(AccountMoveLine, self).create(vals)
 
     @api.multi
