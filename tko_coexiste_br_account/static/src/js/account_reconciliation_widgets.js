@@ -13,7 +13,7 @@ odoo.define('tko_coexiste_br_account.reconciliationa', function (require) {
                 index: 25,
                 corresponding_property: "expense_type_id",
                 label: _t("Expense Type"),
-                required: false,
+                required: true,
                 group:"analytic.group_analytic_accounting",
                 constructor: FieldMany2One,
                 field_properties: {
