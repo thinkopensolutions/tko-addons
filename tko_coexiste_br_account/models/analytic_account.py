@@ -38,6 +38,7 @@ class AccountAnalyticLine(models.Model):
             analytic_line.payment_date = payment_date
 
     partner_id = fields.Many2one('res.partner', related='move_id.partner_id', string='Partner', store=True)
+    expense_type_id = fields.Many2one(related='move_id.expense_type_id', string='Expense Type', store=True)
     company_id = fields.Many2one(related='move_id.company_id', string='Company', store=True, readonly=False)
     journal_id = fields.Many2one(related='move_id.journal_id', string='Journal', store=True, readonly=False)
     invoice_id = fields.Many2one('account.invoice', string='Invoice ID', copy=False)

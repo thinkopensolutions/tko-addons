@@ -5,8 +5,8 @@
         <field name="model">account.move.line</field>
         <field name="inherit_id" ref="account.view_move_line_form"/>
         <field name="arch" type="xml">
-            <field name="analytic_account_id" position="after">
-                <field name="expense_type_id"/>
+            <field name="statement_id" position="after">
+                <field name="expense_type_id" options="{'no_create': True}"/>
             </field>
         </field>
     </record>
