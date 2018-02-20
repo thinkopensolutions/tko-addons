@@ -21,8 +21,15 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import account_invoice
-import analytic_account
-import ir_attachment
-import account
-import reconcile_button
+
+import json
+from openerp import models, fields, api, _
+import datetime
+from odoo.exceptions import Warning as UserError
+from odoo.exceptions import ValidationError
+from openerp.tools import DEFAULT_SERVER_DATE_FORMAT as OE_DFORMAT
+
+class ReconcileButton(models.Model):
+    _inherit = 'account.reconcile.model'
+
+    expense_type_id = fields.Many2one('account.expense.type', string=u'Expense Type')
