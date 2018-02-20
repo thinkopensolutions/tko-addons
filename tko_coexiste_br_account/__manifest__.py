@@ -44,6 +44,7 @@
         'views/account_analytic_view.xml',
         'views/account_view.xml',
         'views/account.xml',
+        'views/reconcile_button_view.xml',
 
     ],
     'init': [],
