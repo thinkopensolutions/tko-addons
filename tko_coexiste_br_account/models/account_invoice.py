@@ -116,6 +116,19 @@ class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
     @api.multi
+    def draft_invoice_validate(self):
+        for invoice in self:
+            # refuse to validate a vendor bill/refund if there already exists one with the same reference for the same partner,
+            # because it's probably a double encoding of the same bill/refund
+            if invoice.type in ('in_invoice', 'in_refund') and invoice.vendor_number:
+                if self.search([('type', '=', invoice.type), ('vendor_number', '=', invoice.vendor_number),
+                                ('company_id', '=', invoice.company_id.id),
+                                ('id', '!=', invoice.id)]):
+                    raise UserError(_(
+                        u"Duplicated Número NF Entrada detected. You probably encoded twice the same vendor bill/refund."))
+        return True
+
+    @api.multi
     def invoice_validate(self):
         for invoice in self:
             # refuse to validate a vendor bill/refund if there already exists one with the same reference for the same partner,
@@ -191,15 +204,7 @@ class AccountInvoice(models.Model):
     @api.model
     def create(self, vals):
         result = super(AccountInvoice, self).create(vals)
-        # due_date = vals.get('date_due') or self.date_due
-        # date = vals.get('date') or self.date
-        # if due_date and date:
-        #     due_date = datetime.datetime.strptime(due_date, OE_DFORMAT).date()
-        #     date = datetime.datetime.strptime(date, OE_DFORMAT).date()
-        #     if due_date < date:
-        #         raise ValidationError(
-        #         _("You can not set Due Date Less than Invoice date."))
-        #         return False
+        result.draft_invoice_validate()
         return result
 
 
