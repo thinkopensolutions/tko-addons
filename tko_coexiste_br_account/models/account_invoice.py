@@ -221,6 +221,7 @@ class AccountInvoice(models.Model):
             #     return False
             for move_line in self.move_id.line_ids:
                 move_line.date_maturity = due_date
+        self.draft_invoice_validate()
         return super(AccountInvoice, self).write(vals)
 
 
