@@ -29,6 +29,7 @@ from odoo.exceptions import Warning as UserError
 from odoo.exceptions import ValidationError
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT as OE_DFORMAT
 
+
 class AccountExpenseType(models.Model):
     _name = 'account.expense.type'
 
@@ -37,16 +38,38 @@ class AccountExpenseType(models.Model):
                                     required=True, default='b', string='InvoiceType')
 
 
+class AccountMove(models.Model):
+    _inherit = 'account.move'
+
+    # Update Account Move's stage on cancellation of account move
+    @api.multi
+    def button_cancel(self):
+        result = super(AccountMove, self).button_cancel()
+        for move in self:
+            for line in move.line_ids:
+                line.analytic_line_ids.write({'move_state': move.state})
+        return result
+
+    # set expense type in analytic lines on setting
+    @api.multi
+    def post(self):
+        result = super(AccountMove, self).post()
+        for move in self:
+            for line in move.line_ids:
+                line.analytic_line_ids.write(
+                    {'expense_type_id': line.expense_type_id and line.expense_type_id.id or False})
+        return result
+
+
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
     expense_type_id = fields.Many2one('account.expense.type', string=u'Expense Type')
 
-
     @api.onchange('date_maturity')
     def onchange_date_maturity(self):
         partner = self.partner_id
-        move_line_ids = self.search([('move_id','=',self.move_id.id)])
+        move_line_ids = self.search([('move_id', '=', self.move_id.id)])
         account_ids = []
         account_ids.append(partner.property_account_receivable_id.id)
         account_ids.append(partner.property_account_payable_id.id)
@@ -58,8 +81,8 @@ class AccountMoveLine(models.Model):
     @api.model
     def create(self, vals):
         if vals.get('invoice_id'):
-            invoice = self.env['account.invoice'].search([('id','=',vals.get('invoice_id'))])
-            vals.update({'date_maturity':invoice.date_due,'expense_type_id': invoice.expense_type_id.id})
+            invoice = self.env['account.invoice'].search([('id', '=', vals.get('invoice_id'))])
+            vals.update({'date_maturity': invoice.date_due, 'expense_type_id': invoice.expense_type_id.id})
         return super(AccountMoveLine, self).create(vals)
 
     @api.multi
@@ -74,11 +97,11 @@ class AccountMoveLine(models.Model):
                 account_ids = []
                 account_ids.append(partner.property_account_receivable_id.id)
                 account_ids.append(partner.property_account_payable_id.id)
-                move_line_ids = self.search([('move_id','=',self.move_id.id),('id','!=',self.id)])
+                move_line_ids = self.search([('move_id', '=', self.move_id.id), ('id', '!=', self.id)])
                 if self.account_id.id in account_ids:
                     date_maturity = values.get('date_maturity')
                     for line in move_line_ids:
-                        ctx = {'pass_date_matury':True}
+                        ctx = {'pass_date_matury': True}
                         line.with_context(ctx).write({'date_maturity': date_maturity})
         return result
 
@@ -108,7 +131,7 @@ class InvoicePaymentInfo(models.Model):
     name = fields.Char('Name', copy=False)
     invoice_id = fields.Many2one('account.invoice', string='Invoice ID', copy=False)
     currency_id = fields.Many2one('res.currency', related='invoice_id.currency_id', readonly=True,
-        help='Utility field to express amount currency')
+                                  help='Utility field to express amount currency')
     amount = fields.Monetary(string='Amount', copy=False, required=True, currency_field='currency_id')
 
 
@@ -131,10 +154,9 @@ class AccountInvoice(models.Model):
     payment_line = fields.One2many('invoice.payment.info', 'invoice_id', string="Invoice Payment Lines")
     payment_date = fields.Date(related='payment_move_line_ids.date', string='Payment Date')
     journal_id = fields.Many2one('account.journal', string='Journal',
-         required=True, readonly=True, states={'draft': [('readonly', False)]},
-         default=_default_journal_tko,
-         domain="[('type', 'in', {'out_invoice': ['sale'], 'out_refund': ['sale'], 'in_refund': ['purchase'], 'in_invoice': ['purchase']}.get(type, [])), ('company_id', '=', company_id)]")
-
+                                 required=True, readonly=True, states={'draft': [('readonly', False)]},
+                                 default=_default_journal_tko,
+                                 domain="[('type', 'in', {'out_invoice': ['sale'], 'out_refund': ['sale'], 'in_refund': ['purchase'], 'in_invoice': ['purchase']}.get(type, [])), ('company_id', '=', company_id)]")
 
     # set move date
     @api.multi
@@ -159,7 +181,6 @@ class AccountInvoice(models.Model):
             self.move_id.write({'state': 'draft'})
         return result
 
-
     @api.onchange('partner_id', 'company_id')
     def _onchange_partner_id(self):
         res = super(AccountInvoice, self)._onchange_partner_id()
@@ -172,7 +193,6 @@ class AccountInvoice(models.Model):
     def _onchange_account_id(self):
         if self.type in ['in_invoice', 'in_refund']:
             self.journal_id = []
-
 
     @api.model
     def create(self, vals):
@@ -188,14 +208,13 @@ class AccountInvoice(models.Model):
         #         return False
         return result
 
-
     @api.multi
     def write(self, vals):
         due_date = vals.get('date_due') or self.date_due
         date = vals.get('date') or self.date
         if due_date and date:
             due_date = datetime.datetime.strptime(due_date, OE_DFORMAT).date()
-            #date = datetime.datetime.strptime(date, OE_DFORMAT).date()
+            # date = datetime.datetime.strptime(date, OE_DFORMAT).date()
             # if due_date < date:
             #     raise ValidationError(
             #     _("You can not set Due Date Less than Invoice date."))
