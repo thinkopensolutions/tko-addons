@@ -45,7 +45,7 @@ class report_pos_order_tko(osv.osv):
         'total_discount': fields.float('Total Discount', readonly=True),
         'total_liquid': fields.float('Total Liquid', readonly=True),
         'average_price': fields.float('Average Price', readonly=True, group_operator="avg"),
-        'order_type': fields.selection(["** list_of_selection_here **"],string=u'Internal Reference', readonly=True),
+        'order_type': fields.selection([('v', 'Venda'), ('t', 'Troca'), ('c', 'Cancelamento')],string=u'Internal Reference', readonly=True),
 
     }
     _order = 'date desc'
