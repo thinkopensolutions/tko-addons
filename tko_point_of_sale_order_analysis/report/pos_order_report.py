@@ -45,6 +45,7 @@ class report_pos_order_tko(osv.osv):
         'total_discount': fields.float('Total Discount', readonly=True),
         'total_liquid': fields.float('Total Liquid', readonly=True),
         'average_price': fields.float('Average Price', readonly=True, group_operator="avg"),
+        'order_type': fields.selection(["** list_of_selection_here **"],string=u'Internal Reference', readonly=True),
 
     }
     _order = 'date desc'
@@ -58,6 +59,7 @@ class report_pos_order_tko(osv.osv):
                     count(*) as nbr,
                     o.location_id as location_id,
                     o.sale_journal as journal_id,
+                    o.order_type as order_type,
                     o.partner_id as partner_id,
                     o.date_order as date,
                     o.user_id as user_id,
@@ -71,7 +73,7 @@ class report_pos_order_tko(osv.osv):
                     
                 from pos_order as o left join pos_order_line l on (o.id=l.order_id)
                 group by
-                   o.user_id,o.partner_id,o.company_id,o.location_id,o.sale_journal,o.state,o.date_order,l.order_id
+                   o.user_id,o.partner_id,o.company_id,o.location_id,o.sale_journal,o.order_type,o.state,o.date_order,l.order_id
                 )""")
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
