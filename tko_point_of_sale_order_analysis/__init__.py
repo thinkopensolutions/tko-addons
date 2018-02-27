@@ -22,4 +22,7 @@
 #
 ##############################################################################
 import pos_order
+import account_bank_statement
+import account_bank_statement_line
+import account_move_line
 import report

@@ -55,7 +55,7 @@ class report_pos_order_tko(osv.osv):
         'discount_on_order': fields.float('Discount on Order'),
         'move_id': fields.many2one('account.move', 'Account Move', ondelete="cascade", help="The move of this entry line.", select=2, required=True, auto_join=True),
         'bank_statement_id': fields.many2one('account.bank.statement', 'Statement', select=True, required=True, ondelete='restrict'),
-        'bank_statement_line_id': fields.many2one('account.bank.statement.line', 'Bank statement line'),
+        'ref': fields.char('Reference'),
 
     }
     _order = 'date desc'
@@ -85,7 +85,7 @@ class report_pos_order_tko(osv.osv):
                     l.order_id as order_id,
                     s.order_type as order_type,
                     al.statement_id as bank_statement_id,
-                    al.id as bank_statement_line_id,
+                    al.ref as bank_statement_reference,
                     s.session_id as session_id,
                     m.journal_id as journal_id,
                     s.account_move as account_move,
@@ -108,7 +108,7 @@ class report_pos_order_tko(osv.osv):
                     s.date_order, s.partner_id,s.state, pt.categ_id,
                     s.user_id,s.location_id,s.company_id,s.sale_journal,l.product_id,s.create_date,l.order_id,s.no_lines,s.discount_on_order,l.line_subototal,
                     s.order_type,al.statement_id,s.session_id,m.journal_id,s.account_move,d.name,d.type,
-                    m.move_id,al.id,d.value
+                    m.move_id,al.ref,d.value
                 having
                     sum(l.qty * u.factor) != 0)""")
 
