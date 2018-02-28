@@ -94,6 +94,7 @@ class report_pos_order_tko(osv.osv):
                 from pos_order as o
                      left join pos_order_line l on (o.id=l.order_id)
                      left join account_bank_statement_line b on (b.pos_statement_id=o.id)
+                     left join account_bank_statement s on (s.id=b.statement_id)
                      left join account_move m on (m.id=o.account_move)
                      left join product_product p on (p.id=l.product_id)
                      left join product_template t on (t.id=p.product_tmpl_id)
