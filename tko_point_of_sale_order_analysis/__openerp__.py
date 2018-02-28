@@ -34,7 +34,9 @@
     'images': ['images/oerp61.jpeg',
                ],
     'depends': [
+        'tko_point_of_sale_discount_cards',
         'tko_point_of_sale_discount_on_order',
+        'tko_point_of_sale_order_type',
     ],
 
     'data': [
