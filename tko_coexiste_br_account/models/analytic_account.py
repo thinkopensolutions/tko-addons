@@ -21,7 +21,10 @@ class AccountAnalyticLine(models.Model):
         for analytic_line in self:
             line_total = 0
             for line in analytic_line.payment_move_line_ids:
-                line_total = line_total+line.amount
+                if line.credit> 0:
+                    line_total = line_total+line.amount
+                if line.debit > 0:
+                    line_total = line_total + line.amount
             analytic_line.line_total = line_total
 
 
