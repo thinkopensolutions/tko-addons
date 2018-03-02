@@ -8,9 +8,6 @@
                 <graph string="Point of Sale Analysis" type="pivot">
                     <field name="order_id" type="row"/>
                     <field name="date" interval="month" type="col"/>
-                    <field name="product_categ_id" type="row"/>
-                    <field name="product_qty" type="measure"/>
-                    <field name="price_total" type="measure"/>
                 </graph>
             </field>
         </record>
@@ -31,13 +28,11 @@
                     <filter string="My Sales" help="My Sales" domain="[('user_id','=',uid)]"/>
                     <field name="partner_id"/>
                     <field name="user_id"/>
+                    <field name="partner_id"/>
                     <field name="order_id"/>
                     <field name="user_id"/>
-                    <field name="product_categ_id"/>
                     <group expand="1" string="Group By">
                         <filter string="Salesperson" name="User" context="{'group_by':'user_id'}"/>
-                        <filter string="Product Category" context="{'group_by':'product_categ_id'}"/>
-                        <filter string="Product" context="{'group_by':'product_id'}"/>
                         <separator/>
                         <filter string="Order Month" context="{'group_by':'date:month'}" help="Month of order date"/>
                     </group>
@@ -46,7 +41,7 @@
         </record>
 
         <record id="action_report_pos_order_all" model="ir.actions.act_window">
-            <field name="name">Orders Analysis TKO</field>
+            <field name="name">Orders Analysis</field>
             <field name="res_model">report.pos.order.tko</field>
             <field name="view_type">form</field>
             <field name="view_mode">graph</field>
@@ -56,7 +51,7 @@
 
         <menuitem action="action_report_pos_order_all" id="menu_report_pos_order_all"
                   parent="point_of_sale.menu_point_rep" sequence="1"/>
-        <!--<menuitem action="point_of_sale.action_report_pos_order_all" name="Order Line Analysis"-->
-                  <!--id="point_of_sale.menu_report_pos_order_all" parent="point_of_sale.menu_point_rep" sequence="5"/>-->
+        <menuitem action="point_of_sale.action_report_pos_order_all" name="Order Line Analysis"
+                  id="point_of_sale.menu_report_pos_order_all" parent="point_of_sale.menu_point_rep" sequence="5"/>
     </data>
 </openerp>
