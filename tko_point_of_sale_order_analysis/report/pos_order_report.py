@@ -77,4 +77,4 @@ class report_pos_order_tko(osv.osv):
                    o.user_id,o.partner_id,o.company_id,o.location_id,o.sale_journal,o.order_type,o.state,o.date_order,l.order_id
                 )""")
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+        # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
