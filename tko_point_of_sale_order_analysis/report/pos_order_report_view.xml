@@ -31,10 +31,10 @@
                     <field name="user_id"/>
                     <field name="order_id"/>
                     <field name="user_id"/>
-                    <field name="product_categ_id"/>
+                    <!--<field name="product_categ_id"/>-->
                     <group expand="1" string="Group By">
                         <filter string="Salesperson" name="User" context="{'group_by':'user_id'}"/>
-                        <filter string="Product Category" context="{'group_by':'product_categ_id'}"/>
+                        <!--<filter string="Product Category" context="{'group_by':'product_categ_id'}"/>-->
                         <filter string="Product" context="{'group_by':'product_id'}"/>
                         <separator/>
                         <filter string="Order Month" context="{'group_by':'date:month'}" help="Month of order date"/>
