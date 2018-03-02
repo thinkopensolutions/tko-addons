@@ -207,22 +207,18 @@ class AccountInvoice(models.Model):
         result.draft_invoice_validate()
         return result
 
-
     @api.multi
     def write(self, vals):
-        due_date = vals.get('date_due') or self.date_due
-        date = vals.get('date') or self.date
-        if due_date and date:
-            due_date = datetime.datetime.strptime(due_date, OE_DFORMAT).date()
-            #date = datetime.datetime.strptime(date, OE_DFORMAT).date()
-            # if due_date < date:
-            #     raise ValidationError(
-            #     _("You can not set Due Date Less than Invoice date."))
-            #     return False
-            for move_line in self.move_id.line_ids:
-                move_line.date_maturity = due_date
-        self.draft_invoice_validate()
+        for record in self:
+            due_date = vals.get('date_due') or record.date_due
+            date = vals.get('date') or record.date
+            if due_date and date:
+                due_date = datetime.datetime.strptime(due_date, OE_DFORMAT).date()
+                for move_line in record.move_id.line_ids:
+                    move_line.date_maturity = due_date
+            record.draft_invoice_validate()
         return super(AccountInvoice, self).write(vals)
+
 
 
 class AccountInvoiceLine(models.Model):
