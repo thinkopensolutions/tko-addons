@@ -22,10 +22,6 @@
 #
 ##############################################################################
 
-from odoo import models, fields, api, _
-
-
-class ResPartner(models.Model):
-    _inherit = 'res.partner'
-
-    is_student = fields.Boolean('Is a Student', required=False)
+import purchase_requisition
+import wizard
+import bid_line_qty
