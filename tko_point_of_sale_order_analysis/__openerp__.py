@@ -41,7 +41,7 @@
 
     'data': [
         'pos_order_report_view.xml',
-        'report/pos_order_report_view.xml',
+    #    'report/pos_order_report_view.xml',
     ],
 
     'init': [],
