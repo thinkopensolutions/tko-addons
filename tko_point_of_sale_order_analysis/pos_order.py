@@ -51,8 +51,6 @@ class pos_order_report(models.Model):
                                   selection=pos_order_types,
                                   default='v',
                                   required=False, )
-    journal_id = fields.Many2one('account.journal', relation='account.journal',
-                                 string=u'Journal', store=True, readonly=True),
 
     def init(self, cr):
         tools.drop_view_if_exists(cr, 'report_pos_order')
