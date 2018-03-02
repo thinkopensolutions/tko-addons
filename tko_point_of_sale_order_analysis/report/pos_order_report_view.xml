@@ -8,9 +8,7 @@
                 <graph string="Point of Sale Analysis" type="pivot">
                     <field name="order_id" type="row"/>
                     <field name="date" interval="month" type="col"/>
-                    <field name="product_categ_id" type="row"/>
                     <field name="product_qty" type="measure"/>
-                    <field name="price_total" type="measure"/>
                 </graph>
             </field>
         </record>
