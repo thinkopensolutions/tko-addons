@@ -29,3 +29,4 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     is_student = fields.Boolean('Is a student?', required=False)
+    contact = fields.Boolean('Contato?')
