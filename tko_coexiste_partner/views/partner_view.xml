@@ -11,6 +11,9 @@
                       <field name="is_student"/>
                 </group>
             </group>
+            <xpath expr="//group[@name='sale']/field[@name='customer']" position="after">
+                <field name="contact"/>
+            </xpath>
         </field>         
         </record>    
     </data>
