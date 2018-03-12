@@ -8,6 +8,9 @@
             <field name="partner_id" position="attributes">
                 <attribute name="domain">[('customer','=',True)]</attribute>
             </field>
+            <field name="code" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </field>
             <field name="parent_id" position="attributes">
                 <attribute name="domain">[('type','=','n')]</attribute>
             </field>
