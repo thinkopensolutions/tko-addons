@@ -22,11 +22,4 @@
 #
 ##############################################################################
 
-from odoo import models, fields, api, _
-
-
-class ResPartner(models.Model):
-    _inherit = 'res.partner'
-
-    is_student = fields.Boolean(u'É um Estudante', required=False)
-    contact = fields.Boolean(u'É um Contato')
+import purchase_requisition_wizard
