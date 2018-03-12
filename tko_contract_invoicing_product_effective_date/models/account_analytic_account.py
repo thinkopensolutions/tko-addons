@@ -4,6 +4,7 @@ from odoo import models, fields, api, _
 from odoo.exceptions import Warning
 
 import logging
+
 _logger = logging.getLogger(__name__)
 
 
@@ -14,7 +15,7 @@ class AccountAnalyticAccont(models.Model):
 
     def _validate_invoice_creating(self):
         for line in self.recurring_invoice_line_ids:
-            if line.start_date <= self.recurring_next_date and line.end_date >=self.recurring_next_date:
+            if line.start_date <= self.recurring_next_date and line.end_date >= self.recurring_next_date:
                 return True
         return False
 
@@ -33,10 +34,8 @@ class AccountAnalyticAccont(models.Model):
             invoice.compute_taxes()
             return invoice
         else:
-            _logger.warn(u"No Invoice to be created for date %s" %self.recurring_next_date)
+            _logger.warn(u"No Invoice to be created for date %s" % self.recurring_next_date)
             return True
-
-
 
 
 class AccountAnalyticInvoiceLine(models.Model):
@@ -46,10 +45,10 @@ class AccountAnalyticInvoiceLine(models.Model):
     end_date = fields.Date(u'End Date')
 
     @api.multi
-    @api.constrains('start_date','end_date')
+    @api.constrains('start_date', 'end_date')
     def validate_start_end_date(self):
         for record in self:
             if record.start_date < record.analytic_account_id.date_start:
-                raise Warning("Start date must be greater than %s" %record.analytic_account_id.date_start)
+                raise Warning("Start date must be greater than %s" % record.analytic_account_id.date_start)
             if record.end_date > record.analytic_account_id.end_date:
-                raise Warning("End date must be less than %s" %record.analytic_account_id.end_date)
+                raise Warning("End date must be less than %s" % record.analytic_account_id.end_date)
