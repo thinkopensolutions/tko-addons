@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="analytic_form_inherit" model="ir.ui.view">
+        <field name="name">account.analytic.account</field>
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="contract.account_analytic_account_recurring_form_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="attributes">
+                <attribute name="domain">[('customer','=',True)]</attribute>
+            </field>
+            <field name="parent_id" position="attributes">
+                <attribute name="domain">[('type','=','n')]</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="account_analytic_account_recurring_form_form" model="ir.ui.view">
+        <field name="name">Contract form</field>
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="contract.account_analytic_account_recurring_form_form"/>
+        <field name="arch" type="xml">
+            <button name="contract.act_recurring_invoices" position="replace">
+                 <button name="contract.act_recurring_invoices"
+                            type="action"
+                            attrs="{'invisible': [('recurring_invoices','!=',True)]}"
+                            string="⇒ Show recurring invoices"
+                            context="{'form_view_ref':'account.invoice_form'}"
+                            class="oe_link"
+                            />
+            </button>
+        </field>
+    </record>
+</odoo>

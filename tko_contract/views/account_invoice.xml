@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="invoice_form_cancel_inherit" model="ir.ui.view">
+        <field name="name">invoice.form.cancel.inherit</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_due']" position="after">
+                <field name="contract_id" context="{'form_view_ref':'contract.account_analytic_account_recurring_form_form'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
