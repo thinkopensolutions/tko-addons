@@ -22,11 +22,20 @@
 #
 ##############################################################################
 
-from odoo import models, fields, api, _
+from odoo import models, fields, api
 
 
-class ResPartner(models.Model):
-    _inherit = 'res.partner'
+class bid_line_qty(models.TransientModel):
+    _name = "bid.line.qty"
 
-    is_student = fields.Boolean(u'É um Estudante', required=False)
-    contact = fields.Boolean(u'É um Contato')
+    qty = fields.Float('Quantity', required=True)
+
+    @api.multi
+    def change_qty(self):
+        active_id = self._context and self._context.get('record_id')
+        if active_id:
+            pol_id = self.env['purchase.order.line'].browse(active_id)
+            pol_id.write({'quantity_bid': self.qty})
+        return {'type': 'ir.actions.act_window_close'}
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -1,5 +1,18 @@
 <odoo>
 
+    <!--Account Move-->
+    <record model="ir.ui.view" id="view_move_form_inherit">
+        <field name="name">account.move</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='line_ids']//tree//field[@name='date_maturity']" position="after">
+                <field name="expense_type_id" options="{'no_create': True}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!--Account Move Line-->
      <record model="ir.ui.view" id="view_move_line_form_inherit">
         <field name="name">account.move.line.form.inherit</field>
         <field name="model">account.move.line</field>
