@@ -37,6 +37,7 @@
     'data': [
         'data/sequence_data.xml',
         'views/account_invoice.xml',
+        'views/contract_view.xml',
     ],
     'init': [],
     'demo': [],
