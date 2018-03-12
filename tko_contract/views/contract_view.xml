@@ -11,9 +11,23 @@
             <field name="parent_id" position="attributes">
                 <attribute name="domain">[('type','=','n')]</attribute>
             </field>
-            <xpath expr="//field[@name='code']" position="before">
-                <field name="contract_sequence"/>
-            </xpath>
+        </field>
+    </record>
+
+    <record id="account_analytic_account_recurring_form_form" model="ir.ui.view">
+        <field name="name">Contract form</field>
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="contract.account_analytic_account_recurring_form_form"/>
+        <field name="arch" type="xml">
+            <button name="contract.act_recurring_invoices" position="replace">
+                 <button name="contract.act_recurring_invoices"
+                            type="action"
+                            attrs="{'invisible': [('recurring_invoices','!=',True)]}"
+                            string="⇒ Show recurring invoices"
+                            context="{'form_view_ref':'account.invoice_form'}"
+                            class="oe_link"
+                            />
+            </button>
         </field>
     </record>
 </odoo>
