@@ -34,7 +34,7 @@ class AccountAnalyticAccont(models.Model):
             invoice.compute_taxes()
             return invoice
         else:
-            contract_name = '[' + self.code + '] ' + self.name
+            contract_name = '[' + self.code or ' ' + '] ' + self.name
             raise Warning(u"No Invoice to be created on date %s for contract %s" % (
             self.recurring_next_date, contract_name ))
 
