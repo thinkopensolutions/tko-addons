@@ -22,5 +22,4 @@
 #
 ##############################################################################
 
-import models
-import wizard
+import create_invoices_wizard
