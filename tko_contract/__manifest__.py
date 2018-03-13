@@ -35,6 +35,7 @@
         'contract',
     ],
     'data': [
+        'wizard/create_invoices_view.xml',
         'data/sequence_data.xml',
         'views/account_invoice.xml',
         'views/contract_view.xml',
