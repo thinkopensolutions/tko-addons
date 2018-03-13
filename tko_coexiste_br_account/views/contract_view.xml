@@ -1,0 +1,15 @@
+<odoo>
+    <record id="account_analytic_account_recurring_form_form_inherit" model="ir.ui.view">
+        <field name="name">account.analytic.account</field>
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="contract.account_analytic_account_recurring_form_form"/>
+        <field name="arch" type="xml">
+            <field name="pricelist_id" position="after">
+                <field name="expense_type_id"/>
+                <field name="payment_mode_id"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
+
