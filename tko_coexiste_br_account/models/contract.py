@@ -18,3 +18,15 @@ class AccountAnalyticAccount(models.Model):
         invoice.write({'expense_type_id' : self.expense_type_id.id,
                        'payment_mode_id': self.payment_mode_id.id})
         return invoice
+
+    @api.multi
+    def name_get(self):
+        res = []
+        for account in self:
+            names = []
+            current = account
+            while current:
+                names.append(current.name)
+                current = current.parent_id
+            res.append((account.id, account.name))
+        return res
