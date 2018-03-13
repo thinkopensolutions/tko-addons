@@ -7,6 +7,9 @@
         <field name="arch" type="xml">
             <form string="Create Menu">
                 <group>
+                    <p>
+                        Confirm, if you want to create invoices for selected contracts.
+                    </p>
                 </group>
                 <footer>
                     <button name="create_invoices" string="Create Invoices" type="object" class="btn-primary"/>
