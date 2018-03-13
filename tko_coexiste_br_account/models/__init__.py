@@ -26,3 +26,4 @@ import analytic_account
 import ir_attachment
 import account
 import reconcile_button
+import contract
