@@ -22,6 +22,14 @@
         <field name="model">account.analytic.account</field>
         <field name="inherit_id" ref="contract.account_analytic_account_recurring_form_form"/>
         <field name="arch" type="xml">
+            <button name="recurring_create_invoice" position="replace">
+                 <button name="recurring_create_invoice"
+                            type="object"
+                            attrs="{'invisible': [('recurring_invoices','!=',True)]}"
+                            string="Create invoices"
+                            class="oe_link"
+                    />
+            </button>
             <button name="contract.act_recurring_invoices" position="replace">
                  <button name="contract.act_recurring_invoices"
                             type="action"
