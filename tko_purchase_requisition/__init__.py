@@ -21,9 +21,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import account_invoice
-import analytic_account
-import ir_attachment
-import account
-import reconcile_button
-import contract
+
+import purchase_requisition
+import wizard
+import bid_line_qty
