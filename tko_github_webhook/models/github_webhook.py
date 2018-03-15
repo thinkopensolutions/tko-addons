@@ -32,4 +32,4 @@ class WebHooks(models.Model):
     _name = 'github.webhook'
     _description = 'Github Webhook'
 
-    name = fields.Char('Payload', required=True)
+    name = fields.Text('Payload', required=True)

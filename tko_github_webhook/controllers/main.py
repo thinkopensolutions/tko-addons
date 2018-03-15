@@ -22,24 +22,37 @@
 #
 ##############################################################################
 
+import json
+import logging
+
 import openerp.http as http
 from openerp.http import request
-import logging
 
 _logger = logging.getLogger(__name__)
 
 
 class GithubWebhook(http.Controller):
-    @http.route('/webhooks/github', type='json', auth='public',
-                methods=['POST'])
-    def github_webhook(self, **kwargs):
+    @http.route('/webhooks/github', type='json', auth="none",
+                methods=['POST'], website=True, csrf=False)
+    def github_webhook(self, **kw):
         values = {}
+        _logger.info('###### WEBHOOK INIT:\n%s\n##################' % (values))
         # Gather data
         try:
-            values['payload'] = request.get_json()
-            request.env['github.webhook'].sudo().create(values)
+            values['payload'] = json.dumps(request.jsonrequest, indent=2,
+                                           sort_keys=True)
+            request.env['github.webhook'].sudo().create({'name': values[
+                'payload']})
+            _logger.info(
+                '###### WEBHOOK CALLED:\n%s\n##################' % (values))
         except Exception:
-            logging.warning('Request parsing failed')
-            abort(400)
-
-        return "<Response></Response>"
+            _logger.error('Request parsing failed')
+            return {"err": 400}
+            # se = _serialize_exception(e)
+            # error = {
+            #    'code': 200,
+            #    'message': "Odoo Server Error",
+            #    'data': se
+            # }
+            # return request.make_response(html_escape(json.dumps(error)))
+        return True
