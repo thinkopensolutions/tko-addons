@@ -32,7 +32,7 @@ _logger = logging.getLogger(__name__)
 class WebHooks(models.Model):
     _name = 'github.webhook'
     _description = 'Github Webhook'
-    _sort = 'create_date desc'
+    _order = 'create_date desc'
 
     name = fields.Char('Name', required=True)
     event = fields.Selection([('coc', 'Commit or diff commented on'),
