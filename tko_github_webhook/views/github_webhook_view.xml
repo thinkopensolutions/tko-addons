@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="github_webhook_tree_view" model="ir.ui.view">
+            <field name="name">Github Webhook</field>
+            <field name="model">github.webhook</field>
+            <field name="arch" type="xml">
+                <tree string="Github Webhook">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="github_webhook_form_view" model="ir.ui.view">
+            <field name="model">github.webhook</field>
+            <field name="arch" type="xml">
+                <form string="Github Webhook">
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="github_webhook_action" model="ir.actions.act_window">
+            <field name="name">Github Webhook</field>
+            <field name="res_model">github.webhook</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="webhooks_main" name="Webhooks"
+                  parent="base.menu_administration"
+                  groups="base.group_no_one"/>
+        <menuitem id="webhooks_menu"
+                  parent="webhooks_main" groups="base.group_no_one"/>
+        <menuitem id="github_webhook_menu" action="github_webhook_action"
+                  parent="webhooks_main" groups="base.group_no_one"/>
+    </data>
+</openerp>
