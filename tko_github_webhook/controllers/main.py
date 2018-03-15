@@ -22,11 +22,14 @@
 #
 ##############################################################################
 
+import hmac
 import json
 import logging
+from hashlib import sha1
+from sys import hexversion
 
-import openerp.http as http
-from openerp.http import request
+import odoo.http as http
+from odoo.http import request
 
 _logger = logging.getLogger(__name__)
 
@@ -35,24 +38,43 @@ class GithubWebhook(http.Controller):
     @http.route('/webhooks/github', type='json', auth="none",
                 methods=['POST'], website=True, csrf=False)
     def github_webhook(self, **kw):
-        values = {}
-        _logger.info('###### WEBHOOK INIT:\n%s\n##################' % (values))
-        # Gather data
+        secret = request.env['ir.config_parameter'].sudo().get_param('github.webhook.token')
+        if secret:
+            # Only SHA1 is supported
+            header_signature = request.httprequest.headers.get('X-Hub-Signature')
+            if header_signature is None:
+                http.Response.status = '403'
+                return {'error': 'Authentication error.'}
+
+            sha_name, signature = header_signature.split('=')
+            if sha_name != 'sha1':
+                http.Response.status = '501'
+                return {'error': 'Authentication error.'}
+
+            # HMAC requires the key to be bytes, but data is string
+            mac = hmac.new(str(secret), msg=request.httprequest.data, digestmod=sha1)
+
+            # Python prior to 2.7.7 does not have hmac.compare_digest
+            if hexversion >= 0x020707F0:
+                if not hmac.compare_digest(str(mac.hexdigest()), str(signature)):
+                    http.Response.status = '403'
+                    return {'error': 'Authentication error.'}
+            else:
+                # What compare_digest provides is protection against timing
+                # attacks; we can live without this protection for a web-based
+                # application
+                if not str(mac.hexdigest()) == str(signature):
+                    http.Response.status = '403'
+                    return {'error': 'Authentication error.'}
         try:
-            values['payload'] = json.dumps(request.jsonrequest, indent=2,
-                                           sort_keys=True)
-            request.env['github.webhook'].sudo().create({'name': values[
-                'payload']})
-            _logger.info(
-                '###### WEBHOOK CALLED:\n%s\n##################' % (values))
+            payload = request.jsonrequest
+            request.env['github.webhook'].sudo().create({
+                'name': dict(payload).get('repository', {}).get('name', 'unknown'),
+                'payload': json.dumps(request.jsonrequest,
+                                      indent=2,
+                                      sort_keys=True)})
         except Exception:
             _logger.error('Request parsing failed')
-            return {"err": 400}
-            # se = _serialize_exception(e)
-            # error = {
-            #    'code': 200,
-            #    'message': "Odoo Server Error",
-            #    'data': se
-            # }
-            # return request.make_response(html_escape(json.dumps(error)))
+            http.Response.status = '400'
+            return {'error': 'Request parsing failed'}
         return True
