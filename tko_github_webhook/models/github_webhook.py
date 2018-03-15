@@ -35,6 +35,8 @@ class WebHooks(models.Model):
     _order = 'create_date desc'
 
     name = fields.Char('Name', required=True)
+    github_delivery = fields.Char('Github Delivery', required=True)
+    github_event = fields.Char('Github Event', required=True)
     event = fields.Selection([('coc', 'Commit or diff commented on'),
                               ('brctc', 'Branch or tag created'),
                               ('brctd', 'Branch or tag deleted.'),
