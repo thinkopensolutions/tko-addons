@@ -70,6 +70,10 @@ class GithubWebhook(http.Controller):
             payload = request.jsonrequest
             request.env['github.webhook'].sudo().create({
                 'name': dict(payload).get('repository', {}).get('name', 'unknown'),
+                'github_delivery':
+                    request.httprequest.headers.get('X-GitHub-Delivery'),
+                'github_event':
+                    request.httprequest.headers.get('X-GitHub-Event'),
                 'payload': json.dumps(request.jsonrequest,
                                       indent=2,
                                       sort_keys=True)})
