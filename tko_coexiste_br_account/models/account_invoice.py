@@ -138,6 +138,15 @@ class InvoicePaymentInfo(models.Model):
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
+    # we create this field to replace with refernce
+    # we want to set duplicate values in reference but validation in standard doesn't allow it
+    # we can't override invoice_validate we must need to call super to do several jobs like
+    # emit Electronic Docs
+
+    reference_coexiste = fields.Char(string=u'Referência de Fornecedor',
+                                     help="The partner reference of this invoice.", readonly=True,
+                                     states={'draft': [('readonly', False)]})
+
     @api.multi
     def draft_invoice_validate(self):
         for invoice in self:
@@ -163,7 +172,7 @@ class AccountInvoice(models.Model):
                                 ('id', '!=', invoice.id)]):
                     raise UserError(_(
                         u"Duplicated Número NF Entrada detected. You probably encoded twice the same vendor bill/refund."))
-        return self.write({'state': 'open'})
+        return super(AccountInvoice, self).invoice_validate()
 
     @api.model
     def _default_journal_tko(self):
@@ -238,7 +247,6 @@ class AccountInvoice(models.Model):
                     move_line.date_maturity = due_date
             record.draft_invoice_validate()
         return super(AccountInvoice, self).write(vals)
-
 
 
 class AccountInvoiceLine(models.Model):
