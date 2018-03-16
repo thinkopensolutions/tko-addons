@@ -13,3 +13,4 @@ class AccountAnalyticAccount(models.Model):
                 'account.analytic.account') or 'New'
             vals.update({'code': sequence})
         return super(AccountAnalyticAccount, self).create(vals)
+
