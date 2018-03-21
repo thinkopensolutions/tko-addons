@@ -27,3 +27,4 @@ import ir_attachment
 import account
 import reconcile_button
 import contract
+import bank_statement
