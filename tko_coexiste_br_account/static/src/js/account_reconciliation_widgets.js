@@ -21,6 +21,19 @@ odoo.define('tko_coexiste_br_account.reconciliationa', function (require) {
                     string: _t("Expense Type"),
                     type: "many2one",
                 },
+            },
+            this.create_form_fields['product_id']= {
+                id: "product_id",
+                index: 25,
+                corresponding_property: "product_id",
+                label: _t("Produto"),
+                required: false,
+                constructor: FieldMany2One,
+                field_properties: {
+                    relation: "product.product",
+                    string: _t("Produto"),
+                    type: "many2one",
+                },
             }
 
 
@@ -46,7 +59,8 @@ odoo.define('tko_coexiste_br_account.reconciliationa', function (require) {
                         amount: datum.amount,
                         tax_id: datum.tax_id,
                         analytic_account_id: datum.analytic_account_id,
-                        expense_type_id: datum.expense_type_id
+                        expense_type_id: datum.expense_type_id,
+                        product_id: datum.product_id
                     }]
                 };
                 if (datum.has_second_line) {
@@ -58,7 +72,8 @@ odoo.define('tko_coexiste_br_account.reconciliationa', function (require) {
                         amount: datum.second_amount,
                         tax_id: datum.second_tax_id,
                         analytic_account_id: datum.second_analytic_account_id,
-                        expense_type_id: datum.second_expense_type_id
+                        expense_type_id: datum.second_expense_type_id,
+                        product_id: datum.product_id
                     });
                 }
                 self.presets[datum.id] = preset;
@@ -71,6 +86,7 @@ odoo.define('tko_coexiste_br_account.reconciliationa', function (require) {
     /* write expense_type_id to database */
 
     reconciliation.abstractReconciliationLine.include({
+
         // Returns an object that can be passed to process_reconciliation()
         prepareCreatedMoveLinesForPersisting: function(lines) {
             lines = _.filter(lines, function(line) { return !line.is_tax_line });
@@ -87,6 +103,7 @@ odoo.define('tko_coexiste_br_account.reconciliationa', function (require) {
                 if (line.tax_id) dict['tax_ids'] = [[4, line.tax_id, null]];
                 if (line.analytic_account_id) dict['analytic_account_id'] = line.analytic_account_id;
                 if (line.expense_type_id) dict['expense_type_id'] = line.expense_type_id;
+                if (line.product_id) dict['product_id'] = line.product_id;
                 return dict;
             });
         },

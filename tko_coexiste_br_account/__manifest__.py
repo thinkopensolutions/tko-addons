@@ -36,6 +36,7 @@
         'br_account',
         'br_account_payment',
         'contract',
+        'tko_account_parent_analytic',
         'tko_account_moves_in_draft',
     ],
     'data': [
