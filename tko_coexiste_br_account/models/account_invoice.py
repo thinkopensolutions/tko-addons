@@ -200,14 +200,18 @@ class AccountInvoice(models.Model):
         # lots of duplicate calls to action_invoice_paid, so we remove those already paid
         to_pay_invoices = self.filtered(lambda inv: inv.state != 'paid')
         result = super(AccountInvoice, self).action_invoice_paid()
+        current_date = datetime.datetime.now()
         for invoice in to_pay_invoices:
             if invoice.move_id:
                 if invoice.type == 'out_invoice':
-                    invoice.move_id.date = datetime.datetime.now()
+                    invoice.move_id.date = current_date
                     invoice.move_id.state = 'posted'
                     # for move_line in invoice.move_id.line_ids:
                     #     if move_line.credit > 0:
                     #         move_line.date_maturity = invoice.move_id.date
+                    for analytic_line in invoice.analytic_line_ids:
+                        analytic_line.date = current_date
+
         return result
 
     # set account Account Move to unposted
