@@ -209,8 +209,9 @@ class AccountInvoice(models.Model):
                     # for move_line in invoice.move_id.line_ids:
                     #     if move_line.credit > 0:
                     #         move_line.date_maturity = invoice.move_id.date
-                    for analytic_line in invoice.move_id.analytic_line_ids:
-                        analytic_line.date = current_date
+                    for mline in invoice.move_id.line_ids:
+                        for line in mline.analytic_line_ids:
+                            line.date = current_date
 
         return result
 
