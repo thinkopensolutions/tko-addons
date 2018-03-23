@@ -29,7 +29,8 @@ from odoo.exceptions import Warning as UserError
 from odoo.exceptions import ValidationError
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT as OE_DFORMAT
 
+
 class AccountAccount(models.Model):
-    _inherit ='account.account'
+    _inherit = 'account.account'
 
     type_secondary = fields.Char(u'Tipo de Conta Balanço')
