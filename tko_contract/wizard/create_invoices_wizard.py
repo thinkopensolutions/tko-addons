@@ -3,7 +3,7 @@
 from odoo import models, fields, api, _
 
 
-class CreateInvoicesWizard(models.Model):
+class CreateInvoicesWizard(models.TransientModel):
     _name = 'create.invoices.wizard'
 
     # Create Mass Invoices
