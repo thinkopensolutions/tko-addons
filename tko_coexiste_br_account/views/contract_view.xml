@@ -4,6 +4,10 @@
         <field name="model">account.analytic.account</field>
         <field name="inherit_id" ref="contract.account_analytic_account_recurring_form_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//field[@name='recurring_invoice_line_ids']//field[@name='name']" position="after">
+                <field name="account_analytic_id"/>
+                <field name="analytics_id"/>
+            </xpath>
             <field name="partner_id" position="attributes">
                 <attribute name="required">1</attribute>
             </field>
