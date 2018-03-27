@@ -3,6 +3,23 @@
 from odoo import models, fields, api, _
 
 
+class AccountAnalyticInvoiceLine(models.Model):
+    _inherit = 'account.analytic.invoice.line'
+
+    account_analytic_id = fields.Many2one('account.analytic.account', string=u'Conta Analítica')
+    analytics_id = fields.Many2one('account.analytic.plan.instance', string=u'Analytic Distribution')
+
+    @api.onchange('account_analytic_id')
+    def onchange_account_analytic_id(self):
+        if self.account_analytic_id:
+            self.analytics_id = False
+
+    @api.onchange('analytics_id')
+    def onchange_analytics_id(self):
+        if self.analytics_id:
+            self.account_analytic_id = False
+
+
 class AccountAnalyticAccount(models.Model):
     _inherit = 'account.analytic.account'
 
@@ -15,9 +32,34 @@ class AccountAnalyticAccount(models.Model):
     def _create_invoice(self):
         self.ensure_one()
         invoice = super(AccountAnalyticAccount, self)._create_invoice()
-        invoice.write({'expense_type_id' : self.expense_type_id.id,
+        invoice.write({'expense_type_id': self.expense_type_id.id,
                        'payment_mode_id': self.payment_mode_id.id})
         return invoice
+
+    @api.model
+    def _prepare_invoice_line(self, line, invoice_id):
+        res = super(AccountAnalyticAccount, self)._prepare_invoice_line(line, invoice_id)
+
+        # create default plan
+        aline = self.env['account.analytic.plan.invoice.line'].create(
+            {'analytic_account_id': line.analytic_account_id.id,
+             'rate': 100})
+        alines = [aline.id]
+        if line.account_analytic_id:
+            aline = self.env['account.analytic.plan.invoice.line'].create(
+                {'analytic_account_id': line.account_analytic_id.id,
+                 'rate': 100})
+            alines.append(aline.id)
+
+        else:
+            for dline in line.analytics_id.account_ids:
+                aline = self.env['account.analytic.plan.invoice.line'].create(
+                    {'analytic_account_id': dline.analytic_account_id.id,
+                     'rate': dline.rate})
+                alines.append(aline.id)
+        res.update({'account_ids': [(6, 0, alines)], 'analytic_distribution': True})
+
+        return res
 
     @api.multi
     def name_get(self):
