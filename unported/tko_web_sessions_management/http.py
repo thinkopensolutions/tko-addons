@@ -23,9 +23,8 @@
 ##############################################################################
 
 import logging
-import openerp
-from dateutil.relativedelta import *
-from openerp import SUPERUSER_ID
+
+import odoo
 import werkzeug.contrib.sessions
 import werkzeug.datastructures
 import werkzeug.exceptions
@@ -33,16 +32,14 @@ import werkzeug.local
 import werkzeug.routing
 import werkzeug.wrappers
 import werkzeug.wsgi
-from werkzeug.wsgi import wrap_file
-from openerp.http import request
-from openerp.tools.func import lazy_property
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from odoo.http import request
+from odoo.tools.func import lazy_property
 
 #
 _logger = logging.getLogger(__name__)
 
 
-class OpenERPSession(openerp.http.OpenERPSession):
+class OpenERPSession(odoo.http.OpenERPSession):
     def logout(self, keep_db=False, logout_type=None, env=None):
         try:
             env = env or request.env
@@ -59,15 +56,15 @@ class OpenERPSession(openerp.http.OpenERPSession):
         return super(OpenERPSession, self).logout(keep_db=keep_db)
 
 
-class Root_tkobr(openerp.http.Root):
+class Root_tkobr(odoo.http.Root):
     @lazy_property
     def session_store(self):
         # Setup http sessions
-        path = openerp.tools.config.session_dir
+        path = odoo.tools.config.session_dir
         _logger.debug('HTTP sessions stored in: %s', path)
         return werkzeug.contrib.sessions.FilesystemSessionStore(
             path, session_class=OpenERPSession)
 
 
 root = Root_tkobr()
-openerp.http.root.session_store = root.session_store
+odoo.http.root.session_store = root.session_store

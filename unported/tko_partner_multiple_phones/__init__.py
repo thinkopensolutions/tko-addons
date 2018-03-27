@@ -22,5 +22,4 @@
 #
 ##############################################################################
 
-import tko_partner_phones
-import res_partner
+import models

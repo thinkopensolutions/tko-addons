@@ -1,3 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_multiple_phones_user,Multiple Phones,model_res_partner_phone,base.group_user,1,1,1,1
-access_multiple_phone_type_user,Multiple Phones Types,model_res_partner_phone_type,base.group_user,1,1,1,1
+access_partner_phone_number_user,Multiple Phone Numbers,model_partner_phone_number,base.group_user,1,1,1,1
+access_partner_phone_number_manager,Multiple Phone Numbers,model_partner_phone_number,base.group_partner_manager,1,1,1,1
+access_phone_state_user,Phone Status User,model_partner_phone_state,base.group_user,1,1,1,0
+access_phone_state_manager,Phone Status Manager,model_partner_phone_state,base.group_partner_manager,1,1,1,1
+access_phone_type_user,Phone Type User,model_partner_phone_type,base.group_user,1,1,1,0
+access_phone_type_manager,Phone Type Manager,model_partner_phone_type,base.group_partner_manager,1,1,1,1

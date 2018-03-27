@@ -32,11 +32,11 @@ import werkzeug.local
 import werkzeug.routing
 import werkzeug.wrappers
 import werkzeug.wsgi
-from openerp import SUPERUSER_ID
-from openerp import api
-from openerp.http import root
-from openerp.osv import fields, osv
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from odoo import SUPERUSER_ID
+from odoo import api
+from odoo import fields, models
+from odoo.http import root
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 _logger = logging.getLogger(__name__)
 
@@ -45,40 +45,38 @@ LOGOUT_TYPES = [('ul', 'User Logout'),
                 ('sk', 'Session Killed'), ]
 
 
-class ir_sessions(osv.osv):
+class ir_sessions(models.Model):
     _name = 'ir.sessions'
     _description = "Sessions"
 
-    _columns = {
-        'user_id': fields.many2one('res.users', 'User', ondelete='cascade',
-                                   required=True),
-        'logged_in': fields.boolean('Logged in', required=True, index=True),
-        'session_id': fields.char('Session ID', size=100, required=True),
-        'session_seconds': fields.integer('Session duration in seconds'),
-        'multiple_sessions_block': fields.boolean('Block Multiple Sessions'),
-        'date_login': fields.datetime('Login', required=True),
-        'expiration_date': fields.datetime('Expiration Date', required=True,
-                                           index=True),
-        'date_logout': fields.datetime('Logout'),
-        'logout_type': fields.selection(LOGOUT_TYPES, 'Logout Type'),
-        'session_duration': fields.char('Session Duration', size=8),
-        'user_kill_id': fields.many2one('res.users', 'Killed by', ),
-        'unsuccessful_message': fields.char('Unsuccessful', size=252),
-        'ip': fields.char('Remote IP', size=15),
-        'ip_location': fields.char('IP Location', ),
-        'remote_tz': fields.char('Remote Time Zone', size=32, required=True),
-        # Add other fields about the sessions from HEADER...
-    }
+    user_id = fields.Many2one('res.users', 'User', ondelete='cascade',
+                              required=True)
+    logged_in = fields.Boolean('Logged in', required=True, index=True)
+    session_id = fields.Char('Session ID', size=100, required=True)
+    session_seconds = fields.Integer('Session duration in seconds')
+    multiple_sessions_block = fields.Boolean('Block Multiple Sessions')
+    date_login = fields.Datetime('Login', required=True)
+    date_logout = fields.Datetime('Logout')
+    date_expiration = fields.Datetime('Expiration Date', required=True, index=True,
+                                      default=lambda *a: fields.Datetime.now())
+    logout_type = fields.Selection(LOGOUT_TYPES, 'Logout Type')
+    session_duration = fields.Char('Session Duration')
+    user_kill_id = fields.Many2one('res.users', 'Killed by', )
+    unsuccessful_message = fields.Char('Unsuccessful', size=252)
+    ip = fields.Char('Remote IP', size=15)
+    ip_location = fields.Char('IP Location', )
+    remote_tz = fields.Char('Remote Time Zone', size=32, required=True)
+    # Add other fields about the sessions from HEADER...
 
-    _order = 'logged_in desc, expiration_date desc'
+    _order = 'logged_in desc, date_expiration desc'
 
     # scheduler function to validate users session
-    def validate_sessions(self, cr, uid, context=None):
-        ids = self.search(cr, SUPERUSER_ID,
-                          [('expiration_date', '<=', fields.datetime.now()),
-                           ('logged_in', '=', True)])
-        if ids:
-            self.browse(cr, SUPERUSER_ID, ids)._close_session(logout_type='to')
+    def validate_sessions(self):
+        sessions = self.sudo().search([('date_expiration', '<=',
+                                        fields.datetime.now().strftime(DEFAULT_SERVER_DATETIME_FORMAT)),
+                                       ('logged_in', '=', True)])
+        if sessions:
+            sessions._close_session(logout_type='to')
         return True
 
     @api.multi
@@ -92,30 +90,24 @@ class ir_sessions(osv.osv):
     @api.multi
     def _on_session_logout(self, logout_type=None):
         now = fields.datetime.now()
-        session_obj = self.pool['ir.sessions']
         cr = self.pool.cursor()
         # autocommit: our single update request will be performed atomically.
         # (In this way, there is no opportunity to have two transactions
         # interleaving their cr.execute()..cr.commit() calls and have one
         # of them rolled back due to a concurrent access.)
         cr.autocommit(True)
-        for r in self:
-            session_obj.write(
-                cr,
-                SUPERUSER_ID,
-                r.id,
+
+        for session in self:
+            session_duration = str(now - datetime.strptime(
+                session.date_login,
+                DEFAULT_SERVER_DATETIME_FORMAT)).split('.')[0]
+            session.sudo().write(
                 {
                     'logged_in': False,
-                    'date_logout': now,
+                    'date_logout': now.strftime(DEFAULT_SERVER_DATETIME_FORMAT),
                     'logout_type': logout_type,
                     'user_kill_id': SUPERUSER_ID,
-                    'session_duration': str(
-                        datetime.strptime(
-                            now,
-                            DEFAULT_SERVER_DATETIME_FORMAT) -
-                        datetime.strptime(
-                            r.date_login,
-                            DEFAULT_SERVER_DATETIME_FORMAT)),
+                    'session_duration': session_duration,
                 })
         cr.commit()
         cr.close()

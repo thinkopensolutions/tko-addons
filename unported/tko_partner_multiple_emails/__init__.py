@@ -22,6 +22,4 @@
 #
 ##############################################################################
 
-import tko_partner_emails
-import res_partner
-import res_company
+import models

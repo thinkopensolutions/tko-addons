@@ -23,28 +23,30 @@
 ##############################################################################
 
 import logging
-import pytz
 from datetime import datetime
-from dateutil.relativedelta import *
 
-import openerp
+import odoo
+import pytz
 import werkzeug.contrib.sessions
-from openerp import SUPERUSER_ID
-from openerp import http
-from openerp.http import request
-from openerp.osv import fields
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
-from openerp.tools.translate import _
+from dateutil.relativedelta import *
+from odoo import SUPERUSER_ID
+from odoo import fields, _
+from odoo import http
+from odoo.http import request
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
-# from openerp import pooler
+# from odoo import pooler
 
 _logger = logging.getLogger(__name__)
 
 
-class Home_tkobr(openerp.addons.web.controllers.main.Home):
+class Home_tkobr(odoo.addons.web.controllers.main.Home):
     @http.route('/web/login', type='http', auth="none")
     def web_login(self, redirect=None, **kw):
-        openerp.addons.web.controllers.main.ensure_db()
+        if not request.registry.get('ir.sessions'):
+            return super(Home_tkobr, self).web_login(redirect=redirect, **kw)
+        _logger.debug('Authentication method: Home_tkobr.web_login !')
+        odoo.addons.web.controllers.main.ensure_db()
         multi_ok = True
         calendar_set = 0
         calendar_ok = False
@@ -52,11 +54,12 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
         unsuccessful_message = ''
         now = datetime.now()
 
+        session_obj = request.env['ir.sessions']
         if request.httprequest.method == 'GET' and redirect and request.session.uid:
             return http.redirect_with_hash(redirect)
 
         if not request.uid:
-            request.uid = openerp.SUPERUSER_ID
+            request.uid = odoo.SUPERUSER_ID
 
         values = request.params.copy()
         if not redirect:
@@ -65,7 +68,7 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
 
         try:
             values['databases'] = http.db_list()
-        except openerp.exceptions.AccessDenied:
+        except odoo.exceptions.AccessDenied:
             values['databases'] = None
 
         if request.httprequest.method == 'POST':
@@ -75,13 +78,11 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
                 uid = request.session.authenticate(request.session.db, request.params[
                     'login'], request.params['password'])
             if uid is not False:
-                user = request.registry.get('res.users').browse(
-                    request.cr, request.uid, uid, request.context)
+                user = request.env.user
                 if not uid is SUPERUSER_ID:
                     # check for multiple sessions block
-                    sessions = request.registry.get('ir.sessions').search(
-                        request.cr, request.uid, [
-                            ('user_id', '=', uid), ('logged_in', '=', True)], context=request.context)
+                    sessions = session_obj.search(
+                        [('user_id', '=', uid), ('logged_in', '=', True)])
 
                     if sessions and user.multiple_sessions_block:
                         multi_ok = False
@@ -155,21 +156,14 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
                     'login']
             if not unsuccessful_message or uid is SUPERUSER_ID:
                 self.save_session(
-                    request.cr,
-                    uid,
                     user.tz,
-                    request.httprequest.session.sid,
-                    context=request.context)
+                    request.httprequest.session.sid)
                 return http.redirect_with_hash(redirect)
-            user = request.registry.get('res.users').browse(
-                request.cr, SUPERUSER_ID, SUPERUSER_ID, request.context)
+            user = request.env.user
             self.save_session(
-                request.cr,
-                uid,
                 user.tz,
                 request.httprequest.session.sid,
-                unsuccessful_message,
-                request.context)
+                unsuccessful_message)
             _logger.error(unsuccessful_message)
             request.uid = old_uid
             values['error'] = _('Login failed due to one of the following reasons:')
@@ -181,14 +175,12 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
 
     def save_session(
             self,
-            cr,
-            uid,
             tz,
             sid,
             unsuccessful_message='',
-            context=None):
+    ):
         now = fields.datetime.now()
-        session_obj = request.registry.get('ir.sessions')
+        session_obj = request.env['ir.sessions']
         cr = request.registry.cursor()
 
         # Get IP, check if it's behind a proxy
@@ -218,43 +210,38 @@ class Home_tkobr(openerp.addons.web.controllers.main.Home):
         # interleaving their cr.execute()..cr.commit() calls and have one
         # of them rolled back due to a concurrent access.)
         cr.autocommit(True)
-        user = request.registry.get('res.users').browse(
-            cr, request.uid, uid, request.context)
+        user = request.env.user
         logged_in = True
+        uid = user.id
         if unsuccessful_message:
             uid = SUPERUSER_ID
             logged_in = False
             sessions = False
         else:
-            sessions = session_obj.search(cr, uid, [('session_id', '=', sid),
-                                                    ('ip', '=', ip),
-                                                    ('user_id', '=', uid),
-                                                    ('logged_in', '=', True)],
-                                          context=context)
+            sessions = session_obj.search([('session_id', '=', sid),
+                                           ('ip', '=', ip),
+                                           ('user_id', '=', uid),
+                                           ('logged_in', '=', True)],
+                                          )
         if not sessions:
+            date_expiration = (now + relativedelta(seconds=user.session_default_seconds)).strftime(
+                DEFAULT_SERVER_DATETIME_FORMAT)
             values = {
                 'user_id': uid,
                 'logged_in': logged_in,
                 'session_id': sid,
                 'session_seconds': user.session_default_seconds,
                 'multiple_sessions_block': user.multiple_sessions_block,
-                'date_login': now,
-                'expiration_date': datetime.strftime(
-                    (datetime.strptime(
-                        now,
-                        DEFAULT_SERVER_DATETIME_FORMAT) +
-                     relativedelta(
-                         seconds=user.session_default_seconds)),
-                    DEFAULT_SERVER_DATETIME_FORMAT),
+                'date_login': now.strftime(DEFAULT_SERVER_DATETIME_FORMAT),
+                'date_expiration': date_expiration,
                 'ip': ip,
                 'ip_location': ip_location,
                 'remote_tz': tz or 'GMT',
                 'unsuccessful_message': unsuccessful_message,
             }
-            session_obj.create(cr, uid, values, context=context)
+            session_obj.sudo().create(values)
             cr.commit()
         cr.close()
-        return True
 
     @http.route('/web/session/logout', type='http', auth="none")
     def logout(self, redirect='/web'):
