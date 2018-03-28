@@ -41,10 +41,9 @@ class AccountAnalyticAccount(models.Model):
         res = super(AccountAnalyticAccount, self)._prepare_invoice_line(line, invoice_id)
 
         # create default plan
-        aline = self.env['account.analytic.plan.invoice.line'].create(
-            {'analytic_account_id': line.analytic_account_id.id,
-             'rate': 100})
-        alines = [aline.id]
+        alines = []
+        if line.account_analytic_id or line.analytics_id:
+            res.update({ 'analytic_distribution': True})
         if line.account_analytic_id:
             aline = self.env['account.analytic.plan.invoice.line'].create(
                 {'analytic_account_id': line.account_analytic_id.id,
@@ -57,7 +56,7 @@ class AccountAnalyticAccount(models.Model):
                     {'analytic_account_id': dline.analytic_account_id.id,
                      'rate': dline.rate})
                 alines.append(aline.id)
-        res.update({'account_ids': [(6, 0, alines)], 'analytic_distribution': True})
+        res.update({'account_ids': [(6, 0, alines)]})
 
         return res
 

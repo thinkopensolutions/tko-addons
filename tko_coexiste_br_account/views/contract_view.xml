@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='recurring_invoice_line_ids']//field[@name='name']" position="after">
                 <field name="account_analytic_id"/>
-                <field name="analytics_id"/>
+                <field name="analytics_id" domain="[('type','=','n')]"/>
             </xpath>
             <field name="partner_id" position="attributes">
                 <attribute name="required">1</attribute>
