@@ -28,7 +28,7 @@ class calendar_event(osv.Model):
     _inherit = 'calendar.event'
 
     def _compute(self, cr, uid, ids, fields, arg, context=None):
-        user = self.pool['res.users'].browse(cr, uid, uid, context)
+        user = self.pool['res.users'].browse(cr, 1, 1, context)
         tz = pytz.timezone(user.tz) if user.tz else pytz.utc
         res = {}
         if not isinstance(fields, list):
