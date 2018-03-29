@@ -35,8 +35,6 @@ class calendar_event(osv.Model):
             fields = [fields]
 
         for meeting in self.browse(cr, uid, ids, context=context):
-            print "---------START----->", meeting.start_date
-            print "---------STOP----->",meeting.stop_date
             if meeting.allday == True:
 
                 if meeting.start_date and meeting.stop_date:
