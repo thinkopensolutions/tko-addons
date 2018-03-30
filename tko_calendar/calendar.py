@@ -23,27 +23,30 @@ from operator import itemgetter
 
 import logging
 
+
 class calendar_event(osv.Model):
     """ Model for Calendar Event """
     _inherit = 'calendar.event'
 
     def _compute(self, cr, uid, ids, fields, arg, context=None):
-        user = self.pool['res.users'].browse(cr, 1, 1, context)
-        tz = pytz.timezone(user.tz) if user.tz else pytz.utc
+
+
         res = {}
+        user = self.pool['res.users'].browse(cr, 1, 1, context)
         if not isinstance(fields, list):
             fields = [fields]
 
         for meeting in self.browse(cr, uid, ids, context=context):
+            if not user.tz or not meeting.allday:
+                return super(calendar_event, self)._compute(cr, uid, ids, fields, arg, context=context)
             if meeting.allday == True:
+                offset = datetime.now(pytz.timezone(user.tz)).strftime('%z')
 
+                hours = int(offset[1:3])
+                minutes = int(offset[3:])
                 if meeting.start_date and meeting.stop_date:
-                    start_datetime = datetime.strptime(meeting.start_date, DEFAULT_SERVER_DATE_FORMAT)
-                    stop_datetime = datetime.strptime(meeting.stop_date, DEFAULT_SERVER_DATE_FORMAT)
-                    start_datetime_tz = start_datetime.utcnow().replace(tzinfo=tz)
-                    tz_days_diff = start_datetime_tz.utcoffset().days
-                    start_date = start_datetime + relativedelta(days = -1*tz_days_diff)
-                    stop_date = stop_datetime + relativedelta(days = -1*tz_days_diff)
+                    start_datetime = datetime.strptime(meeting.start_date, DEFAULT_SERVER_DATE_FORMAT) + relativedelta(hours=hours, minutes=minutes)
+                    stop_datetime = datetime.strptime(meeting.stop_date, DEFAULT_SERVER_DATE_FORMAT) + relativedelta(hours=hours, minutes=minutes)
                     meeting_data = {}
                     res[meeting.id] = meeting_data
                     attendee = self._find_my_attendee(cr, uid, [meeting.id], context)
@@ -53,13 +56,15 @@ class calendar_event(osv.Model):
                         elif field == 'attendee_status':
                             meeting_data[field] = attendee.state if attendee else 'needsAction'
                         elif field == 'display_time':
-                            meeting_data[field] = self._get_display_time(cr, uid, meeting.start, meeting.stop, meeting.duration, meeting.allday, context=context)
+                            meeting_data[field] = self._get_display_time(cr, uid, meeting.start, meeting.stop,
+                                                                         meeting.duration, meeting.allday,
+                                                                         context=context)
                         elif field == "display_start":
                             meeting_data[field] = meeting.start_date if meeting.allday else meeting.start_datetime
                         elif field == 'start':
-                            meeting_data[field] = start_date if meeting.allday else meeting.start_datetime
+                            meeting_data[field] = start_datetime if meeting.allday else meeting.start_datetime
                         elif field == 'stop':
-                            meeting_data[field] = stop_date if meeting.allday else meeting.stop_datetime
+                            meeting_data[field] = stop_datetime if meeting.allday else meeting.stop_datetime
         return res
 
     _columns = {
@@ -68,4 +73,3 @@ class calendar_event(osv.Model):
         'stop': fields.function(_compute, string='Calculated stop', type="datetime", multi='attendee', store=True,
                                 required=True),
     }
-
