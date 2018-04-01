@@ -28,7 +28,10 @@ import datetime
 from odoo.exceptions import Warning as UserError
 from odoo.exceptions import ValidationError
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT as OE_DFORMAT
-
+from odoo import tools
+from odoo import SUPERUSER_ID
+from odoo.tools.misc import DEFAULT_SERVER_DATETIME_FORMAT as DTF
+import pytz
 
 class AccountExpenseType(models.Model):
     _name = 'account.expense.type'
@@ -194,13 +197,15 @@ class AccountInvoice(models.Model):
                                  default=_default_journal_tko,
                                  domain="[('type', 'in', {'out_invoice': ['sale'], 'out_refund': ['sale'], 'in_refund': ['purchase'], 'in_invoice': ['purchase']}.get(type, [])), ('company_id', '=', company_id)]")
 
-    # set move date
+    # set move to posted
     @api.multi
     def action_invoice_paid(self):
         # lots of duplicate calls to action_invoice_paid, so we remove those already paid
         to_pay_invoices = self.filtered(lambda inv: inv.state != 'paid')
         result = super(AccountInvoice, self).action_invoice_paid()
-        current_date = datetime.datetime.now()
+        tz = pytz.timezone(self.env['res.users'].browse(SUPERUSER_ID).partner_id.tz) or pytz.utc
+        current_date = pytz.utc.localize(fields.datetime.now()).astimezone(tz)
+        current_date = current_date.strftime(tools.DEFAULT_SERVER_DATE_FORMAT)
         for invoice in to_pay_invoices:
             if invoice.move_id:
                 if invoice.type == 'out_invoice':
@@ -209,9 +214,9 @@ class AccountInvoice(models.Model):
                     # for move_line in invoice.move_id.line_ids:
                     #     if move_line.credit > 0:
                     #         move_line.date_maturity = invoice.move_id.date
-                    for mline in invoice.move_id.line_ids:
-                        for line in mline.analytic_line_ids:
-                            line.date = current_date
+                    # for mline in invoice.move_id.line_ids:
+                    #     for line in mline.analytic_line_ids:
+                    #         line.date = current_date
 
         return result
 
