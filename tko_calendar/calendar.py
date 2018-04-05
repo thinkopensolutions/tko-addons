@@ -73,3 +73,47 @@ class calendar_event(osv.Model):
         'stop': fields.function(_compute, string='Calculated stop', type="datetime", multi='attendee', store=True,
                                 required=True),
     }
+
+    # def get_interval(self, cr, uid, ids, date, interval, tz=None, context=None):
+    #     if not tz:
+    #         tz = self.pool['res.users'].browse(cr, 1, 1, context).tz
+    #     return super(calendar_event, self).get_interval(cr, uid, ids, date, interval, tz=tz, context=context)
+
+    def onchange_dates(self, cr, uid, ids, fromtype, start=False, end=False, checkallday=False, allday=False, context=None):
+
+        """Returns duration and end date based on values passed
+        @param ids: List of calendar event's IDs.
+        """
+        value = {}
+        user = self.pool['res.users'].browse(cr, 1, 1, context)
+        offset = datetime.now(pytz.timezone(user.tz)).strftime('%z')
+
+        hours = int(offset[1:3])
+        minutes = int(offset[3:])
+        if checkallday != allday:
+            return value
+
+        value['allday'] = checkallday  # Force to be rewrited
+
+        if allday:
+
+
+
+            if fromtype == 'start' and start:
+                if not isinstance(start, datetime):
+                    start = datetime.strptime(start, DEFAULT_SERVER_DATE_FORMAT)
+                start = datetime.strftime(start + relativedelta(
+                    hours=hours, minutes=minutes), DEFAULT_SERVER_DATETIME_FORMAT)
+                value['start'] = start
+
+
+            if fromtype == 'stop' and end:
+                if not isinstance(start, datetime):
+                    end = datetime.strptime(end, DEFAULT_SERVER_DATE_FORMAT)
+                end = datetime.strftime(end + relativedelta(
+                    hours=hours, minutes=minutes), DEFAULT_SERVER_DATETIME_FORMAT)
+                value['stop'] = end
+
+        else:
+            return super(calendar_event, self).onchange_dates(cr, uid, ids, fromtype, start=start, end=end, checkallday=checkallday, allday=allday, context=context)
+        return {'value': value}
