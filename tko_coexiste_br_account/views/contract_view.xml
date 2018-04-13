@@ -5,6 +5,7 @@
         <field name="inherit_id" ref="contract.account_analytic_account_recurring_form_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='recurring_invoice_line_ids']//field[@name='name']" position="after">
+                <field name="cost_center_id"/>
                 <field name="account_analytic_id"/>
                 <field name="analytics_id" domain="[('type','=','n')]"/>
             </xpath>

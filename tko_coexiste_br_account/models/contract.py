@@ -6,6 +6,7 @@ from odoo import models, fields, api, _
 class AccountAnalyticInvoiceLine(models.Model):
     _inherit = 'account.analytic.invoice.line'
 
+    cost_center_id = fields.Many2one('account.cost.center', string=u'Centro de Custo')
     account_analytic_id = fields.Many2one('account.analytic.account', string=u'Conta Analítica')
     analytics_id = fields.Many2one('account.analytic.plan.instance', string=u'Analytic Distribution')
 
@@ -43,7 +44,7 @@ class AccountAnalyticAccount(models.Model):
         # create default plan
         alines = []
         if line.account_analytic_id or line.analytics_id:
-            res.update({ 'analytic_distribution': True})
+            res.update({'analytic_distribution': True})
         if line.account_analytic_id:
             aline = self.env['account.analytic.plan.invoice.line'].create(
                 {'analytic_account_id': line.account_analytic_id.id,
@@ -56,7 +57,7 @@ class AccountAnalyticAccount(models.Model):
                     {'analytic_account_id': dline.analytic_account_id.id,
                      'rate': dline.rate})
                 alines.append(aline.id)
-        res.update({'account_ids': [(6, 0, alines)]})
+        res.update({'account_ids': [(6, 0, alines)], 'cost_center_id': line.cost_center_id.id or False})
 
         return res
 
