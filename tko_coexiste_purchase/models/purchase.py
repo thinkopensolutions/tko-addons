@@ -29,18 +29,16 @@ class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
 
     @api.multi
+    def _prepare_invoice(self):
+        result = super(PurchaseOrder, self)._prepare_invoice()
+        result.update({'reference_coexiste': self.partner_ref})
+
+    @api.multi
     def action_view_invoice(self):
-        print "called.........................."
         result = super(PurchaseOrder, self).action_view_invoice()
         if not self.invoice_ids:
-            result['context'].update({'default_fiscal_position_id' : self.fiscal_position_id.id,
-                                      'default_reference_coexiste' : self.partner_ref,
-                                      'default_payment_term_id' : self.payment_term_id.id,
+            result['context'].update({'default_fiscal_position_id': self.fiscal_position_id.id,
+                                      'default_reference_coexiste': self.partner_ref,
+                                      'default_payment_term_id': self.payment_term_id.id,
                                       })
-        print " contesxt............",result['context']
-
         return result
-
-
-
-
