@@ -38,6 +38,8 @@
         'contract',
         'tko_account_parent_analytic',
         'tko_account_moves_in_draft',
+        'tko_contract',
+        'account_cost_center',
     ],
     'data': [
         'security/ir.model.access.csv',
