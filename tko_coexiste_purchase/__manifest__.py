@@ -23,10 +23,10 @@
 ##############################################################################
 
 {
-    'name': 'tko_coexiste_partner',
+    'name': 'tko_coexiste_purchase',
     'version': '0.001',
     'category': 'Customizations',
-    'description': '''  tko_coexiste_partner''',
+    'description': '''  tko_coexiste_purchase''',
     'author': 'ThinkOpen Solutions Brasil',
     'website': 'http://www.tkobr.com',
     'depends': [
