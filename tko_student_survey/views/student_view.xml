@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="act_student_survey_input" model="ir.actions.act_window">
+        <field name="res_model">survey.user_input</field>
+        <field name="view_type">form</field>
+        <field name="name">Surveys</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('student_id','=',active_id)]</field>
+        <field name="context">{'search_default_student_id': active_id, 'default_student_id': active_id}</field>
+    </record>
+
+    <record model="ir.ui.view" id="view_student_form">
+        <field name="name">op.student.form</field>
+        <field name="model">op.student</field>
+        <field name="inherit_id" ref="openeducat_core.view_op_student_form"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="survey_id"/>
+            </field>
+            <field name="photo" position="before">
+                <div class="oe_button_box" name="button_box">
+                    <button name="send_student_survey"
+                            type="object"
+                            class="oe_stat_button oe_inline"
+                            string="Send Survey"
+                            icon="fa-envelope">
+                    </button>
+                    <button name="%(tko_student_survey.act_student_survey_input)d"
+                            type="action"
+                            class="oe_stat_button oe_inline"
+                            icon="fa-list-alt">
+                        <field name="survey_input_count"
+                               widget="statinfo"
+                               string="Surveys"/>
+                    </button>
+                </div>
+            </field>
+
+        </field>
+    </record>
+
+</odoo>
