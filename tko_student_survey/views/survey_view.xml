@@ -1,0 +1,26 @@
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="survey_user_input_form">
+            <field name="name">Form view for survey question</field>
+            <field name="model">survey.user_input</field>
+            <field name="inherit_id" ref="survey.survey_user_input_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="before">
+                    <field name="student_id" widget="selection"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="survey_question_form">
+            <field name="name">Form view for survey question</field>
+            <field name="model">survey.question</field>
+            <field name="inherit_id" ref="survey.survey_question_form"/>
+            <field name="arch" type="xml">
+                <field name="type" position="before">
+                    <field name="student_fields" widget="selection"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

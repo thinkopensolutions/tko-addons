@@ -12,7 +12,8 @@
         'survey',
     ],
     'data': [
-        'views/res_partner_view.xml'
+        'views/student_view.xml',
+        'views/survey_view.xml',
     ],
     'author': 'TKO'
               'Odoo Community Association (OCA)',
