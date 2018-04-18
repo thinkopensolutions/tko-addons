@@ -13,7 +13,7 @@ class survey_question(models.Model):
         'ir.model.fields',
         string="Related to Student field",
         inverse="change_lead_field",
-        domain="[('model_id.model','=', 'op.student'),('ttype','in', ['char', 'text', 'date' ,'datetime', 'integer', 'float'])]",
+        domain="[('model_id.model','=', 'op.student'),('ttype','in', ['char', 'text', 'date' ,'datetime', 'integer', 'float', 'selection'])]",
     )
 
     @api.multi
@@ -98,6 +98,29 @@ class SurveyUserInputLine(models.Model):
     def save_line_datetime(self, user_input_id, question, post, answer_tag):
         self.add_survey_to_student_save_line(user_input_id, question, post, answer_tag)
         return super(SurveyUserInputLine, self).save_line_datetime(user_input_id, question, post, answer_tag)
+
+    @api.model
+    def save_line_simple_choice(self,user_input_id, question, post, answer_tag):
+        old_value = False
+        if answer_tag in post and post[answer_tag].strip() != '':
+            old_value = post[answer_tag]
+            selection_field_name = question.student_fields.name
+            # get selection values and convert to dict
+            if selection_field_name:
+                selection_dict = dict(self.env['op.student']._fields[str(selection_field_name)]._column_selection)
+                selection_dict_inv = {v: k for k, v in selection_dict.iteritems()}
+                key = self.env['survey.label'].browse(int(post[answer_tag])).value
+                if selection_dict_inv.get(key):
+                    post[answer_tag] = selection_dict_inv[key]
+                    self.add_survey_to_student_save_line(user_input_id, question, post, answer_tag)
+        if old_value:
+            post[answer_tag] = old_value
+        return super(SurveyUserInputLine, self).save_line_simple_choice(user_input_id, question, post, answer_tag)
+
+    # @api.model
+    # def save_line_multiple_choice(self, user_input_id, question, post, answer_tag):
+    #     self.add_survey_to_student_save_line(user_input_id, question, post, answer_tag)
+    #     return super(SurveyUserInputLine, self).save_line_multiple_choice(user_input_id, question, post, answer_tag)
 
     @api.model
     def save_line_integer_box(self, user_input_id, question, post, answer_tag):
