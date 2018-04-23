@@ -6,6 +6,9 @@ from odoo import models, fields, api, _
 class AccountAnalyticInvoiceLine(models.Model):
     _inherit = 'account.analytic.invoice.line'
 
+    partner_id = fields.Many2one('res.partner', related='analytic_account_id.partner_id',
+                                 string='Cliente', store=True)
+    code = fields.Char(related='analytic_account_id.partner_id', string=u'Referência', store=True)
     cost_center_id = fields.Many2one('account.cost.center', string=u'Centro de Custo')
     account_analytic_id = fields.Many2one('account.analytic.account', string=u'Conta Analítica')
     analytics_id = fields.Many2one('account.analytic.plan.instance', string=u'Analytic Distribution')
