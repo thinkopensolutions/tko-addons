@@ -28,9 +28,13 @@ class UpdateInvoiceLineWizardLine(models.TransientModel):
     start_date = fields.Date(u'Start Date')
     end_date = fields.Date(u'End Date')
 
-    @api.onchange('account_analytic_id', 'analytics_id')
-    def onchange_analytic_account(self):
+
+    @api.onchange('account_analytic_id')
+    def onchange_account_analytic_id(self):
         if self.account_analytic_id:
             self.analytics_id = False
+
+    @api.onchange('analytics_id')
+    def onchange_analytics_id(self):
         if self.analytics_id:
             self.account_analytic_id = False
