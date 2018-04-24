@@ -23,3 +23,4 @@
 ##############################################################################
 
 import create_invoices_wizard
+import update_invoice_lines

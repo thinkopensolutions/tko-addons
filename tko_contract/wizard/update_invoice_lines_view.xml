@@ -1,0 +1,42 @@
+<odoo>
+
+    <!-- menu_create from model form -->
+    <record id="update_contract_invoice_wizard" model="ir.ui.view">
+        <field name="name">Update Contracts</field>
+        <field name="model">update.invoice.line.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Create Menu">
+                <group>
+                    <p>
+                        Confirm, if you want to update contract with selected information.
+                    </p>
+                </group>
+                <group>
+                    <separator string="Invoice Lines"/>
+                    <newline/>
+                    <field name="invoice_lines" nolabel="1">
+                        <tree editable="bottom">
+                            <field name="product_id"/>
+                            <field name="quantity"/>
+                            <field name="price_unit"/>
+                            <field name="discount"/>
+                        </tree>
+                    </field>
+                </group>
+                <footer>
+                    <button name="update_contract" string="Update" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window id="update_contract_invoice_wizard_actions"
+                multi="True"
+                key2="client_action_multi"
+                name="Update Contract Lines"
+                res_model="update.invoice.line.wizard"
+                src_model="account.analytic.account"
+                view_mode="form"
+                target="new"/>
+</odoo>
