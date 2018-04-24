@@ -1,0 +1,33 @@
+<openerp>
+    <data>
+        <record id="purchase_requisition_wizard_form" model="ir.ui.view">
+            <field name="name">purchase.requisition.wizard</field>
+            <field name="model">purchase.requisition.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Merge Requisition Orders" version="7.0">
+                    <group string="Requisition Orders">
+                        <field name="requisition_order_ids" domain="[('state','=','draft')]" widget="many2many_tags" nolabel="1" options="{'no_create': True}"/>
+                    </group>
+                    <footer>
+                        <button name="merge_requisition_orders"
+                                string="Merge" type="object"
+                                class="oe_highlight"
+                                />
+                        <button string="Cancelar" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <act_window name="Merge Requisition Orders"
+        res_model="purchase.requisition.wizard"
+        src_model="purchase.requisition"
+        view_mode="form"
+        target="new"
+        key2="client_action_multi"
+        id="purchase_requisition_wizard_action"/>
+
+
+    </data>
+</openerp>
