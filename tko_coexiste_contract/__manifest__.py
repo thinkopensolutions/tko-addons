@@ -22,5 +22,31 @@
 #
 ##############################################################################
 
-import create_invoices_wizard
-import update_invoice_lines
+{
+    'name': 'tko_coexiste_contract',
+    'version': '0.001',
+    'category': 'Customizations',
+    'sequence': 119,
+    'complexity': 'normal',
+    'description': '''Add sequence in Contracts''',
+    'author': 'ThinkOpen Solutions Brasil',
+    'website': 'http://www.tkobr.com',
+    'depends': [
+        'contract',
+        'tko_contract',
+        'account_cost_center',
+        'tko_contract_invoicing_product_effective_date',
+    ],
+    'data': [
+        'wizard/update_invoice_lines_view.xml',
+    ],
+    'init': [],
+    'demo': [],
+    'update': [],
+    'test': [],  # YAML files with tests
+    'installable': True,
+    'application': False,
+    # If it's True, the modules will be auto-installed when all dependencies are installed
+    'auto_install': False,
+    'certificate': '',
+}
