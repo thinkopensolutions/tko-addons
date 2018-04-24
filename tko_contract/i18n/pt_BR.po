@@ -34,7 +34,7 @@ msgstr "Confirme se quiser criar faturas para os contratos selecionados"
 #: model:ir.actions.act_window,name:tko_contract.create_invoices_from_analytic_account_actions
 #: model:ir.ui.view,arch_db:tko_contract.create_invoices_wizard_form
 msgid "Create Invoices"
-msgstr "Criar Notas Fiscais"
+msgstr "Criar Fatura"
 
 #. module: tko_contract
 #: model:ir.ui.view,arch_db:tko_contract.create_invoices_wizard_form

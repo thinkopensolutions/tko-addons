@@ -146,6 +146,11 @@ class AccountInvoice(models.Model):
     # we can't override invoice_validate we must need to call super to do several jobs like
     # emit Electronic Docs
 
+    # set vendor_number copy =False
+    vendor_number = fields.Char(
+        u'Número NF Entrada', size=18, readonly=True,
+        states={'draft': [('readonly', False)]}, copy=False,
+        help=u"Número da Nota Fiscal do Fornecedor")
     reference_coexiste = fields.Char(string=u'Referência de Fornecedor',
                                      help="The partner reference of this invoice.", readonly=True,
                                      states={'draft': [('readonly', False)]})
