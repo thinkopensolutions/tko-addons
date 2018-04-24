@@ -22,9 +22,13 @@ msgstr "Centro de Custo"
 
 #. module: tko_coexiste_contract
 #: model:ir.model.fields,field_description:tko_coexiste_contract.field_update_invoice_line_wizard_line_account_analytic_id
-#: model:ir.model.fields,field_description:tko_coexiste_contract.field_update_invoice_line_wizard_line_analytics_id
 msgid "Conta Analitica"
 msgstr "Conta Analitica"
+
+#. module: tko_coexiste_contract
+#: model:ir.model.fields,field_description:tko_coexiste_contract.field_update_invoice_line_wizard_line_analytics_id
+msgid "Conta Distribution"
+msgstr "Conta Distribution"
 
 #. module: tko_coexiste_contract
 #: model:ir.model.fields,field_description:tko_coexiste_contract.field_update_invoice_line_wizard_line_end_date

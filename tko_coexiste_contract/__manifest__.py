@@ -35,6 +35,7 @@
         'contract',
         'tko_contract',
         'account_cost_center',
+        'tko_coexiste_br_account',
         'tko_contract_invoicing_product_effective_date',
     ],
     'data': [
