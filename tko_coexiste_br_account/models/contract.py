@@ -6,12 +6,42 @@ from odoo import models, fields, api, _
 class AccountAnalyticInvoiceLine(models.Model):
     _inherit = 'account.analytic.invoice.line'
 
-    partner_id = fields.Many2one('res.partner', related='analytic_account_id.partner_id',
-                                 string='Cliente', store=True)
-    code = fields.Char(related='analytic_account_id.code', string=u'Referência', store=True)
+    # we can't create related fields
+    # account.analytic.contract.line inherits from account.analytic.invoice.line
+    # and overrides the object of field account_analytic_id
+    # if we try to create related field in account.analytic.invoice.line
+    # it attempts to create same field in object account.analytic.contract.line
+    # since the object doesn't have fields like partner_id, code , hence it fails initialization of database
+    partner_id = fields.Many2one('res.partner',
+                                 string='Cliente', compute='_get_account_analytic_field', store=True)
+    code = fields.Char(string=u'Referência', compute='_get_account_analytic_field', store=True)
     cost_center_id = fields.Many2one('account.cost.center', string=u'Centro de Custo')
     account_analytic_id = fields.Many2one('account.analytic.account', string=u'Conta Analítica')
     analytics_id = fields.Many2one('account.analytic.plan.instance', string=u'Analytic Distribution')
+
+    @api.one
+    @api.depends('analytic_account_id')
+    def _get_account_analytic_field(self):
+        if self.analytic_account_id:
+            self.code = self.analytic_account_id.code
+            self.partner_id = self.analytic_account_id.partner_id.id
+
+    @api.model
+    def create(self, vals):
+        if 'analytic_account_id' in vals.keys() and vals['analytic_account_id']:
+            analytic_account = self.env['account.analytic.account'].browse(vals['analytic_account_id'])
+            vals.update({'partner_id': analytic_account.partner_id.id,
+                         'code': analytic_account.code})
+        return super(AccountAnalyticInvoiceLine, self).create(vals)
+
+    @api.multi
+    def write(self, vals):
+        self.ensure_one()
+        if 'analytic_account_id' in vals.keys() and vals['analytic_account_id']:
+            analytic_account = self.env['account.analytic.account'].browse(vals['analytic_account_id'])
+            vals.update({'partner_id': analytic_account.partner_id.id,
+                         'code': analytic_account.code})
+        return super(AccountAnalyticInvoiceLine, self).write(vals)
 
     @api.onchange('account_analytic_id')
     def onchange_account_analytic_id(self):
@@ -60,7 +90,7 @@ class AccountAnalyticAccount(models.Model):
                     {'analytic_account_id': dline.analytic_account_id.id,
                      'rate': dline.rate})
                 alines.append(aline.id)
-        res.update({'account_ids': [(6, 0, alines)], 'cost_center_id': line.cost_center_id.id or False})
+        res.update({'account_ids': [(6, 0, alines)]})
 
         return res
 
