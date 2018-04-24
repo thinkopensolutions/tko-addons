@@ -12,7 +12,16 @@
                     </p>
                 </group>
                 <group>
-                    <field name="invoice_lines"/>
+                    <separator string="Invoice Lines"/>
+                    <newline/>
+                    <field name="invoice_lines" nolabel="1">
+                        <tree editable="bottom">
+                            <field name="product_id"/>
+                            <field name="quantity"/>
+                            <field name="price_unit"/>
+                            <field name="discount"/>
+                        </tree>
+                    </field>
                 </group>
                 <footer>
                     <button name="update_contract" string="Update" type="object" class="btn-primary"/>
@@ -25,7 +34,7 @@
     <act_window id="update_contract_invoice_wizard_actions"
                 multi="True"
                 key2="client_action_multi"
-                name="Update Contracts"
+                name="Update Contract Lines"
                 res_model="update.invoice.line.wizard"
                 src_model="account.analytic.account"
                 view_mode="form"

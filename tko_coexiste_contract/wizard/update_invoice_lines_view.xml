@@ -1,0 +1,19 @@
+<odoo>
+
+    <!-- menu_create from model form -->
+    <record id="update_contract_invoice_wizard" model="ir.ui.view">
+        <field name="name">Update Contracts</field>
+        <field name="model">update.invoice.line.wizard</field>
+        <field name="inherit_id" ref="tko_contract.update_contract_invoice_wizard"/>
+        <field name="arch" type="xml">
+            <field name="discount" position="after">
+                <field name="cost_center_id"/>
+                <field name="account_analytic_id"/>
+                <field name="analytics_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

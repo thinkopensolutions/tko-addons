@@ -7,18 +7,24 @@ class UpdateInvoiceLineWizard(models.TransientModel):
 
     invoice_lines = fields.One2many('update.invoice.line.wizard.line','wizard_id',u'Invoice Lines')
 
+    def contract_line(self, line, active_id):
+        return {'analytic_account_id': active_id,
+         'product_id': line.product_id.id,
+         'uom_id': line.product_id.uom_id.id,
+         'name': line.product_id.name,
+         'quantity': line.quantity,
+         'discount': line.discount,
+         'price_unit': line.price_unit,
+         }
+
     @api.multi
     def update_contract(self):
         active_ids = self._context.get('active_ids' , [])
         analytic_inv_line = self.env['account.analytic.invoice.line']
         for active_id in active_ids:
             for line in self.invoice_lines:
-                analytic_inv_line.create({'analytic_account_id' : active_id ,
-                                          'product_id' : line.product_id.id,
-                                          'name' : line.product_id.name,
-                                          'quantity' : line.quantity,
-                                          'discount' : line.discount,
-                                          })
+                vals = self.contract_line(line, active_id)
+                analytic_inv_line.create(vals)
         return True
 
 class UpdateInvoiceLineWizardLine(models.TransientModel):
