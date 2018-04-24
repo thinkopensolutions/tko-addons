@@ -1,0 +1,75 @@
+<openerp>
+    <data>
+        <record id="account_invoice_xml_tree_view" model="ir.ui.view">
+        <field name="name">account.invoice.xml.tree</field>
+        <field name="model">account.invoice.xml.form</field>
+        <field name="arch" type="xml">
+                <tree>
+                    <field name="invoice_num"/>
+                    <field name="invoice_date"/>
+                    <field name="total"/>
+                    <field name="supplier"/>
+                    <field name="invoice_due_date"/>
+                </tree>
+            </field>
+        </record>
+        <record id="account_invoice_xml_form_view" model="ir.ui.view">
+            <field name="name">account.invoice.xml.form</field>
+            <field name="model">account.invoice.xml.form</field>
+            <field name="arch" type="xml">
+                <form string="Account Invoice XML Form">
+                    <sheet>
+                        <group>
+                            <group col="4">
+                                <field name="invoice_num"/>
+                                <field name="invoice_date"/>
+                                <field name="supplier"/>
+                                <field name="invoice_due_date"/>
+                                <field name="company_id" invisible="1"/>
+                                <field name="currency_id" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook colspan="4">
+                            <page string="Lines">
+                                <field name="invoice_line_xml_ids" readonly="True">
+                                    <tree>
+                                        <field name="product"/>
+                                        <field name="qty"/>
+                                        <field name="uom"/>
+                                        <field name="unit_price"/>
+                                        <field name="total"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <field name="product"/>
+                                            <field name="qty"/>
+                                            <field name="total"/>
+                                        </group>
+                                        <group>
+                                            <field name="unit_price"/>
+                                            <field name="uom"/>
+                                        </group>
+                                    </form>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field class="oe_subtotal_footer_separator" name="total" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_account_invoice_xml">
+            <field name="name">Notas Fiscais Recebidas</field>
+            <field name="res_model">account.invoice.xml.form</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="account_invoice_xml_line_action" name="Notas Fiscais Recebidas" parent="purchase.menu_procurement_management"
+            action="action_account_invoice_xml"/>
+
+    </data>
+</openerp>
