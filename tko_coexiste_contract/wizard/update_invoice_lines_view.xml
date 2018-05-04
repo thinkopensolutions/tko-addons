@@ -9,7 +9,7 @@
             <field name="discount" position="after">
                 <field name="cost_center_id"/>
                 <field name="account_analytic_id"/>
-                <field name="analytics_id"/>
+                <field name="analytics_id" domain="[('type','=','n')]"/>
                 <field name="start_date"/>
                 <field name="end_date"/>
             </field>
