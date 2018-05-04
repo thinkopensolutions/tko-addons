@@ -31,7 +31,8 @@ class PurchaseOrder(models.Model):
     @api.multi
     def _prepare_invoice(self):
         result = super(PurchaseOrder, self)._prepare_invoice()
-        result.update({'reference_coexiste': self.partner_ref})
+        result.update({'reference_coexiste': self.partner_ref,
+                       'issuer': '0'})
         return result
 
     @api.multi
