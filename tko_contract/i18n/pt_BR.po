@@ -136,7 +136,7 @@ msgstr "Atualizar"
 #. module: tko_contract
 #: model:ir.actions.act_window,name:tko_contract.update_contract_invoice_wizard_actions
 msgid "Update Contract Lines"
-msgstr "Update Contract Lines"
+msgstr "Atualizar Linhas de Contrato"
 
 #. module: tko_contract
 #: model:ir.model.fields,field_description:tko_contract.field_update_invoice_line_wizard_line_wizard_id
