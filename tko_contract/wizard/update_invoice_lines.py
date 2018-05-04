@@ -12,7 +12,7 @@ class UpdateInvoiceLineWizard(models.TransientModel):
         return {'analytic_account_id': active_id,
                 'product_id': line.product_id.id,
                 'uom_id': line.product_id.uom_id.id,
-                'name': line.product_id.name,
+                'name': line.description,
                 'quantity': line.quantity,
                 'discount': line.discount,
                 'price_unit': line.price_unit,
@@ -36,9 +36,11 @@ class UpdateInvoiceLineWizardLine(models.TransientModel):
     price_unit = fields.Float(u'Unit Price')
     discount = fields.Float(u'Discount')
     product_id = fields.Many2one('product.product', u'Product')
+    description = fields.Text(u'Description')
     wizard_id = fields.Many2one('update.invoice.line.wizard', u'Wizard')
 
     @api.onchange('product_id')
     def onchange_product_id(self):
         if self.product_id:
             self.price_unit = self.product_id.lst_price
+            self.description  = self.product_id.name

@@ -17,6 +17,7 @@
                     <field name="invoice_lines" nolabel="1">
                         <tree editable="bottom">
                             <field name="product_id"/>
+                            <field name="description"/>
                             <field name="quantity"/>
                             <field name="price_unit"/>
                             <field name="discount"/>
