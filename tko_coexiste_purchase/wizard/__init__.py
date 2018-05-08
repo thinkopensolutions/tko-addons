@@ -21,5 +21,4 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import models
-import wizard
+import purchase_request_line_make_purchase_order
