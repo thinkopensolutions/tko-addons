@@ -36,6 +36,7 @@
         'tko_coexiste_br_account',
     ],
     'data': [
+        'purchase_requisition_view.xml',
     ],
     'init': [],
     'demo': [],
