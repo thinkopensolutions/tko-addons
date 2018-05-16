@@ -109,5 +109,16 @@
             </field>
         </field>
     </record>
+
+    <record id="invoice_line_filter" model="ir.ui.view">
+            <field name="name">account.invoice.line</field>
+            <field name="model">account.invoice.line</field>
+            <field name="arch" type="xml">
+                <search string="Linhas da fatura">
+                    <field name="product_id" string="Produto"/>
+                    <field name="account_analytic_id" string="Conta Analytica"/>
+                </search>
+             </field>
+        </record>
 </odoo>
 
