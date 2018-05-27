@@ -3,6 +3,7 @@ odoo.define('tko_account_sign_up_br_details.cnpj_cpf', function (require) {
     "use strict";
 
     var ajax = require('web.ajax');
+    var _t = core._t;
 
     function cnpj_cpf_mask(){
         // Mask Phone
@@ -13,9 +14,12 @@ odoo.define('tko_account_sign_up_br_details.cnpj_cpf', function (require) {
         if (company){
             $('input[type=text][name=cnpj_cpf]').mask('00.000.000/0000-00');
             $('label[for=cnpj_cpf]').text('CNPJ')
+            $('label[for=name]').text(t_('Razão Social)')
         } else {
             $('input[type=text][name=cnpj_cpf]').mask('000.000.000-00');
             $('label[for=cnpj_cpf]').text('CPF')
+            $('label[for=name]').text(_t('Your Name'))
+
         }
 
     };
