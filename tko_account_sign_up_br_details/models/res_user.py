@@ -29,7 +29,9 @@ class ResUsers(models.Model):
 			if partner_user:
 				values['cnpj_cpf'] = values.get('cnpj_cpf')
 				values['company_type'] = values.get('company_type')
+				values['phone'] = values.get('phone')
 		else:
 			values['company_type'] = values.get('company_type')
 			values['cnpj_cpf'] = values.get('cnpj_cpf')
+			values['phone'] = values.get('phone')
 		return super(ResUsers, self).signup(values, token)

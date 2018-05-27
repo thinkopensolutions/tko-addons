@@ -5,9 +5,10 @@ odoo.define('tko_account_sign_up_br_details.cnpj_cpf', function (require) {
     var ajax = require('web.ajax');
 
     function cnpj_cpf_mask(){
-        console.log("executing here....................");
+        // Mask Phone
+        $('input[type=text][name=phone]').mask('(00) 00000-0000');
+        // Mask CNPJ CPF
         var company = $('#radioCompany').prop('checked');
-        console.log("executing here....................",company);
         $('input[type=text][name=cnpj_cpf]').text('');
         if (company){
             $('input[type=text][name=cnpj_cpf]').mask('00.000.000/0000-00');
@@ -16,9 +17,11 @@ odoo.define('tko_account_sign_up_br_details.cnpj_cpf', function (require) {
             $('input[type=text][name=cnpj_cpf]').mask('000.000.000-00');
             $('label[for=cnpj_cpf]').text('CPF')
         }
+
     };
 
     $(document).ready(function () {
+        cnpj_cpf_mask();
         var SPMaskBehavior = function(val) {
             return val.replace(/\D/g, '').length === 11 ?
                 '(00) 00000-0000' :
@@ -26,7 +29,6 @@ odoo.define('tko_account_sign_up_br_details.cnpj_cpf', function (require) {
         },
         spOptions = {
             onKeyPress: function(val, e, field, options) {
-                console.log("on key press why?????")
                 field.mask(SPMaskBehavior.apply({},
                             arguments), options);
             }

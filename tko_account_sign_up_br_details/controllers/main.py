@@ -20,7 +20,7 @@ class AuthSignupHome(Home):
     # Set company_type and cnpj_cpf to partner
     def do_signup(self, qcontext):
         """ Shared helper that creates a res.partner out of a token """
-        values = {key: qcontext.get(key) for key in ('login', 'name', 'password', 'company_type', 'cnpj_cpf')}
+        values = {key: qcontext.get(key) for key in ('login', 'name', 'password', 'company_type', 'cnpj_cpf', 'phone')}
         if not values:
             raise UserError(_("The form was not properly filled in."))
         if values.get('password') != qcontext.get('confirm_password'):
