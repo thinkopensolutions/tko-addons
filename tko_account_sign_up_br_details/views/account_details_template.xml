@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_frontend" inherit_id="website.assets_frontend" name="Shop BR">
+        <xpath expr="." position="inside">
+            <script type="text/javascript"
+                    src="/tko_account_sign_up_br_details/static/src/js/jquery.mask.min.js"></script>
+            <script type="text/javascript" src="tko_account_sign_up_br_details/static/src/js/sign_up.js"></script>
+        </xpath>
+    </template>
+
+    <template id="tko_account_sign_up_br_details_id" inherit_id="auth_signup.fields">
+        <xpath expr="//div[@class='form-group field-login']" position="before">
+            <div class="form-group field-name">
+                <div class="input-group">
+                    <div class="form-check">
+                        <input type="radio" name="company_type" class="form-check-input" id="radioPerson" checked="checked"
+                               value="person"/>
+                        <label class="form-check-label"  for="male">Individual</label>
+                        <input type="radio" name="company_type" class="form-check-input" id="radioCompany" value="company"/>
+                        <label class="form-check-label"  for="female">Company</label>
+                    </div>
+                    <span>
+                    </span>
+                </div>
+            </div>
+
+        </xpath>
+
+        <xpath expr="//div[@class='form-group field-password']" position="before">
+            <div class="form-group field-name">
+                <label for="cnpj_cpf" class="control-label">CPF</label>
+                <input type="text" name="cnpj_cpf" t-att-value="cnpj_cpf" id="cnpj_cpf" class="form-control"
+                       required="required" t-att-readonly="'readonly' if only_passwords else None"
+                       t-att-autofocus="'autofocus' if login and not only_passwords else None"/>
+            </div>
+            <div class="form-group field-name">
+                <label for="phone" class="control-label">Telephone</label>
+                <input type="text" name="phone" t-att-value="phone" id="phone" class="form-control"
+                       required="required" t-att-readonly="'readonly' if only_passwords else None"
+                       t-att-autofocus="'autofocus' if login and not only_passwords else None"/>
+            </div>
+        </xpath>
+    </template>
+</odoo>
