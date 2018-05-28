@@ -25,7 +25,7 @@
     "website": "https://tko.tko-br.com",
     "depends": [
         'auth_signup',
-        'br_account',
+        # 'br_base', check if this is creating issue???????
         'website',
     ],
     "data": [
