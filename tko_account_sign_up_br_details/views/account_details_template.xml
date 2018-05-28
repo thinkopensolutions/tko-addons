@@ -4,7 +4,7 @@
         <xpath expr="." position="inside">
             <script type="text/javascript"
                     src="/tko_account_sign_up_br_details/static/src/js/jquery.mask.min.js"></script>
-            <script type="text/javascript" src="tko_account_sign_up_br_details/static/src/js/sign_up.js"></script>
+            <script type="text/javascript" src="/tko_account_sign_up_br_details/static/src/js/sign_up.js"></script>
         </xpath>
     </template>
 
@@ -15,9 +15,9 @@
                     <div class="form-check">
                         <input type="radio" name="company_type" class="form-check-input" id="radioPerson" checked="checked"
                                value="person"/>
-                        <label class="form-check-label"  for="male">Individual</label>
+                        <label class="form-check-label"  for="company_type">Individual</label>
                         <input type="radio" name="company_type" class="form-check-input" id="radioCompany" value="company"/>
-                        <label class="form-check-label"  for="female">Company</label>
+                        <label class="form-check-label"  for="company_type">Company</label>
                     </div>
                     <span>
                     </span>
