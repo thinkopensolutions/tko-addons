@@ -12,12 +12,11 @@ odoo.define('tko_account_sign_up_br_details.cnpj_cpf', function (require) {
         if (company){
             $('input[type=text][name=cnpj_cpf]').mask('00.000.000/0000-00');
             $('label[for=cnpj_cpf]').text('CNPJ');
-            $('label[for=name]').text("Razão Social")
-
+            $('div[class="form-group field-name"]>label[for=name]').text("Razão Social")
         } else {
             $('input[type=text][name=cnpj_cpf]').mask('000.000.000-00');
             $('label[for=cnpj_cpf]').text('CPF');
-            $('label[for=name]').text("Nome")
+            $('div[class="form-group field-name"]>label[for=name]').text("Nome>>>>")
 
         }
     };
