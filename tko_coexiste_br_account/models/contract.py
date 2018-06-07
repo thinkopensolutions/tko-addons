@@ -93,15 +93,15 @@ class AccountAnalyticAccount(models.Model):
         res.update({'account_ids': [(6, 0, alines)], 'cost_center_id': line.cost_center_id.id or False})
 
         return res
-
+    ## commented code, Creating issue on loading project
     @api.multi
     def name_get(self):
         res = []
         for account in self:
             names = []
             current = account
-            while current:
-                names.append(current.name)
-                current = current.parent_id
+            # while current:
+            #     names.append(current.name)
+            #     current = current.parent_id
             res.append((account.id, account.name))
         return res
