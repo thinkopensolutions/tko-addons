@@ -148,12 +148,12 @@ class AccountInvoice(models.Model):
 
     # set vendor_number copy =False
     vendor_number = fields.Char(
-        u'Número NF Entrada', size=18, readonly=True,
-        states={'draft': [('readonly', False)]}, copy=False,
+        u'Número NF Entrada', size=18, readonly=False,
         help=u"Número da Nota Fiscal do Fornecedor")
+    date_invoice = fields.Date(string='Invoice Date', index=True, readonly=False,
+                               help="Keep empty to use the current date", copy=False)
     reference_coexiste = fields.Char(string=u'Referência de Fornecedor',
-                                     help="The partner reference of this invoice.", readonly=True,
-                                     states={'draft': [('readonly', False)]})
+                                     help="The partner reference of this invoice.", readonly=False,)
 
     @api.multi
     def draft_invoice_validate(self):
