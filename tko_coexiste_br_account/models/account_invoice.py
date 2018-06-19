@@ -148,7 +148,7 @@ class AccountInvoice(models.Model):
 
     # set vendor_number copy =False
     vendor_number = fields.Char(
-        u'Número NF Entrada', size=18, readonly=False,
+        u'Número NF Entrada', size=18, copy=False, readonly=False,
         help=u"Número da Nota Fiscal do Fornecedor")
     date_invoice = fields.Date(string='Invoice Date', index=True, readonly=False,
                                help="Keep empty to use the current date", copy=False)
