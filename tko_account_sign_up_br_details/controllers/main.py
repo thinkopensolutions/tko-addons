@@ -34,6 +34,9 @@ class AuthSignupHome(Home):
     # Validate CPF/CNPJ
     def get_auth_signup_qcontext(self):
         qcontext = super(AuthSignupHome, self).get_auth_signup_qcontext()
+        # return if it is password reset
+        if qcontext.get('reset_password_enabled'):
+            return qcontext
         if qcontext.get("cnpj_cpf") and not qcontext.get("error"):
             if qcontext.get("company_type") == 'person':
                 if not fiscal.validate_cpf(qcontext.get("cnpj_cpf")):
@@ -45,3 +48,4 @@ class AuthSignupHome(Home):
             if request.env["res.partner"].sudo().search([("cnpj_cpf", "=", qcontext.get("cnpj_cpf"))]):
                 qcontext["error"] = _("Another user is already registered using this CNPJ/CPF.")
         return qcontext
+
