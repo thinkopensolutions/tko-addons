@@ -162,7 +162,7 @@ class AccountInvoice(models.Model):
             # because it's probably a double encoding of the same bill/refund
             if invoice.type in ('in_invoice', 'in_refund') and invoice.vendor_number and invoice.partner_id:
                 if self.search([('type', '=', invoice.type), ('vendor_number', '=', invoice.vendor_number),
-                                ('company_id', '=', invoice.company_id.id),('partner_id','=', invoice.partner_id.id),
+					('company_id', '=', invoice.company_id.id),('partner_id','=', invoice.partner_id.id),
                                 ('id', '!=', invoice.id)]):
                     raise UserError(_(
                         u"Duplicated Número NF Entrada detected. You probably encoded twice the same vendor bill/refund."))
