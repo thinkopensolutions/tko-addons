@@ -43,5 +43,6 @@ class ResPartner(models.Model):
             res = super(ResPartner, self)._get_signup_url_for_action(action=action, view_type=view_type,
                                                                      menu_id=menu_id,
                                                                      res_id=res_id, model=model)
-            res[partner.id] = res[partner.id].replace(base_url, raw_base_url)
+            if res[partner.id]:
+                res[partner.id] = res[partner.id].replace(base_url, raw_base_url)
         return res
