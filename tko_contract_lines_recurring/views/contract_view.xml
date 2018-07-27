@@ -1,18 +1,18 @@
 <odoo>
-      <record id="account_analytic_account_recurring_form_form" model="ir.ui.view">
+    <record id="account_analytic_account_recurring_form_form" model="ir.ui.view">
         <field name="name">Contract form</field>
         <field name="model">account.analytic.account</field>
         <field name="inherit_id" ref="contract.account_analytic_account_recurring_form_form"/>
         <field name="arch" type="xml">
             <label for="recurring_interval" position="replace"/>
-          <field name="date_start" position="replace"/>
+            <field name="date_start" position="replace"/>
             <field name="recurring_interval" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>
             <field name="recurring_next_date" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>
-             <field name="recurring_rule_type" position="attributes">
+            <field name="recurring_rule_type" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>
             <field name="date_end" position="before">
@@ -21,6 +21,9 @@
             <field name="date_end" position="attributes">
                 <attribute name="attrs">{'required': [('recurring_invoices', '=', True)]}</attribute>
             </field>
+            <xpath expr="//field[@name='recurring_invoice_line_ids']" position="attributes">
+                <attribute name="context">{'default_date_end'  : parent and parent.date_end}</attribute>
+            </xpath>
             <xpath expr="//field[@name='recurring_invoice_line_ids']//tree" position="attributes">
                 <attribute name="decoration-muted">state=='i'</attribute>
             </xpath>
@@ -34,5 +37,5 @@
                 <field name="state"/>
             </xpath>
         </field>
-      </record>
+    </record>
 </odoo>
