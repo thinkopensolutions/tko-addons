@@ -1,0 +1,29 @@
+<odoo>
+    <record id="view_inventory_form_inherit" model="ir.ui.view">
+        <field name="name">stock.inventory.form.inherit</field>
+        <field name="model">stock.inventory</field>
+        <field name="inherit_id" ref="stock.view_inventory_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='filter']" position="after">
+                <field name="user_id"/>
+            </xpath>
+            <notebook position="inside">
+                <page string="Reason">
+                    <field name="reason" nolabel="1"/>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+    <record id="view_inventory_form_inherit" model="ir.ui.view">
+        <field name="name">stock.inventory.form.inherit</field>
+        <field name="model">stock.inventory</field>
+        <field name="inherit_id" ref="stock.view_inventory_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="user_id" nolabel="1"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
