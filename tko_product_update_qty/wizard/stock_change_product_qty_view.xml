@@ -1,0 +1,21 @@
+<odoo>
+    <record id="view_change_product_quantity" model="ir.ui.view">
+        <field name="name">stock.change.product.qty</field>
+        <field name="model">stock.change.product.qty</field>
+        <field name="inherit_id" ref="stock.view_change_product_quantity"/>
+        <field name="arch" type="xml">
+            <field name="new_quantity" position="before">
+                <field name="old_quantity"/>
+                <field name="mode"/>
+                <field name="update_quantity"/>
+            </field>
+            <field name="new_quantity" position="attributes">
+                <attribute name="groups">stock.group_stock_manager</attribute>
+            </field>
+            <field name="new_quantity" position="after">
+                <separator/>
+                <field name="reason" colspan="4" />
+            </field>
+        </field>
+    </record>
+</odoo>
