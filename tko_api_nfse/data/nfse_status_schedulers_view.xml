@@ -1,0 +1,14 @@
+<openerp>
+    <data>
+        <record id="ir_cron_mail_gateway_action" model="ir.cron">
+            <field name="name">NFSe Request Status</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model">account.invoice</field>
+            <field name="function">nfse_request_status_check</field>
+            <field name="args">()</field>
+        </record>
+    </data>
+</openerp>

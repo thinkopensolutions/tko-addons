@@ -261,8 +261,9 @@ class AccountInvoice(models.Model):
                 due_date = datetime.datetime.strptime(due_date, OE_DFORMAT).date()
                 for move_line in record.move_id.line_ids:
                     move_line.date_maturity = due_date
+            super(AccountInvoice, record).write(vals)
             record.draft_invoice_validate()
-        return super(AccountInvoice, self).write(vals)
+        return True
 
 
 class AccountInvoiceLine(models.Model):
