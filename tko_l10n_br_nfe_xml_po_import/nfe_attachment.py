@@ -177,7 +177,10 @@ class nfeAttachmentWizard(models.TransientModel):
                             [('name', '=ilike', domain), ('code', '=ilike', domain), ('domain', '=ilike', domain),
                              ('company_id', '=', company.id)], limit=1)
                     if len(tax_code):
-                        tax = self.env['account.tax'].search([('base_code_id', '=', tax_code.id),
+                        tax = self.env['account.tax'].search([
+                            # comment base_code_id on search, it would get tax with same and % if base code is differet
+                            # and will fail to create one becuase of unique constraint
+                            # ('base_code_id', '=', tax_code.id),
                                                               ('type_tax_use', 'in', ['purchase', 'all']),
                                                               ('domain', '=ilike', domain),
                                                               ('company_id', '=', company.id),
