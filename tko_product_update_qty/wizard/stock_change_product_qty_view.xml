@@ -11,8 +11,10 @@
             </field>
             <field name="new_quantity" position="attributes">
                 <attribute name="groups">stock.group_stock_manager</attribute>
+                <attribute name="invisible">1</attribute>
             </field>
             <field name="new_quantity" position="after">
+                <field name="show_new_quantity" groups="stock.group_stock_manager" readonly="1"/>
                 <separator/>
                 <field name="reason" colspan="4" />
             </field>

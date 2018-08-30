@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-31 18:30+0000\n"
-"PO-Revision-Date: 2018-07-31 18:30+0000\n"
+"POT-Creation-Date: 2018-08-30 16:10+0000\n"
+"PO-Revision-Date: 2018-08-30 16:10+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,10 +21,21 @@ msgid "Change Product Quantity"
 msgstr "Alterar Quantidade do Produto"
 
 #. module: tko_product_update_qty
-#: code:addons/tko_product_update_qty/wizard/stock_change_product_qty.py:58
+#: model:ir.model.fields,help:tko_product_update_qty.field_stock_change_product_qty_show_new_quantity
+msgid "Duplicate field only to be able to make it readonly on view, onchange doesnt pass value of readonly field"
+msgstr "Duplicate field only to be able to make it readonly on view, onchange doesnt pass value of readonly field"
+
+#. module: tko_product_update_qty
+#: code:addons/tko_product_update_qty/wizard/stock_change_product_qty.py:62
 #, python-format
 msgid "INV: %s"
 msgstr "INV: %s"
+
+#. module: tko_product_update_qty
+#: selection:stock.change.product.qty,mode:0
+#: selection:stock.inventory.line,mode:0
+msgid "Input"
+msgstr "Input"
 
 #. module: tko_product_update_qty
 #: model:ir.model,name:tko_product_update_qty.model_stock_inventory
@@ -40,27 +51,41 @@ msgstr "Linha do Inventário"
 #: model:ir.model.fields,field_description:tko_product_update_qty.field_stock_change_product_qty_mode
 #: model:ir.model.fields,field_description:tko_product_update_qty.field_stock_inventory_line_mode
 msgid "Mode"
-msgstr "Mode"
+msgstr "Modo"
+
+#. module: tko_product_update_qty
+#: model:ir.model.fields,field_description:tko_product_update_qty.field_stock_change_product_qty_show_new_quantity
+msgid "New Quantity on Hand"
+msgstr "Nova Quantidade na Mão"
 
 #. module: tko_product_update_qty
 #: model:ir.model.fields,field_description:tko_product_update_qty.field_stock_change_product_qty_old_quantity
 msgid "Old Qty"
-msgstr "Old Qty"
+msgstr "Quantidade Antiga"
+
+#. module: tko_product_update_qty
+#: selection:stock.change.product.qty,mode:0
+#: selection:stock.inventory.line,mode:0
+msgid "Output"
+msgstr "Output"
 
 #. module: tko_product_update_qty
 #: model:ir.model.fields,field_description:tko_product_update_qty.field_stock_change_product_qty_reason
 #: model:ir.model.fields,field_description:tko_product_update_qty.field_stock_inventory_line_reason
 #: model:ir.model.fields,field_description:tko_product_update_qty.field_stock_inventory_reason
+#: model:ir.ui.view,arch_db:tko_product_update_qty.view_inventory_form_inherit
 msgid "Reason"
 msgstr "Motivo da atualização"
 
 #. module: tko_product_update_qty
 #: model:ir.model.fields,field_description:tko_product_update_qty.field_stock_change_product_qty_update_quantity
 msgid "Update Qty"
-msgstr "Update Qty"
+msgstr "Atualizar Quantidade"
 
 #. module: tko_product_update_qty
 #: model:ir.model.fields,field_description:tko_product_update_qty.field_stock_inventory_line_user_id
 #: model:ir.model.fields,field_description:tko_product_update_qty.field_stock_inventory_user_id
+#: model:ir.ui.view,arch_db:tko_product_update_qty.view_move_line_form_inherit
+#: model:ir.ui.view,arch_db:tko_product_update_qty.view_move_line_tree_inherit
 msgid "User"
 msgstr "Usuário"

@@ -15,7 +15,7 @@ class StockInventoryLine(models.Model):
     reason = fields.Char(string='Reason', related='inventory_id.reason', store=True)
     user_id = fields.Many2one('res.users', 'User', readonly=True, related='inventory_id.user_id',
                               default=lambda self: self.env.uid)
-    mode = fields.Selection([('p', ' + '), ('n', ' - ')], compute='get_mode', default='p', required=True, string='Mode')
+    mode = fields.Selection([('p', 'Input'), ('n', 'Output')], compute='get_mode', default='p', required=True, string='Mode')
 
     @api.one
     @api.depends('product_qty', 'theoretical_qty')

@@ -1,5 +1,6 @@
 from odoo import api, models, fields, _
 from odoo import tools
+from odoo.exceptions import Warning as UserError
 
 
 class StockChangeProductQty(models.TransientModel):
@@ -7,8 +8,9 @@ class StockChangeProductQty(models.TransientModel):
 
     old_quantity = fields.Float('Old Qty', readonly=True)
     update_quantity = fields.Float('Update Qty')
-    mode = fields.Selection([('p', ' + '), ('n', ' - ')], default='p', required=True, string='Mode')
+    mode = fields.Selection([('p', 'Input'), ('n', 'Output')], default='p', required=True, string='Mode')
     reason = fields.Text('Reason')
+    show_new_quantity = fields.Float('New Quantity on Hand', help='Duplicate field only to be able to make it readonly on view, onchange doesnt pass value of readonly field')
 
     # When a user updates stock qty on the product form, propose the
     # right location to update stock.
@@ -27,22 +29,26 @@ class StockChangeProductQty(models.TransientModel):
         if 'new_quantity' not in self._context.keys():
             if self.mode == 'p':
                 self.new_quantity = self.old_quantity + self.update_quantity
+                self.show_new_quantity = self.old_quantity + self.update_quantity
             else:
                 self.new_quantity = self.old_quantity - self.update_quantity
+                self.show_new_quantity = self.old_quantity - self.update_quantity
 
-    @api.onchange('new_quantity')
-    def onchange_new_quantity(self):
-        if self.new_quantity >= self.old_quantity:
-            self.mode = 'p'
-            self.update_quantity = self.new_quantity - self.old_quantity
-        else:
-            self.mode = 'n'
-            self.update_quantity = self.new_quantity + self.old_quantity
+    # @api.onchange('new_quantity')
+    # def onchange_new_quantity(self):
+    #     if self.new_quantity >= self.old_quantity:
+    #         self.mode = 'p'
+    #         self.update_quantity = self.new_quantity - self.old_quantity
+    #     else:
+    #         self.mode = 'n'
+    #         self.update_quantity = self.new_quantity + self.old_quantity
 
     def change_product_qty(self):
         """ Changes the Product Quantity by making a Physical Inventory. """
         Inventory = self.env['stock.inventory']
         for wizard in self:
+            if wizard.new_quantity < 0:
+                raise UserError('Quantity can not be less than zero.')
             product = wizard.product_id.with_context(location=wizard.location_id.id, lot_id=wizard.lot_id.id)
             line_data = wizard._action_start_line()
 

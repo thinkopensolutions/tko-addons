@@ -15,13 +15,34 @@
         </field>
     </record>
 
-    <record id="view_inventory_form_inherit" model="ir.ui.view">
+    <record id="view_inventory_tree_inherit" model="ir.ui.view">
         <field name="name">stock.inventory.form.inherit</field>
         <field name="model">stock.inventory</field>
         <field name="inherit_id" ref="stock.view_inventory_tree"/>
         <field name="arch" type="xml">
             <field name="name" position="after">
                 <field name="user_id" nolabel="1"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_move_line_tree_inherit" model="ir.ui.view">
+        <field name="name">stock.inventory.tree.inherit</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_move_line_tree"/>
+        <field name="arch" type="xml">
+            <field name="date" position="after">
+                <field name="create_uid" string="User"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_move_line_form_inherit" model="ir.ui.view">
+        <field name="name">stock.inventory.form.inherit</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_move_line_form"/>
+        <field name="arch" type="xml">
+            <field name="date" position="after">
+                <field name="create_uid" string="User"/>
             </field>
         </field>
     </record>
