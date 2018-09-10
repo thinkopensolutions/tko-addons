@@ -29,6 +29,7 @@
     "data": [
         'wizard/stock_change_product_qty_view.xml',
         'views/inventory_view.xml',
+        'views/product_view.xml',
     ],
     "images": ['static/description/Banner.png'],
     "application": True,
