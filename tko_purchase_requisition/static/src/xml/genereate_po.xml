@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- vim:fdl=1:
+-->
+<templates id="template" xml:space="preserve">
+    <t t-extend="ListView.buttons">
+        <t t-jquery="div.o_list_buttons" t-operation="prepend">
+            <t t-if="widget.model=='purchase.order.line'">
+                <button class="generate_po oe_highlight">Generate PO</button>
+            </t>
+        </t>
+    </t>
+
+</templates>

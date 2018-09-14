@@ -90,7 +90,7 @@ class AccountAnalyticAccount(models.Model):
                     {'analytic_account_id': dline.analytic_account_id.id,
                      'rate': dline.rate})
                 alines.append(aline.id)
-        res.update({'account_ids': [(6, 0, alines)], 'cost_center_id': line.cost_center_id.id or False})
+        res.update({'account_ids': [(6, 0, alines)]})
 
         return res
     ## commented code, Creating issue on loading project
