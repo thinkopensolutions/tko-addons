@@ -24,4 +24,3 @@
 
 import purchase_requisition
 import wizard
-import bid_line_qty

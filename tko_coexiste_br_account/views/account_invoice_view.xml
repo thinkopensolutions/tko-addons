@@ -74,6 +74,22 @@
         </field>
     </record>
 
+    <!--Supplier Invoice Tree-->
+
+    <record id="invoice_supplier_tree" model="ir.ui.view">
+        <field name="name">account.invoice.view.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_tree"/>
+        <field name="arch" type="xml">
+            <field name="reference" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="reference" position="before">
+                <field name="reference_coexiste"/>
+            </field>
+        </field>
+    </record>
+
     <record id="br_account_invoice_form_view_inherit" model="ir.ui.view">
         <field name="name">account.invoice_form_view</field>
         <field name="model">account.invoice</field>
