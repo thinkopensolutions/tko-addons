@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+    <!--Inherit Sidebar and add Sent menu item after Starred -->
+    <t t-extend="mail.chat.Sidebar">
+        <t t-jquery="div[data-channel-id=channel_inbox]" t-operation="after">
+            <!--i-if="message.sent_failed"-->
+            <div  t-attf-class="o_mail_chat_title_main o_mail_chat_channel_item #{(active_channel_id == 'channel_sent_failed') ? 'o_active': ''}"
+                 data-channel-id="channel_sent_failed">
+                <span class="o_channel_name tko_resend_failed_emails">
+                    <i class="fal fa-exclamation-triangle"></i>
+                    Resend Failed  Emails
+                </span>
+            </div>
+        </t>
+    </t>
+
+    <t t-extend="mail.ChatThread.Message">
+        <t  t-jquery=".o_thread_message_reply" t-operation="after">
+            <t t-debug="pdb"/>
+            <t t-if="message.sent_failed" >
+                <i class="fa fa-repeat o-resend" title="Resend" t-att-data-message-id="message.id"/>
+            </t>
+
+        </t>
+    </t>
+
+</template>
