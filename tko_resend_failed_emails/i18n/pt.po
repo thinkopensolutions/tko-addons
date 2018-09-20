@@ -1,0 +1,67 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* tko_resend_failed_emails
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-29 18:57+0000\n"
+"PO-Revision-Date: 2017-03-29 18:57+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: tko_resend_failed_emails
+#: model:ir.actions.client,help:tko_resend_failed_emails.action_tko_resend_failed_emails_feeds
+msgid "<p>\n"
+"                    No message found and no message sent yet.\n"
+"                </p><p>\n"
+"                    Click on the top-right icon to compose a message. This\n"
+"                    message will be sent by email if it's an internal contact.\n"
+"                </p>\n"
+"            "
+msgstr "<p>\n"
+"                    Nenhuma mensagem encontrada e nenhuma enviada ainda.\n"
+"                </p><p>\n"
+"                    Clique no ícone no canto superior direito para compor uma nova mensagem.\n"
+"                    Esta mensagem será enviada por e-mail se não for um contato interno.\n"
+"                </p>\n"
+"            "
+
+#. module: tko_resend_failed_emails
+#: model:ir.model,name:tko_resend_failed_emails.model_mail_compose_message
+msgid "Email composition wizard"
+msgstr "Assistente de composição de Email"
+
+#. module: tko_resend_failed_emails
+#: model:ir.model,name:tko_resend_failed_emails.model_mail_message
+msgid "Message"
+msgstr "Mensagem"
+
+#. module: tko_resend_failed_emails
+#: model:ir.model,name:tko_resend_failed_emails.model_mail_notification
+msgid "Notifications"
+msgstr "Notificações"
+
+#. module: tko_resend_failed_emails
+#: model:ir.actions.client,name:tko_resend_failed_emails.action_tko_resend_failed_emails_feeds
+#: model:ir.ui.menu,name:tko_resend_failed_emails.tko_resend_failed_emailsfeeds
+#: field:mail.compose.message,sent:0
+#: field:mail.message,sent:0
+msgid "Sent"
+msgstr "Enviados"
+
+#. module: tko_resend_failed_emails
+#: help:mail.message,sent:0
+msgid "Was message sent to someone"
+msgstr "Foi enviada mensagem para alguém"
+
+#. module: tko_resend_failed_emails
+#: help:mail.compose.message,sent:0
+msgid "dummy field to fix inherit error"
+msgstr "campo fictício para corrigir o erro da herança"
+
