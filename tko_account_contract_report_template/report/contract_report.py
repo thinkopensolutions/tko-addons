@@ -64,6 +64,7 @@ class tko_contract_report(report_sxw.rml_parse):
                     text = text.replace(
                         '${' + expression + '}s',
                         value)
+
                 except:
                     try:
                         value = (
@@ -107,14 +108,22 @@ class tko_contract_report(report_sxw.rml_parse):
                                 value = value[field]
                             else:
                                 # get label for selection field
-                                value = str(
-                                    dict(
-                                        value._model.fields_get(
-                                            self.cr,
-                                            self.uid,
-                                            allfields=[field])[field]['selection'])[
-                                        unicode(
-                                            value[field]).encode('utf-8')])
+                                try:
+                                    value = str(
+                                        dict(
+                                            value._model.fields_get(
+                                                self.cr,
+                                                self.uid,
+                                                allfields=[field])[field]['selection'])[
+                                            unicode(
+                                                value[field]).encode('utf-8')])
+                                except:
+                                    value = dict(value._model.fields_get(
+                                                self.cr,
+                                                self.uid,
+                                                allfields=[field])[field]['selection'])[
+                                            unicode(
+                                                value[field]).encode('utf-8')]
                         except Exception as err:
                             value = (
                                         '<font color="red"><strong>[ERROR: Field %s doesn\'t exist  in %s]<strong></font>') % (
