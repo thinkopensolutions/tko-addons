@@ -49,7 +49,7 @@ class AccountAnalyticLine(models.Model):
     date_due =fields.Date(related='invoice_id.date_due', store=True, string='Due Date')
     payment_line = fields.One2many(related='invoice_id.payment_line', string="Analytic Payment Lines")
     payment_date_move_line = fields.Date('Payment Date', compute='get_payment_date', store=True)
-    payment_move_line_ids = fields.Many2many(related='invoice_id.payment_move_line_ids', string="Analytic Payment Lines", store=True)
+    payment_move_line_ids = fields.Many2many('account.move.line', 'analytic_move_line_rel','line_id','move_id',related='invoice_id.payment_move_line_ids',  string="Analytic Payment Lines", store=True)
     line_total = fields.Float('Total', compute=_total_compute, store=True)
     payment_date = fields.Date(compute=_get_payment_date, store=True)
 
