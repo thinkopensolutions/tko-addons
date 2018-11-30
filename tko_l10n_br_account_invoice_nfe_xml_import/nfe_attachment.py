@@ -230,6 +230,14 @@ class nfeAttachmentWizard(models.TransientModel):
                                                           ('amount', '=', amount),
                                                           ('amount_mva', '=', mva_icmsst)],
                                                          limit=1)
+                    if not len(tax):
+                        tax = self.env['account.tax'].search([
+                                                              ('type_tax_use', 'in', ['purchase', 'all']),
+                                                              ('domain', '=ilike', domain),
+                                                              ('company_id', '=', company.id),
+                                                              ('amount', '=', amount),
+                                                              ],
+                                                             limit=1)
                     if len(tax):
                         return {'id': tax.id, 'message': '', 'tax_code': tax_code.id}
                     elif not len(tax) and self.create_taxes:
@@ -557,4 +565,8 @@ class nfeAttachmentWizard(models.TransientModel):
                             return False
                 except Exception, ex:
                     # set error in attachment
-                    attachment.write({'state': 'e', 'error_message': "Error: {0}".format(ex.args[0].encode("utf-8"))})
+                    try:
+                        attachment.write(
+                            {'state': 'e', 'error_message': "Error: {0}".format(ex.args[0].encode("utf-8"))})
+                    except:
+                        raise Warning("Error: {0}".format(ex.args[0].encode("utf-8")))
