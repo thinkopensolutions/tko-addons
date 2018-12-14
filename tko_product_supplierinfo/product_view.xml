@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Set supplier code required -->
+        <record id="product_template_search_view" model="ir.ui.view">
+            <field name="name">product.supplierinfo</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="inherit_id" ref="product.product_supplierinfo_form_view"/>
+            <field name="arch" type="xml">
+                 <field name="product_code" position="attributes">
+                     <attribute name="required">1</attribute>
+                 </field>
+            </field>
+        </record>
+    </data>
+</openerp>
