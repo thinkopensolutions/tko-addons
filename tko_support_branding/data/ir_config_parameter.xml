@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="support_branding.config_parameter_company_name" model="ir.config_parameter">
+            <field name="key">support_branding.company_name</field>
+            <field name="value">ThinkOpen Solution Brasil</field>
+        </record>
+        <record id="support_branding.config_parameter_company_url" model="ir.config_parameter">
+            <field name="key">support_branding.company_url</field>
+            <field name="value">https://tkobr.com</field>
+        </record>
+        <record id="support_branding.config_parameter_company_color" model="ir.config_parameter">
+            <field name="key">support_branding.company_color</field>
+            <field name="value">#956ea6</field>
+        </record>
+        <record id="support_branding.config_parameter_support_email" model="ir.config_parameter">
+            <field name="key">support_branding.support_email</field>
+            <field name="value">sac@tkobr.com</field>
+        </record>
+        <record id="support_branding.config_parameter_release" model="ir.config_parameter">
+            <field name="key">support_branding.release</field>
+            <field name="value" eval="''"/>
+        </record>
+    </data>
+</openerp>
