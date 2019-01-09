@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="view_student_form">
+        <field name="name">crm.lead</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="add_survey_to_crm.crm_case_form_view_oppor"/>
+        <field name="arch" type="xml">
+            <button name="open_survey" position="replace">
+                <button string="Send Survey" name="%(tko_add_survey_to_crm.action_opportunity_survey_form)d" type="action" help="Go to Survey" class="oe_highlight"/>
+            </button>
+
+        </field>
+    </record>
+
+    <!-- CRM Stage Form View -->
+        <record model="ir.ui.view" id="crm_stage_form">
+            <field name="name">crm.stage.form</field>
+            <field name="model">crm.stage</field>
+            <field name="inherit_id" ref="add_survey_to_crm.crm_stage_form"/>
+            <field name="arch" type="xml">
+                <field name="survey_id" position="after">
+                    <field name="template_id"/>
+                </field>
+            </field>
+        </record>
+</odoo>
