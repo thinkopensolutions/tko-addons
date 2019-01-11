@@ -21,8 +21,8 @@ class survey_mail_compose_message(models.TransientModel):
     # must be defined this method
     # it passes context to create method , we can use that to set lead in user input lines
     def send_mail(self, cr, uid, ids, context=None):
-        lead_id = context.get('active_id', False)
-        if lead_id:
+        active_id = context.get('active_id', False)
+        if context.get('active_model') == 'crm.lead' and  active_id:
             for wizard in self.browse(cr, uid, ids, context=context):
-                self.pool.get('crm.lead').message_post(cr, uid, [lead_id], body=wizard.body, subject=wizard.subject, context=context)
+                self.pool.get('crm.lead').message_post(cr, uid, [active_id], body=wizard.body, subject=wizard.subject, context=context)
         return super(survey_mail_compose_message, self).send_mail(cr, uid, ids, context=context)
