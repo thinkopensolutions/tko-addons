@@ -341,8 +341,16 @@ class nfeAttachmentWizard(models.TransientModel):
                             if product_template:
                                 product = self.env['product.product'].search(
                                     [('product_tmpl_id', '=', product_template.id)], limit=1)
+
                                 if not len(product):
-                                    raise Warning(_("Product %s not found in database" % product_template.name))
+                                    ## Inactive products are not looked up by ORM Search
+                                    self.env.cr.execute(
+                                        "select id from product_product where product_tmpl_id='%s' order by id" % product_template.id)
+                                    product = self.env.cr.fetchone()
+                                    if len(product):
+                                        product= self.env['product.product'].browse(product[0])
+                                    else:
+                                        raise Warning(_("Product %s not found in database" % product_template.name))
                             # compute taxes of line
                             tax_ids = []
                             message = 'Taxes not found for product %s, \n Please create taxes with below information or select Create Taxes to auto create taxes ..: \n  ' % product.name
@@ -429,7 +437,7 @@ class nfeAttachmentWizard(models.TransientModel):
                         for puchase_line in puchase_line_dict:
                             puchase_line['order_id'] = order.id
                             po_line_obj.create(puchase_line)
-                        attachment.write({'state': 'd', 'error_message': 'Imported'})
+                        attachment.write({'state': 'd', 'error_message': 'Imported ID:%s' %order.id})
                         # return order
 
                     except Exception, ex:
