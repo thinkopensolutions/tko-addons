@@ -98,7 +98,7 @@ class TkobrSessionMixin(object):
                     else:
                         # check user groups calendar
                         for group in user.groups_id:
-                            if group.login_calendar_id:
+                            if group.sudo().login_calendar_id:
                                 calendar_set += 1
                                 attendances = attendance_obj.search(request.cr,
                                                                     request.uid, [('calendar_id', '=',
