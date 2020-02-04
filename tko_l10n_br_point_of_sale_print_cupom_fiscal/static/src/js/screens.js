@@ -496,7 +496,8 @@ function tko_pos_print_screens(instance, module) { //module is instance.point_of
                                     "quantidade": orderlines[i].quantity || 0,
                                     "valor_unitario": orderlines[i].price || 0.0,
                                     "percentualDesconto": orderlines_disc[i].discount_type === 'fi' ? fixed_discount : Number((parseFloat(orderlines_disc[i].quantity * orderlines_disc[i].price * orderlines_disc[i].discount) / 100).toFixed(2)) || 0.0,
-                                    "codDepartamento": 3
+                                    "codDepartamento": 3,
+                                    "cfop_code": orderlines[i].cfop_code || ""
 
                                 });
                             }
@@ -559,12 +560,7 @@ function tko_pos_print_screens(instance, module) { //module is instance.point_of
                         document.activeElement.blur();
                         $("input").blur();
                     }, 250);
-
-
                 } // end of if
-
-
-
 
             });
 

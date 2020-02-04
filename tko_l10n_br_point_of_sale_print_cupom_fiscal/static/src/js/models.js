@@ -16,8 +16,8 @@ function tko_pos_store_cnpj_cpf(instance, module){ //module is instance.point_of
             fields: ['id','journal_id','config_id','fiscal_code'],
             loaded: function(self,fiscal_codes){ self.fiscal_codes = fiscal_codes; },
         });
-	    	     
-	    	      
+
+
 	    
 	    
 	

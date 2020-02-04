@@ -61,12 +61,47 @@ function l10n_br_fields(instance, module) { //module is instance.point_of_sale
         },
     });
 
+    // Fiscal Classifications
+    module.PosModel.prototype.models.push({
+        model: 'account.product.fiscal.classification',
+        fields: ['id', 'name', 'cfop_id'],
+
+        loaded: function (self, fiscal_classifications) {
+            self.fiscal_classifications = fiscal_classifications;
+        },
+    });
+
+
+    // CFOPs
+    module.PosModel.prototype.models.push({
+        model: 'l10n_br_account_product.cfop',
+        fields: ['id', 'code', 'name'],
+
+        loaded: function (self, cfops) {
+            self.cfops = cfops;
+        },
+    });
+
     // inherit Orderline to update product and taxes detail on line
     var OrderlineSuper = module.Orderline;
     module.Orderline = module.Orderline.extend({
 
         get_ncm: function () {
             return this.get_product().fiscal_classification_id[0];
+        },
+
+        // return cfop_id and cfop_code
+        // cfop_id is saved in pos line and cfop_code is passed to applet
+        get_cfop_code: function () {
+            var fiscal_classification_id = this.get_product().fiscal_classification_id[0];
+            var fiscal_classification = _.filter(this.pos.fiscal_classifications, function (fiscal_classification) {
+                return fiscal_classification && fiscal_classification.id === fiscal_classification_id;
+            })
+            var cfop_id = fiscal_classification[0].cfop_id[0] || ""
+            var cfop = _.filter(this.pos.cfops, function (cfop) {
+                return cfop.id === cfop_id;
+            })
+            return [cfop_id, cfop && cfop[0] && cfop[0].code || ""]
         },
 
         get_tax_code: function (tax_code_id) {
@@ -107,13 +142,14 @@ function l10n_br_fields(instance, module) { //module is instance.point_of_sale
             return [tax_code_id, tax_amount]
         },
 
-        // commented because we will get taxes from sever while saving order
-        // pass taxes from pos
-        //export_as_JSON: function() {
-        //	var res = OrderlineSuper.prototype.export_as_JSON.call(this);
-        //	res.taxes = this.get_tax_details();
-        //	return res;
-        //},
+        //commented because we will get taxes from sever while saving order
+        //write cfop_id in the database
+        export_as_JSON: function() {
+        	var res = OrderlineSuper.prototype.export_as_JSON.call(this);
+        	//res.taxes = this.get_tax_details();
+        	res.cfop_id = this.get_cfop_code()[0] || false;
+        	return res;
+        },
 
 
         export_for_printing: function () {
@@ -124,6 +160,11 @@ function l10n_br_fields(instance, module) { //module is instance.point_of_sale
             res.icms_tax_code = tax_detail[0]
             res.icms_tax_value = Number(parseFloat(tax_detail[1]).toFixed(2))
             res.ncm = this.get_ncm();
+            cfop = this.get_cfop_code()
+            cfop_id = cfop[0]
+            cfop_code = cfop[1]
+            res.cfop_id = cfop_id
+            res.cfop_code = cfop_code
             return res;
         },
 
